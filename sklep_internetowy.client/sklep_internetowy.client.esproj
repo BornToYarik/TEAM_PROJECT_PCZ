@@ -10,7 +10,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Folder Include="src\assets\" />
-    <Folder Include="src\components\" />
     <Folder Include="src\css\" />
     <Folder Include="src\pages\" />
     <Folder Include="src\services\" />
