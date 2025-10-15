@@ -4,6 +4,7 @@ import 'bootstrap/dist/js/bootstrap.bundle.min.js'
 import { Routes, Route } from 'react-router-dom'
 
 import Home from './pages/Home/Home'
+import LoginPage from './pages/LoginPage/LoginPage'
 
 function App() {
 
@@ -11,7 +12,8 @@ function App() {
   return (
     <>
         <Routes>
-          <Route path="/" element={<Home/>}></Route>
+              <Route path="/" element={<Home />}></Route>
+              <Route path="/login" element={<LoginPage />}></Route>
         </Routes>
     </>
   )
