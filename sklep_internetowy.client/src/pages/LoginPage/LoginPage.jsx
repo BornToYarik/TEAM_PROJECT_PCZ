@@ -34,7 +34,7 @@ function LoginPage() {
                                   </div>
                               </Form>
                               <div className="text-center mt-3">
-                                  <a href="/register" className="d-block mb-2">Registration</a>
+                                  <a href="/registration" className="d-block mb-2">Registration</a>
                                   <a href="/forgot-password">Forgot your password?</a>
                               </div>
                           </Card.Body>
