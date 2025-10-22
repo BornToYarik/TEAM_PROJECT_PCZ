@@ -6,6 +6,7 @@ import Navbar from './components/navbar/Navbar'
 import Home from './pages/Home/Home'
 import LoginPage from './pages/LoginPage/LoginPage'
 import Registration from './pages/Registration/Registration'
+import AdminDashboard from './pages/AdminDashboard/AdminDashboard';
 
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
               <Route path="/" element={<Home />}></Route>
               <Route path="/login" element={<LoginPage />}></Route>
               <Route path="/registration" element={<Registration />}></Route>
+              <Route path="/admin" element={<AdminDashboard />} />
         </Routes>
     </>
   )
