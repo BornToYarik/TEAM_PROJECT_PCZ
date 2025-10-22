@@ -84,6 +84,13 @@ function Navbar() {
                                     Deals
                                 </Link>
                             </li>
+
+                             <li className="nav-item">
+                                 <Link className="nav-link fw-semibold text-primary" to="/users">
+                                     <i className="bi bi-people me-1"></i>
+                                  Users
+                                 </Link>
+    </li>
                         </ul>
                     </div>
                 </div>
