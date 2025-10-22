@@ -7,7 +7,7 @@ import Home from './pages/Home/Home'
 import LoginPage from './pages/LoginPage/LoginPage'
 import Registration from './pages/Registration/Registration'
 import AdminDashboard from './pages/AdminDashboard/AdminDashboard';
-
+import OrderManagement from './pages/AdminDashboard/CRUDOrder/OrderManagement.jsx';
 
 function App() {
 
@@ -20,6 +20,7 @@ function App() {
               <Route path="/login" element={<LoginPage />}></Route>
               <Route path="/registration" element={<Registration />}></Route>
               <Route path="/admin" element={<AdminDashboard />} />
+              <Route path="/admin/orders" element={<OrderManagement />} />
         </Routes>
     </>
   )
