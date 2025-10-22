@@ -13,6 +13,11 @@ function Navbar() {
                         TechStore
                     </Link>
 
+                    <Link className="btn btn-outline-warning btn-sm" to="/admin">
+                        <i className="bi bi-speedometer2 me-1"></i>
+                        Admin Dashboard
+                    </Link>
+
                     <div className="d-flex align-items-center gap-4">
                         <div className="input-group" style={{ width: '400px' }}>
                             <span className="input-group-text bg-white border-end-0">
