@@ -7,7 +7,7 @@ import Home from './pages/Home/Home';
 import LoginPage from './pages/LoginPage/LoginPage';
 import Registration from './pages/Registration/Registration';
 import UsersList from "./pages/Users/UsersList";
-
+import ProductList from "./pages/Products/ProductList";
 function App() {
     const users = [
         {
@@ -34,6 +34,7 @@ function App() {
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/registration" element={<Registration />} />
                 <Route path="/users" element={<UsersList users={users} />} />
+                <Route path="/products" element={<ProductList /> } />
             </Routes>
         </>
     );
