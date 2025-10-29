@@ -8,7 +8,9 @@ import LoginPage from './pages/LoginPage/LoginPage';
 import Registration from './pages/Registration/Registration';
 import UsersList from "./pages/Users/UsersList";
 import ProductList from "./pages/Products/ProductList";
-import ProductDetails from "./pages/Products/ProductDetails";
+import AdminDashboard from './pages/AdminDashboard/AdminDashboard';
+import OrderManagement from './pages/AdminDashboard/CRUDOrder/OrderManagement.jsx';
+import Cart from './pages/Cart/Cart.jsx';
 function App() {
     const users = [
         {
@@ -27,19 +29,23 @@ function App() {
         },
     ];
 
-    return (
-        <>
-            <Navbar />
-            <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/login" element={<LoginPage />} />
-                <Route path="/registration" element={<Registration />} />
-                <Route path="/users" element={<UsersList users={users} />} />
-                <Route path="/products" element={<ProductList />} />
-                <Route path="/products/:id" element={<ProductDetails />} />"
-            </Routes>
-        </>
-    );
+
+  return (
+      <>
+        <Navbar />
+        <Routes>
+              <Route path="/" element={<Home />}></Route>
+              <Route path="/login" element={<LoginPage />}></Route>
+              <Route path="/registration" element={<Registration />}></Route>
+              <Route path="/admin" element={<AdminDashboard />} />
+              <Route path="/admin/orders" element={<OrderManagement />} />                
+              <Route path="/users" element={<UsersList users={users} />} />
+              <Route path="/products" element={<ProductList />} />
+              <Route path="/products/:id" element={<ProductDetails />} />"
+              <Route path="/cart" element={<Cart />} />
+        </Routes>
+    </>
+  )
 }
 
 export default App;
