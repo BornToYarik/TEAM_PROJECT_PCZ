@@ -1,4 +1,4 @@
-import { useState } from 'react';
+﻿import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 function Navbar() {
@@ -35,11 +35,20 @@ function Navbar() {
                             </button>
                         </div>
 
-                        <Link className="text-white text-decoration-none" to="/cart">
-                            <i className="bi bi-cart3 fs-4 position-relative">
-                                <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style={{ fontSize: '0.55rem' }}>3</span>
-                            </i>
+                        <Link
+                            to="/cart"
+                            className="position-relative text-white text-decoration-none"
+                            style={{ transition: 'all 0.2s ease' }}
+                            onMouseEnter={(e) => {
+                                e.currentTarget.style.color = '#ffc107';
+                            }}
+                            onMouseLeave={(e) => {
+                                e.currentTarget.style.color = 'white';
+                            }}
+                        >
+                            <i className="bi bi-cart4 fs-4"></i>
                         </Link>
+
 
                         <Link className="btn btn-outline-light btn-sm" to="/login">
                             <i className="bi bi-person-circle me-1"></i>
