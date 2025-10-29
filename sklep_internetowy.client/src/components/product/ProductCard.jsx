@@ -1,21 +1,42 @@
-import { Link } from 'react-router-dom';
+import { useEffect, useState } from "react";
 
-function ProductCard({ product }) {
+function ProductCard() {
+    const [products, setProducts] = useState([]);
+
+    useEffect(() => {
+        fetch("https://localhost:7283/api/product")
+            .then((res) => res.json())
+            .then((data) => setProducts(data))
+            .catch((err) =>
+                console.error("B³¹d przy pobieraniu produktów:", err)
+            );
+    }, []);
+
     return (
-        <div className="card h-100 shadow-sm">
-            <div className="card-body">
-                <h5 className="card-title">{product.name}</h5>
-            </div>
-            <div className="card-footer bg-white">
-                <div className="d-flex justify-content-between align-items-center mb-2">
-                    <span className="h5 mb-0 text-primary">{product.price.toFixed(2)} PLN</span>
-                    <span className={`badge ${product.quantity > 0 ? 'bg-success' : 'bg-danger'}`}>
-                        {product.quantity > 0 ? `${product.quantity} szt.` : 'Brak'}
-                    </span>
-                </div>
-                <Link to={`/products/${product.id}`} className="btn btn-outline-primary w-100">
-                    Details
-                </Link>
+        <div className="container my-5">
+            <div className="row g-4">
+                {products.map((p) => (
+                    <div key={p.id} className="col-12 col-sm-6 col-md-4">
+                        <div className="card h-100 shadow-sm">
+                            {/*Photo */}
+
+                            <div className="card-body d-flex flex-column">
+                                <h5 className="card-title">{p.name}</h5>
+                                <p className="card-text text-muted">
+                                    {p.description || "Brak opisu"}
+                                </p>
+                                <div className="mt-auto">
+                                    <p className="fw-bold text-success fs-5">
+                                        {p.price} zl
+                                    </p>
+                                    <button className="btn btn-primary w-100">
+                                        Dodaj do koszyka
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                ))}
             </div>
         </div>
     );
