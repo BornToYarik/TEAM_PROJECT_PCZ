@@ -7,7 +7,7 @@ function OrderManagement() {
     const [showEditModal, setShowEditModal] = useState(false);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [selectedOrder, setSelectedOrder] = useState(null);
-
+    const [editingStatus, setEditingStatus] = useState('');
     useEffect(() => {
         // TODO: fetch order for ASP.NET API
         // fetch('/api/orders')
@@ -15,13 +15,14 @@ function OrderManagement() {
         //   .then(data => setOrders(data));
 
         setOrders([
-            { id: 1, customerName: 'Ben Dover', total: 1500, status: 'Processing' },
-            { id: 2, customerName: 'Ala Nowak', total: 4200, status: 'Shipped' },
+            { id: 1, userId: 101, status: 'Processing' },
+            { id: 2, userId: 102, status: 'Shipped' },
         ]);
     }, []);
 
     const handleEdit = (order) => {
         setSelectedOrder(order);
+        setEditingStatus(order.status);
         setShowEditModal(true);
     };
 
@@ -34,11 +35,19 @@ function OrderManagement() {
         setShowEditModal(false);
         setShowDeleteModal(false);
         setSelectedOrder(null);
+        setEditingStatus('');
     };
 
     const saveChanges = () => {
         // TODO: logika wysylania PUT/PATCH zapytania /api/orders/{selectedOrder.id}
-        console.log('Saving...', selectedOrder);
+        console.log('Saving... ID:', selectedOrder.id, 'New Status:', editingStatus);
+        setOrders(prevOrders =>
+            prevOrders.map(order =>
+                order.id === selectedOrder.id
+                    ? { ...order, status: editingStatus } 
+                    : order 
+            )
+        );
         handleCloseModal();
     };
 
@@ -61,9 +70,8 @@ function OrderManagement() {
             <Table striped bordered hover responsive>
                 <thead>
                     <tr>
-                        <th>Order id</th>
-                        <th>client</th>
-                        <th>price</th>
+                        <th>Order Id</th>
+                        <th>User Id</th>
                         <th>status</th>
                         <th></th>
                     </tr>
@@ -72,8 +80,7 @@ function OrderManagement() {
                     {orders.map(order => (
                         <tr key={order.id}>
                             <td>{order.id}</td>
-                            <td>{order.customerName}</td>
-                            <td>{order.total} ₽</td>
+                            <td>{order.orderId}</td>
                             <td>{order.status}</td>
                             <td>
                                 <Button variant="warning" size="sm" onClick={() => handleEdit(order)}>
@@ -97,10 +104,21 @@ function OrderManagement() {
                     <Form>
                         <Form.Group className="mb-3">
                             <Form.Label>Order status</Form.Label>
-                            {/* Here update selectedOrder by set... */}
-                            <Form.Control type="text" defaultValue={selectedOrder?.status} />
+                            <Form.Select
+                                value={editingStatus}
+                                onChange={(e) => setEditingStatus(e.target.value)}
+                            >
+                                <option value="Pending">Pending</option>
+                                <option value="Processing">Processing</option>
+                                <option value="Shipped">Shipped</option>
+                                <option value="Delivered">Delivered</option>
+                                <option value="Cancelled">Cancelled</option>
+                            </Form.Select>
                         </Form.Group>
-                        {/* ...inne pola do redakcju... */}
+                        <Form.Group className="mb-3">
+                            <Form.Label>User ID (read-only)</Form.Label>
+                            <Form.Control type="text" value={selectedOrder?.userId} readOnly disabled />
+                        </Form.Group>
                     </Form>
                 </Modal.Body>
                 <Modal.Footer>
