@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Sklep_internetowy.Server.Data;
+using Sklep_internetowy.Server.Services.Auth;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,7 +13,10 @@ builder.Services.AddCors(options => {
 });
 
 builder.Services.AddDbContext<StoreDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
-
+builder.Services.AddScoped<AccountService>();
+builder.Services.AddScoped<JwtService>();
+builder.Services.Configure<AuthSettings>(builder.Configuration.GetSection("AuthSettings"));
+builder.Services.AddAuth(builder.Configuration);
 builder.Services.AddControllers();
 
 
@@ -34,6 +38,7 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
+
 app.UseCors("AllowFrontend");
 
 app.UseDefaultFiles();
@@ -51,6 +56,7 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+app.UseAuthentication();
 app.UseCors("AllowReactApp");
 app.MapControllers();
 
