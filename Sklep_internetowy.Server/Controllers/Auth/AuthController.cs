@@ -8,26 +8,48 @@ namespace Sklep_internetowy.Server.Controllers.Auth
     [Route("api/[controller]")]
     public class AuthController : ControllerBase
     {
-        private readonly AccountService _accountServcice;
+        private readonly AccountService _accountService;
 
         private readonly IConfiguration _configuration;
 
         public AuthController(AccountService AccountServcice, IConfiguration configuration)
         {
-            _accountServcice = AccountServcice;
+            _accountService = AccountServcice;
             _configuration = configuration;
         }
 
-        public IActionResult Register([FromBody] RegisterUserRequest request)
+        [HttpPost("register")]
+        public async Task<IActionResult> Register([FromBody] RegisterUserRequest request)
         {
-            _accountServcice.Register(request.UserName, request.Email, request.Password);
-            return Ok(new { message = "Rejestracja powiodla się pomyślnie" });
+            if (!ModelState.IsValid)
+                return BadRequest(new { message = "Invalid request" });
+
+            try
+            {
+                await _accountService.Register(request.UserName, request.Email, request.Password);
+                return Ok(new { message = "Rejestracja powiodła się pomyślnie" });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
         }
 
-
-        public IActionResult Login([FromBody] LoginRequest request)
+        [HttpPost("login")]
+        public async Task<IActionResult> Login([FromBody] LoginRequest request)
         {
-            return Ok(_accountServcice.Login(request.Email, request.Password));
+            if (!ModelState.IsValid)
+                return BadRequest(new { message = "Invalid request" });
+
+            try
+            {
+                var token = await _accountService.Login(request.UserName, request.Password);
+                return Ok(new { token });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
         }
     }
 }

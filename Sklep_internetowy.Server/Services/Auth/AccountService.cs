@@ -6,37 +6,46 @@ namespace Sklep_internetowy.Server.Services.Auth
 {
     public class AccountService
     {
+        private readonly UserManager<User> _userManager;
         private readonly StoreDbContext _context;
         private readonly JwtService _jwtService;
-        public void Register(string username, string email, string password)
+        private readonly IConfiguration _config;
+        private readonly ILogger _logger;
+        public AccountService(UserManager<User> userManager, JwtService jwtService,
+           IConfiguration config, ILogger<AccountService> logger)
         {
-            var user = new User
+            _userManager = userManager;
+            _jwtService = jwtService;
+            _config = config;
+            _logger = logger;
+        }
+        public async Task Register(string username, string email, string password)
+        {
+            var account = new User
             {
-                Id = Guid.NewGuid(),
-                Email = email,
-                UserName = username
+                UserName = username,
+                Email = email
             };
 
-            var HashedPassword = new PasswordHasher<User>().HashPassword(user, password);
-            user.PasswordHash = HashedPassword;
-            _context.AddAsync(user);
+            var result = await _userManager.CreateAsync(account, password);
+            if (!result.Succeeded)
+            {
+                var errors = string.Join(", ", result.Errors.Select(e => e.Description));
+                throw new Exception($"Nie udało się zarejestrować użytkownika: {errors}");
+            }
         }
 
-        public string Login(string username, string password)
+        public async Task<string> Login(string username, string password)
         {
-            var user = _context.Users.FirstOrDefault(a => a.UserName == username);
+            var account = await _userManager.FindByNameAsync(username);
+            if (account == null)
+                throw new Exception("Nie znaleziono użytkownika");
 
-            var result = new PasswordHasher<User>()
-                .VerifyHashedPassword(user, user.PasswordHash, password);
+            var result = await _userManager.CheckPasswordAsync(account, password);
+            if (!result)
+                throw new Exception("Niepoprawne hasło");
 
-            if (result == PasswordVerificationResult.Success)
-            {
-                return _jwtService.GenerateToken(user);
-            }
-            else
-            {
-                throw new Exception("Nie załogowałeś się!");
-            }
+            return _jwtService.GenerateToken(account);
         }
     }
 }

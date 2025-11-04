@@ -6,7 +6,7 @@ using Sklep_internetowy.Server.DTOs;
 
 namespace Sklep_internetowy.Server.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/panel/[controller]")]
     [ApiController]
     public class ProductController : ControllerBase
     {
