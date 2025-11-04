@@ -5,7 +5,7 @@ using Sklep_internetowy.Server.Models;
 
 namespace Sklep_internetowy.Server.Controllers.Shop
 {
-    [Route("api/[controller]")]
+    [Route("api/home/[controller]")]
     [ApiController]
     public class ProductController : Controller
     {

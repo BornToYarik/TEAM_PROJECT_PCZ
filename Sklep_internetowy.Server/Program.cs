@@ -1,8 +1,10 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Sklep_internetowy.Server.Data;
+using Sklep_internetowy.Server.Models;
 using Npgsql.EntityFrameworkCore;
 using Sklep_internetowy.Server.Services.Auth;
-
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddCors(options => {
@@ -17,6 +19,7 @@ builder.Services.AddDbContext<StoreDbContext>(options => options.UseNpgsql(build
 builder.Services.AddScoped<AccountService>();
 builder.Services.AddScoped<JwtService>();
 builder.Services.Configure<AuthSettings>(builder.Configuration.GetSection("AuthSettings"));
+
 builder.Services.AddAuth(builder.Configuration);
 builder.Services.AddControllers();
 
@@ -31,7 +34,18 @@ builder.Services.AddCors(options =>
     });
 });
 
-
+builder.Services.AddIdentity<User, IdentityRole>(options =>
+{
+    options.Password.RequireDigit = false;
+    options.Password.RequireLowercase = false;
+    options.Password.RequireUppercase = false;
+    options.Password.RequireNonAlphanumeric = false;
+    options.Password.RequiredLength = 6;
+    options.User.RequireUniqueEmail = true;
+    options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+})
+.AddEntityFrameworkStores<StoreDbContext>()
+.AddDefaultTokenProviders();
 
 
 builder.Services.AddEndpointsApiExplorer();

@@ -1,16 +1,17 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations;
 
 namespace Sklep_internetowy.Server.Models
 {
-    public class User
+
+    public class User : IdentityUser
     {
-        public Guid Id { get; set; }
-        public string UserName { get; set; } = null!;
-        public string Name { get; set; } = null!;
-        public string Email { get; set; } = null!;
-        public string PasswordHash { get; set; }
-        public string? Address { get; set; }
+        public string? FirstName { get; set; }
+        public string? LastName { get; set; }
+        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+
 
         public ICollection<Order> Orders { get; set; } = new List<Order>();
     }
+    
 }

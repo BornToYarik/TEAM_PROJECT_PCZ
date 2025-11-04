@@ -1,4 +1,8 @@
 ﻿namespace Sklep_internetowy.Server.DTOs
 {
-    public record LoginRequest(string Email, string Password);
+    public class LoginRequest
+    {
+        public string UserName { get; set; } = null!;
+        public string Password { get; set; } = null!;
+    }
 }
