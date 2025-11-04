@@ -2,12 +2,24 @@
 import { Link } from 'react-router-dom';
 import { Trash2, Edit } from 'lucide-react';
 
+function ProductCard() {
+    const [products, setProducts] = useState([]);
+
+    useEffect(() => {
+        fetch("https://localhost:56842/api/Product")
+            .then((res) => res.json())
+            .then((data) => setProducts(data))
+            .catch((err) =>
+                console.error("B��d przy pobieraniu produkt�w:", err)
+            );
+    }, []);
+ /*
 function ProductCard({ product, onEdit, onDelete }) {
     const handleDelete = () => {
         if (window.confirm(`Are you sure you want to delete "${product.name}"?`)) {
             onDelete(product.id);
         }
-    };
+    };*/
 
     return (
         <div className="card h-100 shadow-sm position-relative">
