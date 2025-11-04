@@ -41,6 +41,7 @@ function App() {
               <Route path="/admin/orders" element={<OrderManagement />} />                
               <Route path="/users" element={<UsersList users={users} />} />
               <Route path="/products" element={<ProductList />} />
+              <Route path="/products/:id" element={<ProductDetails />} />"
               <Route path="/cart" element={<Cart />} />
         </Routes>
     </>
