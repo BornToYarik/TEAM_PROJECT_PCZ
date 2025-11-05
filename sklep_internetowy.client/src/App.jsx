@@ -11,7 +11,13 @@ import ProductList from "./pages/Products/ProductList";
 import AdminDashboard from './pages/AdminDashboard/AdminDashboard';
 import OrderManagement from './pages/AdminDashboard/CRUDOrder/OrderManagement.jsx';
 import Cart from './pages/Cart/Cart.jsx';
+import ProductDetails from './pages/Products/ProductDetails'
+
+//Admin dashboard
+import MessageManagement from './pages/AdminDashboard/messages/MessageManagement';
+
 function App() {
+
     const users = [
         {
             id: 1,
@@ -38,7 +44,10 @@ function App() {
               <Route path="/login" element={<LoginPage />}></Route>
               <Route path="/registration" element={<Registration />}></Route>
               <Route path="/admin" element={<AdminDashboard />} />
-              <Route path="/admin/orders" element={<OrderManagement />} />                
+
+              <Route path="/admin/orders" element={<OrderManagement />} />
+              <Route path="/admin/messages" element={<MessageManagement />} />  
+
               <Route path="/users" element={<UsersList users={users} />} />
               <Route path="/products" element={<ProductList />} />
               <Route path="/products/:id" element={<ProductDetails />} />"

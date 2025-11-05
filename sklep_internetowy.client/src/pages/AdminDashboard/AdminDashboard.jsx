@@ -49,6 +49,20 @@ function AdminDashboard() {
                             </Card.Body>
                         </Card>
                     </Col>
+
+                    <Col md={4}>
+                        <Card className="shadow-sm text-center border-0">
+                            <Card.Body>
+                                <i className="bi bi-envelope fs-1 text-warning mb-3"></i>
+                                <Card.Title>Messages</Card.Title>
+                                <Card.Text>Manage customer messages</Card.Text>
+                                { /* tu zmieñcie œcie¿kê */}
+                                <Link to="/admin/messages" className="btn btn-warning text-white">
+                                    Go to Messages
+                                </Link>
+                            </Card.Body>
+                        </Card>
+                    </Col>
                 </Row>
             </Container>
         </div>
