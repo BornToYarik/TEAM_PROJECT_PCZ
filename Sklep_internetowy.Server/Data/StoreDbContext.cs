@@ -16,6 +16,7 @@ namespace Sklep_internetowy.Server.Data
         public DbSet<Product> Products => Set<Product>();
         public DbSet<Order> Orders => Set<Order>();
         public DbSet<OrderProduct> OrderProducts => Set<OrderProduct>();
+        public DbSet<UserMessage> Messages { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder) 
         {

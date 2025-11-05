@@ -1,5 +1,5 @@
 import Footer from "../../components/footer/Footer"
-import ProductCard from "../../components/Product/ProductCard";
+import ProductCard from "../../components/shop/product/ProductCard";
 
 function Home() {
     return (
