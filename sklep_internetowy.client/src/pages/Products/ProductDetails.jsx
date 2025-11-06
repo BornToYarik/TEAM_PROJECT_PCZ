@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { ArrowLeft, Edit, Trash2 } from 'lucide-react';
-import ProductForm from '../../components/product/ProductForm';
+import ProductForm from '../../components/admin/product/ProductForm';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function ProductDetails() {
@@ -12,7 +12,7 @@ function ProductDetails() {
     const [error, setError] = useState('');
     const [showForm, setShowForm] = useState(false);
 
-    const API_URL = 'https://localhost:7283/api/Product';
+    const API_URL = 'https://localhost:62078/api/panel/Product';
 
     useEffect(() => {
         fetchProduct();

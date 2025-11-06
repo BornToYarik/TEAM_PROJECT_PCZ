@@ -47,10 +47,10 @@ function App() {
 
               <Route path="/admin/orders" element={<OrderManagement />} />
               <Route path="/admin/messages" element={<MessageManagement />} />  
+              <Route path="/admin/products" element={<ProductList />} />
 
               <Route path="/users" element={<UsersList users={users} />} />
-              <Route path="/products" element={<ProductList />} />
-              <Route path="/products/:id" element={<ProductDetails />} />"
+              <Route path="/products/:id" element={<ProductDetails />} />
               <Route path="/cart" element={<Cart />} />
         </Routes>
     </>

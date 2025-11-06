@@ -1,8 +1,8 @@
 ﻿// pages/Products/ProductsList.jsx
 import React, { useState, useEffect } from 'react';
 import { Plus } from 'lucide-react';
-import ProductCard from '../../components/product/ProductCard';
-import ProductForm from '../../components/product/ProductForm';
+import ProductCard from '../../components/admin/product/ProductCard';
+import ProductForm from '../../components/admin/product/ProductForm';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function ProductsList() {
@@ -12,7 +12,7 @@ function ProductsList() {
     const [showForm, setShowForm] = useState(false);
     const [editingProduct, setEditingProduct] = useState(null);
 
-    const API_URL = 'https://localhost:7283/api/Product';
+    const API_URL = 'https://localhost:62078/api/panel/Product';
 
     useEffect(() => {
         fetchProducts();
@@ -42,7 +42,10 @@ function ProductsList() {
             name: formData.name,
             price: parseFloat(formData.price),
             quantity: parseInt(formData.quantity),
-            description: formData.description || null
+            description: formData.description || null,
+            discountPercentage: formData.discountPercentage || null,
+            discountStartDate: formData.discountStartDate || null,
+            discountEndDate: formData.discountEndDate || null
         };
 
         try {
