@@ -11,5 +11,11 @@ namespace Sklep_internetowy.Server.DTOs
         [Required]
         public int Quantity { get; set; }
         public string? Description { get; set; }
+
+        [Range(0, 100)]
+        public decimal? DiscountPercentage { get; set; }
+
+        public DateTime? DiscountStartDate { get; set; }
+        public DateTime? DiscountEndDate { get; set; }
     }
 }
