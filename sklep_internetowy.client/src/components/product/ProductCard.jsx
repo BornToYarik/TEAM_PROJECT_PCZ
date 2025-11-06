@@ -1,61 +1,42 @@
-// components/product/ProductCard.jsx
-import { Link } from 'react-router-dom';
-import { Trash2, Edit } from 'lucide-react';
+import { useEffect, useState } from "react";
 
 function ProductCard() {
     const [products, setProducts] = useState([]);
 
     useEffect(() => {
-        fetch("https://localhost:56842/api/Product")
+        fetch("/api/home/Product")
             .then((res) => res.json())
             .then((data) => setProducts(data))
             .catch((err) =>
-                console.error("B��d przy pobieraniu produkt�w:", err)
+                console.error("Blad przy pobieraniu produktow:", err)
             );
     }, []);
- /*
-function ProductCard({ product, onEdit, onDelete }) {
-    const handleDelete = () => {
-        if (window.confirm(`Are you sure you want to delete "${product.name}"?`)) {
-            onDelete(product.id);
-        }
-    };*/
 
     return (
-        <div className="card h-100 shadow-sm position-relative">
-            <div className="position-absolute top-0 end-0 p-2 d-flex gap-2">
-                <button
-                    className="btn btn-sm btn-warning"
-                    onClick={() => onEdit(product)}
-                    title="Edit product"
-                >
-                    <Edit size={16} />
-                </button>
-                <button
-                    className="btn btn-sm btn-danger"
-                    onClick={handleDelete}
-                    title="Delete product"
-                >
-                    <Trash2 size={16} />
-                </button>
-            </div>
+        <div className="container my-5">
+            <div className="row g-4">
+                {products.map((p) => (
+                    <div key={p.id} className="col-12 col-sm-6 col-md-4">
+                        <div className="card h-100 shadow-sm">
+                            {/* Photo */}
 
-            <div className="card-body">
-                <h5 className="card-title">{product.name}</h5>
-                {product.description && (
-                    <p className="card-text text-muted small">{product.description}</p>
-                )}
-            </div>
-            <div className="card-footer bg-white">
-                <div className="d-flex justify-content-between align-items-center mb-2">
-                    <span className="h5 mb-0 text-primary">{product.price.toFixed(2)} PLN</span>
-                    <span className={`badge ${product.quantity > 0 ? 'bg-success' : 'bg-danger'}`}>
-                        {product.quantity > 0 ? `${product.quantity} pcs` : 'Out of stock'}
-                    </span>
-                </div>
-                <Link to={`/products/${product.id}`} className="btn btn-outline-primary w-100">
-                    Details
-                </Link>
+                            <div className="card-body d-flex flex-column">
+                                <h5 className="card-title">{p.name}</h5>
+                                <p className="card-text text-muted">
+                                    {p.description || "Brak opisu"}
+                                </p>
+                                <div className="mt-auto">
+                                    <p className="fw-bold text-success fs-5">
+                                        {p.price} zl
+                                    </p>
+                                    <button className="btn btn-primary w-100">
+                                        Dodaj do koszyka
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                ))}
             </div>
         </div>
     );
