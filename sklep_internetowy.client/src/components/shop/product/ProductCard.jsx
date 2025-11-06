@@ -4,7 +4,7 @@ function ProductCard() {
     const [products, setProducts] = useState([]);
 
     useEffect(() => {
-        fetch("https://localhost:56975/api/home/Product")
+        fetch("/api/home/Product")
             .then((res) => res.json())
             .then((data) => setProducts(data))
             .catch((err) =>

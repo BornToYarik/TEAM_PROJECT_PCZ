@@ -9,7 +9,7 @@ import Registration from './pages/Registration/Registration';
 import UsersList from "./pages/Users/UsersList";
 import ProductList from "./pages/Products/ProductList";
 import AdminDashboard from './pages/AdminDashboard/AdminDashboard';
-import OrderManagement from './pages/AdminDashboard/CRUDOrder/OrderManagement.jsx';
+import OrderManagement from './pages/AdminDashboard/Order/OrderManagement.jsx';
 import Cart from './pages/Cart/Cart.jsx';
 import ProductDetails from './pages/Products/ProductDetails'
 

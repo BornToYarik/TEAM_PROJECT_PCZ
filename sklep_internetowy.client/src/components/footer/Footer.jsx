@@ -28,10 +28,10 @@ function Footer() {
             });
 
             if (res.ok) {
-                alert("Wiadomoœæ zosta³a wys³ana!");
+                alert("Message is send!");
                 setForm({ email: "", name: "", phone: "", message: "" });
             } else {
-                alert("B³¹d przy wysy³aniu wiadomoœci");
+                alert("Error due sending message");
             }
         } catch (err) {
             console.error("Error:", err);
