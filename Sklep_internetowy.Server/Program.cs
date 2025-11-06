@@ -7,32 +7,26 @@ using Sklep_internetowy.Server.Services.Auth;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddCors(options => {
-    options.AddPolicy("AllowFrontend", policy => {
-        policy.WithOrigins("http://localhost:5173")
-              .AllowAnyHeader()
-              .AllowAnyMethod();
-    });
-});
-
-builder.Services.AddDbContext<StoreDbContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
-builder.Services.AddScoped<AccountService>();
-builder.Services.AddScoped<JwtService>();
-builder.Services.Configure<AuthSettings>(builder.Configuration.GetSection("AuthSettings"));
-
-builder.Services.AddAuth(builder.Configuration);
-builder.Services.AddControllers();
-
-
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowReactApp", policy =>
     {
-        policy.WithOrigins("http://localhost:5173")
-              .AllowAnyHeader()
-              .AllowAnyMethod();
+        policy
+            .WithOrigins("http://localhost:5173", "https://localhost:5173")
+            .AllowAnyHeader()
+            .AllowAnyMethod()
+            .AllowCredentials();
     });
 });
+
+builder.Services.AddDbContext<StoreDbContext>(options =>
+    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+builder.Services.AddScoped<AccountService>();
+builder.Services.AddScoped<JwtService>();
+builder.Services.Configure<AuthSettings>(builder.Configuration.GetSection("AuthSettings"));
+builder.Services.AddAuth(builder.Configuration);
+builder.Services.AddControllers();
 
 builder.Services.AddIdentity<User, IdentityRole>(options =>
 {
@@ -47,19 +41,11 @@ builder.Services.AddIdentity<User, IdentityRole>(options =>
 .AddEntityFrameworkStores<StoreDbContext>()
 .AddDefaultTokenProviders();
 
-
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-
-app.UseCors("AllowFrontend");
-
-app.UseDefaultFiles();
-app.UseStaticFiles();
-
-app.MapControllers();
 
 
 if (app.Environment.IsDevelopment())
@@ -70,11 +56,16 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.UseAuthorization();
-app.UseAuthentication();
+app.UseStaticFiles();
+
+app.UseRouting();
 app.UseCors("AllowReactApp");
+app.UseAuthentication();
+app.UseAuthorization();
+
 app.MapControllers();
 
 app.MapFallbackToFile("/index.html");
 
 app.Run();
+
