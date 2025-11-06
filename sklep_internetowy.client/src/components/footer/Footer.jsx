@@ -16,7 +16,7 @@ function Footer() {
         e.preventDefault();
 
         try {
-            const res = await fetch("https://localhost:56975/api/panel/Message", {
+            const res = await fetch("/api/panel/Message", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({

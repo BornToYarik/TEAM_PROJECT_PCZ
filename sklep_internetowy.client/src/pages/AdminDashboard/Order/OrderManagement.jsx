@@ -117,7 +117,7 @@ function OrderManagement() {
             try {
                 const [ordersRes, productsRes, usersRes] = await Promise.all([
                     fetch('/api/Orders'),  
-                    fetch('/api/panel/Products'),
+                    fetch('/api/panel/Product'),
                     fetch('/api/Users')    
                 ]);
 
@@ -153,8 +153,14 @@ function OrderManagement() {
     const handleEditFieldChange = (field, value) => {
         setEditingOrder(current => ({ ...current, [field]: value }));
     };
-    const handleEditProductsChange = (newProducts) => {
-        setEditingOrder(current => ({ ...current, products: newProducts }));
+    const handleEditProductsChange = (updater) => {
+        setEditingOrder(currentOrder => {
+            const newProductList = typeof updater === 'function'
+                ? updater(currentOrder.products) 
+                : updater; 
+
+            return { ...currentOrder, products: newProductList };
+        });
     };
 
     // --- (C)reate ---
@@ -318,7 +324,15 @@ function OrderManagement() {
                         <Form.Label>Products in Order</Form.Label>
                         <EditOrderProducts
                             products={newOrder.products}
-                            setProducts={(newProducts) => setNewOrder(o => ({ ...o, products: newProducts }))}
+                            setProducts={(updater) => {
+                                setNewOrder(currentOrder => {
+                                    const newProductList = typeof updater === 'function'
+                                        ? updater(currentOrder.products) 
+                                        : updater;
+
+                                    return { ...currentOrder, products: newProductList };
+                                });
+                            }}
                             allProducts={allProducts}
                         />
                     </Form>
