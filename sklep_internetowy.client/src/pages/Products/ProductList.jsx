@@ -12,7 +12,7 @@ function ProductsList() {
     const [showForm, setShowForm] = useState(false);
     const [editingProduct, setEditingProduct] = useState(null);
 
-    const API_URL = 'https://localhost:62078/api/panel/Product';
+    const API_URL = '/api/panel/Product';
 
     useEffect(() => {
         fetchProducts();
