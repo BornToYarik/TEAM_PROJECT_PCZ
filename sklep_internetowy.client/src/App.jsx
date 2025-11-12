@@ -14,7 +14,7 @@ import Cart from './pages/Cart/Cart.jsx';
 import ProductDetails from './pages/Products/ProductDetails'
 
 //Admin dashboard
-import MessageManagement from './pages/AdminDashboard/messages/MessageManagement';
+import UserMessageManagement from './pages/AdminDashboard/messages/UserMessageManagement';
 
 function App() {
 
@@ -46,7 +46,7 @@ function App() {
               <Route path="/admin" element={<AdminDashboard />} />
 
               <Route path="/admin/orders" element={<OrderManagement />} />
-              <Route path="/admin/messages" element={<MessageManagement />} />  
+              <Route path="/admin/messages" element={<UserMessageManagement />} />  
               <Route path="/admin/products" element={<ProductList />} />
 
               <Route path="/users" element={<UsersList users={users} />} />
