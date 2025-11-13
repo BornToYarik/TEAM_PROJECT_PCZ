@@ -14,5 +14,6 @@ namespace Sklep_internetowy.Server.DTOs
 
         public DateTime? DiscountStartDate { get; set; }
         public DateTime? DiscountEndDate { get; set; }
+        public int ProductCategoryId { get; set; }
     }
 }
