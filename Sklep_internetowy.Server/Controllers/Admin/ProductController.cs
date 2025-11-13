@@ -34,7 +34,10 @@ namespace Sklep_internetowy.Server.Controllers.Admin
                         DiscountStartDate = p.DiscountStartDate,
                         DiscountEndDate = p.DiscountEndDate,
                         FinalPrice = p.FinalPrice,
-                        HasActiveDiscount = p.HasActiveDiscount
+                        HasActiveDiscount = p.HasActiveDiscount,
+                        ProductCategoryId = p.ProductCategoryId,
+                        ProductCategoryName = p.ProductCategory.Name,
+                        ProductCategorySlug = p.ProductCategory.Slug
                     })
                     .ToListAsync();
 
@@ -64,7 +67,8 @@ namespace Sklep_internetowy.Server.Controllers.Admin
                     Description = createProductDto.Description,
                     DiscountPercentage = createProductDto.DiscountPercentage,
                     DiscountStartDate = createProductDto.DiscountStartDate,
-                    DiscountEndDate = createProductDto.DiscountEndDate
+                    DiscountEndDate = createProductDto.DiscountEndDate,
+                    ProductCategoryId = createProductDto.ProductCategoryId
                 };
 
                 _context.Products.Add(product);
@@ -81,7 +85,10 @@ namespace Sklep_internetowy.Server.Controllers.Admin
                     DiscountStartDate = product.DiscountStartDate,
                     DiscountEndDate = product.DiscountEndDate,
                     FinalPrice = product.FinalPrice,
-                    HasActiveDiscount = product.HasActiveDiscount
+                    HasActiveDiscount = product.HasActiveDiscount,
+                    ProductCategoryId = product.ProductCategoryId,
+                    ProductCategoryName = product.ProductCategory.Name,
+                    ProductCategorySlug = product.ProductCategory.Slug
                 };
 
                 return CreatedAtAction(nameof(GetProductById), new { id = product.Id }, productDto);
@@ -124,6 +131,7 @@ namespace Sklep_internetowy.Server.Controllers.Admin
                 product.DiscountPercentage = updateProductDto.DiscountPercentage;
                 product.DiscountStartDate = updateProductDto.DiscountStartDate;
                 product.DiscountEndDate = updateProductDto.DiscountEndDate;
+                product.ProductCategoryId = updateProductDto.ProductCategoryId;
 
                 _context.Products.Update(product);
                 await _context.SaveChangesAsync();
@@ -158,7 +166,10 @@ namespace Sklep_internetowy.Server.Controllers.Admin
                 DiscountStartDate = product.DiscountStartDate,
                 DiscountEndDate = product.DiscountEndDate,
                 FinalPrice = product.FinalPrice,
-                HasActiveDiscount = product.HasActiveDiscount
+                HasActiveDiscount = product.HasActiveDiscount,
+                ProductCategoryId = product.ProductCategoryId,
+                ProductCategoryName = product.ProductCategory.Name,
+                ProductCategorySlug = product.ProductCategory.Slug
             };
 
             return Ok(productDto);

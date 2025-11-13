@@ -17,5 +17,8 @@ namespace Sklep_internetowy.Server.DTOs
 
         public DateTime? DiscountStartDate { get; set; }
         public DateTime? DiscountEndDate { get; set; }
+
+        [Required(ErrorMessage = "Category is required.")]
+        public int ProductCategoryId { get; set; }
     }
 }

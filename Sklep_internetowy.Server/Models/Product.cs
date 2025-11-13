@@ -8,9 +8,7 @@ namespace Sklep_internetowy.Server.Models
         public int Id { get; set; }
         public string Name { get; set; } = null!;
         public decimal Price { get; set; }
-
         public int Quantity { get; set; }
-
         public string? Description { get; set; }
 
         public decimal? DiscountPercentage { get; set; }
@@ -44,6 +42,10 @@ namespace Sklep_internetowy.Server.Models
                 return isStarted && isNotEnded;
             }
         }
+
+        public int ProductCategoryId { get; set; }
+        public ProductCategory ProductCategory { get; set; } = null!;
+
         public ICollection<OrderProduct> OrderProducts { get; set; } = new List<OrderProduct>();
     }
 }
