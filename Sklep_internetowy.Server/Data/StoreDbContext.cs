@@ -1,18 +1,17 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Sklep_internetowy.Server.Models;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using System.Reflection.Emit;
 
 namespace Sklep_internetowy.Server.Data
 {
-    public class StoreDbContext:DbContext
+    public class StoreDbContext:IdentityDbContext<User>
     {
         public StoreDbContext(DbContextOptions<StoreDbContext> options) : base(options)
         {
         }
 
-
-        public DbSet<User> Users => Set<User>();
         public DbSet<Product> Products => Set<Product>();
         public DbSet<Order> Orders => Set<Order>();
         public DbSet<OrderProduct> OrderProducts => Set<OrderProduct>();

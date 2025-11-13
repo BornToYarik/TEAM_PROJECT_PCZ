@@ -5,9 +5,10 @@ services:
       context: .
       dockerfile: Sklep_internetowy.Server/Dockerfile
     ports:
-    - "8080:8080"
+      - "8080:8080"
     depends_on:
       - db
+
   db:
     image: postgres:15
     environment:
@@ -18,5 +19,6 @@ services:
       - "5432:5432"
     volumes:
       - db_data:/var/lib/postgresql/data
+
 volumes:
-   db_data:
+  db_data:
