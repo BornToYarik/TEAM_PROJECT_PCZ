@@ -12,7 +12,7 @@ import AdminDashboard from './pages/AdminDashboard/AdminDashboard';
 import OrderManagement from './pages/AdminDashboard/Order/OrderManagement.jsx';
 import Cart from './pages/Cart/Cart.jsx';
 import ProductDetails from './pages/Products/ProductDetails'
-
+import UsersManage from './pages/AdminDashboard/Users/UsersManage'
 //Admin dashboard
 import UserMessageManagement from './pages/AdminDashboard/messages/UserMessageManagement';
 
@@ -48,7 +48,7 @@ function App() {
               <Route path="/admin/orders" element={<OrderManagement />} />
               <Route path="/admin/messages" element={<UserMessageManagement />} />  
               <Route path="/admin/products" element={<ProductList />} />
-
+              <Route path="/admin/users" element={<UsersManage/>} /> 
               <Route path="/users" element={<UsersList users={users} />} />
               <Route path="/products/:id" element={<ProductDetails />} />
               <Route path="/cart" element={<Cart />} />
