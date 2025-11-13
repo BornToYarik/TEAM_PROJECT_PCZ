@@ -12,7 +12,7 @@ function ProductDetails() {
     const [error, setError] = useState('');
     const [showForm, setShowForm] = useState(false);
 
-    const API_URL = 'https://localhost:62078/api/panel/Product';
+    const API_URL = 'https://localhost:60788/api/panel/Product';
 
     useEffect(() => {
         fetchProduct();
@@ -110,7 +110,7 @@ function ProductDetails() {
 
     return (
         <div className="container mt-5 mb-5">
-            <Link to="/products" className="btn btn-outline-secondary mb-3 d-flex align-items-center gap-2" style={{ width: 'fit-content' }}>
+            <Link to="/admin/products" className="btn btn-outline-secondary mb-3 d-flex align-items-center gap-2" style={{ width: 'fit-content' }}>
                 <ArrowLeft size={18} />
                 Back to Products
             </Link>

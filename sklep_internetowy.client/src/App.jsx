@@ -12,6 +12,7 @@ import AdminDashboard from './pages/AdminDashboard/AdminDashboard';
 import OrderManagement from './pages/AdminDashboard/Order/OrderManagement.jsx';
 import Cart from './pages/Cart/Cart.jsx';
 import ProductDetails from './pages/Products/ProductDetails'
+import CategoryProducts from './pages/Products/CategoryProducts.jsx';
 
 //Admin dashboard
 import UserMessageManagement from './pages/AdminDashboard/messages/UserMessageManagement';
@@ -48,10 +49,19 @@ function App() {
               <Route path="/admin/orders" element={<OrderManagement />} />
               <Route path="/admin/messages" element={<UserMessageManagement />} />  
               <Route path="/admin/products" element={<ProductList />} />
+              <Route path="/admin/products/:id" element={<ProductDetails />} />
 
               <Route path="/users" element={<UsersList users={users} />} />
               <Route path="/products/:id" element={<ProductDetails />} />
               <Route path="/cart" element={<Cart />} />
+
+              <Route path="/laptops" element={<CategoryProducts />} />
+              <Route path="/computers" element={<CategoryProducts />} />
+              <Route path="/smartphones" element={<CategoryProducts />} />
+              <Route path="/gaming" element={<CategoryProducts />} />
+              <Route path="/accessories" element={<CategoryProducts />} />
+              <Route path="/deals" element={<CategoryProducts />} />
+
         </Routes>
     </>
   )
