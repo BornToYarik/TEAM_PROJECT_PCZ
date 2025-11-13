@@ -13,6 +13,7 @@ function ProductDetails() {
     const [showForm, setShowForm] = useState(false);
 
     const API_URL = '/api/panel/Product';
+    //test
 
     useEffect(() => {
         fetchProduct();
