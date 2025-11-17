@@ -12,5 +12,8 @@
         public DateTime? DiscountEndDate { get; set; }
         public decimal FinalPrice { get; set; }
         public bool HasActiveDiscount { get; set; }
+        public int ProductCategoryId { get; set; }
+        public string ProductCategoryName { get; set; } = null!;
+        public string ProductCategorySlug { get; set; } = null!;
     }
 }

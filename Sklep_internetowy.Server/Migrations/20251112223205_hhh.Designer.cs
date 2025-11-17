@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Sklep_internetowy.Server.Data;
@@ -11,9 +12,11 @@ using Sklep_internetowy.Server.Data;
 namespace Sklep_internetowy.Server.Migrations
 {
     [DbContext(typeof(StoreDbContext))]
-    partial class StoreDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251112223205_hhh")]
+    partial class hhh
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -222,85 +225,12 @@ namespace Sklep_internetowy.Server.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("numeric");
 
-                    b.Property<int>("ProductCategoryId")
-                        .HasColumnType("integer");
-
                     b.Property<int>("Quantity")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ProductCategoryId");
-
                     b.ToTable("Products");
-                });
-
-            modelBuilder.Entity("Sklep_internetowy.Server.Models.ProductCategory", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Description")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Slug")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("ProductCategories");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Description = "Portable computers",
-                            Name = "Laptops",
-                            Slug = "laptops"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Description = "Desktop computers",
-                            Name = "Computers",
-                            Slug = "computers"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Description = "Mobile phones",
-                            Name = "Smartphones",
-                            Slug = "smartphones"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Description = "Gaming devices and accessories",
-                            Name = "Gaming",
-                            Slug = "gaming"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            Description = "Computer accessories",
-                            Name = "Accessories",
-                            Slug = "accessories"
-                        },
-                        new
-                        {
-                            Id = 6,
-                            Description = "Special offers",
-                            Name = "Deals",
-                            Slug = "deals"
-                        });
                 });
 
             modelBuilder.Entity("Sklep_internetowy.Server.Models.User", b =>
@@ -491,17 +421,6 @@ namespace Sklep_internetowy.Server.Migrations
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("Sklep_internetowy.Server.Models.Product", b =>
-                {
-                    b.HasOne("Sklep_internetowy.Server.Models.ProductCategory", "ProductCategory")
-                        .WithMany("Products")
-                        .HasForeignKey("ProductCategoryId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("ProductCategory");
-                });
-
             modelBuilder.Entity("Sklep_internetowy.Server.Models.Order", b =>
                 {
                     b.Navigation("OrderProducts");
@@ -510,11 +429,6 @@ namespace Sklep_internetowy.Server.Migrations
             modelBuilder.Entity("Sklep_internetowy.Server.Models.Product", b =>
                 {
                     b.Navigation("OrderProducts");
-                });
-
-            modelBuilder.Entity("Sklep_internetowy.Server.Models.ProductCategory", b =>
-                {
-                    b.Navigation("Products");
                 });
 
             modelBuilder.Entity("Sklep_internetowy.Server.Models.User", b =>
