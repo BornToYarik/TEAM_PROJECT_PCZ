@@ -12,7 +12,7 @@ const ProductForm = ({ onSubmit, onCancel, initialData, isEditing }) => {
     const [categories, setCategories] = useState([]);
     const [errors, setErrors] = useState({});
 
-    const API_URL = 'https://localhost:60788/api';
+    const API_URL = '/api/panel/Product';
 
     useEffect(() => {
         fetchCategories();

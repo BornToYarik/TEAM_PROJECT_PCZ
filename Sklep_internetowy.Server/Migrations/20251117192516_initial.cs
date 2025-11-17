@@ -4,10 +4,12 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
 namespace Sklep_internetowy.Server.Migrations
 {
     /// <inheritdoc />
-    public partial class hhh : Migration
+    public partial class initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -72,22 +74,18 @@ namespace Sklep_internetowy.Server.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Products",
+                name: "ProductCategories",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Name = table.Column<string>(type: "text", nullable: false),
-                    Price = table.Column<decimal>(type: "numeric", nullable: false),
-                    Quantity = table.Column<int>(type: "integer", nullable: false),
-                    Description = table.Column<string>(type: "text", nullable: true),
-                    DiscountPercentage = table.Column<decimal>(type: "numeric", nullable: true),
-                    DiscountStartDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                    DiscountEndDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
+                    Slug = table.Column<string>(type: "text", nullable: false),
+                    Description = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Products", x => x.Id);
+                    table.PrimaryKey("PK_ProductCategories", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -217,6 +215,32 @@ namespace Sklep_internetowy.Server.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Products",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Name = table.Column<string>(type: "text", nullable: false),
+                    Price = table.Column<decimal>(type: "numeric", nullable: false),
+                    Quantity = table.Column<int>(type: "integer", nullable: false),
+                    Description = table.Column<string>(type: "text", nullable: true),
+                    DiscountPercentage = table.Column<decimal>(type: "numeric", nullable: true),
+                    DiscountStartDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    DiscountEndDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    ProductCategoryId = table.Column<int>(type: "integer", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Products", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Products_ProductCategories_ProductCategoryId",
+                        column: x => x.ProductCategoryId,
+                        principalTable: "ProductCategories",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "OrderProducts",
                 columns: table => new
                 {
@@ -239,6 +263,19 @@ namespace Sklep_internetowy.Server.Migrations
                         principalTable: "Products",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.InsertData(
+                table: "ProductCategories",
+                columns: new[] { "Id", "Description", "Name", "Slug" },
+                values: new object[,]
+                {
+                    { 1, "Portable computers", "Laptops", "laptops" },
+                    { 2, "Desktop computers", "Computers", "computers" },
+                    { 3, "Mobile phones", "Smartphones", "smartphones" },
+                    { 4, "Gaming devices and accessories", "Gaming", "gaming" },
+                    { 5, "Computer accessories", "Accessories", "accessories" },
+                    { 6, "Special offers", "Deals", "deals" }
                 });
 
             migrationBuilder.CreateIndex(
@@ -287,6 +324,11 @@ namespace Sklep_internetowy.Server.Migrations
                 name: "IX_Orders_UserId",
                 table: "Orders",
                 column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Products_ProductCategoryId",
+                table: "Products",
+                column: "ProductCategoryId");
         }
 
         /// <inheritdoc />
@@ -324,6 +366,9 @@ namespace Sklep_internetowy.Server.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "ProductCategories");
         }
     }
 }

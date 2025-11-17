@@ -10,7 +10,7 @@ function CategoryProducts() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
 
-    const API_URL = 'https://localhost:60788/api';
+    const API_URL = '/api/ProductCategory';
 
     useEffect(() => {
         fetchCategoryAndProducts();

@@ -16,7 +16,7 @@ function LoginPage() {
         setError("");
 
         try {
-            const response = await fetch("https://localhost:53124/api/Auth/login", {
+            const response = await fetch("/api/Auth/login", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

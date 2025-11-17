@@ -5,7 +5,7 @@ export default function AdminPanel() {
     const [editingUser, setEditingUser] = useState(null);
 
     useEffect(() => {
-        fetch("https://localhost:7283/api/users/adminGet")
+        fetch("/api/users/adminGet")
             .then((res) => res.json())
             .then(setUsers)
             .catch(console.error);
@@ -15,7 +15,7 @@ export default function AdminPanel() {
     const handleUpdate = async () => {
         if (!editingUser) return;
 
-        await fetch(`https://localhost:7283/api/users/adminPut${editingUser.id}`, {
+        await fetch(`/api/users/adminPut${editingUser.id}`, {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(editingUser),
