@@ -30,9 +30,9 @@ function LoginPage() {
             const data = await response.json();
 
             if (!response.ok) {
-                setError(data.message || "Logowanie nie powiod³o siê");
+                setError(data.message || "Login failed");
             } else {
-                setMessage("Zalogowano pomyœlnie!");
+                setMessage("!");
                 if (data.token) {
                     // zapis tokena do localStorage
                     localStorage.setItem("token", data.token);
@@ -40,7 +40,7 @@ function LoginPage() {
                 setForm({ userName: "", password: "" });
             }
         } catch (err) {
-            setError("B³¹d sieci: " + err.message);
+            setError("Network failed: " + err.message);
         }
     };
 
@@ -51,7 +51,7 @@ function LoginPage() {
                     <Col md={8} lg={6} xl={5}>
                         <Card className="shadow-sm">
                             <Card.Body className="p-4">
-                                <Card.Title as="h2" className="text-center mb-4">Logowanie</Card.Title>
+                                <Card.Title as="h2" className="text-center mb-4">Login</Card.Title>
 
                                 {message && <Alert variant="success">{message}</Alert>}
                                 {error && <Alert variant="danger">{error}</Alert>}
@@ -61,7 +61,7 @@ function LoginPage() {
                                         <Form.Label>Username</Form.Label>
                                         <Form.Control
                                             type="text"
-                                            placeholder="Wpisz nazwê u¿ytkownika"
+                                            placeholder="Enter username"
                                             name="userName"
                                             value={form.userName}
                                             onChange={handleChange}
@@ -69,10 +69,10 @@ function LoginPage() {
                                     </Form.Group>
 
                                     <Form.Group className="mb-3" controlId="formBasicPassword">
-                                        <Form.Label>Has³o</Form.Label>
+                                        <Form.Label>Password</Form.Label>
                                         <Form.Control
                                             type="password"
-                                            placeholder="Wpisz has³o"
+                                            placeholder="Enter password"
                                             name="password"
                                             value={form.password}
                                             onChange={handleChange}
@@ -81,14 +81,14 @@ function LoginPage() {
 
                                     <div className="d-grid">
                                         <Button variant="primary" type="submit" size="lg">
-                                            Zaloguj
+                                            Login
                                         </Button>
                                     </div>
                                 </Form>
 
                                 <div className="text-center mt-3">
-                                    <a href="/registration" className="d-block mb-2">Rejestracja</a>
-                                    <a href="/forgot-password">Zapomnia³eœ has³a?</a>
+                                    <a href="/registration" className="d-block mb-2">Registration</a>
+                                    <a href="/forgot-password">Forgot password?</a>
                                 </div>
                             </Card.Body>
                         </Card>
