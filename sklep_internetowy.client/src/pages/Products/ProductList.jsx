@@ -12,7 +12,7 @@ function ProductsList() {
     const [showForm, setShowForm] = useState(false);
     const [editingProduct, setEditingProduct] = useState(null);
 
-    const API_URL = '/api/panel/Product';
+    const API_URL = 'https://localhost:60788/api/panel/Product';
 
     useEffect(() => {
         fetchProducts();
@@ -42,10 +42,7 @@ function ProductsList() {
             name: formData.name,
             price: parseFloat(formData.price),
             quantity: parseInt(formData.quantity),
-            description: formData.description || null,
-            discountPercentage: formData.discountPercentage || null,
-            discountStartDate: formData.discountStartDate || null,
-            discountEndDate: formData.discountEndDate || null
+            description: formData.description || null
         };
 
         try {
