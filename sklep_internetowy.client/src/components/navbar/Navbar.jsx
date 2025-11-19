@@ -1,8 +1,28 @@
-﻿import { useState } from 'react';
-import { Link } from 'react-router-dom';
+﻿import { useState, useEffect } from 'react';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 
 function Navbar() {
     const [searchQuery, setSearchQuery] = useState('');
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+    const navigate = useNavigate();
+    const location = useLocation(); 
+
+    
+    useEffect(() => {
+        const token = localStorage.getItem("token");
+        if (token) {
+            setIsLoggedIn(true);
+        } else {
+            setIsLoggedIn(false);
+        }
+    }, [location]); 
+
+    const handleLogout = () => {
+        localStorage.removeItem("token"); 
+        setIsLoggedIn(false); 
+        navigate("/login");
+    };
 
     return (
         <>
@@ -13,10 +33,12 @@ function Navbar() {
                         TechStore
                     </Link>
 
-                    <Link className="btn btn-outline-warning btn-sm" to="/admin">
-                        <i className="bi bi-speedometer2 me-1"></i>
-                        Admin Dashboard
-                    </Link>
+                    {isLoggedIn && (
+                        <Link className="btn btn-outline-warning btn-sm" to="/admin">
+                            <i className="bi bi-speedometer2 me-1"></i>
+                            Admin Dashboard
+                        </Link>
+                    )}
 
                     <div className="d-flex align-items-center gap-4">
                         <div className="input-group" style={{ width: '400px' }}>
@@ -49,11 +71,30 @@ function Navbar() {
                             <i className="bi bi-cart4 fs-4"></i>
                         </Link>
 
+                   
+                        {isLoggedIn ? (
+                            <div className="d-flex gap-2">
+                                <Link to="/profile" className="btn btn-outline-light btn-sm">
+                                    <i className="bi bi-person-gear me-1"></i>
+                                    Profile
+                                </Link>
 
-                        <Link className="btn btn-outline-light btn-sm" to="/login">
-                            <i className="bi bi-person-circle me-1"></i>
-                            Login
-                        </Link>
+                                <button
+                                    className="btn btn-outline-light btn-sm"
+                                    onClick={handleLogout}
+                                >
+                                    <i className="bi bi-box-arrow-right me-1"></i>
+                                    Logout
+                                </button>
+                            </div>
+
+                        ) : (
+                            <Link className="btn btn-outline-light btn-sm" to="/login">
+                                <i className="bi bi-person-circle me-1"></i>
+                                Login
+                            </Link>
+                        )}
+
                     </div>
                 </div>
             </nav>
@@ -99,12 +140,12 @@ function Navbar() {
                                 </Link>
                             </li>
 
-                             <li className="nav-item">
-                                 <Link className="nav-link fw-semibold text-primary" to="/users">
-                                     <i className="bi bi-people me-1"></i>
-                                  Users
-                                 </Link>
-    </li>
+                            <li className="nav-item">
+                                <Link className="nav-link fw-semibold text-primary" to="/users">
+                                    <i className="bi bi-people me-1"></i>
+                                    Users
+                                </Link>
+                            </li>
                         </ul>
                     </div>
                 </div>

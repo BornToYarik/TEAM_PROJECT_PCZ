@@ -27,7 +27,7 @@ namespace Sklep_internetowy.Server.Controllers.Auth
             try
             {
                 await _accountService.Register(request.UserName, request.Email, request.Password);
-                return Ok(new { message = "Rejestracja powiodła się pomyślnie" });
+                return Ok(new { message = "Registration succesfull!" });
             }
             catch (Exception ex)
             {
@@ -44,7 +44,7 @@ namespace Sklep_internetowy.Server.Controllers.Auth
             try
             {
                 var token = await _accountService.Login(request.UserName, request.Password);
-                return Ok(new { token });
+                return Ok(new { token, message = "Login successfull!"});
             }
             catch (Exception ex)
             {

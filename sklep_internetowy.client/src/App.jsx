@@ -14,6 +14,7 @@ import Cart from './pages/Cart/Cart.jsx';
 import ProductDetails from './pages/Products/ProductDetails'
 import UsersManage from './pages/AdminDashboard/Users/UsersManage'
 import CategoryProducts from './pages/Products/CategoryProducts.jsx';
+import UserProfile from './pages/UserProfile/UserProfile';
 
 //Admin dashboard
 import UserMessageManagement from './pages/AdminDashboard/messages/UserMessageManagement';
@@ -63,6 +64,7 @@ function App() {
               <Route path="/gaming" element={<CategoryProducts />} />
               <Route path="/accessories" element={<CategoryProducts />} />
               <Route path="/deals" element={<CategoryProducts />} />
+              <Route path="/profile" element={<UserProfile />} />
 
         </Routes>
     </>

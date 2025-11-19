@@ -9,7 +9,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Sklep_internetowy.Server.Migrations
 {
     /// <inheritdoc />
-    public partial class lll : Migration
+    public partial class ppp : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

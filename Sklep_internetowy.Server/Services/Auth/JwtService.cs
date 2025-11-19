@@ -12,11 +12,14 @@ namespace Sklep_internetowy.Server.Services.Auth
         public string GenerateToken(User user)
         {
             var claims = new List<Claim> {
+                // ZMIANA: Używamy standardowego ClaimTypes.Name zamiast "userName"
+                // Dzięki temu User.Identity.Name w kontrolerze zadziała automagicznie
+                new Claim(ClaimTypes.Name, user.UserName),
+                
+                // Dobra praktyka: Dodaj też ID użytkownika (NameIdentifier)
+                new Claim(ClaimTypes.NameIdentifier, user.UserName),
 
-               new Claim("userName",user.UserName),
-               new Claim("email",user.Email)
-
-
+                new Claim(ClaimTypes.Email, user.Email)
             };
 
             var jwtToken = new JwtSecurityToken(

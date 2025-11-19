@@ -5,6 +5,10 @@ using Sklep_internetowy.Server.Models;
 using Npgsql.EntityFrameworkCore;
 using Sklep_internetowy.Server.Services.Auth;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddCors(options =>
@@ -18,8 +22,8 @@ builder.Services.AddCors(options =>
                 "http://localhost:5174",
                 "https://localhost:5174"
             )
-            .AllowAnyHeader()
             .AllowAnyMethod()
+            .WithHeaders("Authorization", "Content-Type")
             .AllowCredentials();
     });
 });
@@ -30,7 +34,7 @@ builder.Services.AddDbContext<StoreDbContext>(options =>
 builder.Services.AddScoped<AccountService>();
 builder.Services.AddScoped<JwtService>();
 builder.Services.Configure<AuthSettings>(builder.Configuration.GetSection("AuthSettings"));
-builder.Services.AddAuth(builder.Configuration);
+
 builder.Services.AddControllers();
 
 builder.Services.AddIdentity<User, IdentityRole>(options =>
@@ -41,17 +45,38 @@ builder.Services.AddIdentity<User, IdentityRole>(options =>
     options.Password.RequireNonAlphanumeric = false;
     options.Password.RequiredLength = 6;
     options.User.RequireUniqueEmail = true;
-    options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 })
 .AddEntityFrameworkStores<StoreDbContext>()
 .AddDefaultTokenProviders();
+
+var secretKey = builder.Configuration.GetValue<string>("AuthSettings:Key") ??
+                builder.Configuration.GetValue<string>("AuthSettings:SecretKey");
+
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+})
+.AddJwtBearer(options =>
+{
+    options.SaveToken = true;
+    options.RequireHttpsMetadata = false;
+    options.TokenValidationParameters = new TokenValidationParameters()
+    {
+        ValidateIssuer = false,
+        ValidateAudience = false,
+        ValidateLifetime = true,
+        ValidateIssuerSigningKey = true,
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey)),
+        ClockSkew = TimeSpan.Zero
+    };
+});
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
-
-
 
 if (app.Environment.IsDevelopment())
 {
@@ -59,18 +84,16 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 
 app.UseStaticFiles();
-
 app.UseRouting();
 app.UseCors("AllowReactApp");
+
 app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
-
 app.MapFallbackToFile("/index.html");
 
 app.Run();
-
