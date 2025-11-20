@@ -12,8 +12,8 @@ using Sklep_internetowy.Server.Data;
 namespace Sklep_internetowy.Server.Migrations
 {
     [DbContext(typeof(StoreDbContext))]
-    [Migration("20251117195614_lll")]
-    partial class lll
+    [Migration("20251119193457_ppp")]
+    partial class ppp
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

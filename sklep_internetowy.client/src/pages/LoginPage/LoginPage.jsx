@@ -1,10 +1,15 @@
 import { useState } from "react";
 import { Container, Row, Col, Form, Button, Card, Alert } from "react-bootstrap";
 
+import { useNavigate } from "react-router-dom";
+
 function LoginPage() {
     const [form, setForm] = useState({ userName: "", password: "" });
     const [message, setMessage] = useState("");
     const [error, setError] = useState("");
+
+
+    const navigate = useNavigate();
 
     const handleChange = (e) => {
         setForm({ ...form, [e.target.name]: e.target.value });
@@ -32,10 +37,17 @@ function LoginPage() {
             if (!response.ok) {
                 setError(data.message || "Login failed");
             } else {
-                setMessage("!");
+                
+                setMessage(data.message || "Login successful!");
+
                 if (data.token) {
-                    // zapis tokena do localStorage
                     localStorage.setItem("token", data.token);
+
+                    
+                    setTimeout(() => {
+                        
+                        navigate("/");
+                    }, 1500);
                 }
                 setForm({ userName: "", password: "" });
             }
