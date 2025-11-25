@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import { useCart } from "../../../context/CartContext";
+import { useNavigate } from "react-router-dom";
 
 function ProductCard() {
     const [products, setProducts] = useState([]);
     const { addToCart } = useCart();
+    const navigate = useNavigate();
 
     useEffect(() => {
         fetch("/api/home/Product")
@@ -112,7 +114,10 @@ function ProductCard() {
                                     <button
                                         className="btn w-100 buy-btn"
                                         disabled={p.quantity <= 0}
-                                        onClick={() => addToCart(p)}
+                                        onClick={() => {
+                                            addToCart(p);
+                                            navigate("/cart");
+                                        }}
                                     >
                                         {p.quantity > 0 ? "Add to cart" : "Unavailable"}
                                     </button>
