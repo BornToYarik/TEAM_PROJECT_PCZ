@@ -143,7 +143,15 @@ function OrderManagement() {
             setOrders(await ordersRes.json());
         } catch (err) { setError(err.message); }
     }
-
+    const refreshProducts = async () => {
+        try {
+            // Убедись, что путь совпадает с тем, что в твоем ProductController (Admin)
+            const productsRes = await fetch('/api/panel/Product');
+            if (productsRes.ok) {
+                setAllProducts(await productsRes.json());
+            }
+        } catch (err) { console.error("Failed to refresh products", err); }
+    }
     // --- (U)pdate ---
     const handleEdit = (order) => {
         const orderCopy = JSON.parse(JSON.stringify(order));
@@ -192,6 +200,7 @@ function OrderManagement() {
                 throw new Error(errData.message || 'Failed to create order');
             }
             await refreshOrders();
+            await refreshProducts();
             handleCloseModal();
         } catch (err) {
             setError(err.message);
@@ -226,6 +235,7 @@ function OrderManagement() {
                 throw new Error(errData.message || 'Failed to update order');
             }
             await refreshOrders();
+            await refreshProducts();
             handleCloseModal();
         } catch (err) {
             setError(err.message);
@@ -243,6 +253,8 @@ function OrderManagement() {
                 throw new Error('Failed to delete order');
             }
             setOrders(current => current.filter(o => o.id !== editingOrder.id));
+            await refreshOrders();
+            await refreshProducts();
             handleCloseModal();
         } catch (err) {
             setError(err.message);

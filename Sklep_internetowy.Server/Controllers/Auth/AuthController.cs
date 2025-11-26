@@ -43,8 +43,15 @@ namespace Sklep_internetowy.Server.Controllers.Auth
 
             try
             {
-                var token = await _accountService.Login(request.UserName, request.Password);
-                return Ok(new { token, message = "Login successfull!"});
+                var result = await _accountService.Login(request.UserName, request.Password);
+
+                return Ok(new
+                {
+                    token = result.Token,
+                    userId = result.User.Id, 
+                    email = result.User.Email,
+                    message = "Login successfull!"
+                });
             }
             catch (Exception ex)
             {
