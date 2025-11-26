@@ -42,7 +42,12 @@ function LoginPage() {
 
                 if (data.token) {
                     localStorage.setItem("token", data.token);
-
+                    const userData = {
+                        id: data.userId,
+                        email: data.email,
+                        userName: form.userName
+                    };
+                    localStorage.setItem("user", JSON.stringify(userData));
                     
                     setTimeout(() => {
                         

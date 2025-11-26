@@ -38,17 +38,19 @@ namespace Sklep_internetowy.Server.Services.Auth
             }
         }
 
-        public async Task<string> Login(string username, string password)
+        public async Task<(string Token, User User)> Login(string username, string password)
         {
             var account = await _userManager.FindByNameAsync(username);
             if (account == null)
-                throw new Exception("Nie znaleziono użytkownika");
+                throw new Exception("Invalid user"); 
 
             var result = await _userManager.CheckPasswordAsync(account, password);
             if (!result)
-                throw new Exception("Niepoprawne hasło");
+                throw new Exception("Wrong password"); 
 
-            return _jwtService.GenerateToken(account);
+            var token = _jwtService.GenerateToken(account);
+
+            return (token, account);
         }
 
         public async Task<User> GetUserByNameAsync(string username)
