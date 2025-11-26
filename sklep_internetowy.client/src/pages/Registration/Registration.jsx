@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Container, Row, Col, Form, Button, Card, Alert } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 
 function Registration() {
     const [form, setForm] = useState({
@@ -11,6 +12,8 @@ function Registration() {
 
     const [message, setMessage] = useState("");
     const [error, setError] = useState("");
+
+    const navigate = useNavigate();
 
     const handleChange = (e) => {
         setForm({ ...form, [e.target.name]: e.target.value });
@@ -44,8 +47,13 @@ function Registration() {
             if (!response.ok) {
                 setError(data.message || "Registration failed");
             } else {
-                setMessage(data.message || "Registration successful!");
+                setMessage(data.message || "Registration successful! Redirecting to login...");
                 setForm({ userName: "", email: "", password: "", confirmPassword: "" });
+
+                // 3. PRZEKIEROWANIE Z OPӏNIENIEM (2 sekundy)
+                setTimeout(() => {
+                    navigate("/login");
+                }, 2000);
             }
         } catch (err) {
             setError("Network error: " + err.message);
