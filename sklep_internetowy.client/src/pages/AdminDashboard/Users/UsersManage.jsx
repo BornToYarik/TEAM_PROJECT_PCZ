@@ -3,16 +3,20 @@
 export default function AdminPanel() {
     const [users, setUsers] = useState([]);
     const [editingUser, setEditingUser] = useState(null);
-    const [newUser, setNewUser] = useState({ email: "", userName: "", password: "", roles: ["User"] });
+    const [newUser, setNewUser] = useState({
+        email: "",
+        userName: "",
+        password: "",
+        roles: ["User"]
+    });
     const [error, setError] = useState("");
 
-    // Получение всех пользователей
+    // Fetch all users
     const fetchUsers = async () => {
         try {
             const res = await fetch("/api/admin/users");
             if (!res.ok) throw new Error("Failed to fetch users");
-            const data = await res.json();
-            setUsers(data);
+            setUsers(await res.json());
         } catch (err) {
             setError(err.message);
         }
@@ -22,7 +26,7 @@ export default function AdminPanel() {
         fetchUsers();
     }, []);
 
-    // Создание нового пользователя
+    // Create user
     const handleCreate = async () => {
         try {
             const payload = {
@@ -31,15 +35,18 @@ export default function AdminPanel() {
                 password: newUser.password,
                 roles: newUser.roles
             };
+
             const res = await fetch("/api/admin/users", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(payload)
             });
+
             if (!res.ok) {
                 const errData = await res.json();
                 throw new Error(errData?.errors?.[0]?.description || "Failed to create user");
             }
+
             setNewUser({ email: "", userName: "", password: "", roles: ["User"] });
             fetchUsers();
         } catch (err) {
@@ -47,23 +54,25 @@ export default function AdminPanel() {
         }
     };
 
-    // Обновление пользователя
+    // Update user
     const handleUpdate = async () => {
         if (!editingUser) return;
+
         try {
-            const payload = {
-                email: editingUser.email,
-                roles: editingUser.roles
-            };
             const res = await fetch(`/api/admin/users/${editingUser.id}`, {
                 method: "PUT",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(payload)
+                body: JSON.stringify({
+                    email: editingUser.email,
+                    roles: editingUser.roles
+                })
             });
+
             if (!res.ok) {
                 const errData = await res.json();
                 throw new Error(errData?.errors?.[0]?.description || "Failed to update user");
             }
+
             setEditingUser(null);
             fetchUsers();
         } catch (err) {
@@ -71,11 +80,17 @@ export default function AdminPanel() {
         }
     };
 
-    // Сброс пароля
+    // Password reset
     const handleResetPassword = async (id) => {
+        if (!window.confirm("Reset this user's password?")) return;
+
         try {
-            const res = await fetch(`/api/admin/users/${id}/reset-password`, { method: "POST" });
+            const res = await fetch(`/api/admin/users/${id}/reset-password`, {
+                method: "POST"
+            });
+
             if (!res.ok) throw new Error("Failed to reset password");
+
             const data = await res.json();
             alert(`New password: ${data.newPassword}`);
         } catch (err) {
@@ -83,9 +98,10 @@ export default function AdminPanel() {
         }
     };
 
-    // Удаление пользователя
+    // Delete user
     const handleDelete = async (id) => {
         if (!window.confirm("Delete this user?")) return;
+
         try {
             const res = await fetch(`/api/admin/users/${id}`, { method: "DELETE" });
             if (!res.ok) throw new Error("Failed to delete user");
@@ -95,9 +111,11 @@ export default function AdminPanel() {
         }
     };
 
-    // Изменение роли в интерфейсе
-    const handleChangeRole = (user, role) => {
-        setEditingUser({ ...user, roles: [role] });
+    // Table-only role update (does NOT open edit panel)
+    const handleTableRoleChange = (id, newRole) => {
+        setUsers(users.map(u =>
+            u.id === id ? { ...u, roles: [newRole] } : u
+        ));
     };
 
     return (
@@ -106,62 +124,121 @@ export default function AdminPanel() {
 
             {error && <div className="alert alert-danger">{error}</div>}
 
-            <div className="card p-3 mb-3">
+            {/* CREATE USER */}
+            <div className="card p-3 mb-4">
                 <h3>Create User</h3>
-                <input className="form-control mb-2" placeholder="Email"
-                    value={newUser.email} onChange={e => setNewUser({ ...newUser, email: e.target.value })} />
-                <input className="form-control mb-2" placeholder="Password"
-                    value={newUser.password} onChange={e => setNewUser({ ...newUser, password: e.target.value })} />
-                <select className="form-select mb-2" value={newUser.roles[0]}
-                    onChange={e => setNewUser({ ...newUser, roles: [e.target.value] })}>
+
+                <input
+                    className="form-control mb-2"
+                    placeholder="Email"
+                    value={newUser.email}
+                    onChange={e => setNewUser({ ...newUser, email: e.target.value })}
+                />
+
+                <input
+                    className="form-control mb-2"
+                    placeholder="Password"
+                    value={newUser.password}
+                    onChange={e => setNewUser({ ...newUser, password: e.target.value })}
+                />
+
+                <select
+                    className="form-select mb-2"
+                    value={newUser.roles[0]}
+                    onChange={e => setNewUser({ ...newUser, roles: [e.target.value] })}
+                >
                     <option>User</option>
                     <option>Admin</option>
                 </select>
-                <button className="btn btn-success" onClick={handleCreate}>Create</button>
+
+                <button className="btn btn-success" onClick={handleCreate}>
+                    Create
+                </button>
             </div>
 
-            <table className="table table-bordered">
+            {/* USERS TABLE */}
+            <table className="table table-bordered align-middle">
                 <thead>
                     <tr>
                         <th>ID</th>
                         <th>Email</th>
                         <th>Role</th>
-                        <th>Actions</th>
+                        <th width="270px">Actions</th>
                     </tr>
                 </thead>
+
                 <tbody>
                     {users.map(u => (
                         <tr key={u.id}>
                             <td>{u.id}</td>
                             <td>{u.email}</td>
                             <td>
-                                <select value={u.roles[0]} onChange={e => handleChangeRole(u, e.target.value)}>
+                                <select
+                                    value={u.roles[0]}
+                                    onChange={e => handleTableRoleChange(u.id, e.target.value)}
+                                >
                                     <option>User</option>
                                     <option>Admin</option>
                                 </select>
                             </td>
                             <td>
-                                <button className="btn btn-primary btn-sm me-2" onClick={() => setEditingUser(u)}>Edit</button>
-                                <button className="btn btn-warning btn-sm me-2" onClick={() => handleResetPassword(u.id)}>Reset</button>
-                                <button className="btn btn-danger btn-sm" onClick={() => handleDelete(u.id)}>Delete</button>
+                                <button
+                                    className="btn btn-primary btn-sm me-2"
+                                    onClick={() => setEditingUser(u)}
+                                >
+                                    Edit
+                                </button>
+
+                                <button
+                                    className="btn btn-warning btn-sm me-2"
+                                    onClick={() => handleResetPassword(u.id)}
+                                >
+                                    Reset Password
+                                </button>
+
+                                <button
+                                    className="btn btn-danger btn-sm"
+                                    onClick={() => handleDelete(u.id)}
+                                >
+                                    Delete
+                                </button>
                             </td>
                         </tr>
                     ))}
                 </tbody>
             </table>
 
+            {/* EDIT USER PANEL */}
             {editingUser && (
-                <div className="card p-3">
+                <div className="card p-3 mt-3">
                     <h3>Edit User</h3>
-                    <input className="form-control mb-2" value={editingUser.email}
-                        onChange={e => setEditingUser({ ...editingUser, email: e.target.value })} />
-                    <select className="form-select mb-2" value={editingUser.roles[0]}
-                        onChange={e => setEditingUser({ ...editingUser, roles: [e.target.value] })}>
+
+                    <input
+                        className="form-control mb-2"
+                        value={editingUser.email}
+                        onChange={e =>
+                            setEditingUser({ ...editingUser, email: e.target.value })
+                        }
+                    />
+
+                    <select
+                        className="form-select mb-2"
+                        value={editingUser.roles[0]}
+                        onChange={e =>
+                            setEditingUser({ ...editingUser, roles: [e.target.value] })
+                        }
+                    >
                         <option>User</option>
                         <option>Admin</option>
                     </select>
-                    <button className="btn btn-success me-2" onClick={handleUpdate}>Save</button>
-                    <button className="btn btn-secondary" onClick={() => setEditingUser(null)}>Cancel</button>
+
+                    <button className="btn btn-success me-2" onClick={handleUpdate}>
+                        Save
+                    </button>
+
+                    <button className="btn btn-secondary" onClick={() => setEditingUser(null)}>
+                        Cancel
+                    </button>
                 </div>
             )}
         </div>
