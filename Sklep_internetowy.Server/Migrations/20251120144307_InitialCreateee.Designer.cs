@@ -12,8 +12,8 @@ using Sklep_internetowy.Server.Data;
 namespace Sklep_internetowy.Server.Migrations
 {
     [DbContext(typeof(StoreDbContext))]
-    [Migration("20251119193457_ppp")]
-    partial class ppp
+    [Migration("20251120144307_InitialCreateee")]
+    partial class InitialCreateee
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -236,6 +236,26 @@ namespace Sklep_internetowy.Server.Migrations
                     b.HasIndex("ProductCategoryId");
 
                     b.ToTable("Products");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 50,
+                            Description = "High performance laptop",
+                            Name = "Laptop A",
+                            Price = 1500.00m,
+                            ProductCategoryId = 1,
+                            Quantity = 0
+                        },
+                        new
+                        {
+                            Id = 33,
+                            Description = "High performance laptop",
+                            Name = "Laptop B",
+                            Price = 1500.00m,
+                            ProductCategoryId = 1,
+                            Quantity = 0
+                        });
                 });
 
             modelBuilder.Entity("Sklep_internetowy.Server.Models.ProductCategory", b =>

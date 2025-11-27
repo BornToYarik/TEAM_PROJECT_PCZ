@@ -1,5 +1,4 @@
-﻿// pages/Products/ProductsList.jsx
-import React, { useState, useEffect } from 'react';
+﻿import React, { useState, useEffect } from 'react';
 import { Plus } from 'lucide-react';
 import ProductCard from '../../components/admin/product/ProductCard';
 import ProductForm from '../../components/admin/product/ProductForm';
@@ -38,11 +37,16 @@ function ProductsList() {
 
     const handleFormSubmit = async (formData) => {
         setError('');
+
         const payload = {
             name: formData.name,
             price: parseFloat(formData.price),
             quantity: parseInt(formData.quantity),
-            description: formData.description || null
+            description: formData.description || null,
+            ProductCategoryId: formData.ProductCategoryId,
+            DiscountPercentage: formData.DiscountPercentage,
+            DiscountStartDate: formData.DiscountStartDate,
+            DiscountEndDate: formData.DiscountEndDate
         };
 
         try {
@@ -57,7 +61,8 @@ function ProductsList() {
                     fetchProducts();
                     handleCloseForm();
                 } else {
-                    setError('Error updating product');
+                    const errorData = await response.json();
+                    setError(errorData.message || 'Error updating product');
                 }
             } else {
                 const response = await fetch(API_URL, {
@@ -70,7 +75,8 @@ function ProductsList() {
                     fetchProducts();
                     handleCloseForm();
                 } else {
-                    setError('Error creating product');
+                    const errorData = await response.json();
+                    setError(errorData.message || 'Error creating product');
                 }
             }
         } catch (err) {
@@ -85,6 +91,9 @@ function ProductsList() {
 
     const handleDelete = async (id) => {
         setError('');
+        if (!window.confirm('Are you sure you want to delete this product?')) {
+            return;
+        }
         try {
             const response = await fetch(`${API_URL}/remove`, {
                 method: 'POST',
@@ -113,7 +122,7 @@ function ProductsList() {
                 <h1>Products</h1>
                 <button
                     className="btn btn-primary d-flex align-items-center gap-2"
-                    onClick={() => setShowForm(true)}
+                    onClick={() => { setShowForm(true); setEditingProduct(null); }}
                 >
                     <Plus size={20} />
                     Add Product

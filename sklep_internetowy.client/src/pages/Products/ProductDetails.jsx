@@ -40,11 +40,16 @@ function ProductDetails() {
 
     const handleFormSubmit = async (formData) => {
         setError('');
+
         const payload = {
             name: formData.name,
             price: parseFloat(formData.price),
             quantity: parseInt(formData.quantity),
-            description: formData.description || null
+            description: formData.description || null,
+            ProductCategoryId: formData.ProductCategoryId,
+            DiscountPercentage: formData.DiscountPercentage,
+            DiscountStartDate: formData.DiscountStartDate,
+            DiscountEndDate: formData.DiscountEndDate
         };
 
         try {
@@ -58,7 +63,8 @@ function ProductDetails() {
                 fetchProduct();
                 setShowForm(false);
             } else {
-                setError('Error updating product');
+                const errorData = await response.json();
+                setError(errorData.message || 'Error updating product');
             }
         } catch (err) {
             setError('Server connection error');
@@ -66,23 +72,24 @@ function ProductDetails() {
     };
 
     const handleDelete = async () => {
-        if (window.confirm('Are you sure you want to delete this product?')) {
-            setError('');
-            try {
-                const response = await fetch(`${API_URL}/remove`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ id: parseInt(id) })
-                });
+        if (!window.confirm('Are you sure you want to delete this product?')) {
+            return;
+        }
+        setError('');
+        try {
+            const response = await fetch(`${API_URL}/remove`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ id: parseInt(id) })
+            });
 
-                if (response.ok) {
-                    navigate('/products');
-                } else {
-                    setError('Error deleting product');
-                }
-            } catch (err) {
-                setError('Server connection error');
+            if (response.ok) {
+                navigate('/products');
+            } else {
+                setError('Error deleting product');
             }
+        } catch (err) {
+            setError('Server connection error');
         }
     };
 

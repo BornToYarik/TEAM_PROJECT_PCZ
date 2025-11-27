@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Sklep_internetowy.Server.Data;
@@ -11,9 +12,11 @@ using Sklep_internetowy.Server.Data;
 namespace Sklep_internetowy.Server.Migrations
 {
     [DbContext(typeof(StoreDbContext))]
-    partial class StoreDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251120143439_initialhhh")]
+    partial class initialhhh
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -233,26 +236,6 @@ namespace Sklep_internetowy.Server.Migrations
                     b.HasIndex("ProductCategoryId");
 
                     b.ToTable("Products");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 50,
-                            Description = "High performance laptop",
-                            Name = "Laptop A",
-                            Price = 1500.00m,
-                            ProductCategoryId = 1,
-                            Quantity = 0
-                        },
-                        new
-                        {
-                            Id = 33,
-                            Description = "High performance laptop",
-                            Name = "Laptop B",
-                            Price = 1500.00m,
-                            ProductCategoryId = 1,
-                            Quantity = 0
-                        });
                 });
 
             modelBuilder.Entity("Sklep_internetowy.Server.Models.ProductCategory", b =>

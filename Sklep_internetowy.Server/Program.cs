@@ -1,12 +1,13 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using Npgsql;
+using Npgsql.EntityFrameworkCore;
 using Sklep_internetowy.Server.Data;
 using Sklep_internetowy.Server.Models;
-using Npgsql.EntityFrameworkCore;
 using Sklep_internetowy.Server.Services.Auth;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -28,8 +29,13 @@ builder.Services.AddCors(options =>
     });
 });
 
+
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+
 builder.Services.AddDbContext<StoreDbContext>(options =>
-    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseNpgsql(connectionString)
+);
+
 
 builder.Services.AddScoped<AccountService>();
 builder.Services.AddScoped<JwtService>();

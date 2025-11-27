@@ -1,4 +1,3 @@
-// components/product/ProductForm.jsx
 import React, { useState, useEffect } from 'react';
 
 const ProductForm = ({ onSubmit, onCancel, initialData, isEditing }) => {
@@ -7,7 +6,10 @@ const ProductForm = ({ onSubmit, onCancel, initialData, isEditing }) => {
         price: '',
         quantity: '',
         description: '',
-        categoryId: ''
+        categoryId: '',
+        discountPercentage: '',
+        discountStartDate: '',
+        discountEndDate: ''
     });
     const [categories, setCategories] = useState([]);
     const [errors, setErrors] = useState({});
@@ -20,19 +22,30 @@ const ProductForm = ({ onSubmit, onCancel, initialData, isEditing }) => {
 
     useEffect(() => {
         if (initialData) {
+            const formatDate = (dateString) => {
+                if (!dateString) return '';
+               
+                return new Date(dateString).toISOString().substring(0, 10);
+            };
+
             setFormData({
-                name: initialData.name,
-                price: initialData.price.toString(),
-                quantity: initialData.quantity.toString(),
+                name: initialData.name || '',
+                price: initialData.price?.toString() || '',
+                quantity: initialData.quantity?.toString() || '',
                 description: initialData.description || '',
-                categoryId: initialData.categoryId.toString()
+                categoryId: initialData.productCategoryId?.toString() || '',
+
+                discountPercentage: initialData.discountPercentage?.toString() || '',
+
+                discountStartDate: formatDate(initialData.discountStartDate),
+                discountEndDate: formatDate(initialData.discountEndDate)
             });
         }
     }, [initialData]);
 
     const fetchCategories = async () => {
         try {
-            const response = await fetch(`${API_URL}/Category`);
+            const response = await fetch(`/api/ProductCategory`);
             if (response.ok) {
                 const data = await response.json();
                 setCategories(data);
@@ -79,6 +92,11 @@ const ProductForm = ({ onSubmit, onCancel, initialData, isEditing }) => {
             newErrors.categoryId = 'Category is required';
         }
 
+        const discPercent = parseFloat(formData.discountPercentage);
+        if (formData.discountPercentage && (isNaN(discPercent) || discPercent < 0 || discPercent > 100)) {
+            newErrors.discountPercentage = 'Discount must be between 0 and 100';
+        }
+
         setErrors(newErrors);
         return Object.keys(newErrors).length === 0;
     };
@@ -87,10 +105,19 @@ const ProductForm = ({ onSubmit, onCancel, initialData, isEditing }) => {
         e.preventDefault();
 
         if (validateForm()) {
-            onSubmit({
-                ...formData,
-                categoryId: parseInt(formData.categoryId)
-            });
+            const dataToSend = {
+                name: formData.name,
+                price: parseFloat(formData.price),
+                quantity: parseInt(formData.quantity),
+                description: formData.description || null,
+                ProductCategoryId: parseInt(formData.categoryId),
+
+                DiscountPercentage: formData.discountPercentage ? parseFloat(formData.discountPercentage) : null,
+                DiscountStartDate: formData.discountStartDate || null,
+                DiscountEndDate: formData.discountEndDate || null,
+            };
+
+            onSubmit(dataToSend);
         }
     };
 
@@ -135,35 +162,76 @@ const ProductForm = ({ onSubmit, onCancel, initialData, isEditing }) => {
                         )}
                     </div>
 
-                    <div className="mb-3">
-                        <label className="form-label">Price *</label>
-                        <input
-                            type="number"
-                            className={`form-control ${errors.price ? 'is-invalid' : ''}`}
-                            name="price"
-                            value={formData.price}
-                            onChange={handleInputChange}
-                            step="0.01"
-                            min="0"
-                        />
-                        {errors.price && (
-                            <div className="invalid-feedback d-block">{errors.price}</div>
-                        )}
+                    <div className="row">
+                        <div className="col-md-6 mb-3">
+                            <label className="form-label">Price *</label>
+                            <input
+                                type="number"
+                                className={`form-control ${errors.price ? 'is-invalid' : ''}`}
+                                name="price"
+                                value={formData.price}
+                                onChange={handleInputChange}
+                                step="0.01"
+                                min="0"
+                            />
+                            {errors.price && (
+                                <div className="invalid-feedback d-block">{errors.price}</div>
+                            )}
+                        </div>
+                        <div className="col-md-6 mb-3">
+                            <label className="form-label">Quantity *</label>
+                            <input
+                                type="number"
+                                className={`form-control ${errors.quantity ? 'is-invalid' : ''}`}
+                                name="quantity"
+                                value={formData.quantity}
+                                onChange={handleInputChange}
+                                min="0"
+                            />
+                            {errors.quantity && (
+                                <div className="invalid-feedback d-block">{errors.quantity}</div>
+                            )}
+                        </div>
                     </div>
 
                     <div className="mb-3">
-                        <label className="form-label">Quantity *</label>
+                        <label className="form-label">Discount Percentage (%)</label>
                         <input
                             type="number"
-                            className={`form-control ${errors.quantity ? 'is-invalid' : ''}`}
-                            name="quantity"
-                            value={formData.quantity}
+                            className={`form-control ${errors.discountPercentage ? 'is-invalid' : ''}`}
+                            name="discountPercentage"
+                            value={formData.discountPercentage}
                             onChange={handleInputChange}
+                            step="0.01"
                             min="0"
+                            max="100"
                         />
-                        {errors.quantity && (
-                            <div className="invalid-feedback d-block">{errors.quantity}</div>
+                        {errors.discountPercentage && (
+                            <div className="invalid-feedback d-block">{errors.discountPercentage}</div>
                         )}
+                    </div>
+
+                    <div className="row">
+                        <div className="col-md-6 mb-3">
+                            <label className="form-label">Discount Start Date</label>
+                            <input
+                                type="date"
+                                className="form-control"
+                                name="discountStartDate"
+                                value={formData.discountStartDate}
+                                onChange={handleInputChange}
+                            />
+                        </div>
+                        <div className="col-md-6 mb-3">
+                            <label className="form-label">Discount End Date</label>
+                            <input
+                                type="date"
+                                className="form-control"
+                                name="discountEndDate"
+                                value={formData.discountEndDate}
+                                onChange={handleInputChange}
+                            />
+                        </div>
                     </div>
 
                     <div className="mb-3">
