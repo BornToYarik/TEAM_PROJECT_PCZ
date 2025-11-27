@@ -163,15 +163,15 @@ function CategoryProducts() {
                                     {isDiscountActive(p) ? (
                                         <div className="mb-2">
                                             <p className="text-decoration-line-through text-muted mb-0 small">
-                                                {p.price.toFixed(2)} zl
+                                                {p.price.toFixed(2)} zł
                                             </p>
                                             <p className="fw-bold text-danger fs-5 mb-0">
-                                                {p.finalPrice.toFixed(2)} zl
+                                                {p.finalPrice.toFixed(2)} zł
                                             </p>
                                         </div>
                                     ) : (
                                         <p className="fw-bold text-success fs-5 mb-2">
-                                            {p.price.toFixed(2)} zl
+                                            {p.price.toFixed(2)} zł
                                         </p>
                                     )}
 
