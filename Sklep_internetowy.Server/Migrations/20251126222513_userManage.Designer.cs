@@ -12,8 +12,8 @@ using Sklep_internetowy.Server.Data;
 namespace Sklep_internetowy.Server.Migrations
 {
     [DbContext(typeof(StoreDbContext))]
-    [Migration("20251125131828_iii")]
-    partial class iii
+    [Migration("20251126222513_userManage")]
+    partial class userManage
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

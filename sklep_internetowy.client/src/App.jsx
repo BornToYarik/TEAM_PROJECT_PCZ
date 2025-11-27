@@ -6,7 +6,7 @@ import Navbar from './components/navbar/Navbar';
 import Home from './pages/Home/Home';
 import LoginPage from './pages/LoginPage/LoginPage';
 import Registration from './pages/Registration/Registration';
-import UsersList from "./pages/Users/UsersList";
+
 import ProductList from "./pages/Products/ProductList";
 import AdminDashboard from './pages/AdminDashboard/AdminDashboard';
 import OrderManagement from './pages/AdminDashboard/Order/OrderManagement.jsx';
@@ -16,27 +16,12 @@ import UsersManage from './pages/AdminDashboard/Users/UsersManage'
 import CategoryProducts from './pages/Products/CategoryProducts.jsx';
 import UserProfile from './pages/UserProfile/UserProfile';
 
-//Admin dashboard
+
 import UserMessageManagement from './pages/AdminDashboard/messages/UserMessageManagement';
 
 function App() {
 
-    const users = [
-        {
-            id: 1,
-            name: "Jan Kowalski",
-            email: "jan.kowalski@example.com",
-            role: "admin",
-            createdAt: "2024-09-15T10:30:00Z",
-        },
-        {
-            id: 2,
-            name: "Anna Nowak",
-            email: "anna.nowak@example.com",
-            role: "user",
-            createdAt: "2024-10-01T12:00:00Z",
-        },
-    ];
+   
 
 
   return (
@@ -54,7 +39,7 @@ function App() {
               <Route path="/admin/users" element={<UsersManage/>} /> 
               <Route path="/admin/products/:id" element={<ProductDetails />} />
 
-              <Route path="/users" element={<UsersList users={users} />} />
+             
               <Route path="/products/:id" element={<ProductDetails />} />
               <Route path="/cart" element={<Cart />} />
 

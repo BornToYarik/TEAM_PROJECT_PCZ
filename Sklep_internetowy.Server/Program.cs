@@ -41,7 +41,13 @@ builder.Services.AddScoped<AccountService>();
 builder.Services.AddScoped<JwtService>();
 builder.Services.Configure<AuthSettings>(builder.Configuration.GetSection("AuthSettings"));
 
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
+        options.JsonSerializerOptions.WriteIndented = true;
+    });
+
 
 builder.Services.AddIdentity<User, IdentityRole>(options =>
 {
