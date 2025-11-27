@@ -172,7 +172,7 @@ function ProductDetails() {
                                     <div className="col-md-6">
                                         <div className="mb-3">
                                             <label className="form-label text-muted">Price</label>
-                                            <h3 className="text-primary">${product.price.toFixed(2)}</h3>
+                                            <h3 className="text-primary">{product.price.toFixed(2)} zl</h3>
                                         </div>
                                     </div>
                                     <div className="col-md-6">
