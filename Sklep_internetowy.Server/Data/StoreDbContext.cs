@@ -4,6 +4,7 @@ using Sklep_internetowy.Server.Models;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using System.Reflection.Emit;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Sklep_internetowy.Server.Data
 {
@@ -42,6 +43,11 @@ namespace Sklep_internetowy.Server.Data
                 .HasForeignKey(p => p.ProductCategoryId)
                 .OnDelete(DeleteBehavior.Restrict);
 
+            modelBuilder.Entity<Product>().HasData(
+                new Product { Id = 50, Name = "Laptop A", Description = "High performance laptop", Price = 1500.00m, ProductCategoryId = 1 },
+                new Product { Id = 33, Name = "Laptop B", Description = "High performance laptop", Price = 1500.00m, ProductCategoryId = 1 }
+            );
+
             modelBuilder.Entity<ProductCategory>().HasData(
                 new ProductCategory { Id = 1, Name = "Laptops", Slug = "laptops", Description = "Portable computers" },
                 new ProductCategory { Id = 2, Name = "Computers", Slug = "computers", Description = "Desktop computers" },
@@ -49,7 +55,7 @@ namespace Sklep_internetowy.Server.Data
                 new ProductCategory { Id = 4, Name = "Gaming", Slug = "gaming", Description = "Gaming devices and accessories" },
                 new ProductCategory { Id = 5, Name = "Accessories", Slug = "accessories", Description = "Computer accessories" },
                 new ProductCategory { Id = 6, Name = "Deals", Slug = "deals", Description = "Special offers" }
-            );
+            );  
         }
     }
 }

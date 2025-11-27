@@ -3,6 +3,10 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Sklep_internetowy.Server.Data;
 using Sklep_internetowy.Server.DTOs;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Sklep_internetowy.Server.Controllers.Admin
 {
@@ -17,12 +21,18 @@ namespace Sklep_internetowy.Server.Controllers.Admin
             _context = context;
         }
 
+        private DateTime? SetUtcKind(DateTime? date)
+        {
+            return date.HasValue ? DateTime.SpecifyKind(date.Value, DateTimeKind.Utc) : null;
+        }
+
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ProductDto>>> GetProducts()
         {
             try
             {
                 var products = await _context.Products
+                    .Include(p => p.ProductCategory)
                     .Select(p => new ProductDto
                     {
                         Id = p.Id,
@@ -49,6 +59,7 @@ namespace Sklep_internetowy.Server.Controllers.Admin
             }
         }
 
+
         [HttpPost]
         public async Task<ActionResult> CreateProduct(CreateProductDto createProductDto)
         {
@@ -65,14 +76,25 @@ namespace Sklep_internetowy.Server.Controllers.Admin
                     Price = createProductDto.Price,
                     Quantity = createProductDto.Quantity,
                     Description = createProductDto.Description,
+
                     DiscountPercentage = createProductDto.DiscountPercentage,
-                    DiscountStartDate = createProductDto.DiscountStartDate,
-                    DiscountEndDate = createProductDto.DiscountEndDate,
+                    DiscountStartDate = SetUtcKind(createProductDto.DiscountStartDate),
+                    DiscountEndDate = SetUtcKind(createProductDto.DiscountEndDate),
+
                     ProductCategoryId = createProductDto.ProductCategoryId
                 };
 
                 _context.Products.Add(product);
                 await _context.SaveChangesAsync();
+
+                await _context.Entry(product)
+                     .Reference(p => p.ProductCategory)
+                     .LoadAsync();
+
+                if (product.ProductCategory == null)
+                {
+                    return BadRequest(new { message = $"Product category with ID {product.ProductCategoryId} not found." });
+                }
 
                 var productDto = new ProductDto
                 {
@@ -95,7 +117,7 @@ namespace Sklep_internetowy.Server.Controllers.Admin
             }
             catch (Exception ex)
             {
-                return StatusCode(500, new { message = "Error creating product", error = ex.Message });
+                return StatusCode(500, new { message = "Error creating product", error = ex.Message, innerError = ex.InnerException?.Message });
             }
         }
 
@@ -128,10 +150,11 @@ namespace Sklep_internetowy.Server.Controllers.Admin
                 product.Price = updateProductDto.Price;
                 product.Quantity = updateProductDto.Quantity;
                 product.Description = updateProductDto.Description;
-                product.DiscountPercentage = updateProductDto.DiscountPercentage;
-                product.DiscountStartDate = updateProductDto.DiscountStartDate;
-                product.DiscountEndDate = updateProductDto.DiscountEndDate;
                 product.ProductCategoryId = updateProductDto.ProductCategoryId;
+
+                product.DiscountPercentage = updateProductDto.DiscountPercentage;
+                product.DiscountStartDate = SetUtcKind(updateProductDto.DiscountStartDate);
+                product.DiscountEndDate = SetUtcKind(updateProductDto.DiscountEndDate);
 
                 _context.Products.Update(product);
                 await _context.SaveChangesAsync();
@@ -140,7 +163,7 @@ namespace Sklep_internetowy.Server.Controllers.Admin
             }
             catch (Exception ex)
             {
-                return StatusCode(500, new { message = "Error updating product", error = ex.Message });
+                return StatusCode(500, new { message = "Error updating product", error = ex.Message, innerError = ex.InnerException?.Message });
             }
         }
 
@@ -148,6 +171,7 @@ namespace Sklep_internetowy.Server.Controllers.Admin
         public async Task<ActionResult<ProductDto>> GetProductById(int id)
         {
             var product = await _context.Products
+                .Include(p => p.ProductCategory)
                 .FirstOrDefaultAsync(p => p.Id == id);
 
             if (product == null)
@@ -175,6 +199,4 @@ namespace Sklep_internetowy.Server.Controllers.Admin
             return Ok(productDto);
         }
     }
-} 
-
-
+}
