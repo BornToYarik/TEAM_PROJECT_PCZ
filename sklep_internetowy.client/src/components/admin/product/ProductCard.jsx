@@ -44,11 +44,11 @@ function ProductCard({ product, onEdit, onDelete }) {
                 <div className="d-flex justify-content-between align-items-center mb-2">
                     {isDiscount ? (
                         <div className="d-flex flex-column">
-                            <span className="h5 mb-0 text-danger">${product.finalPrice.toFixed(2)} zł</span>
-                            <del className="text-muted small">${product.price.toFixed(2)} zł</del>
+                            <span className="h5 mb-0 text-danger">{product.finalPrice.toFixed(2)} zl</span>
+                            <del className="text-muted small">{product.price.toFixed(2)} zl</del>
                         </div>
                     ) : (
-                        <span className="h5 mb-0 text-primary">${product.price.toFixed(2)} zł</span>
+                        <span className="h5 mb-0 text-primary">{product.price.toFixed(2)} zl</span>
                     )}
 
                     <span className={`badge ${product.quantity > 0 ? 'bg-success' : 'bg-danger'}`}>
