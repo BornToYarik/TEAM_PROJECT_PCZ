@@ -60,6 +60,8 @@ function App() {
 
               <Route path="/:slug" element={<CategoryProducts />} />
 
+              <Route path="/profile" element={<UserProfile />} />
+            
         </Routes>
     </>
   )
