@@ -154,6 +154,22 @@ namespace Sklep_internetowy.Server.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("Sklep_internetowy.Server.Models.Auction", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<decimal>("CurrentPrice")
+                        .HasColumnType("numeric");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Auctions");
+                });
+
             modelBuilder.Entity("Sklep_internetowy.Server.Models.Order", b =>
                 {
                     b.Property<int>("Id")
