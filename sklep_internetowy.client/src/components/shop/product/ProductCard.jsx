@@ -16,6 +16,10 @@ function ProductCard() {
 
     const isDiscountActive = (p) => p.hasActiveDiscount || p.discountPercentage > 0;
 
+    const handleProductClick = (id) => {
+        navigate(`/product/${id}`);
+    };
+
     return (
         <div className="container my-5">
 
@@ -49,6 +53,7 @@ function ProductCard() {
                 background: #28a745 !important;
                 color: white;
             }
+            .cursor-pointer { cursor: pointer; }
             `}
             </style>
 
@@ -56,7 +61,8 @@ function ProductCard() {
                 {products.map((p) => (
                     <div key={p.id} className="col-12 col-sm-6 col-md-4 col-lg-3">
                         <div
-                            className={`card h-100 shadow-sm position-relative product-card ${isDiscountActive(p) ? "discount" : "no-discount"
+                            onClick={() => handleProductClick(p.id)}
+                            className={`card h-100 shadow-sm position-relative product-card cursor-pointer ${isDiscountActive(p) ? "discount" : "no-discount"
                                 }`}
                         >
                             {isDiscountActive(p) && (
@@ -73,10 +79,12 @@ function ProductCard() {
                                 className="card-img-top"
                                 alt={p.name}
                                 style={{ objectFit: "cover", height: "200px" }}
+                                
                             />
 
                             <div className="card-body d-flex flex-column">
-                                <h5 className="card-title">{p.name}</h5>
+                                <h5 className="card-title"
+                                    >{p.name}</h5>
 
                                 <p className="text-muted small mb-1">
                                     Category: <strong>{p.productCategory?.name || "None"}</strong>
@@ -114,7 +122,8 @@ function ProductCard() {
                                     <button
                                         className="btn w-100 buy-btn"
                                         disabled={p.quantity <= 0}
-                                        onClick={() => {
+                                        onClick={(e) => {
+                                            e.stopPropagation();
                                             addToCart(p);
                                             navigate("/cart");
                                         }}

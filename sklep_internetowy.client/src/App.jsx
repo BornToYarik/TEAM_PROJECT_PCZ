@@ -6,6 +6,7 @@ import Navbar from './components/navbar/Navbar';
 import Home from './pages/Home/Home';
 import LoginPage from './pages/LoginPage/LoginPage';
 import Registration from './pages/Registration/Registration';
+import Footer from './components/footer/Footer';
 
 import ProductList from "./pages/Products/ProductList";
 import AdminDashboard from './pages/AdminDashboard/AdminDashboard';
@@ -18,6 +19,8 @@ import UserProfile from './pages/UserProfile/UserProfile';
 
 
 import UserMessageManagement from './pages/AdminDashboard/messages/UserMessageManagement';
+
+import ProductDetailsShop from "./pages/Products/Shop/ProductDetailsShop";
 
 function App() {
 
@@ -39,15 +42,17 @@ function App() {
               <Route path="/admin/users" element={<UsersManage/>} /> 
               <Route path="/admin/products/:id" element={<ProductDetails />} />
 
-             
-              <Route path="/products/:id" element={<ProductDetails />} />
+           
               <Route path="/cart" element={<Cart />} />
 
               <Route path="/:slug" element={<CategoryProducts />} />
 
               <Route path="/profile" element={<UserProfile />} />
+
+              <Route path="/product/:id" element={<ProductDetailsShop />} />
             
         </Routes>
+        <Footer />
     </>
   )
 }
