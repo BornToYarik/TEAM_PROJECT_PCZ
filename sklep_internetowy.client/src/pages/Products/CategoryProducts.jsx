@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
+import { useNavigate } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { useCart } from "../../context/CartContext";
 
 function CategoryProducts() {
     const { slug } = useParams();
@@ -9,6 +11,8 @@ function CategoryProducts() {
     const [category, setCategory] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
+    const { addToCart } = useCart();
+    const navigate = useNavigate();
 
     const API_URL = '/api/ProductCategory';
 
@@ -57,8 +61,8 @@ function CategoryProducts() {
         }
     };
 
-    const handleAddToCart = (product) => {
-        console.log(`Adding ${product.name} to cart.`);
+    const handleProductClick = (id) => {
+        navigate(`/product/${id}`);
     };
 
     if (loading) {
@@ -121,14 +125,17 @@ function CategoryProducts() {
                     background: #28a745 !important;
                     color: white;
                 }
+                .cursor-pointer { cursor: pointer; }
                 `}
             </style>
 
             {products.length > 0 && (
                 <div className="row g-3">
                     {products.map((p) => (
-                        <div key={p.id} className="col-12">
-                            <div className="product-list-item d-flex align-items-center bg-white rounded-lg">
+                        <div key={p.id} className="col-12"
+                            onClick={() => handleProductClick(p.id)}>
+                            <div className="product-list-item d-flex align-items-center bg-white rounded-lg cursor-pointer"
+                            >
 
                                 <div className="position-relative me-4">
                                     {isDiscountActive(p) && (
@@ -184,14 +191,14 @@ function CategoryProducts() {
                                     <button
                                         className="btn w-100 buy-btn btn-sm"
                                         disabled={p.quantity <= 0}
-                                        onClick={() => handleAddToCart(p)}
+                                        onClick={(e) => {
+                                            e.stopPropagation();
+                                            addToCart(p)
+                                            navigate("/cart");
+                                        }}
                                     >
                                         {p.quantity > 0 ? "Add to cart" : "Unavailable"}
                                     </button>
-
-                                    <Link to={`/products/${p.id}`} className="btn btn-outline-secondary w-100 btn-sm mt-1">
-                                        Details
-                                    </Link>
                                 </div>
                             </div>
                         </div>
