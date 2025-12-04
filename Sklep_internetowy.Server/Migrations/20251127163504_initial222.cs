@@ -9,7 +9,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Sklep_internetowy.Server.Migrations
 {
     /// <inheritdoc />
-    public partial class userManage : Migration
+    public partial class initial222 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -276,6 +276,15 @@ namespace Sklep_internetowy.Server.Migrations
                     { 4, "Gaming devices and accessories", "Gaming", "gaming" },
                     { 5, "Computer accessories", "Accessories", "accessories" },
                     { 6, "Special offers", "Deals", "deals" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Products",
+                columns: new[] { "Id", "Description", "DiscountEndDate", "DiscountPercentage", "DiscountStartDate", "Name", "Price", "ProductCategoryId", "Quantity" },
+                values: new object[,]
+                {
+                    { 33, "High performance laptop", null, null, null, "Laptop B", 1500.00m, 1, 0 },
+                    { 50, "High performance laptop", null, null, null, "Laptop A", 1500.00m, 1, 0 }
                 });
 
             migrationBuilder.CreateIndex(
