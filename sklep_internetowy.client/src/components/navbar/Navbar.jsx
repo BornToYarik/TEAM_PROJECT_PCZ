@@ -1,26 +1,31 @@
 ﻿import { useState, useEffect } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { isAdmin } from '../../utils/authUtils';
 
 function Navbar() {
     const [searchQuery, setSearchQuery] = useState('');
     const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [isUserAdmin, setIsUserAdmin] = useState(false);
 
     const navigate = useNavigate();
-    const location = useLocation(); 
+    const location = useLocation();
 
-    
     useEffect(() => {
         const token = localStorage.getItem("token");
         if (token) {
             setIsLoggedIn(true);
+            setIsUserAdmin(isAdmin());
         } else {
             setIsLoggedIn(false);
+            setIsUserAdmin(false);
         }
-    }, [location]); 
+    }, [location]);
 
     const handleLogout = () => {
-        localStorage.removeItem("token"); 
-        setIsLoggedIn(false); 
+        localStorage.removeItem("token");
+        localStorage.removeItem("user"); 
+        setIsLoggedIn(false);
+        setIsUserAdmin(false);
         navigate("/login");
     };
 
@@ -33,7 +38,7 @@ function Navbar() {
                         TechStore
                     </Link>
 
-                    {isLoggedIn && (
+                    {isLoggedIn && isUserAdmin && (
                         <Link className="btn btn-outline-warning btn-sm" to="/admin">
                             <i className="bi bi-speedometer2 me-1"></i>
                             Admin Dashboard
@@ -71,7 +76,6 @@ function Navbar() {
                             <i className="bi bi-cart4 fs-4"></i>
                         </Link>
 
-                   
                         {isLoggedIn ? (
                             <div className="d-flex gap-2">
                                 <Link to="/profile" className="btn btn-outline-light btn-sm">
@@ -139,8 +143,6 @@ function Navbar() {
                                     Deals
                                 </Link>
                             </li>
-
-                           
                         </ul>
                     </div>
                 </div>

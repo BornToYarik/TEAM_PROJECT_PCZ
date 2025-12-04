@@ -19,37 +19,66 @@ import UserProfile from './pages/UserProfile/UserProfile';
 
 import PromotionManagement from './pages/AdminDashboard/promotion/PromotionManagement.jsx';
 import UserMessageManagement from './pages/AdminDashboard/messages/UserMessageManagement';
-
 import ProductDetailsShop from "./pages/Products/Shop/ProductDetailsShop";
-
+import ProtectedRoute from './components/ProtectedRoute';
 
 function App() {
 
-  return (
-      <>
-        <Navbar />
-        <Routes>
-              <Route path="/" element={<Home />}></Route>
-              <Route path="/login" element={<LoginPage />}></Route>
-              <Route path="/registration" element={<Registration />}></Route>
-              <Route path="/admin" element={<AdminDashboard />} />
+    return (
+        <>
+            <Navbar />
+            <Routes>
+                <Route path="/" element={<Home />}></Route>
+                <Route path="/login" element={<LoginPage />}></Route>
+                <Route path="/registration" element={<Registration />}></Route>
+                <Route path="/cart" element={<Cart />} />
+                <Route path="/:slug" element={<CategoryProducts />} />
+                <Route path="/profile" element={<UserProfile />} />
+                <Route path="/product/:id" element={<ProductDetailsShop />} />
 
-              <Route path="/admin/orders" element={<OrderManagement />} />
-              <Route path="/admin/messages" element={<UserMessageManagement />} />  
-              <Route path="/admin/products" element={<ProductList />} />
-              <Route path="/admin/users" element={<UsersManage/>} /> 
-              <Route path="/admin/products/:id" element={<ProductDetails />} />
 
-           
-              <Route path="/cart" element={<Cart />} />
+                <Route path="/admin" element={
+                    <ProtectedRoute>
+                        <AdminDashboard />
+                    </ProtectedRoute>
+                } />
 
-              <Route path="/:slug" element={<CategoryProducts />} />
+                <Route path="/admin/orders" element={
+                    <ProtectedRoute>
+                        <OrderManagement />
+                    </ProtectedRoute>
+                } />
 
-              <Route path="/profile" element={<UserProfile />} />
+                <Route path="/admin/messages" element={
+                    <ProtectedRoute>
+                        <UserMessageManagement />
+                    </ProtectedRoute>
+                } />
 
-              <Route path="/product/:id" element={<ProductDetailsShop />} />
+                <Route path="/admin/products" element={
+                    <ProtectedRoute>
+                        <ProductList />
+                    </ProtectedRoute>
+                } />
 
-              <Route path="/admin/promotions" element={<PromotionManagement />} />
+                <Route path="/admin/users" element={
+                    <ProtectedRoute>
+                        <UsersManage />
+                    </ProtectedRoute>
+                } />
+
+                <Route path="/admin/products/:id" element={
+                    <ProtectedRoute>
+                        <ProductDetails />
+                    </ProtectedRoute>
+                } />
+
+
+              <Route path="/admin/promotions" element={
+                     <ProtectedRoute>
+                         <PromotionManagement />
+                      </ProtectedRoute>
+              } />
         </Routes>
         <Footer />
     </>
