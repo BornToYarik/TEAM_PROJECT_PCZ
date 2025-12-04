@@ -1,6 +1,7 @@
 ﻿import React, { useState, useEffect } from 'react';
 import { Container, Table, Button, Modal, Form, Alert, Spinner, ListGroup, InputGroup, FormControl } from 'react-bootstrap';
-
+import { PDFDownloadLink } from '@react-pdf/renderer'; 
+import InvoiceDocument from '../../../components/admin/InvoiceGenerator/InvoiceDocument';
 // --- (R)ead:
 function OrderProductList({ products }) {
     if (!products || products.length === 0) {
@@ -145,7 +146,6 @@ function OrderManagement() {
     }
     const refreshProducts = async () => {
         try {
-            // Убедись, что путь совпадает с тем, что в твоем ProductController (Admin)
             const productsRes = await fetch('/api/panel/Product');
             if (productsRes.ok) {
                 setAllProducts(await productsRes.json());
@@ -278,7 +278,7 @@ function OrderManagement() {
             <h2 className="mb-4">Order Management</h2>
             {error && <Alert variant="danger" onClose={() => setError(null)} dismissible>{error}</Alert>}
 
-            {/* КНОПКА (C)REATE */}
+            {/* button (C)REATE */}
             <Button variant="success" className="mb-3" onClick={handleShowCreateModal}>
                 <i className="bi bi-plus-circle-fill"></i> Create New Order
             </Button>
@@ -301,19 +301,31 @@ function OrderManagement() {
                             <td><OrderProductList products={order.products} /></td>
                             <td>{order.status}</td>
                             <td>
+                                <div className="d-flex gap-2">
                                 <Button variant="warning" size="sm" onClick={() => handleEdit(order)}>
                                     <i className="bi bi-pencil-fill"></i> edit
                                 </Button>{' '}
                                 <Button variant="danger" size="sm" onClick={() => { setEditingOrder(order); setShowDeleteModal(true); }}>
                                     <i className="bi bi-trash-fill"></i> del.
                                 </Button>
+                                    <PDFDownloadLink
+                                        document={<InvoiceDocument order={order} />}
+                                        fileName={`faktura_${order.id}.pdf`}
+                                        className="btn btn-sm btn-info text-white"
+                                    >
+                                        {/* loading) */}
+                                        {({ loading }) =>
+                                            loading ? '...' : <i className="bi bi-file-earmark-pdf-fill"></i>
+                                        }
+                                    </PDFDownloadLink>
+                                </div>
                             </td>
                         </tr>
                     ))}
                 </tbody>
             </Table>
 
-            {/* --- Модальное окно (C)REATE --- */}
+            {/* --- (C)REATE --- */}
             <Modal show={showCreateModal} onHide={handleCloseModal} size="lg">
                 <Modal.Header closeButton>
                     <Modal.Title>Create New Order</Modal.Title>
@@ -355,7 +367,7 @@ function OrderManagement() {
                 </Modal.Footer>
             </Modal>
 
-            {/* --- Модальное окно (U)pdate --- */}
+            {/* ---  (U)pdate --- */}
             {editingOrder && (
                 <Modal show={showEditModal} onHide={handleCloseModal} size="lg">
                     <Modal.Header closeButton>
@@ -396,7 +408,7 @@ function OrderManagement() {
                 </Modal>
             )}
 
-            {/* --- Модальное окно (D)elete --- */}
+            {/* ---  (D)elete --- */}
             <Modal show={showDeleteModal} onHide={handleCloseModal}>
                 <Modal.Header closeButton>
                     <Modal.Title>Confirm Delete</Modal.Title>
