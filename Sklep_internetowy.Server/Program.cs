@@ -9,6 +9,8 @@ using Sklep_internetowy.Server.Data;
 using Sklep_internetowy.Server.Models;
 using Sklep_internetowy.Server.Services.Auth;
 using Sklep_internetowy.Server.Services.Bidding;
+using Sklep_internetowy.Server.Services.Promotion;
+
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -41,6 +43,7 @@ builder.Services.AddScoped<AuctionService>();
 
 builder.Services.AddScoped<AccountService>();
 builder.Services.AddScoped<JwtService>();
+builder.Services.AddScoped<PromotionService>();
 builder.Services.Configure<AuthSettings>(builder.Configuration.GetSection("AuthSettings"));
 
 builder.Services.AddControllers()

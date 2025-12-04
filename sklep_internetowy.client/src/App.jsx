@@ -16,6 +16,8 @@ import ProductDetails from './pages/Products/ProductDetails'
 import UsersManage from './pages/AdminDashboard/Users/UsersManage'
 import CategoryProducts from './pages/Products/CategoryProducts.jsx';
 import UserProfile from './pages/UserProfile/UserProfile';
+
+import PromotionManagement from './pages/AdminDashboard/promotion/PromotionManagement.jsx';
 import UserMessageManagement from './pages/AdminDashboard/messages/UserMessageManagement';
 import ProductDetailsShop from "./pages/Products/Shop/ProductDetailsShop";
 import ProtectedRoute from './components/ProtectedRoute';
@@ -71,10 +73,16 @@ function App() {
                     </ProtectedRoute>
                 } />
 
-            </Routes>
-            <Footer />
-        </>
-    )
+
+              <Route path="/admin/promotions" element={
+                     <ProtectedRoute>
+                         <PromotionManagement />
+                      </ProtectedRoute>
+              } />
+        </Routes>
+        <Footer />
+    </>
+  )
 }
 
 export default App;
