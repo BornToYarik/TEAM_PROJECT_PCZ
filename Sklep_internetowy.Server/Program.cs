@@ -8,7 +8,9 @@ using Npgsql.EntityFrameworkCore;
 using Sklep_internetowy.Server.Data;
 using Sklep_internetowy.Server.Models;
 using Sklep_internetowy.Server.Services.Auth;
+using Sklep_internetowy.Server.Services.Bidding;
 using Sklep_internetowy.Server.Services.Promotion;
+
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -37,6 +39,7 @@ builder.Services.AddDbContext<StoreDbContext>(options =>
     options.UseNpgsql(connectionString)
 );
 
+builder.Services.AddScoped<AuctionService>();
 
 builder.Services.AddScoped<AccountService>();
 builder.Services.AddScoped<JwtService>();
