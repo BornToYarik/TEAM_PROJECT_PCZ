@@ -63,6 +63,20 @@ function AdminDashboard() {
                             </Card.Body>
                         </Card>
                     </Col>
+
+                    <Col md={4}>
+                        <Card className="shadow-sm text-center border-0">
+                            <Card.Body>
+                                <i className="bi bi-tags fs-1 text-warning mb-3"></i>
+                                <Card.Title>Promotions Management</Card.Title>
+                                <Card.Text>Manage promotions</Card.Text>
+                                
+                                <Link to="/admin/promotions" className="btn btn-warning text-white">
+                                    Manage
+                                </Link>
+                            </Card.Body>
+                        </Card>
+                    </Col>
                 </Row>
             </Container>
         </div>

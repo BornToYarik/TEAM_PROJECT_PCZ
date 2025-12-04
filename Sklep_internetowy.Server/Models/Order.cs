@@ -9,6 +9,8 @@ namespace Sklep_internetowy.Server.Models
         public string UserId { get; set; }
         public User User { get; set; } = null!;
 
+        public DateTime OrderDate { get; set; } = DateTime.UtcNow;
+
         public string Status { get; set; } = "pending";
 
         public ICollection<OrderProduct> OrderProducts { get; set; } = new List<OrderProduct>();

@@ -17,15 +17,13 @@ import UsersManage from './pages/AdminDashboard/Users/UsersManage'
 import CategoryProducts from './pages/Products/CategoryProducts.jsx';
 import UserProfile from './pages/UserProfile/UserProfile';
 
-
+import PromotionManagement from './pages/AdminDashboard/promotion/PromotionManagement.jsx';
 import UserMessageManagement from './pages/AdminDashboard/messages/UserMessageManagement';
 
 import ProductDetailsShop from "./pages/Products/Shop/ProductDetailsShop";
 
+
 function App() {
-
-   
-
 
   return (
       <>
@@ -50,7 +48,8 @@ function App() {
               <Route path="/profile" element={<UserProfile />} />
 
               <Route path="/product/:id" element={<ProductDetailsShop />} />
-            
+
+              <Route path="/admin/promotions" element={<PromotionManagement />} />
         </Routes>
         <Footer />
     </>
