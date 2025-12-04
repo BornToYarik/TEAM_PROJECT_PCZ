@@ -16,45 +16,65 @@ import ProductDetails from './pages/Products/ProductDetails'
 import UsersManage from './pages/AdminDashboard/Users/UsersManage'
 import CategoryProducts from './pages/Products/CategoryProducts.jsx';
 import UserProfile from './pages/UserProfile/UserProfile';
-
-
 import UserMessageManagement from './pages/AdminDashboard/messages/UserMessageManagement';
-
 import ProductDetailsShop from "./pages/Products/Shop/ProductDetailsShop";
+import ProtectedRoute from './components/ProtectedRoute';
 
 function App() {
 
-   
+    return (
+        <>
+            <Navbar />
+            <Routes>
+                <Route path="/" element={<Home />}></Route>
+                <Route path="/login" element={<LoginPage />}></Route>
+                <Route path="/registration" element={<Registration />}></Route>
+                <Route path="/cart" element={<Cart />} />
+                <Route path="/:slug" element={<CategoryProducts />} />
+                <Route path="/profile" element={<UserProfile />} />
+                <Route path="/product/:id" element={<ProductDetailsShop />} />
 
 
-  return (
-      <>
-        <Navbar />
-        <Routes>
-              <Route path="/" element={<Home />}></Route>
-              <Route path="/login" element={<LoginPage />}></Route>
-              <Route path="/registration" element={<Registration />}></Route>
-              <Route path="/admin" element={<AdminDashboard />} />
+                <Route path="/admin" element={
+                    <ProtectedRoute>
+                        <AdminDashboard />
+                    </ProtectedRoute>
+                } />
 
-              <Route path="/admin/orders" element={<OrderManagement />} />
-              <Route path="/admin/messages" element={<UserMessageManagement />} />  
-              <Route path="/admin/products" element={<ProductList />} />
-              <Route path="/admin/users" element={<UsersManage/>} /> 
-              <Route path="/admin/products/:id" element={<ProductDetails />} />
+                <Route path="/admin/orders" element={
+                    <ProtectedRoute>
+                        <OrderManagement />
+                    </ProtectedRoute>
+                } />
 
-           
-              <Route path="/cart" element={<Cart />} />
+                <Route path="/admin/messages" element={
+                    <ProtectedRoute>
+                        <UserMessageManagement />
+                    </ProtectedRoute>
+                } />
 
-              <Route path="/:slug" element={<CategoryProducts />} />
+                <Route path="/admin/products" element={
+                    <ProtectedRoute>
+                        <ProductList />
+                    </ProtectedRoute>
+                } />
 
-              <Route path="/profile" element={<UserProfile />} />
+                <Route path="/admin/users" element={
+                    <ProtectedRoute>
+                        <UsersManage />
+                    </ProtectedRoute>
+                } />
 
-              <Route path="/product/:id" element={<ProductDetailsShop />} />
-            
-        </Routes>
-        <Footer />
-    </>
-  )
+                <Route path="/admin/products/:id" element={
+                    <ProtectedRoute>
+                        <ProductDetails />
+                    </ProtectedRoute>
+                } />
+
+            </Routes>
+            <Footer />
+        </>
+    )
 }
 
 export default App;

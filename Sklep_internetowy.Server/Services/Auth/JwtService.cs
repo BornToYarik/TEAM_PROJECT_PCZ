@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Options;
+﻿using Microsoft.AspNetCore.Identity; 
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Sklep_internetowy.Server.Models;
 using System.IdentityModel.Tokens.Jwt;
@@ -7,19 +8,22 @@ using System.Text;
 
 namespace Sklep_internetowy.Server.Services.Auth
 {
-    public class JwtService(IOptions<AuthSettings> options)
+    public class JwtService(IOptions<AuthSettings> options, UserManager<User> userManager)
     {
-        public string GenerateToken(User user)
+        public async Task<string> GenerateToken(User user)
         {
             var claims = new List<Claim> {
-
                 new Claim(ClaimTypes.Name, user.UserName),
-                
-
                 new Claim(ClaimTypes.NameIdentifier, user.UserName),
-
                 new Claim(ClaimTypes.Email, user.Email)
             };
+
+            var roles = await userManager.GetRolesAsync(user);
+
+            foreach (var role in roles)
+            {
+                claims.Add(new Claim(ClaimTypes.Role, role));
+            }
 
             var jwtToken = new JwtSecurityToken(
                 expires: DateTime.UtcNow.Add(options.Value.Expires),

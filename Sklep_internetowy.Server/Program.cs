@@ -61,7 +61,8 @@ builder.Services.AddIdentity<User, IdentityRole>(options =>
     options.User.RequireUniqueEmail = true;
 })
 .AddEntityFrameworkStores<StoreDbContext>()
-.AddDefaultTokenProviders();
+.AddDefaultTokenProviders()
+.AddRoles<IdentityRole>();
 
 var secretKey = builder.Configuration.GetValue<string>("AuthSettings:Key") ??
                 builder.Configuration.GetValue<string>("AuthSettings:SecretKey");
