@@ -2,12 +2,30 @@
 import { useCart } from '../../context/CartContext';
 import { useNavigate, Link } from 'react-router-dom';
 import { Container, Button, Alert, Table } from 'react-bootstrap';
+import { pdf } from '@react-pdf/renderer';
+import InvoiceDocument from '../../components/admin/InvoiceGenerator/InvoiceDocument';
 function Cart() {
     const { cartItems, clearCart, cartTotal, removeFromCart, updateQuantity } = useCart();
     const [status, setStatus] = useState({ type: '', msg: '' });
     const [isOrderSuccess, setIsOrderSuccess] = useState(false);
     const navigate = useNavigate();
+    const downloadInvoice = async (orderData) => {
+        try {
+            const blob = await pdf(<InvoiceDocument order={orderData} />).toBlob();
 
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `faktura_${orderData.id}.pdf`; 
+
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(url); 
+        } catch (error) {
+            console.error("PDF generation failed", error);
+        }
+    };
     const handleCheckout = async () => {
         const storedUser = localStorage.getItem("user");
 
@@ -18,7 +36,7 @@ function Cart() {
         }
 
         const user = JSON.parse(storedUser);
-        const token = localStorage.getItem("token"); 
+        //const token = localStorage.getItem("token"); 
 
         const orderDto = {
             userId: user.id, 
@@ -33,15 +51,16 @@ function Cart() {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    // 'Authorization': `Bearer ${token}` // Раскомментируй, если контроллер Orders требует авторизацию
+                    // 'Authorization': `Bearer ${token}`
                 },
                 body: JSON.stringify(orderDto)
             });
-
+            const data = await response.json();
             if (!response.ok) {
                 const errData = await response.json();
                 throw new Error(errData.message || 'Order failed');
             }
+            await downloadInvoice(data);
             setIsOrderSuccess(true);
 
             clearCart();
@@ -61,6 +80,7 @@ function Cart() {
                         <i className="bi bi-check-circle-fill text-success display-1 mb-4"></i>
                         <h2 className="fw-bold text-success mb-3">Order Placed Successfully!</h2>
                         <p className="fs-5 text-muted">Thank you for your purchase.</p>
+                        <p className="text-muted fw-bold">Your invoice is downloading automatically...</p> {/* Добавил текст */}
                         <p className="text-muted">You will be redirected to the home page shortly...</p>
                         <div className="spinner-border text-success mt-3" role="status">
                             <span className="visually-hidden">Loading...</span>
