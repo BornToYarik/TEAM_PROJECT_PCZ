@@ -31,7 +31,7 @@ function ProductDetails() {
             } else {
                 setError('Error loading product');
             }
-        } catch (err) {
+        } catch {
             setError('Server connection error');
         } finally {
             setLoading(false);
@@ -66,7 +66,7 @@ function ProductDetails() {
                 const errorData = await response.json();
                 setError(errorData.message || 'Error updating product');
             }
-        } catch (err) {
+        } catch {
             setError('Server connection error');
         }
     };
@@ -88,7 +88,7 @@ function ProductDetails() {
             } else {
                 setError('Error deleting product');
             }
-        } catch (err) {
+        } catch {
             setError('Server connection error');
         }
     };

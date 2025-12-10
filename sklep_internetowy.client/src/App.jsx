@@ -21,12 +21,15 @@ import PromotionManagement from './pages/AdminDashboard/promotion/PromotionManag
 import UserMessageManagement from './pages/AdminDashboard/messages/UserMessageManagement';
 import ProductDetailsShop from "./pages/Products/Shop/ProductDetailsShop";
 import ProtectedRoute from './components/ProtectedRoute';
+import { useComparison } from './Hooks/useComparison';
+import ComparePage from './pages/Products/ComparePage';
+
 
 function App() {
-
+    const comparison = useComparison();
     return (
         <>
-            <Navbar />
+            <Navbar compareCount={comparison.compareItems.length} />
             <Routes>
                 <Route path="/" element={<Home />}></Route>
                 <Route path="/login" element={<LoginPage />}></Route>
@@ -34,6 +37,7 @@ function App() {
                 <Route path="/cart" element={<Cart />} />
                 <Route path="/:slug" element={<CategoryProducts />} />
                 <Route path="/profile" element={<UserProfile />} />
+                <Route path="/compare" element={<ComparePage comparison={comparison} />} />
                 <Route path="/product/:id" element={<ProductDetailsShop />} />
 
 

@@ -1,8 +1,10 @@
 ﻿import { useState, useEffect } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { isAdmin } from '../../utils/authUtils';
+// Importujemy funkcję sprawdzającą, czy jest adminem
 
-function Navbar() {
+// Komponent przyjmuje teraz właściwość 'compareCount'
+function Navbar({ compareCount }) {
     const [searchQuery, setSearchQuery] = useState('');
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [isUserAdmin, setIsUserAdmin] = useState(false);
@@ -23,11 +25,14 @@ function Navbar() {
 
     const handleLogout = () => {
         localStorage.removeItem("token");
-        localStorage.removeItem("user"); 
+        localStorage.removeItem("user");
         setIsLoggedIn(false);
         setIsUserAdmin(false);
         navigate("/login");
     };
+
+    // Ustawiamy domyślną wartość na 0, jeśli props nie został przekazany
+    const currentCompareCount = compareCount || 0;
 
     return (
         <>
@@ -61,6 +66,23 @@ function Navbar() {
                                 Search
                             </button>
                         </div>
+
+                        {/* WSKAŹNIK PORÓWNYWANIA PRODUKTÓW */}
+                        <Link
+                            to="/compare"
+                            className="position-relative text-white text-decoration-none"
+                            // Zmieniamy kolor na niebieski (info), jeśli są produkty do porównania
+                            style={{ transition: 'all 0.2s ease', color: currentCompareCount > 0 ? '#17a2b8' : 'white' }}
+                        >
+                            <i className="bi bi-shuffle fs-4"></i> {/* Ikona Porównywania */}
+                            {currentCompareCount > 0 && (
+                                <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-info">
+                                    {currentCompareCount}
+                                </span>
+                            )}
+                        </Link>
+                        {/* KONIEC WSKAŹNIKA PORÓWNYWANIA */}
+
 
                         <Link
                             to="/cart"
