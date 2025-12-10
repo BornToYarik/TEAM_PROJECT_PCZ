@@ -1,10 +1,11 @@
-import ProductCard from "../../components/shop/product/ProductCard";
+import ProductGrid from "../../components/productGrid/ProductGrid";
+import Carousel from "../../components/carousel/Carousel";
 
 function Home() {
     return (
         <>
-            <h2 className="text-center m-5">Home page</h2>
-            <ProductCard />
+            <Carousel />
+            <ProductGrid />
         </>
     )
 }
