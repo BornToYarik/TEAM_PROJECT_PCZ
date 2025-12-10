@@ -58,7 +58,47 @@ namespace Sklep_internetowy.Server.Controllers.Admin
                 return StatusCode(500, new { message = "Error loading products", error = ex.Message });
             }
         }
+        [HttpGet("search")]
+        public async Task<ActionResult<IEnumerable<ProductDto>>> SearchProducts([FromQuery] string q)
+        {
+            if (string.IsNullOrWhiteSpace(q))
+            {
+                return Ok(new List<ProductDto>()); 
+            }
 
+            try
+            {
+                var query = q.ToLower();
+
+                var products = await _context.Products
+                    .Include(p => p.ProductCategory)
+                    .Where(p => (p.Name != null && p.Name.ToLower().Contains(query)) ||
+                                (p.Description != null && p.Description.ToLower().Contains(query)))
+                    .Select(p => new ProductDto
+                    {
+                        Id = p.Id,
+                        Name = p.Name,
+                        Price = p.Price,
+                        Quantity = p.Quantity,
+                        Description = p.Description,
+                        DiscountPercentage = p.DiscountPercentage,
+                        DiscountStartDate = p.DiscountStartDate,
+                        DiscountEndDate = p.DiscountEndDate,
+                        FinalPrice = p.FinalPrice,
+                        HasActiveDiscount = p.HasActiveDiscount,
+                        ProductCategoryId = p.ProductCategoryId,
+                        ProductCategoryName = p.ProductCategory.Name,
+                        ProductCategorySlug = p.ProductCategory.Slug
+                    })
+                    .ToListAsync();
+
+                return Ok(products);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = "Error executing search.", error = ex.Message, innerError = ex.InnerException?.Message });
+            }
+        }
 
         [HttpPost]
         public async Task<ActionResult> CreateProduct(CreateProductDto createProductDto)
