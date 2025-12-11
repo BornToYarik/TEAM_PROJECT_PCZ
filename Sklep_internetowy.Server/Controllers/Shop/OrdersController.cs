@@ -45,7 +45,35 @@ public class OrdersController : ControllerBase
 
         return Ok(orders);
     }
+    // GET: api/Orders/user/{userId}
+    [HttpGet("user/{userId}")]
+    public async Task<ActionResult<IEnumerable<OrderDetailsDto>>> GetUserOrders(string userId)
+    {
+        var orders = await _context.Orders
+            .Where(o => o.UserId == userId)
+            .Include(o => o.User)
+            .Include(o => o.OrderProducts)
+            .ThenInclude(op => op.Product)
+            .OrderByDescending(o => o.OrderDate) 
+            .Select(o => new OrderDetailsDto
+            {
+                Id = o.Id,
+                UserId = o.UserId,
+                UserEmail = o.User.Email,
+                Status = o.Status,
+                OrderDate = o.OrderDate, 
+                Products = o.OrderProducts.Select(op => new OrderProductDetailsDto
+                {
+                    ProductId = op.ProductId,
+                    Name = op.Product.Name,
+                    QuantityInOrder = op.Quantity,
+                    Price = op.Product.Price
+                }).ToList()
+            })
+            .ToListAsync();
 
+        return Ok(orders);
+    }
 
     // (U)PDATE 
     // PUT: /api/orders/5
