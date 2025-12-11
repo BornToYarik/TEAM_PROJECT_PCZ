@@ -195,7 +195,7 @@ function SearchPage() {
                                     </button>
 
                                     <Link
-                                        to={`/products/${p.id}`}
+                                        to={`/product/${p.id}`}
                                         className="btn btn-outline-secondary w-100 btn-sm mt-1"
                                         onClick={(e) => e.stopPropagation()}
                                     >
