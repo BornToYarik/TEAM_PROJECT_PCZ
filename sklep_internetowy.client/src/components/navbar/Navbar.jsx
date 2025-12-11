@@ -11,6 +11,9 @@ function Navbar() {
     const location = useLocation();
 
     useEffect(() => {
+        if (!location.pathname.startsWith('/search')) {
+            setSearchQuery('');
+        }
         const token = localStorage.getItem("token");
         if (token) {
             setIsLoggedIn(true);
@@ -27,6 +30,13 @@ function Navbar() {
         setIsLoggedIn(false);
         setIsUserAdmin(false);
         navigate("/login");
+    };
+
+    const handleSearchSubmit = (e) => {
+        e.preventDefault();
+        if (searchQuery.trim()) {
+            navigate(`/search?q=${encodeURIComponent(searchQuery.trim())}`);
+        }
     };
 
     return (
@@ -46,7 +56,7 @@ function Navbar() {
                     )}
 
                     <div className="d-flex align-items-center gap-4">
-                        <div className="input-group" style={{ width: '400px' }}>
+                        <form className="input-group" style={{ width: '400px' }} onSubmit={handleSearchSubmit}>
                             <span className="input-group-text bg-white border-end-0">
                                 <i className="bi bi-search text-muted"></i>
                             </span>
@@ -57,10 +67,11 @@ function Navbar() {
                                 value={searchQuery}
                                 onChange={(e) => setSearchQuery(e.target.value)}
                             />
-                            <button className="btn btn-warning" type="button">
+                            <button className="btn btn-warning" type="submit">
                                 Search
                             </button>
-                        </div>
+                        </form>
+
 
                         <Link
                             to="/cart"

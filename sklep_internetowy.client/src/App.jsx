@@ -21,7 +21,7 @@ import PromotionManagement from './pages/AdminDashboard/promotion/PromotionManag
 import UserMessageManagement from './pages/AdminDashboard/messages/UserMessageManagement';
 import ProductDetailsShop from "./pages/Products/Shop/ProductDetailsShop";
 import ProtectedRoute from './components/ProtectedRoute';
-
+import SearchPage from './pages/Products/Shop/SearchPage.jsx';
 function App() {
 
     return (
@@ -78,6 +78,12 @@ function App() {
                      <ProtectedRoute>
                          <PromotionManagement />
                       </ProtectedRoute>
+              } />
+
+              <Route path="/search" element={
+                    <ProtectedRoute>
+                        <SearchPage />
+                    </ProtectedRoute>
               } />
         </Routes>
         <Footer />
