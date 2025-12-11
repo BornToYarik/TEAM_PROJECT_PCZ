@@ -148,7 +148,7 @@ function SearchPage() {
                                 </div>
 
                                 <div className="flex-grow-1 me-4">
-                                    <Link to={`/products/${p.id}`} className="text-decoration-none" onClick={(e) => e.stopPropagation()}>
+                                    <Link to={`/product/${p.id}`} className="text-decoration-none" onClick={(e) => e.stopPropagation()}>
                                         <h5 className="card-title text-dark mb-1">{p.name}</h5>
                                     </Link>
                                     <p className="text-muted small mb-1">
