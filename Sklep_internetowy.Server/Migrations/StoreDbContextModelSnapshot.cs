@@ -162,12 +162,59 @@ namespace Sklep_internetowy.Server.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
                     b.Property<decimal>("CurrentPrice")
+                        .HasColumnType("numeric");
+
+                    b.Property<DateTime>("EndTime")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("ItemName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("LastBidTime")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("LastBidder")
+                        .HasColumnType("text");
+
+                    b.Property<decimal>("StartingPrice")
                         .HasColumnType("numeric");
 
                     b.HasKey("Id");
 
                     b.ToTable("Auctions");
+                });
+
+            modelBuilder.Entity("Sklep_internetowy.Server.Models.Bid", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("numeric");
+
+                    b.Property<int>("AuctionId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Bidder")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AuctionId");
+
+                    b.ToTable("Bids");
                 });
 
             modelBuilder.Entity("Sklep_internetowy.Server.Models.Order", b =>
@@ -500,6 +547,17 @@ namespace Sklep_internetowy.Server.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Sklep_internetowy.Server.Models.Bid", b =>
+                {
+                    b.HasOne("Sklep_internetowy.Server.Models.Auction", "Auction")
+                        .WithMany("Bids")
+                        .HasForeignKey("AuctionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Auction");
+                });
+
             modelBuilder.Entity("Sklep_internetowy.Server.Models.Order", b =>
                 {
                     b.HasOne("Sklep_internetowy.Server.Models.User", "User")
@@ -539,6 +597,11 @@ namespace Sklep_internetowy.Server.Migrations
                         .IsRequired();
 
                     b.Navigation("ProductCategory");
+                });
+
+            modelBuilder.Entity("Sklep_internetowy.Server.Models.Auction", b =>
+                {
+                    b.Navigation("Bids");
                 });
 
             modelBuilder.Entity("Sklep_internetowy.Server.Models.Order", b =>

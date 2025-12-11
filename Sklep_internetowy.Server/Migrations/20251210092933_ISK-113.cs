@@ -9,7 +9,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Sklep_internetowy.Server.Migrations
 {
     /// <inheritdoc />
-    public partial class initial : Migration
+    public partial class ISK113 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -62,7 +62,13 @@ namespace Sklep_internetowy.Server.Migrations
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    CurrentPrice = table.Column<decimal>(type: "numeric", nullable: false)
+                    ItemName = table.Column<string>(type: "text", nullable: false),
+                    StartingPrice = table.Column<decimal>(type: "numeric", nullable: false),
+                    CurrentPrice = table.Column<decimal>(type: "numeric", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    EndTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    LastBidder = table.Column<string>(type: "text", nullable: true),
+                    LastBidTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -229,6 +235,28 @@ namespace Sklep_internetowy.Server.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Bids",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Amount = table.Column<decimal>(type: "numeric", nullable: false),
+                    Bidder = table.Column<string>(type: "text", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    AuctionId = table.Column<int>(type: "integer", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Bids", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Bids_Auctions_AuctionId",
+                        column: x => x.AuctionId,
+                        principalTable: "Auctions",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Products",
                 columns: table => new
                 {
@@ -339,6 +367,11 @@ namespace Sklep_internetowy.Server.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_Bids_AuctionId",
+                table: "Bids",
+                column: "AuctionId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_OrderProducts_ProductId",
                 table: "OrderProducts",
                 column: "ProductId");
@@ -373,7 +406,7 @@ namespace Sklep_internetowy.Server.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Auctions");
+                name: "Bids");
 
             migrationBuilder.DropTable(
                 name: "Messages");
@@ -383,6 +416,9 @@ namespace Sklep_internetowy.Server.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
+
+            migrationBuilder.DropTable(
+                name: "Auctions");
 
             migrationBuilder.DropTable(
                 name: "Orders");
