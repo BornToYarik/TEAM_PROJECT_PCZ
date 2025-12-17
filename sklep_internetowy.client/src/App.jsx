@@ -7,7 +7,6 @@ import Home from './pages/Home/Home';
 import LoginPage from './pages/LoginPage/LoginPage';
 import Registration from './pages/Registration/Registration';
 import Footer from './components/footer/Footer';
-
 import ProductList from "./pages/Products/ProductList";
 import AdminDashboard from './pages/AdminDashboard/AdminDashboard';
 import OrderManagement from './pages/AdminDashboard/Order/OrderManagement.jsx';
@@ -16,16 +15,13 @@ import ProductDetails from './pages/Products/ProductDetails'
 import UsersManage from './pages/AdminDashboard/Users/UsersManage'
 import CategoryProducts from './pages/Products/CategoryProducts.jsx';
 import UserProfile from './pages/UserProfile/UserProfile';
-
 import PromotionManagement from './pages/AdminDashboard/promotion/PromotionManagement.jsx';
 import UserMessageManagement from './pages/AdminDashboard/messages/UserMessageManagement';
 import ProductDetailsShop from "./pages/Products/Shop/ProductDetailsShop";
 import ProtectedRoute from './components/ProtectedRoute';
-import { useComparison } from './Hooks/useComparison'; // Upewnij si�, �e folder nazywa si� 'Hooks' czy 'hooks' (wielko�� liter ma znaczenie na Linuxie/Hostingach)
+import { useComparison } from './Hooks/useComparison';
 import ComparePage from './pages/Products/ComparePage';
-
 import SearchPage from './pages/Products/Shop/SearchPage.jsx';
-function App() {
 
 function App() {
     const comparison = useComparison();
