@@ -21,7 +21,7 @@ import PromotionManagement from './pages/AdminDashboard/promotion/PromotionManag
 import UserMessageManagement from './pages/AdminDashboard/messages/UserMessageManagement';
 import ProductDetailsShop from "./pages/Products/Shop/ProductDetailsShop";
 import ProtectedRoute from './components/ProtectedRoute';
-import { useComparison } from './Hooks/useComparison';
+import { useComparison } from './Hooks/useComparison'; // Upewnij siê, ¿e folder nazywa siê 'Hooks' czy 'hooks' (wielkoœæ liter ma znaczenie na Linuxie/Hostingach)
 import ComparePage from './pages/Products/ComparePage';
 
 
@@ -38,7 +38,9 @@ function App() {
                 <Route path="/:slug" element={<CategoryProducts />} />
                 <Route path="/profile" element={<UserProfile />} />
                 <Route path="/compare" element={<ComparePage comparison={comparison} />} />
-                <Route path="/product/:id" element={<ProductDetailsShop />} />
+
+                {/* --- POPRAWKA PONI¯EJ --- */}
+                <Route path="/product/:id" element={<ProductDetailsShop comparison={comparison} />} />
 
 
                 <Route path="/admin" element={
@@ -78,15 +80,15 @@ function App() {
                 } />
 
 
-              <Route path="/admin/promotions" element={
-                     <ProtectedRoute>
-                         <PromotionManagement />
-                      </ProtectedRoute>
-              } />
-        </Routes>
-        <Footer />
-    </>
-  )
+                <Route path="/admin/promotions" element={
+                    <ProtectedRoute>
+                        <PromotionManagement />
+                    </ProtectedRoute>
+                } />
+            </Routes>
+            <Footer />
+        </>
+    )
 }
 
 export default App;

@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useCart } from "../../../context/CartContext";
-import { Shuffle } from 'lucide-react';
-
 
 function ProductDetailsShop({ comparison }) {
     const { id } = useParams();
@@ -12,8 +10,8 @@ function ProductDetailsShop({ comparison }) {
     const navigate = useNavigate();
 
 
-    const isCompared = product ? comparison.isCompared(product.id) : false;
-    const maxReached = product ? comparison.maxReached && !isCompared : false;
+    const isCompared = (product && comparison) ? comparison.isCompared(product.id) : false;
+    const maxReached = (product && comparison) ? comparison.maxReached && !isCompared : false;
 
     useEffect(() => {
         fetch(`/api/home/Product/${id}`)
@@ -31,8 +29,13 @@ function ProductDetailsShop({ comparison }) {
             });
     }, [id]);
 
-
     const handleCompareToggle = () => {
+        
+        if (!comparison) {
+            console.warn("Funkcja porównywania nie jest dostêpna (brak propsa 'comparison').");
+            return;
+        }
+
         if (isCompared) {
             comparison.removeCompareItem(product.id);
         } else {
@@ -75,7 +78,6 @@ function ProductDetailsShop({ comparison }) {
                     <p className="lead">{product.description}</p>
 
                     <div className="d-flex">
-
                         <button
                             className="btn btn-dark flex-shrink-0 me-3"
                             type="button"
@@ -89,18 +91,20 @@ function ProductDetailsShop({ comparison }) {
                             {product.quantity > 0 ? "Add to cart" : "Product unavailable"}
                         </button>
 
-                        <button
-                            className={`btn flex-shrink-0 ${isCompared ? 'btn-outline-danger' : 'btn-outline-primary'}`}
-                            type="button"
-                            onClick={handleCompareToggle}
-                            disabled={maxReached}
-                            title={maxReached ? "Maximum 2 products for comparison" : ""}
-                        >
-                            <i className={`bi-shuffle me-1`}></i>
-                            {isCompared ? "Remove from Compare" : "Add to Compare"}
-                            {maxReached && " (Max 2)"}
-                        </button>
-
+                        
+                        {comparison && (
+                            <button
+                                className={`btn flex-shrink-0 ${isCompared ? 'btn-outline-danger' : 'btn-outline-primary'}`}
+                                type="button"
+                                onClick={handleCompareToggle}
+                                disabled={maxReached}
+                                title={maxReached ? "Maximum 2 products for comparison" : ""}
+                            >
+                                <i className={`bi-shuffle me-1`}></i>
+                                {isCompared ? "Remove from Compare" : "Add to Compare"}
+                                {maxReached && " (Max 2)"}
+                            </button>
+                        )}
                     </div>
                     <p className="mt-3 text-muted small">Pieces available: {product.quantity}</p>
                 </div>
