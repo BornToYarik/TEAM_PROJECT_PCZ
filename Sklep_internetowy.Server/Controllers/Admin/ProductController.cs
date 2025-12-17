@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Sklep_internetowy.Server.Data;
@@ -237,6 +238,49 @@ namespace Sklep_internetowy.Server.Controllers.Admin
             };
 
             return Ok(productDto);
+        }
+
+        [AllowAnonymous]
+        [HttpPost("compare-list")]
+        public async Task<ActionResult<IEnumerable<ProductDto>>> GetProductsForComparison([FromBody] List<int> productIds)
+        {
+            if (productIds == null || !productIds.Any())
+            {
+                return Ok(new List<ProductDto>());
+            }
+
+            // Filtrujemy tylko unikalne ID (na wszelki wypadek)
+            var uniqueIds = productIds.Distinct().Take(2).ToList();
+
+            try
+            {
+                var products = await _context.Products
+                    .Where(p => uniqueIds.Contains(p.Id)) // Pobieramy tylko te, których ID są na liście
+                    .Include(p => p.ProductCategory)
+                    .Select(p => new ProductDto
+                    {
+                        Id = p.Id,
+                        Name = p.Name,
+                        Price = p.Price,
+                        Quantity = p.Quantity,
+                        Description = p.Description,
+                        DiscountPercentage = p.DiscountPercentage,
+                        DiscountStartDate = p.DiscountStartDate,
+                        DiscountEndDate = p.DiscountEndDate,
+                        FinalPrice = p.FinalPrice,
+                        HasActiveDiscount = p.HasActiveDiscount,
+                        ProductCategoryId = p.ProductCategoryId,
+                        ProductCategoryName = p.ProductCategory.Name,
+                        ProductCategorySlug = p.ProductCategory.Slug
+                    })
+                    .ToListAsync();
+
+                return Ok(products);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = "Error loading products for comparison", error = ex.Message });
+            }
         }
     }
 }

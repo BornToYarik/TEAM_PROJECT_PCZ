@@ -84,8 +84,7 @@ const PromotionManagement = () => {
                                 Apply Stock Clearance Discounts
                             </h5>
                             <p className="card-text">
-                                Identifies products with high stock (>{MIN_STOCK_LEVEL} units) and low sales (no sales for >{DAYS_SINCE_LAST_SALE} days) and applies a {PROMOTION_PERCENTAGE}% discount for {PROMOTION_DURATION_DAYS} days.
-                            </p>
+                                Identifies products with high stock ({MIN_STOCK_LEVEL} units) and low sales (no sales for &gt;{DAYS_SINCE_LAST_SALE} days) and applies a {PROMOTION_PERCENTAGE}% discount for {PROMOTION_DURATION_DAYS} days.                            </p>
                             <button
                                 className="btn btn-success w-100 mt-3"
                                 onClick={() => runPromotionTask('apply-discounts')}
