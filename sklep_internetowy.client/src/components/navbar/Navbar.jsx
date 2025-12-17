@@ -13,6 +13,9 @@ function Navbar({ compareCount }) {
     const location = useLocation();
 
     useEffect(() => {
+        if (!location.pathname.startsWith('/search')) {
+            setSearchQuery('');
+        }
         const token = localStorage.getItem("token");
         if (token) {
             setIsLoggedIn(true);
@@ -33,6 +36,12 @@ function Navbar({ compareCount }) {
 
     // Ustawiamy domyślną wartość na 0, jeśli props nie został przekazany
     const currentCompareCount = compareCount || 0;
+    const handleSearchSubmit = (e) => {
+        e.preventDefault();
+        if (searchQuery.trim()) {
+            navigate(`/search?q=${encodeURIComponent(searchQuery.trim())}`);
+        }
+    };
 
     return (
         <>
@@ -51,7 +60,7 @@ function Navbar({ compareCount }) {
                     )}
 
                     <div className="d-flex align-items-center gap-4">
-                        <div className="input-group" style={{ width: '400px' }}>
+                        <form className="input-group" style={{ width: '400px' }} onSubmit={handleSearchSubmit}>
                             <span className="input-group-text bg-white border-end-0">
                                 <i className="bi bi-search text-muted"></i>
                             </span>
@@ -62,10 +71,11 @@ function Navbar({ compareCount }) {
                                 value={searchQuery}
                                 onChange={(e) => setSearchQuery(e.target.value)}
                             />
-                            <button className="btn btn-warning" type="button">
+                            <button className="btn btn-warning" type="submit">
                                 Search
                             </button>
-                        </div>
+                        </form>
+
 
                         {/* WSKAŹNIK PORÓWNYWANIA PRODUKTÓW */}
                         <Link
