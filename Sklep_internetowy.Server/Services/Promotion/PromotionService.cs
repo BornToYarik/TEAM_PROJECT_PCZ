@@ -1,10 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Sklep_internetowy.Server.Data;
+using Sklep_internetowy.Server.DTOs;
 using Sklep_internetowy.Server.Models;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Collections.Generic;
 
 namespace Sklep_internetowy.Server.Services.Promotion
 {
@@ -12,86 +13,78 @@ namespace Sklep_internetowy.Server.Services.Promotion
     {
         private readonly StoreDbContext _context;
 
-        private const int MIN_STOCK_LEVEL = 10;
-        private const int DAYS_SINCE_LAST_SALE = 60;
-        private const decimal PROMOTION_PERCENTAGE = 15;
-        private const int PROMOTION_DURATION_DAYS = 14;
-
         public PromotionService(StoreDbContext context)
         {
             _context = context;
         }
 
-        public async Task<int> ApplyStockClearanceDiscountsAsync()
+        public async Task<IEnumerable<ProductDto>> GetPromotionCandidatesAsync(int? categoryId, int minStock, int daysSinceLastSale)
         {
-            var todayUtc = DateTime.UtcNow.Date;
-            var cutOffDateUtc = todayUtc.AddDays(-DAYS_SINCE_LAST_SALE);
+            var now = DateTime.UtcNow;
 
-            
-            var potentialProducts = await _context.Products
-                .Where(p => p.Quantity >= MIN_STOCK_LEVEL &&
-                            (!p.DiscountPercentage.HasValue || p.DiscountPercentage.Value < PROMOTION_PERCENTAGE))
-                .ToListAsync();
+            var query = _context.Products
+                .Include(p => p.ProductCategory)
+                .Where(p => p.Quantity >= minStock);
 
-            var productsToUpdate = new List<Product>();
+            query = query.Where(p =>
+                !p.DiscountPercentage.HasValue
+                || p.DiscountPercentage <= 0
+                || (p.DiscountStartDate.HasValue && p.DiscountStartDate > now)
+                || (p.DiscountEndDate.HasValue && p.DiscountEndDate < now)
+            );
 
-            foreach (var product in potentialProducts)
+            if (categoryId.HasValue && categoryId > 0)
             {
-                
-                var lastSaleDate = await _context.OrderProducts
-                    .Where(op => op.ProductId == product.Id)
-                    .OrderByDescending(op => op.Order.OrderDate)
-                    .Select(op => (DateTime?)op.Order.OrderDate)
-                    .FirstOrDefaultAsync();
-
-                
-                bool needsDiscount = !lastSaleDate.HasValue || lastSaleDate.Value.Date <= cutOffDateUtc;
-
-                if (needsDiscount)
-                {
-                    product.DiscountPercentage = PROMOTION_PERCENTAGE;
-                    product.DiscountStartDate = todayUtc;
-                    product.DiscountEndDate = todayUtc.AddDays(PROMOTION_DURATION_DAYS);
-
-                    productsToUpdate.Add(product);
-                }
+                query = query.Where(p => p.ProductCategoryId == categoryId);
             }
 
-            if (productsToUpdate.Count > 0)
-            {
-                _context.Products.UpdateRange(productsToUpdate);
-                await _context.SaveChangesAsync();
-            }
+            var products = await query.ToListAsync();
 
-            return productsToUpdate.Count;
+            return products.Select(p => new ProductDto
+            {
+                Id = p.Id,
+                Name = p.Name,
+                Price = p.Price,
+                Quantity = p.Quantity,
+                ProductCategoryName = p.ProductCategory.Name,
+                HasActiveDiscount = p.HasActiveDiscount
+            }).ToList();
         }
 
-        
-        public async Task<int> RemoveExpiredDiscountsAsync()
+        public async Task<int> ApplyBulkDiscountsAsync(List<int> productIds, int percentage, int durationDays)
         {
-            var nowUtc = DateTime.UtcNow;
-
-            var productsToRemoveDiscount = await _context.Products
-                .Where(p => p.DiscountPercentage.HasValue && p.DiscountPercentage > 0 &&
-                            p.DiscountEndDate.HasValue && 
-                            p.DiscountEndDate.Value < nowUtc) 
+            var products = await _context.Products
+                .Where(p => productIds.Contains(p.Id))
                 .ToListAsync();
 
-            foreach (var product in productsToRemoveDiscount)
+            var startDate = DateTime.UtcNow;
+            var endDate = startDate.AddDays(durationDays);
+
+            foreach (var product in products)
             {
-                
-                product.DiscountPercentage = null;
-                product.DiscountStartDate = null;
-                product.DiscountEndDate = null;
+                product.DiscountPercentage = percentage;
+                product.DiscountStartDate = startDate;
+                product.DiscountEndDate = endDate;
             }
 
-            if (productsToRemoveDiscount.Count > 0)
+            return await _context.SaveChangesAsync();
+        }
+
+        public async Task<int> RemoveExpiredDiscountsAsync()
+        {
+            var now = DateTime.UtcNow;
+            var expiredProducts = await _context.Products
+                .Where(p => p.DiscountEndDate.HasValue && p.DiscountEndDate.Value < now)
+                .ToListAsync();
+
+            foreach (var p in expiredProducts)
             {
-                _context.Products.UpdateRange(productsToRemoveDiscount);
-                await _context.SaveChangesAsync();
+                p.DiscountPercentage = null;
+                p.DiscountStartDate = null;
+                p.DiscountEndDate = null;
             }
 
-            return productsToRemoveDiscount.Count;
+            return await _context.SaveChangesAsync();
         }
     }
 }
