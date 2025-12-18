@@ -59,12 +59,13 @@ namespace Sklep_internetowy.Server.Controllers.Admin
                 return StatusCode(500, new { message = "Error loading products", error = ex.Message });
             }
         }
+
         [HttpGet("search")]
         public async Task<ActionResult<IEnumerable<ProductDto>>> SearchProducts([FromQuery] string q)
         {
             if (string.IsNullOrWhiteSpace(q))
             {
-                return Ok(new List<ProductDto>()); 
+                return Ok(new List<ProductDto>());
             }
 
             try
@@ -162,7 +163,6 @@ namespace Sklep_internetowy.Server.Controllers.Admin
             }
         }
 
-
         [HttpPost("remove")]
         public async Task<ActionResult> RemoveProduct(RemoveProductDto removeProductDto)
         {
@@ -249,13 +249,12 @@ namespace Sklep_internetowy.Server.Controllers.Admin
                 return Ok(new List<ProductDto>());
             }
 
-            // Filtrujemy tylko unikalne ID (na wszelki wypadek)
             var uniqueIds = productIds.Distinct().Take(2).ToList();
 
             try
             {
                 var products = await _context.Products
-                    .Where(p => uniqueIds.Contains(p.Id)) // Pobieramy tylko te, których ID są na liście
+                    .Where(p => uniqueIds.Contains(p.Id))
                     .Include(p => p.ProductCategory)
                     .Select(p => new ProductDto
                     {
@@ -280,6 +279,65 @@ namespace Sklep_internetowy.Server.Controllers.Admin
             catch (Exception ex)
             {
                 return StatusCode(500, new { message = "Error loading products for comparison", error = ex.Message });
+            }
+        }
+
+        [AllowAnonymous]
+        [HttpGet("suggestions")]
+        public async Task<ActionResult> GetSuggestions([FromQuery] string q)
+        {
+            if (string.IsNullOrWhiteSpace(q))
+            {
+                return Ok(new { categories = new List<string>(), products = new List<ProductDto>() });
+            }
+
+            try
+            {
+                var query = q.ToLower().Trim();
+
+                var allProducts = await _context.Products
+                    .Include(p => p.ProductCategory)
+                    .Where(p => p.Name != null && p.Name.ToLower().Contains(query))
+                    .ToListAsync();
+
+                var sortedProducts = allProducts
+                    .OrderByDescending(p => p.Name.ToLower().StartsWith(query))
+                    .ThenBy(p => p.Name.Length)
+                    .Take(6)
+                    .Select(p => new ProductDto
+                    {
+                        Id = p.Id,
+                        Name = p.Name,
+                        Price = p.Price,
+                        FinalPrice = p.FinalPrice,
+                        HasActiveDiscount = p.HasActiveDiscount,
+                        ProductCategoryName = p.ProductCategory?.Name,
+                        Description = p.Description
+                    })
+                    .ToList();
+
+                
+                var categories = allProducts
+                    .Where(p => p.ProductCategory != null)
+                    .Select(p => p.ProductCategory.Name)
+                    .Distinct()
+                    .OrderBy(c => c)
+                    .Take(5)
+                    .ToList();
+
+                return Ok(new
+                {
+                    categories = categories,
+                    products = sortedProducts
+                });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new
+                {
+                    message = "Error getting suggestions",
+                    error = ex.Message
+                });
             }
         }
     }
