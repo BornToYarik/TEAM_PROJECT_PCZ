@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Trash2, Edit } from 'lucide-react';
 
 function ProductCard({ product, onEdit, onDelete }) {
+
     const isDiscount = product.hasActiveDiscount && product.finalPrice < product.price;
 
     const handleDelete = () => {
@@ -10,6 +11,8 @@ function ProductCard({ product, onEdit, onDelete }) {
             onDelete(product.id);
         }
     };
+
+
 
     return (
         <div className="card h-100 shadow-sm position-relative">

@@ -37,7 +37,6 @@ function App() {
                 <Route path="/profile" element={<UserProfile />} />
                 <Route path="/compare" element={<ComparePage comparison={comparison} />} />
 
-                {/* --- POPRAWKA PONI�EJ --- */}
                 <Route path="/product/:id" element={<ProductDetailsShop comparison={comparison} />} />
 
 

@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Sklep_internetowy.Server.Data;
 using Sklep_internetowy.Server.DTOs;
+using Sklep_internetowy.Server.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,10 +17,12 @@ namespace Sklep_internetowy.Server.Controllers.Admin
     public class ProductController : ControllerBase
     {
         private readonly StoreDbContext _context;
+        private readonly IWebHostEnvironment _environment;
 
-        public ProductController(StoreDbContext context)
+        public ProductController(StoreDbContext context, IWebHostEnvironment environment)
         {
             _context = context;
+            _environment = environment;
         }
 
         private DateTime? SetUtcKind(DateTime? date)
@@ -34,6 +37,7 @@ namespace Sklep_internetowy.Server.Controllers.Admin
             {
                 var products = await _context.Products
                     .Include(p => p.ProductCategory)
+                    .Include(p => p.Images)
                     .Select(p => new ProductDto
                     {
                         Id = p.Id,
@@ -48,7 +52,8 @@ namespace Sklep_internetowy.Server.Controllers.Admin
                         HasActiveDiscount = p.HasActiveDiscount,
                         ProductCategoryId = p.ProductCategoryId,
                         ProductCategoryName = p.ProductCategory.Name,
-                        ProductCategorySlug = p.ProductCategory.Slug
+                        ProductCategorySlug = p.ProductCategory.Slug,
+                        ImageUrls = p.Images.Select(img => img.ImageUrl).ToList()
                     })
                     .ToListAsync();
 
@@ -103,64 +108,50 @@ namespace Sklep_internetowy.Server.Controllers.Admin
         }
 
         [HttpPost]
-        public async Task<ActionResult> CreateProduct(CreateProductDto createProductDto)
+        public async Task<ActionResult> CreateProduct([FromForm] CreateProductWithFilesDto formDto)
         {
-            if (!ModelState.IsValid)
+            var product = new Models.Product
             {
-                return BadRequest(ModelState);
-            }
+                Name = formDto.Name,
+                Price = formDto.Price,
+                Quantity = formDto.Quantity,
+                Description = formDto.Description,
+                ProductCategoryId = formDto.ProductCategoryId,
+                DiscountPercentage = formDto.DiscountPercentage,
+                DiscountStartDate = SetUtcKind(formDto.DiscountStartDate),
+                DiscountEndDate = SetUtcKind(formDto.DiscountEndDate)
+            };
 
-            try
+            if (formDto.Images != null && formDto.Images.Count > 0)
             {
-                var product = new Models.Product
+                var uploadsFolder = Path.Combine(_environment.WebRootPath, "uploads");
+                if (!Directory.Exists(uploadsFolder))
+                    Directory.CreateDirectory(uploadsFolder);
+
+                foreach (var file in formDto.Images)
                 {
-                    Name = createProductDto.Name,
-                    Price = createProductDto.Price,
-                    Quantity = createProductDto.Quantity,
-                    Description = createProductDto.Description,
+                    if (file.Length > 0)
+                    {
+                        var uniqueFileName = Guid.NewGuid().ToString() + "_" + file.FileName;
+                        var filePath = Path.Combine(uploadsFolder, uniqueFileName);
 
-                    DiscountPercentage = createProductDto.DiscountPercentage,
-                    DiscountStartDate = SetUtcKind(createProductDto.DiscountStartDate),
-                    DiscountEndDate = SetUtcKind(createProductDto.DiscountEndDate),
+                        using (var fileStream = new FileStream(filePath, FileMode.Create))
+                        {
+                            await file.CopyToAsync(fileStream);
+                        }
 
-                    ProductCategoryId = createProductDto.ProductCategoryId
-                };
-
-                _context.Products.Add(product);
-                await _context.SaveChangesAsync();
-
-                await _context.Entry(product)
-                     .Reference(p => p.ProductCategory)
-                     .LoadAsync();
-
-                if (product.ProductCategory == null)
-                {
-                    return BadRequest(new { message = $"Product category with ID {product.ProductCategoryId} not found." });
+                        product.Images.Add(new ProductImage
+                        {
+                            ImageUrl = "/uploads/" + uniqueFileName
+                        });
+                    }
                 }
-
-                var productDto = new ProductDto
-                {
-                    Id = product.Id,
-                    Name = product.Name,
-                    Price = product.Price,
-                    Quantity = product.Quantity,
-                    Description = product.Description,
-                    DiscountPercentage = product.DiscountPercentage,
-                    DiscountStartDate = product.DiscountStartDate,
-                    DiscountEndDate = product.DiscountEndDate,
-                    FinalPrice = product.FinalPrice,
-                    HasActiveDiscount = product.HasActiveDiscount,
-                    ProductCategoryId = product.ProductCategoryId,
-                    ProductCategoryName = product.ProductCategory.Name,
-                    ProductCategorySlug = product.ProductCategory.Slug
-                };
-
-                return CreatedAtAction(nameof(GetProductById), new { id = product.Id }, productDto);
             }
-            catch (Exception ex)
-            {
-                return StatusCode(500, new { message = "Error creating product", error = ex.Message, innerError = ex.InnerException?.Message });
-            }
+
+            _context.Products.Add(product);
+            await _context.SaveChangesAsync();
+
+            return Ok();
         }
 
         [HttpPost("remove")]

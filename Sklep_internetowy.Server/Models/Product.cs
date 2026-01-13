@@ -14,6 +14,7 @@ namespace Sklep_internetowy.Server.Models
         public decimal? DiscountPercentage { get; set; }
         public DateTime? DiscountStartDate { get; set; }
         public DateTime? DiscountEndDate { get; set; }
+        public ICollection<ProductImage> Images { get; set; } = new List<ProductImage>();
 
         public decimal FinalPrice
         {
