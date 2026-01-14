@@ -22,6 +22,10 @@ import ProtectedRoute from './components/ProtectedRoute';
 import { useComparison } from './Hooks/useComparison';
 import ComparePage from './pages/Products/ComparePage';
 import SearchPage from './pages/Products/Shop/SearchPage.jsx';
+import AuctionList from "./pages/Auction/AuctionList";
+import AuctionDetails from "./pages/Auction/AuctionDetails";
+import CreateAuction from "./pages/Auction/CreateAuction";
+
 
 function App() {
     const comparison = useComparison();
