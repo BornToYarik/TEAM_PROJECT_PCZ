@@ -16,7 +16,15 @@ export default defineConfig({
                 target: 'https://localhost:7001',
                 changeOrigin: true,
                 secure: false,
+            },
+            '/auctionHub': {
+                target: 'http://localhost:8080',
+                changeOrigin: true,
+                secure: false,
+                ws: true 
             }
         }
     }
 })
+
+

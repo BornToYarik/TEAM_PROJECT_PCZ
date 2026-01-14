@@ -39,6 +39,9 @@ function App() {
 
                 <Route path="/product/:id" element={<ProductDetailsShop comparison={comparison} />} />
 
+                <Route path="/auctions" element={<AuctionList />} />
+                <Route path="/auction/:id" element={<AuctionDetails />} />
+                <Route path="/admin/create-auction" element={<CreateAuction />} />
 
                 <Route path="/admin" element={
                     <ProtectedRoute>
