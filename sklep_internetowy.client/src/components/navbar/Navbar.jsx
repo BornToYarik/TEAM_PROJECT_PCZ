@@ -154,6 +154,12 @@ function Navbar() {
                                     Deals
                                 </Link>
                             </li>
+                            <li className="nav-item">
+                                <Link className="nav-link fw-semibold text-danger" to="/auctions">
+                                    <i className="bi bi-tag-fill me-1"></i>
+                                    Auctions
+                                </Link>
+                            </li>
                         </ul>
                     </div>
                 </div>

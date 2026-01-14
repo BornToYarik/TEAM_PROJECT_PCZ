@@ -100,7 +100,7 @@ namespace Sklep_internetowy.Server.Controllers.Admin
             }
         }
 
-        [HttpPost]
+        [HttpPost("create")]
         public async Task<ActionResult> CreateProduct(CreateProductDto createProductDto)
         {
             if (!ModelState.IsValid)

@@ -22,6 +22,10 @@ import UserMessageManagement from './pages/AdminDashboard/messages/UserMessageMa
 import ProductDetailsShop from "./pages/Products/Shop/ProductDetailsShop";
 import ProtectedRoute from './components/ProtectedRoute';
 import SearchPage from './pages/Products/Shop/SearchPage.jsx';
+import AuctionList from "./pages/Auction/AuctionList";
+import AuctionDetails from "./pages/Auction/AuctionDetails";
+import CreateAuction from "./pages/Auction/CreateAuction";
+
 function App() {
 
     return (
@@ -36,6 +40,9 @@ function App() {
                 <Route path="/profile" element={<UserProfile />} />
                 <Route path="/product/:id" element={<ProductDetailsShop />} />
 
+                <Route path="/auctions" element={<AuctionList />} />
+                <Route path="/auction/:id" element={<AuctionDetails />} />
+                <Route path="/admin/create-auction" element={<CreateAuction />} />
 
                 <Route path="/admin" element={
                     <ProtectedRoute>
