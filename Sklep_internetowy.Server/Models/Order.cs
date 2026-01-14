@@ -6,8 +6,10 @@ namespace Sklep_internetowy.Server.Models
     {
         public int Id { get; set; }
 
-        public int UserId { get; set; }
+        public string UserId { get; set; }
         public User User { get; set; } = null!;
+
+        public DateTime OrderDate { get; set; } = DateTime.UtcNow;
 
         public string Status { get; set; } = "pending";
 

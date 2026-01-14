@@ -1,26 +1,69 @@
+import { useState } from "react";
+
 function Footer() {
+    const [form, setForm] = useState({
+        email: "",
+        name: "",
+        phone: "",
+        message: "",
+    });
+
+    const handleChange = (e) => {
+        setForm({ ...form, [e.target.id]: e.target.value });
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        try {
+            const res = await fetch("/api/panel/Message", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    email: form.email,
+                    name: form.name,
+                    phone: form.phone,
+                    content: form.message,
+                }),
+            });
+
+            if (res.ok) {
+                alert("Message is send!");
+                setForm({ email: "", name: "", phone: "", message: "" });
+            } else {
+                alert("Error due sending message");
+            }
+        } catch (err) {
+            console.error("Error:", err);
+        }
+    };
+
     return (
         <footer className="bg-dark text-white">
             <div className="container p-1">
                 <div className="row">
                     <div className="m-2 col p-3">
                         <h3 className="text-center">CONTACT US</h3>
-                        <form>
+                        <form onSubmit={handleSubmit}>
                             <div className="mb-3">
                                 <label htmlFor="email" className="form-label">Email</label>
-                                <input type="email" className="form-control" id="email" placeholder="Email" />
+                                <input type="email" className="form-control" id="email"
+                                    value={form.email} onChange={handleChange} required />
                             </div>
                             <div className="mb-3">
                                 <label htmlFor="name" className="form-label">Name</label>
-                                <input type="text" className="form-control" id="name" placeholder="Name and surname" />
+                                <input type="text" className="form-control" id="name"
+                                    value={form.name} onChange={handleChange} required />
                             </div>
                             <div className="mb-3">
                                 <label htmlFor="phone" className="form-label">Telephone</label>
-                                <input type="tel" className="form-control" id="phone" placeholder="Telephone number" />
+                                <input type="tel" className="form-control" id="phone"
+                                    value={form.phone} onChange={handleChange} />
                             </div>
                             <div className="mb-3">
                                 <label htmlFor="message" className="form-label">Message</label>
-                                <textarea className="form-control" id="message" rows="4" placeholder="Your message"></textarea>
+                                <textarea className="form-control" id="message" rows="4"
+                                    value={form.message} onChange={handleChange} required />
                             </div>
                             <button type="submit" className="btn btn-primary w-100">Send</button>
                         </form>

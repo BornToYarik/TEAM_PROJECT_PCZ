@@ -1,6 +1,65 @@
-import { Container, Row, Col, Form, Button, Card } from 'react-bootstrap';
+import { useState } from "react";
+import { Container, Row, Col, Form, Button, Card, Alert } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 
 function Registration() {
+    const [form, setForm] = useState({
+        userName: "",
+        email: "",
+        password: "",
+        confirmPassword: ""
+    });
+
+    const [message, setMessage] = useState("");
+    const [error, setError] = useState("");
+
+    const navigate = useNavigate();
+
+    const handleChange = (e) => {
+        setForm({ ...form, [e.target.name]: e.target.value });
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        setMessage("");
+        setError("");
+
+        if (form.password !== form.confirmPassword) {
+            setError("Passwords do not match");
+            return;
+        }
+
+        try {
+            const response = await fetch("/api/Auth/register", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    userName: form.userName,
+                    email: form.email,
+                    password: form.password
+                }),
+            });
+
+            const data = await response.json();
+
+            if (!response.ok) {
+                setError(data.message || "Registration failed");
+            } else {
+                setMessage(data.message || "Registration successful! Redirecting to login...");
+                setForm({ userName: "", email: "", password: "", confirmPassword: "" });
+
+                // 3. PRZEKIEROWANIE Z OPӏNIENIEM (2 sekundy)
+                setTimeout(() => {
+                    navigate("/login");
+                }, 2000);
+            }
+        } catch (err) {
+            setError("Network error: " + err.message);
+        }
+    };
+
     return (
         <div className="min-vh-100 d-flex align-items-center">
             <Container>
@@ -12,25 +71,52 @@ function Registration() {
                                     Registration
                                 </Card.Title>
 
-                                <Form>
+                                {message && <Alert variant="success">{message}</Alert>}
+                                {error && <Alert variant="danger">{error}</Alert>}
+
+                                <Form onSubmit={handleSubmit}>
                                     <Form.Group className="mb-3" controlId="formBasicName">
                                         <Form.Label>Name</Form.Label>
-                                        <Form.Control type="text" placeholder="Enter your name" />
+                                        <Form.Control
+                                            type="text"
+                                            placeholder="Enter your name"
+                                            name="userName"
+                                            value={form.userName}
+                                            onChange={handleChange}
+                                        />
                                     </Form.Group>
 
                                     <Form.Group className="mb-3" controlId="formBasicEmail">
                                         <Form.Label>Email address</Form.Label>
-                                        <Form.Control type="email" placeholder="Enter email" />
+                                        <Form.Control
+                                            type="email"
+                                            placeholder="Enter email"
+                                            name="email"
+                                            value={form.email}
+                                            onChange={handleChange}
+                                        />
                                     </Form.Group>
 
                                     <Form.Group className="mb-3" controlId="formBasicPassword">
                                         <Form.Label>Password</Form.Label>
-                                        <Form.Control type="password" placeholder="Enter password" />
+                                        <Form.Control
+                                            type="password"
+                                            placeholder="Enter password"
+                                            name="password"
+                                            value={form.password}
+                                            onChange={handleChange}
+                                        />
                                     </Form.Group>
 
                                     <Form.Group className="mb-3" controlId="formBasicConfirmPassword">
                                         <Form.Label>Confirm Password</Form.Label>
-                                        <Form.Control type="password" placeholder="Confirm password" />
+                                        <Form.Control
+                                            type="password"
+                                            placeholder="Confirm password"
+                                            name="confirmPassword"
+                                            value={form.confirmPassword}
+                                            onChange={handleChange}
+                                        />
                                     </Form.Group>
 
                                     <div className="d-grid">

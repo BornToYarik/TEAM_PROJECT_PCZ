@@ -1,0 +1,44 @@
+﻿using Microsoft.AspNetCore.Identity; 
+using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
+using Sklep_internetowy.Server.Models;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
+
+namespace Sklep_internetowy.Server.Services.Auth
+{
+    public class JwtService(IOptions<AuthSettings> options, UserManager<User> userManager)
+    {
+        public async Task<string> GenerateToken(User user)
+        {
+            var claims = new List<Claim> {
+                new Claim(ClaimTypes.Name, user.UserName),
+                //new Claim(ClaimTypes.NameIdentifier, user.UserName),
+                new Claim(ClaimTypes.NameIdentifier, user.Id),
+               new Claim(JwtRegisteredClaimNames.Sub, user.Id),
+
+                new Claim(ClaimTypes.Email, user.Email),
+                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+            };
+
+            var roles = await userManager.GetRolesAsync(user);
+
+            foreach (var role in roles)
+            {
+                claims.Add(new Claim(ClaimTypes.Role, role));
+            }
+
+            var jwtToken = new JwtSecurityToken(
+                expires: DateTime.UtcNow.Add(options.Value.Expires),
+                claims: claims,
+                signingCredentials:
+                    new SigningCredentials(
+                        new SymmetricSecurityKey(Encoding.UTF8.GetBytes(options.Value.SecretKey))
+                        , SecurityAlgorithms.HmacSha256)
+
+                );
+            return new JwtSecurityTokenHandler().WriteToken(jwtToken);
+        }
+    }
+}
