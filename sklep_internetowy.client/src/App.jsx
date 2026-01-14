@@ -25,7 +25,7 @@ import SearchPage from './pages/Products/Shop/SearchPage.jsx';
 import AuctionList from "./pages/Auction/AuctionList";
 import AuctionDetails from "./pages/Auction/AuctionDetails";
 import CreateAuction from "./pages/Auction/CreateAuction";
-
+import WishlistPage from './pages/WishList/WishlistPage';
 
 function App() {
     const comparison = useComparison();
@@ -37,6 +37,7 @@ function App() {
                 <Route path="/login" element={<LoginPage />}></Route>
                 <Route path="/registration" element={<Registration />}></Route>
                 <Route path="/cart" element={<Cart />} />
+                <Route path="/wishlistpage" element={<WishlistPage />} />
                 <Route path="/:slug" element={<CategoryProducts />} />
                 <Route path="/profile" element={<UserProfile />} />
                 <Route path="/compare" element={<ComparePage comparison={comparison} />} />

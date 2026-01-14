@@ -1,7 +1,8 @@
 ﻿import { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { isAdmin } from '../../utils/authUtils';
-
+import { useWishlist } from '../../context/WishlistContext'; 
+import { useCart } from '../../context/CartContext';
 function Navbar({ compareCount }) {
     const [searchQuery, setSearchQuery] = useState('');
     const [suggestions, setSuggestions] = useState({ categories: [], products: [] });
@@ -13,7 +14,8 @@ function Navbar({ compareCount }) {
     const navigate = useNavigate();
     const location = useLocation();
     const dropdownRef = useRef(null);
-
+    const { wishlist } = useWishlist();
+    const { totalItems } = useCart();
     const handleLogout = () => {
         localStorage.removeItem("token");
         localStorage.removeItem("user");
@@ -153,27 +155,46 @@ function Navbar({ compareCount }) {
                             )}
                         </div>
 
-                        <div className="d-flex align-items-center gap-3">
-                            <Link to="/compare" className="position-relative text-white">
+                        <div className="d-flex align-items-center gap-4">
+
+                            {/* 1. COMPARE */}
+                            <Link to="/compare" className="text-white position-relative text-decoration-none">
                                 <i className="bi bi-shuffle fs-4"></i>
                                 {currentCompareCount > 0 && (
-                                    <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-info" style={{ fontSize: '0.6rem' }}>
+                                    <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-info" style={{ fontSize: '0.65rem' }}>
                                         {currentCompareCount}
                                     </span>
                                 )}
                             </Link>
 
-                            <Link to="/cart" className="text-white">
+                            {/* 2. CART */}
+                            <Link to="/cart" className="text-white position-relative text-decoration-none">
                                 <i className="bi bi-cart4 fs-4"></i>
+                                {totalItems > 0 && (
+                                    <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style={{ fontSize: '0.65rem' }}>
+                                        {totalItems}
+                                    </span>
+                                )}
                             </Link>
 
+                            {/* 3. WISHLIST  */}
+                            <Link to="/wishlistpage" className="text-white position-relative text-decoration-none me-2">
+                                <i className="bi bi-heart-fill" style={{ fontSize: '1.4rem' }}></i>
+                                {wishlist.length > 0 && (
+                                    <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style={{ fontSize: '0.65rem' }}>
+                                        {wishlist.length}
+                                    </span>
+                                )}
+                            </Link>
+
+                            {/* AUTH BUTTONS */}
                             {isLoggedIn ? (
-                                <div className="d-flex gap-2">
+                                <div className="d-flex gap-2 ms-2">
                                     <Link to="/profile" className="btn btn-outline-light btn-sm">Profile</Link>
                                     <button onClick={handleLogout} className="btn btn-warning btn-sm">Logout</button>
                                 </div>
                             ) : (
-                                <Link className="btn btn-outline-light btn-sm" to="/login">Login</Link>
+                                <Link className="btn btn-outline-light btn-sm ms-2" to="/login">Login</Link>
                             )}
                         </div>
                     </div>
