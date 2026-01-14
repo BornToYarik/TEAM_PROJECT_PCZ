@@ -22,6 +22,7 @@ import ProtectedRoute from './components/ProtectedRoute';
 import { useComparison } from './Hooks/useComparison';
 import ComparePage from './pages/Products/ComparePage';
 import SearchPage from './pages/Products/Shop/SearchPage.jsx';
+import WishlistPage from './pages/WishList/WishlistPage';
 
 function App() {
     const comparison = useComparison();
@@ -33,6 +34,7 @@ function App() {
                 <Route path="/login" element={<LoginPage />}></Route>
                 <Route path="/registration" element={<Registration />}></Route>
                 <Route path="/cart" element={<Cart />} />
+                <Route path="/wishlistpage" element={<WishlistPage />} />
                 <Route path="/:slug" element={<CategoryProducts />} />
                 <Route path="/profile" element={<UserProfile />} />
                 <Route path="/compare" element={<ComparePage comparison={comparison} />} />
