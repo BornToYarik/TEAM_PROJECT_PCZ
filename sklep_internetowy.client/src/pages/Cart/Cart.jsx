@@ -1,45 +1,50 @@
 ﻿import React, { useState } from 'react';
 import { useCart } from '../../context/CartContext';
 import { useNavigate, Link } from 'react-router-dom';
-import { Container, Button, Alert, Table } from 'react-bootstrap';
+import { Container, Button, Alert, Table, Spinner } from 'react-bootstrap';
 import { pdf } from '@react-pdf/renderer';
 import InvoiceDocument from '../../components/admin/InvoiceGenerator/InvoiceDocument';
+
 function Cart() {
     const { cartItems, clearCart, cartTotal, removeFromCart, updateQuantity } = useCart();
     const [status, setStatus] = useState({ type: '', msg: '' });
     const [isOrderSuccess, setIsOrderSuccess] = useState(false);
+    const [isProcessing, setIsProcessing] = useState(false); // Blokada przycisku
     const navigate = useNavigate();
+
     const downloadInvoice = async (orderData) => {
         try {
             const blob = await pdf(<InvoiceDocument order={orderData} />).toBlob();
-
             const url = URL.createObjectURL(blob);
             const link = document.createElement('a');
             link.href = url;
-            link.download = `faktura_${orderData.id}.pdf`; 
-
+            link.download = `faktura_${orderData.id}.pdf`;
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
-            URL.revokeObjectURL(url); 
+            URL.revokeObjectURL(url);
         } catch (error) {
             console.error("PDF generation failed", error);
         }
     };
+
     const handleCheckout = async () => {
         const storedUser = localStorage.getItem("user");
 
         if (!storedUser) {
-            setStatus({ type: 'danger', msg: 'You must login to consume order!' });
+            setStatus({ type: 'danger', msg: 'You must login to place an order!' });
             setTimeout(() => navigate('/login'), 2000);
             return;
         }
 
         const user = JSON.parse(storedUser);
-        //const token = localStorage.getItem("token"); 
+
+        // Zabezpieczenie przed podwójnym kliknięciem
+        setIsProcessing(true);
+        setStatus({ type: '', msg: '' });
 
         const orderDto = {
-            userId: user.id, 
+            userId: user.id,
             products: cartItems.map(item => ({
                 productId: item.id,
                 quantity: item.quantity
@@ -47,31 +52,49 @@ function Cart() {
         };
 
         try {
+            // Strzelamy do backendu -> To tutaj Backend tworzy zamówienie i WYSYŁA MAILA
             const response = await fetch('/api/Orders', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    // 'Authorization': `Bearer ${token}`
                 },
                 body: JSON.stringify(orderDto)
             });
-            const data = await response.json();
-            if (!response.ok) {
-                const errData = await response.json();
-                throw new Error(errData.message || 'Order failed');
-            }
-            await downloadInvoice(data);
-            setIsOrderSuccess(true);
 
+            if (!response.ok) {
+                // Próba odczytania błędu jako JSON lub Text
+                const contentType = response.headers.get("content-type");
+                let errorMessage = 'Order failed';
+                if (contentType && contentType.includes("application/json")) {
+                    const errData = await response.json();
+                    errorMessage = errData.message || errorMessage;
+                } else {
+                    errorMessage = await response.text();
+                }
+                throw new Error(errorMessage);
+            }
+
+            const data = await response.json();
+
+            // Generujemy fakturę
+            await downloadInvoice(data);
+
+            // Sukces!
+            setIsOrderSuccess(true);
             clearCart();
-            setStatus({ type: 'success', msg: 'Order created!' });
+            setStatus({ type: 'success', msg: 'Order created! Email sent.' });
+
+            // Przekierowanie po 3 sekundach
             setTimeout(() => navigate('/'), 3000);
 
         } catch (err) {
-            setStatus({ type: 'danger', msg: err.message });
+            console.error("Checkout error:", err);
+            setStatus({ type: 'danger', msg: err.message || "Server error occurred." });
+            setIsProcessing(false); // Odblokuj przycisk w razie błędu
         }
     };
 
+    // Widok sukcesu (po zamówieniu)
     if (isOrderSuccess) {
         return (
             <div className="container py-5 text-center">
@@ -80,10 +103,10 @@ function Cart() {
                         <i className="bi bi-check-circle-fill text-success display-1 mb-4"></i>
                         <h2 className="fw-bold text-success mb-3">Order Placed Successfully!</h2>
                         <p className="fs-5 text-muted">Thank you for your purchase.</p>
-                        <p className="text-muted fw-bold">Your invoice is downloading automatically...</p> {/* Добавил текст */}
-                        <p className="text-muted">You will be redirected to the home page shortly...</p>
+                        <p className="text-muted fw-bold">An email confirmation has been sent.</p>
+                        <p className="text-muted small">Your invoice is downloading automatically...</p>
                         <div className="spinner-border text-success mt-3" role="status">
-                            <span className="visually-hidden">Loading...</span>
+                            <span className="visually-hidden">Redirecting...</span>
                         </div>
                     </div>
                 </div>
@@ -91,6 +114,7 @@ function Cart() {
         );
     }
 
+    // Widok pustego koszyka
     if (cartItems.length === 0) {
         return (
             <div className="container py-5">
@@ -105,6 +129,7 @@ function Cart() {
             </div>
         );
     }
+
     return (
         <div className="container py-5">
             <h2 className="fw-bold mb-4">Your Cart</h2>
@@ -112,7 +137,7 @@ function Cart() {
             {status.msg && <Alert variant={status.type}>{status.msg}</Alert>}
 
             <div className="row">
-                {/* Список товаров */}
+                {/* Lista produktów */}
                 <div className="col-lg-8">
                     {cartItems.map((item) => (
                         <div key={item.id} className="card mb-3 shadow-sm">
@@ -124,9 +149,17 @@ function Cart() {
                                     </div>
 
                                     <div className="d-flex align-items-center">
-                                        <button className="btn btn-sm btn-outline-secondary me-2" onClick={() => updateQuantity(item.id, -1)}>-</button>
+                                        <button
+                                            className="btn btn-sm btn-outline-secondary me-2"
+                                            onClick={() => updateQuantity(item.id, -1)}
+                                            disabled={isProcessing}
+                                        >-</button>
                                         <span className="fw-bold mx-2">{item.quantity}</span>
-                                        <button className="btn btn-sm btn-outline-secondary ms-2" onClick={() => updateQuantity(item.id, 1)}>+</button>
+                                        <button
+                                            className="btn btn-sm btn-outline-secondary ms-2"
+                                            onClick={() => updateQuantity(item.id, 1)}
+                                            disabled={isProcessing}
+                                        >+</button>
                                     </div>
 
                                     <div className="text-end">
@@ -134,6 +167,7 @@ function Cart() {
                                         <button
                                             className="btn btn-sm btn-danger"
                                             onClick={() => removeFromCart(item.id)}
+                                            disabled={isProcessing}
                                         >
                                             <i className="bi bi-trash"></i> Delete
                                         </button>
@@ -143,16 +177,15 @@ function Cart() {
                         </div>
                     ))}
 
-                    {/* Кнопка "Continue Shopping" под списком товаров */}
                     <div className="mt-3">
-                        <Link to="/" className="btn btn-outline-primary">
+                        <Link to="/" className={`btn btn-outline-primary ${isProcessing ? 'disabled' : ''}`}>
                             <i className="bi bi-arrow-left me-2"></i>
                             Continue Shopping
                         </Link>
                     </div>
                 </div>
 
-                {/* Итого и кнопка заказа */}
+                {/* Podsumowanie */}
                 <div className="col-lg-4">
                     <div className="card shadow-sm">
                         <div className="card-body">
@@ -161,8 +194,19 @@ function Cart() {
                                 <span>Total:</span>
                                 <span className="fw-bold fs-5">{cartTotal.toFixed(2)} zl</span>
                             </div>
-                            <button className="btn btn-success w-100 py-2" onClick={handleCheckout}>
-                                Go to Payment (Checkout)
+                            <button
+                                className="btn btn-success w-100 py-2"
+                                onClick={handleCheckout}
+                                disabled={isProcessing}
+                            >
+                                {isProcessing ? (
+                                    <>
+                                        <Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true" className="me-2" />
+                                        Processing...
+                                    </>
+                                ) : (
+                                    'Go to Payment (Checkout)'
+                                )}
                             </button>
                         </div>
                     </div>

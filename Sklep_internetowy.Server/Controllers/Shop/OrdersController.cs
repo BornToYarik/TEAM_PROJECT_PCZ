@@ -1,23 +1,24 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Sklep_internetowy.Server.Data; 
+using Sklep_internetowy.Server.Data;
 using Sklep_internetowy.Server.Models;
-using Sklep_internetowy.Server.DTOs; 
+using Sklep_internetowy.Server.DTOs;
 using System.Linq;
+using Sklep_internetowy.Server.Services;
 
 [ApiController]
 [Route("api/[controller]")]
 public class OrdersController : ControllerBase
 {
     private readonly StoreDbContext _context;
+    private readonly EmailService _emailService;
 
-    public OrdersController(StoreDbContext context)
+    public OrdersController(StoreDbContext context, EmailService emailService)
     {
         _context = context;
+        _emailService = emailService;
     }
 
-    // (R)EAD 
-    // GET: /api/orders
     [HttpGet]
     public async Task<ActionResult<IEnumerable<OrderDetailsDto>>> GetOrders()
     {
@@ -25,11 +26,11 @@ public class OrdersController : ControllerBase
             .Include(o => o.User)
             .Include(o => o.OrderProducts)
                 .ThenInclude(op => op.Product)
-            .Select(o => new OrderDetailsDto 
+            .Select(o => new OrderDetailsDto
             {
                 Id = o.Id,
                 UserId = o.UserId,
-                UserEmail = o.User.Email, 
+                UserEmail = o.User.Email,
                 Status = o.Status,
                 Products = o.OrderProducts.Select(op => new OrderProductDetailsDto
                 {
@@ -40,12 +41,12 @@ public class OrdersController : ControllerBase
                     Price = op.Product.Price
                 }).ToList()
             })
-            .AsNoTracking() 
+            .AsNoTracking()
             .ToListAsync();
 
         return Ok(orders);
     }
-    // GET: api/Orders/user/{userId}
+
     [HttpGet("user/{userId}")]
     public async Task<ActionResult<IEnumerable<OrderDetailsDto>>> GetUserOrders(string userId)
     {
@@ -54,14 +55,14 @@ public class OrdersController : ControllerBase
             .Include(o => o.User)
             .Include(o => o.OrderProducts)
             .ThenInclude(op => op.Product)
-            .OrderByDescending(o => o.OrderDate) 
+            .OrderByDescending(o => o.OrderDate)
             .Select(o => new OrderDetailsDto
             {
                 Id = o.Id,
                 UserId = o.UserId,
                 UserEmail = o.User.Email,
                 Status = o.Status,
-                OrderDate = o.OrderDate, 
+                OrderDate = o.OrderDate,
                 Products = o.OrderProducts.Select(op => new OrderProductDetailsDto
                 {
                     ProductId = op.ProductId,
@@ -75,8 +76,6 @@ public class OrdersController : ControllerBase
         return Ok(orders);
     }
 
-    // (U)PDATE 
-    // PUT: /api/orders/5
     [HttpPut("{id}")]
     public async Task<IActionResult> UpdateOrder(int id, [FromBody] OrderUpdateDto dto)
     {
@@ -120,7 +119,7 @@ public class OrdersController : ControllerBase
 
                 foreach (var item in dto.Products)
                 {
-                    if (item.Quantity > 0) 
+                    if (item.Quantity > 0)
                     {
                         _context.OrderProducts.Add(new OrderProduct
                         {
@@ -135,7 +134,7 @@ public class OrdersController : ControllerBase
 
                 await transaction.CommitAsync();
 
-                return NoContent(); 
+                return NoContent();
             }
             catch (Exception ex)
             {
@@ -145,8 +144,6 @@ public class OrdersController : ControllerBase
         }
     }
 
-    // (D)ELETE 
-    // DELETE: /api/orders/5
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteOrder(int id)
     {
@@ -187,6 +184,7 @@ public class OrdersController : ControllerBase
             }
         }
     }
+
     [HttpPost]
     public async Task<ActionResult<OrderDetailsDto>> CreateOrder([FromBody] CreateOrderRequestDto dto)
     {
@@ -203,13 +201,14 @@ public class OrdersController : ControllerBase
                 var newOrder = new Order
                 {
                     UserId = dto.UserId,
-                    Status = "Pending" 
+                    Status = "Pending"
                 };
 
                 _context.Orders.Add(newOrder);
                 await _context.SaveChangesAsync();
 
                 var productDetailsForDto = new List<OrderProductDetailsDto>();
+                decimal totalAmount = 0;
 
                 foreach (var item in dto.Products)
                 {
@@ -228,18 +227,20 @@ public class OrdersController : ControllerBase
 
                     var orderProduct = new OrderProduct
                     {
-                        OrderId = newOrder.Id, 
+                        OrderId = newOrder.Id,
                         ProductId = item.ProductId,
                         Quantity = item.Quantity
                     };
                     _context.OrderProducts.Add(orderProduct);
+
+                    totalAmount += product.Price * item.Quantity;
 
                     productDetailsForDto.Add(new OrderProductDetailsDto
                     {
                         ProductId = product.Id,
                         Name = product.Name,
                         QuantityInOrder = item.Quantity,
-                        QuantityInStock = product.Quantity, 
+                        QuantityInStock = product.Quantity,
                         Price = product.Price
                     });
                 }
@@ -247,6 +248,20 @@ public class OrdersController : ControllerBase
                 await _context.SaveChangesAsync();
 
                 await transaction.CommitAsync();
+
+                try
+                {
+                    await _emailService.SendOrderConfirmationAsync(
+                        user.Email,
+                        newOrder.Id,
+                        totalAmount,
+                        newOrder.OrderDate.ToString("yyyy-MM-dd HH:mm")
+                    );
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Błąd wysyłania maila: {ex.Message}");
+                }
 
                 var resultDto = new OrderDetailsDto
                 {
