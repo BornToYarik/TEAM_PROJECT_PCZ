@@ -10,6 +10,9 @@ function ProductGrid() {
     const [products, setProducts] = useState([]);
     const [featuredProduct, setFeaturedProduct] = useState(null); 
 
+    const [currentPage, setCurrentPage] = useState(1);
+    const productsPerPage = 12;
+
     const { addToCart } = useCart();
     const navigate = useNavigate();
 
@@ -31,6 +34,18 @@ function ProductGrid() {
         if (!featuredProduct) return products;
         return products.filter(p => p.id !== featuredProduct.id);
     }, [products, featuredProduct]);
+
+    const indexOfLastProduct = currentPage * productsPerPage;
+    const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
+
+    const currentProducts = filteredProducts.slice(indexOfFirstProduct, indexOfLastProduct);
+
+    const totalPages = Math.ceil(filteredProducts.length / productsPerPage);
+
+    const paginate = (pageNumber) => {
+        setCurrentPage(pageNumber);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
 
     const handleProductClick = (id) => navigate(`/product/${id}`);
 
@@ -68,6 +83,28 @@ function ProductGrid() {
                     color: white;
                 }
 
+                .pagination-btn {
+                    background: white;
+                    border: 1px solid #ddd;
+                    color: black;
+                    padding: 8px 16px;
+                    margin: 0 5px;
+                    cursor: pointer;
+                    transition: all 0.2s;
+                }
+                .pagination-btn:hover {
+                    background-color: #f0f0f0;
+                }
+                .pagination-btn.active {
+                    background-color: black;
+                    color: white;
+                    border-color: black;
+                }
+                .pagination-btn:disabled {
+                    color: #ccc;
+                    cursor: not-allowed;
+                }
+
                 .cursor-pointer { cursor: pointer; }
                 `}
             </style>
@@ -78,7 +115,7 @@ function ProductGrid() {
                     <FeaturedProductCard product={featuredProduct} />
                 )}
 
-                {filteredProducts.map((p) => (
+                {currentProducts.map((p) => (
                     <div key={p.id} className="col-12 col-sm-6 col-md-4 col-lg-3">
                         <ProductCard
                             product={p}
@@ -89,6 +126,36 @@ function ProductGrid() {
                 ))}
 
             </div>
+
+            {totalPages > 1 && (
+                <div className="d-flex justify-content-center mt-5">
+                    <button
+                        className="pagination-btn"
+                        onClick={() => paginate(currentPage - 1)}
+                        disabled={currentPage === 1}
+                    >
+                        &laquo; Previous
+                    </button>
+
+                    {Array.from({ length: totalPages }, (_, i) => (
+                        <button
+                            key={i + 1}
+                            onClick={() => paginate(i + 1)}
+                            className={`pagination-btn ${currentPage === i + 1 ? 'active' : ''}`}
+                        >
+                            {i + 1}
+                        </button>
+                    ))}
+
+                    <button
+                        className="pagination-btn"
+                        onClick={() => paginate(currentPage + 1)}
+                        disabled={currentPage === totalPages}
+                    >
+                        Next &raquo;
+                    </button>
+                </div>
+            )}
         </div>
     );
 }
