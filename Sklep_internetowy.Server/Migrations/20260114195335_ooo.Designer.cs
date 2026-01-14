@@ -12,8 +12,8 @@ using Sklep_internetowy.Server.Data;
 namespace Sklep_internetowy.Server.Migrations
 {
     [DbContext(typeof(StoreDbContext))]
-    [Migration("20260113204819_photosV4")]
-    partial class photosV4
+    [Migration("20260114195335_ooo")]
+    partial class ooo
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -174,20 +174,26 @@ namespace Sklep_internetowy.Server.Migrations
                     b.Property<DateTime>("EndTime")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<string>("ItemName")
-                        .IsRequired()
+                    b.Property<bool>("IsFinished")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("LastBidderId")
                         .HasColumnType("text");
 
-                    b.Property<DateTime?>("LastBidTime")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("LastBidder")
-                        .HasColumnType("text");
+                    b.Property<int>("ProductId")
+                        .HasColumnType("integer");
 
                     b.Property<decimal>("StartingPrice")
                         .HasColumnType("numeric");
 
+                    b.Property<string>("WinnerId")
+                        .HasColumnType("text");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("LastBidderId");
+
+                    b.HasIndex("ProductId");
 
                     b.ToTable("Auctions");
                 });
@@ -206,7 +212,7 @@ namespace Sklep_internetowy.Server.Migrations
                     b.Property<int>("AuctionId")
                         .HasColumnType("integer");
 
-                    b.Property<string>("Bidder")
+                    b.Property<string>("BidderId")
                         .IsRequired()
                         .HasColumnType("text");
 
@@ -216,6 +222,8 @@ namespace Sklep_internetowy.Server.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("AuctionId");
+
+                    b.HasIndex("BidderId");
 
                     b.ToTable("Bids");
                 });
@@ -284,8 +292,14 @@ namespace Sklep_internetowy.Server.Migrations
                     b.Property<DateTime?>("DiscountStartDate")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<bool>("IsOnAuction")
+                        .HasColumnType("boolean");
+
                     b.Property<string>("Name")
                         .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("OwnerId")
                         .HasColumnType("text");
 
                     b.Property<decimal>("Price")
@@ -299,6 +313,8 @@ namespace Sklep_internetowy.Server.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("OwnerId");
+
                     b.HasIndex("ProductCategoryId");
 
                     b.ToTable("Products");
@@ -308,6 +324,7 @@ namespace Sklep_internetowy.Server.Migrations
                         {
                             Id = 50,
                             Description = "High performance laptop",
+                            IsOnAuction = false,
                             Name = "Laptop A",
                             Price = 1500.00m,
                             ProductCategoryId = 1,
@@ -317,6 +334,7 @@ namespace Sklep_internetowy.Server.Migrations
                         {
                             Id = 33,
                             Description = "High performance laptop",
+                            IsOnAuction = false,
                             Name = "Laptop B",
                             Price = 1500.00m,
                             ProductCategoryId = 1,
@@ -572,6 +590,23 @@ namespace Sklep_internetowy.Server.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Sklep_internetowy.Server.Models.Auction", b =>
+                {
+                    b.HasOne("Sklep_internetowy.Server.Models.User", "LastBidder")
+                        .WithMany()
+                        .HasForeignKey("LastBidderId");
+
+                    b.HasOne("Sklep_internetowy.Server.Models.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("LastBidder");
+
+                    b.Navigation("Product");
+                });
+
             modelBuilder.Entity("Sklep_internetowy.Server.Models.Bid", b =>
                 {
                     b.HasOne("Sklep_internetowy.Server.Models.Auction", "Auction")
@@ -580,7 +615,15 @@ namespace Sklep_internetowy.Server.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Sklep_internetowy.Server.Models.User", "Bidder")
+                        .WithMany()
+                        .HasForeignKey("BidderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Auction");
+
+                    b.Navigation("Bidder");
                 });
 
             modelBuilder.Entity("Sklep_internetowy.Server.Models.Order", b =>
@@ -615,11 +658,17 @@ namespace Sklep_internetowy.Server.Migrations
 
             modelBuilder.Entity("Sklep_internetowy.Server.Models.Product", b =>
                 {
+                    b.HasOne("Sklep_internetowy.Server.Models.User", "Owner")
+                        .WithMany()
+                        .HasForeignKey("OwnerId");
+
                     b.HasOne("Sklep_internetowy.Server.Models.ProductCategory", "ProductCategory")
                         .WithMany("Products")
                         .HasForeignKey("ProductCategoryId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
+
+                    b.Navigation("Owner");
 
                     b.Navigation("ProductCategory");
                 });

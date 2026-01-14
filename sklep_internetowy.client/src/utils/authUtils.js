@@ -6,6 +6,7 @@ export const parseJwt = (token) => {
         const jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function (c) {
             return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
         }).join(''));
+        console.log(parseJwt(localStorage.getItem("token")));
 
         return JSON.parse(jsonPayload);
     } catch {

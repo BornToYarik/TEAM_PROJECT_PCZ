@@ -1,20 +1,17 @@
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using Npgsql;
-using Npgsql.EntityFrameworkCore;
 using Sklep_internetowy.Server.Data;
 using Sklep_internetowy.Server.Models;
 using Sklep_internetowy.Server.Services.Auth;
 using Sklep_internetowy.Server.Services.Bidding;
 using Sklep_internetowy.Server.Services.Promotion;
-
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// CORS Configuration - MUSI być przed innymi usługami
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowReactApp", policy =>
@@ -24,7 +21,9 @@ builder.Services.AddCors(options =>
                 "http://localhost:5173",
                 "https://localhost:5173",
                 "http://localhost:5174",
-                "https://localhost:5174"
+                "https://localhost:5174",
+                "http://localhost:5084",
+                "https://localhost:5084"
             )
             .AllowAnyMethod()
             .AllowAnyHeader()
@@ -32,20 +31,21 @@ builder.Services.AddCors(options =>
     });
 });
 
-
+// Database
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-
 builder.Services.AddDbContext<StoreDbContext>(options =>
     options.UseNpgsql(connectionString)
 );
 
+// Services
 builder.Services.AddScoped<AuctionService>();
-
+builder.Services.AddHostedService<AuctionBackgroundService>();
 builder.Services.AddScoped<AccountService>();
 builder.Services.AddScoped<JwtService>();
 builder.Services.AddScoped<PromotionService>();
 builder.Services.Configure<AuthSettings>(builder.Configuration.GetSection("AuthSettings"));
 
+// Controllers
 builder.Services.AddControllers()
     .AddJsonOptions(options =>
     {
@@ -53,7 +53,7 @@ builder.Services.AddControllers()
         options.JsonSerializerOptions.WriteIndented = true;
     });
 
-
+// Identity
 builder.Services.AddIdentity<User, IdentityRole>(options =>
 {
     options.Password.RequireDigit = false;
@@ -67,6 +67,7 @@ builder.Services.AddIdentity<User, IdentityRole>(options =>
 .AddDefaultTokenProviders()
 .AddRoles<IdentityRole>();
 
+// JWT Authentication
 var secretKey = builder.Configuration.GetValue<string>("AuthSettings:Key") ??
                 builder.Configuration.GetValue<string>("AuthSettings:SecretKey");
 
@@ -89,7 +90,31 @@ builder.Services.AddAuthentication(options =>
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey)),
         ClockSkew = TimeSpan.Zero
     };
+
+    // POPRAWKA: Konfiguracja dla SignalR - token z query string
+    options.Events = new JwtBearerEvents
+    {
+        OnMessageReceived = context =>
+        {
+            var accessToken = context.Request.Query["access_token"];
+            var path = context.HttpContext.Request.Path;
+
+            if (!string.IsNullOrEmpty(accessToken) &&
+                path.StartsWithSegments("/auctionHub"))
+            {
+                context.Token = accessToken;
+            }
+            return Task.CompletedTask;
+        }
+    };
 });
+
+// SignalR
+builder.Services.AddSignalR()
+    .AddHubOptions<AuctionHub>(options =>
+    {
+        options.EnableDetailedErrors = true;
+    });
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -103,15 +128,19 @@ if (app.Environment.IsDevelopment())
 }
 
 //app.UseHttpsRedirection();
-
 app.UseStaticFiles();
 app.UseRouting();
+
+// WAŻNE: CORS musi być przed Authentication/Authorization
 app.UseCors("AllowReactApp");
 
 app.UseAuthentication();
 app.UseAuthorization();
 
+// WAŻNE: MapHub PRZED MapControllers
+app.MapHub<AuctionHub>("/auctionHub");
 app.MapControllers();
+
 app.MapFallbackToFile("/index.html");
 
 app.Run();

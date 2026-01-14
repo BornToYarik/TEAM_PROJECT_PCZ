@@ -13,8 +13,8 @@ namespace Sklep_internetowy.Server.Data
         public StoreDbContext(DbContextOptions<StoreDbContext> options) : base(options)
         {
         }
-        public DbSet<Auction> Auctions { get; set; } = null!;
-        public DbSet<Bid> Bids { get; set; } = null!;
+        public DbSet<Auction> Auctions => Set<Auction>();
+        public DbSet<Bid> Bids => Set<Bid>();
         public DbSet<Product> Products => Set<Product>();
         public DbSet<Order> Orders => Set<Order>();
         public DbSet<OrderProduct> OrderProducts => Set<OrderProduct>();
