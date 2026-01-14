@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Sklep_internetowy.Server.Data;
 using Sklep_internetowy.Server.Models;
+using Sklep_internetowy.Server.Services;
 using Sklep_internetowy.Server.Services.Auth;
 using Sklep_internetowy.Server.Services.Bidding;
 using Sklep_internetowy.Server.Services.Promotion;
@@ -43,6 +44,8 @@ builder.Services.AddHostedService<AuctionBackgroundService>();
 builder.Services.AddScoped<AccountService>();
 builder.Services.AddScoped<JwtService>();
 builder.Services.AddScoped<PromotionService>();
+builder.Services.Configure<MailSettings>(builder.Configuration.GetSection("MailSettings"));
+builder.Services.AddTransient<EmailService>();
 builder.Services.Configure<AuthSettings>(builder.Configuration.GetSection("AuthSettings"));
 
 // Controllers
