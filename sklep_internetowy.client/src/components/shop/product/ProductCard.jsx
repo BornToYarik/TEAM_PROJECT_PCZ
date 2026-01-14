@@ -3,6 +3,11 @@ import { useNavigate } from "react-router-dom";
 function ProductCard({ product, addToCart, onClick }) {
     const navigate = useNavigate();
     const isDiscountActive = (p) => p.hasActiveDiscount || p.discountPercentage > 0;
+    const DEFAULT_IMAGE = "https://cdn.pixabay.com/photo/2017/11/10/04/47/image-2935360_1280.png";
+
+    const mainImage = (product.imageUrls && product.imageUrls.length > 0)
+        ? product.imageUrls[0] 
+        : DEFAULT_IMAGE;
 
     return (
         <div
@@ -18,7 +23,7 @@ function ProductCard({ product, addToCart, onClick }) {
             )}
 
             <img
-                src="https://cdn.pixabay.com/photo/2017/11/10/04/47/image-2935360_1280.png"
+                src={mainImage}
                 className="card-img-top"
                 alt={product.name}
                 style={{ objectFit: "cover", height: "200px" }}

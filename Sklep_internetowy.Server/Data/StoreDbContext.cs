@@ -20,6 +20,7 @@ namespace Sklep_internetowy.Server.Data
         public DbSet<OrderProduct> OrderProducts => Set<OrderProduct>();
         public DbSet<UserMessage> Messages { get; set; }
         public DbSet<ProductCategory> ProductCategories { get; set; }
+        public DbSet<ProductImage> ProductImages { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder) 
         {

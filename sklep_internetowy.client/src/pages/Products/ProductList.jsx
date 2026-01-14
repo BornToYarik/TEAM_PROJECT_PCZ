@@ -35,22 +35,23 @@ function ProductsList() {
         }
     };
 
-    const handleFormSubmit = async (formData) => {
+    const handleFormSubmit = async (formData, files) => { 
         setError('');
-
-        const payload = {
-            name: formData.name,
-            price: parseFloat(formData.price),
-            quantity: parseInt(formData.quantity),
-            description: formData.description || null,
-            ProductCategoryId: formData.ProductCategoryId,
-            DiscountPercentage: formData.DiscountPercentage,
-            DiscountStartDate: formData.DiscountStartDate,
-            DiscountEndDate: formData.DiscountEndDate
-        };
 
         try {
             if (editingProduct) {
+
+                const payload = {
+                    name: formData.name,
+                    price: parseFloat(formData.price),
+                    quantity: parseInt(formData.quantity),
+                    description: formData.description || null,
+                    ProductCategoryId: formData.ProductCategoryId,
+                    DiscountPercentage: formData.DiscountPercentage,
+                    DiscountStartDate: formData.DiscountStartDate,
+                    DiscountEndDate: formData.DiscountEndDate
+                };
+
                 const response = await fetch(`${API_URL}/update`, {
                     method: 'PUT',
                     headers: { 'Content-Type': 'application/json' },
@@ -64,11 +65,29 @@ function ProductsList() {
                     const errorData = await response.json();
                     setError(errorData.message || 'Error updating product');
                 }
+
             } else {
+                const data = new FormData();
+
+                data.append('Name', formData.name);
+                data.append('Price', formData.price);
+                data.append('Quantity', formData.quantity);
+                data.append('Description', formData.description || '');
+                data.append('ProductCategoryId', formData.ProductCategoryId);
+
+                if (formData.DiscountPercentage) data.append('DiscountPercentage', formData.DiscountPercentage);
+                if (formData.DiscountStartDate) data.append('DiscountStartDate', formData.DiscountStartDate);
+                if (formData.DiscountEndDate) data.append('DiscountEndDate', formData.DiscountEndDate);
+
+                if (files && files.length > 0) {
+                    files.forEach(file => {
+                        data.append('Images', file);
+                    });
+                }
+
                 const response = await fetch(API_URL, {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
+                    body: data
                 });
 
                 if (response.ok) {

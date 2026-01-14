@@ -7,7 +7,6 @@ import Home from './pages/Home/Home';
 import LoginPage from './pages/LoginPage/LoginPage';
 import Registration from './pages/Registration/Registration';
 import Footer from './components/footer/Footer';
-
 import ProductList from "./pages/Products/ProductList";
 import AdminDashboard from './pages/AdminDashboard/AdminDashboard';
 import OrderManagement from './pages/AdminDashboard/Order/OrderManagement.jsx';
@@ -16,21 +15,19 @@ import ProductDetails from './pages/Products/ProductDetails'
 import UsersManage from './pages/AdminDashboard/Users/UsersManage'
 import CategoryProducts from './pages/Products/CategoryProducts.jsx';
 import UserProfile from './pages/UserProfile/UserProfile';
-
 import PromotionManagement from './pages/AdminDashboard/promotion/PromotionManagement.jsx';
 import UserMessageManagement from './pages/AdminDashboard/messages/UserMessageManagement';
 import ProductDetailsShop from "./pages/Products/Shop/ProductDetailsShop";
 import ProtectedRoute from './components/ProtectedRoute';
+import { useComparison } from './Hooks/useComparison';
+import ComparePage from './pages/Products/ComparePage';
 import SearchPage from './pages/Products/Shop/SearchPage.jsx';
-import AuctionList from "./pages/Auction/AuctionList";
-import AuctionDetails from "./pages/Auction/AuctionDetails";
-import CreateAuction from "./pages/Auction/CreateAuction";
 
 function App() {
-
+    const comparison = useComparison();
     return (
         <>
-            <Navbar />
+            <Navbar compareCount={comparison.compareItems.length} />
             <Routes>
                 <Route path="/" element={<Home />}></Route>
                 <Route path="/login" element={<LoginPage />}></Route>
@@ -38,7 +35,9 @@ function App() {
                 <Route path="/cart" element={<Cart />} />
                 <Route path="/:slug" element={<CategoryProducts />} />
                 <Route path="/profile" element={<UserProfile />} />
-                <Route path="/product/:id" element={<ProductDetailsShop />} />
+                <Route path="/compare" element={<ComparePage comparison={comparison} />} />
+
+                <Route path="/product/:id" element={<ProductDetailsShop comparison={comparison} />} />
 
                 <Route path="/auctions" element={<AuctionList />} />
                 <Route path="/auction/:id" element={<AuctionDetails />} />

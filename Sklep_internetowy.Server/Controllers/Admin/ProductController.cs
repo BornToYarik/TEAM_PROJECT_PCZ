@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Sklep_internetowy.Server.Data;
 using Sklep_internetowy.Server.DTOs;
+using Sklep_internetowy.Server.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,10 +17,12 @@ namespace Sklep_internetowy.Server.Controllers.Admin
     public class ProductController : ControllerBase
     {
         private readonly StoreDbContext _context;
+        private readonly IWebHostEnvironment _environment;
 
-        public ProductController(StoreDbContext context)
+        public ProductController(StoreDbContext context, IWebHostEnvironment environment)
         {
             _context = context;
+            _environment = environment;
         }
 
         private DateTime? SetUtcKind(DateTime? date)
@@ -33,6 +37,7 @@ namespace Sklep_internetowy.Server.Controllers.Admin
             {
                 var products = await _context.Products
                     .Include(p => p.ProductCategory)
+                    .Include(p => p.Images)
                     .Select(p => new ProductDto
                     {
                         Id = p.Id,
@@ -47,7 +52,8 @@ namespace Sklep_internetowy.Server.Controllers.Admin
                         HasActiveDiscount = p.HasActiveDiscount,
                         ProductCategoryId = p.ProductCategoryId,
                         ProductCategoryName = p.ProductCategory.Name,
-                        ProductCategorySlug = p.ProductCategory.Slug
+                        ProductCategorySlug = p.ProductCategory.Slug,
+                        ImageUrls = p.Images.Select(img => img.ImageUrl).ToList()
                     })
                     .ToListAsync();
 
@@ -58,12 +64,13 @@ namespace Sklep_internetowy.Server.Controllers.Admin
                 return StatusCode(500, new { message = "Error loading products", error = ex.Message });
             }
         }
+
         [HttpGet("search")]
         public async Task<ActionResult<IEnumerable<ProductDto>>> SearchProducts([FromQuery] string q)
         {
             if (string.IsNullOrWhiteSpace(q))
             {
-                return Ok(new List<ProductDto>()); 
+                return Ok(new List<ProductDto>());
             }
 
             try
@@ -100,67 +107,52 @@ namespace Sklep_internetowy.Server.Controllers.Admin
             }
         }
 
-        [HttpPost("create")]
-        public async Task<ActionResult> CreateProduct(CreateProductDto createProductDto)
+        [HttpPost]
+        public async Task<ActionResult> CreateProduct([FromForm] CreateProductWithFilesDto formDto)
         {
-            if (!ModelState.IsValid)
+            var product = new Models.Product
             {
-                return BadRequest(ModelState);
-            }
+                Name = formDto.Name,
+                Price = formDto.Price,
+                Quantity = formDto.Quantity,
+                Description = formDto.Description,
+                ProductCategoryId = formDto.ProductCategoryId,
+                DiscountPercentage = formDto.DiscountPercentage,
+                DiscountStartDate = SetUtcKind(formDto.DiscountStartDate),
+                DiscountEndDate = SetUtcKind(formDto.DiscountEndDate)
+            };
 
-            try
+            if (formDto.Images != null && formDto.Images.Count > 0)
             {
-                var product = new Models.Product
+                var uploadsFolder = Path.Combine(_environment.WebRootPath, "uploads");
+                if (!Directory.Exists(uploadsFolder))
+                    Directory.CreateDirectory(uploadsFolder);
+
+                foreach (var file in formDto.Images)
                 {
-                    Name = createProductDto.Name,
-                    Price = createProductDto.Price,
-                    Quantity = createProductDto.Quantity,
-                    Description = createProductDto.Description,
+                    if (file.Length > 0)
+                    {
+                        var uniqueFileName = Guid.NewGuid().ToString() + "_" + file.FileName;
+                        var filePath = Path.Combine(uploadsFolder, uniqueFileName);
 
-                    DiscountPercentage = createProductDto.DiscountPercentage,
-                    DiscountStartDate = SetUtcKind(createProductDto.DiscountStartDate),
-                    DiscountEndDate = SetUtcKind(createProductDto.DiscountEndDate),
+                        using (var fileStream = new FileStream(filePath, FileMode.Create))
+                        {
+                            await file.CopyToAsync(fileStream);
+                        }
 
-                    ProductCategoryId = createProductDto.ProductCategoryId
-                };
-
-                _context.Products.Add(product);
-                await _context.SaveChangesAsync();
-
-                await _context.Entry(product)
-                     .Reference(p => p.ProductCategory)
-                     .LoadAsync();
-
-                if (product.ProductCategory == null)
-                {
-                    return BadRequest(new { message = $"Product category with ID {product.ProductCategoryId} not found." });
+                        product.Images.Add(new ProductImage
+                        {
+                            ImageUrl = "/uploads/" + uniqueFileName
+                        });
+                    }
                 }
-
-                var productDto = new ProductDto
-                {
-                    Id = product.Id,
-                    Name = product.Name,
-                    Price = product.Price,
-                    Quantity = product.Quantity,
-                    Description = product.Description,
-                    DiscountPercentage = product.DiscountPercentage,
-                    DiscountStartDate = product.DiscountStartDate,
-                    DiscountEndDate = product.DiscountEndDate,
-                    FinalPrice = product.FinalPrice,
-                    HasActiveDiscount = product.HasActiveDiscount,
-                    ProductCategoryId = product.ProductCategoryId,
-                    ProductCategoryName = product.ProductCategory.Name,
-                    ProductCategorySlug = product.ProductCategory.Slug
-                };
-
-                return CreatedAtAction(nameof(GetProductById), new { id = product.Id }, productDto);
             }
-            catch (Exception ex)
-            {
-                return StatusCode(500, new { message = "Error creating product", error = ex.Message, innerError = ex.InnerException?.Message });
-            }
+
+            _context.Products.Add(product);
+            await _context.SaveChangesAsync();
+
+            return Ok();
         }
-
 
         [HttpPost("remove")]
         public async Task<ActionResult> RemoveProduct(RemoveProductDto removeProductDto)
@@ -237,6 +229,107 @@ namespace Sklep_internetowy.Server.Controllers.Admin
             };
 
             return Ok(productDto);
+        }
+
+        [AllowAnonymous]
+        [HttpPost("compare-list")]
+        public async Task<ActionResult<IEnumerable<ProductDto>>> GetProductsForComparison([FromBody] List<int> productIds)
+        {
+            if (productIds == null || !productIds.Any())
+            {
+                return Ok(new List<ProductDto>());
+            }
+
+            var uniqueIds = productIds.Distinct().Take(2).ToList();
+
+            try
+            {
+                var products = await _context.Products
+                    .Where(p => uniqueIds.Contains(p.Id))
+                    .Include(p => p.ProductCategory)
+                    .Select(p => new ProductDto
+                    {
+                        Id = p.Id,
+                        Name = p.Name,
+                        Price = p.Price,
+                        Quantity = p.Quantity,
+                        Description = p.Description,
+                        DiscountPercentage = p.DiscountPercentage,
+                        DiscountStartDate = p.DiscountStartDate,
+                        DiscountEndDate = p.DiscountEndDate,
+                        FinalPrice = p.FinalPrice,
+                        HasActiveDiscount = p.HasActiveDiscount,
+                        ProductCategoryId = p.ProductCategoryId,
+                        ProductCategoryName = p.ProductCategory.Name,
+                        ProductCategorySlug = p.ProductCategory.Slug
+                    })
+                    .ToListAsync();
+
+                return Ok(products);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = "Error loading products for comparison", error = ex.Message });
+            }
+        }
+
+        [AllowAnonymous]
+        [HttpGet("suggestions")]
+        public async Task<ActionResult> GetSuggestions([FromQuery] string q)
+        {
+            if (string.IsNullOrWhiteSpace(q))
+            {
+                return Ok(new { categories = new List<string>(), products = new List<ProductDto>() });
+            }
+
+            try
+            {
+                var query = q.ToLower().Trim();
+
+                var allProducts = await _context.Products
+                    .Include(p => p.ProductCategory)
+                    .Where(p => p.Name != null && p.Name.ToLower().Contains(query))
+                    .ToListAsync();
+
+                var sortedProducts = allProducts
+                    .OrderByDescending(p => p.Name.ToLower().StartsWith(query))
+                    .ThenBy(p => p.Name.Length)
+                    .Take(6)
+                    .Select(p => new ProductDto
+                    {
+                        Id = p.Id,
+                        Name = p.Name,
+                        Price = p.Price,
+                        FinalPrice = p.FinalPrice,
+                        HasActiveDiscount = p.HasActiveDiscount,
+                        ProductCategoryName = p.ProductCategory?.Name,
+                        Description = p.Description
+                    })
+                    .ToList();
+
+                
+                var categories = allProducts
+                    .Where(p => p.ProductCategory != null)
+                    .Select(p => p.ProductCategory.Name)
+                    .Distinct()
+                    .OrderBy(c => c)
+                    .Take(5)
+                    .ToList();
+
+                return Ok(new
+                {
+                    categories = categories,
+                    products = sortedProducts
+                });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new
+                {
+                    message = "Error getting suggestions",
+                    error = ex.Message
+                });
+            }
         }
     }
 }
