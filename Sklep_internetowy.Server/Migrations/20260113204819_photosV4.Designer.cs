@@ -12,8 +12,8 @@ using Sklep_internetowy.Server.Data;
 namespace Sklep_internetowy.Server.Migrations
 {
     [DbContext(typeof(StoreDbContext))]
-    [Migration("20251210092933_ISK-113")]
-    partial class ISK113
+    [Migration("20260113204819_photosV4")]
+    partial class photosV4
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -392,6 +392,28 @@ namespace Sklep_internetowy.Server.Migrations
                         });
                 });
 
+            modelBuilder.Entity("Sklep_internetowy.Server.Models.ProductImage", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ImageUrl")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("ProductImages");
+                });
+
             modelBuilder.Entity("Sklep_internetowy.Server.Models.User", b =>
                 {
                     b.Property<string>("Id")
@@ -602,6 +624,17 @@ namespace Sklep_internetowy.Server.Migrations
                     b.Navigation("ProductCategory");
                 });
 
+            modelBuilder.Entity("Sklep_internetowy.Server.Models.ProductImage", b =>
+                {
+                    b.HasOne("Sklep_internetowy.Server.Models.Product", "Product")
+                        .WithMany("Images")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
+                });
+
             modelBuilder.Entity("Sklep_internetowy.Server.Models.Auction", b =>
                 {
                     b.Navigation("Bids");
@@ -614,6 +647,8 @@ namespace Sklep_internetowy.Server.Migrations
 
             modelBuilder.Entity("Sklep_internetowy.Server.Models.Product", b =>
                 {
+                    b.Navigation("Images");
+
                     b.Navigation("OrderProducts");
                 });
 

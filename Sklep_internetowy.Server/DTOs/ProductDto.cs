@@ -15,5 +15,7 @@
         public int ProductCategoryId { get; set; }
         public string ProductCategoryName { get; set; } = null!;
         public string ProductCategorySlug { get; set; } = null!;
+
+        public List<string> ImageUrls { get; set; } = new List<string>();
     }
 }

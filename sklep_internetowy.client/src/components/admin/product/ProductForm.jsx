@@ -13,6 +13,7 @@ const ProductForm = ({ onSubmit, onCancel, initialData, isEditing }) => {
     });
     const [categories, setCategories] = useState([]);
     const [errors, setErrors] = useState({});
+    const [selectedFiles, setSelectedFiles] = useState([]);
 
     const API_URL = '/api/panel/Product';
 
@@ -53,6 +54,10 @@ const ProductForm = ({ onSubmit, onCancel, initialData, isEditing }) => {
         } catch (err) {
             console.error('Error fetching categories:', err);
         }
+    };
+
+    const handleFileChange = (e) => {
+        setSelectedFiles(Array.from(e.target.files));
     };
 
     const handleInputChange = (e) => {
@@ -117,7 +122,7 @@ const ProductForm = ({ onSubmit, onCancel, initialData, isEditing }) => {
                 DiscountEndDate: formData.discountEndDate || null,
             };
 
-            onSubmit(dataToSend);
+            onSubmit(dataToSend, selectedFiles);
         }
     };
 
@@ -244,6 +249,18 @@ const ProductForm = ({ onSubmit, onCancel, initialData, isEditing }) => {
                             rows="3"
                         ></textarea>
                     </div>
+
+                    <div className="mb-3">
+                        <label className="form-label">Product Images</label>
+                        <input
+                            type="file"
+                            className="form-control"
+                            multiple
+                            onChange={handleFileChange}
+                            accept="image/*"
+                        />
+                    </div>
+
 
                     <div className="d-flex gap-2">
                         <button onClick={handleSubmit} className="btn btn-success">
