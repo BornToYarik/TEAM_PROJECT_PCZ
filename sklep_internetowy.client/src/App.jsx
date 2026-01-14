@@ -19,7 +19,7 @@ import PromotionManagement from './pages/AdminDashboard/promotion/PromotionManag
 import UserMessageManagement from './pages/AdminDashboard/messages/UserMessageManagement';
 import ProductDetailsShop from "./pages/Products/Shop/ProductDetailsShop";
 import ProtectedRoute from './components/ProtectedRoute';
-import { useComparison } from './Hooks/useComparison';
+import { useComparison } from './hooks/useComparison';
 import ComparePage from './pages/Products/ComparePage';
 import SearchPage from './pages/Products/Shop/SearchPage.jsx';
 import AuctionList from "./pages/Auction/AuctionList";

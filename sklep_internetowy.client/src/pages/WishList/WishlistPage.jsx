@@ -1,6 +1,6 @@
 import React from 'react';
 import { Container, Row, Col, Card, Button } from 'react-bootstrap';
-import { useWishlist } from '../../context/WishlistContext';
+import { useWishlist } from '../../context/WishListContext';
 import { useCart } from '../../context/CartContext';
 import { Link } from 'react-router-dom';
 

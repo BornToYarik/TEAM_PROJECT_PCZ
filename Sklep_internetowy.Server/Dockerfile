@@ -23,6 +23,10 @@ COPY ["Sklep_internetowy.Server/Sklep_internetowy.Server.csproj", "Sklep_interne
 COPY ["sklep_internetowy.client/sklep_internetowy.client.esproj", "sklep_internetowy.client/"]
 RUN dotnet restore "./Sklep_internetowy.Server/Sklep_internetowy.Server.csproj"
 COPY . .
+WORKDIR /src/sklep_internetowy.client
+RUN rm -rf node_modules
+RUN rm -f package-lock.json
+RUN npm install
 WORKDIR "/src/Sklep_internetowy.Server"
 RUN dotnet build "./Sklep_internetowy.Server.csproj" -c $BUILD_CONFIGURATION -o /app/build
 

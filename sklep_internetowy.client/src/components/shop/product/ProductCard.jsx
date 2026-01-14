@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { useWishlist } from '../../../context/WishlistContext';
+import { useWishlist } from '../../../context/WishListContext';
 function ProductCard({ product, addToCart, onClick }) {
     const navigate = useNavigate();
     const isDiscountActive = (p) => p.hasActiveDiscount || p.discountPercentage > 0;

@@ -1,7 +1,7 @@
 ﻿import { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { isAdmin } from '../../utils/authUtils';
-import { useWishlist } from '../../context/WishlistContext';
+import { useWishlist } from '../../context/WishListContext'; 
 import { useCart } from '../../context/CartContext';
 import { useTheme } from '../../context/ThemeContext';
 

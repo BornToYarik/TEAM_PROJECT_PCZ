@@ -5,7 +5,7 @@ import App from './App.jsx'
 import { BrowserRouter } from "react-router-dom"
 
 import { CartProvider } from './context/CartContext';
-import { WishlistProvider } from './context/WishlistContext';
+import { WishlistProvider } from './context/WishListContext';
 createRoot(document.getElementById('root')).render(
     <StrictMode>
         <BrowserRouter>
