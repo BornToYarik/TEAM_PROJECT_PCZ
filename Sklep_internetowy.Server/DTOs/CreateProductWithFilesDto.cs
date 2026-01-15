@@ -11,7 +11,7 @@
         public decimal? DiscountPercentage { get; set; }
         public DateTime? DiscountStartDate { get; set; }
         public DateTime? DiscountEndDate { get; set; }
-
+        public string Brand { get; set; } = null!;
         public List<IFormFile>? Images { get; set; }
     }
 }

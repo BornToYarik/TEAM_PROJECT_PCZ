@@ -35,14 +35,15 @@ function ProductsList() {
         }
     };
 
-    const handleFormSubmit = async (formData, files) => { 
+    const handleFormSubmit = async (formData, files) => {
         setError('');
 
         try {
             if (editingProduct) {
-
+                // ЛОГИКА ОБНОВЛЕНИЯ (PUT)
                 const payload = {
                     name: formData.name,
+                    brand: formData.brand, // <-- ДОБАВЛЕНО ТУТ
                     price: parseFloat(formData.price),
                     quantity: parseInt(formData.quantity),
                     description: formData.description || null,
@@ -67,9 +68,11 @@ function ProductsList() {
                 }
 
             } else {
+                // ЛОГИКА СОЗДАНИЯ (POST)
                 const data = new FormData();
 
                 data.append('Name', formData.name);
+                data.append('Brand', formData.brand); // <-- ДОБАВЛЕНО ТУТ (с большой буквы для соответствия DTO)
                 data.append('Price', formData.price);
                 data.append('Quantity', formData.quantity);
                 data.append('Description', formData.description || '');
@@ -95,7 +98,8 @@ function ProductsList() {
                     handleCloseForm();
                 } else {
                     const errorData = await response.json();
-                    setError(errorData.message || 'Error creating product');
+                    // Если сервер вернул 400 с текстом ошибок, выводим их
+                    setError(errorData.title || errorData.message || 'Error creating product');
                 }
             }
         } catch (err) {

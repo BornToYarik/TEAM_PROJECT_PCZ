@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 const ProductForm = ({ onSubmit, onCancel, initialData, isEditing }) => {
     const [formData, setFormData] = useState({
         name: '',
+        brand: '',
         price: '',
         quantity: '',
         description: '',
@@ -25,19 +26,17 @@ const ProductForm = ({ onSubmit, onCancel, initialData, isEditing }) => {
         if (initialData) {
             const formatDate = (dateString) => {
                 if (!dateString) return '';
-               
                 return new Date(dateString).toISOString().substring(0, 10);
             };
 
             setFormData({
                 name: initialData.name || '',
+                brand: initialData.brand || '',
                 price: initialData.price?.toString() || '',
                 quantity: initialData.quantity?.toString() || '',
                 description: initialData.description || '',
                 categoryId: initialData.productCategoryId?.toString() || '',
-
                 discountPercentage: initialData.discountPercentage?.toString() || '',
-
                 discountStartDate: formatDate(initialData.discountStartDate),
                 discountEndDate: formatDate(initialData.discountEndDate)
             });
@@ -81,6 +80,10 @@ const ProductForm = ({ onSubmit, onCancel, initialData, isEditing }) => {
             newErrors.name = 'Product name is required';
         }
 
+        if (!formData.brand.trim()) {
+            newErrors.brand = 'Brand is required';
+        }
+
         if (!formData.price) {
             newErrors.price = 'Price is required';
         } else if (parseFloat(formData.price) <= 0) {
@@ -112,11 +115,11 @@ const ProductForm = ({ onSubmit, onCancel, initialData, isEditing }) => {
         if (validateForm()) {
             const dataToSend = {
                 name: formData.name,
+                brand: formData.brand,
                 price: parseFloat(formData.price),
                 quantity: parseInt(formData.quantity),
                 description: formData.description || null,
                 ProductCategoryId: parseInt(formData.categoryId),
-
                 DiscountPercentage: formData.discountPercentage ? parseFloat(formData.discountPercentage) : null,
                 DiscountStartDate: formData.discountStartDate || null,
                 DiscountEndDate: formData.discountEndDate || null,
@@ -133,18 +136,34 @@ const ProductForm = ({ onSubmit, onCancel, initialData, isEditing }) => {
                     {isEditing ? 'Edit Product' : 'New Product'}
                 </h5>
                 <div>
-                    <div className="mb-3">
-                        <label className="form-label">Product Name *</label>
-                        <input
-                            type="text"
-                            className={`form-control ${errors.name ? 'is-invalid' : ''}`}
-                            name="name"
-                            value={formData.name}
-                            onChange={handleInputChange}
-                        />
-                        {errors.name && (
-                            <div className="invalid-feedback d-block">{errors.name}</div>
-                        )}
+                    <div className="row">
+                        <div className="col-md-6 mb-3">
+                            <label className="form-label">Product Name *</label>
+                            <input
+                                type="text"
+                                className={`form-control ${errors.name ? 'is-invalid' : ''}`}
+                                name="name"
+                                value={formData.name}
+                                onChange={handleInputChange}
+                            />
+                            {errors.name && (
+                                <div className="invalid-feedback d-block">{errors.name}</div>
+                            )}
+                        </div>
+                        <div className="col-md-6 mb-3">
+                            <label className="form-label">Brand *</label>
+                            <input
+                                type="text"
+                                className={`form-control ${errors.brand ? 'is-invalid' : ''}`}
+                                name="brand"
+                                value={formData.brand}
+                                onChange={handleInputChange}
+                                placeholder="e.g. Apple, Samsung"
+                            />
+                            {errors.brand && (
+                                <div className="invalid-feedback d-block">{errors.brand}</div>
+                            )}
+                        </div>
                     </div>
 
                     <div className="mb-3">
@@ -260,7 +279,6 @@ const ProductForm = ({ onSubmit, onCancel, initialData, isEditing }) => {
                             accept="image/*"
                         />
                     </div>
-
 
                     <div className="d-flex gap-2">
                         <button onClick={handleSubmit} className="btn btn-success">
