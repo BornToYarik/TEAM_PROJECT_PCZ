@@ -8,29 +8,31 @@ namespace Sklep_internetowy.Server.Services.Bidding
     public class AuctionHub : Hub
     {
         private readonly AuctionService _auctionService;
+        private readonly ILogger<AuctionHub> _logger;
 
-        public AuctionHub(AuctionService auctionService)
+        public AuctionHub(AuctionService auctionService, ILogger<AuctionHub> logger)
         {
             _auctionService = auctionService;
+            _logger = logger;
         }
 
         public override async Task OnConnectedAsync()
         {
             var userId = Context.User?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            Console.WriteLine($"User connected: {userId ?? "Anonymous"}");
+            _logger.LogInformation($"User connected: {userId ?? "Anonymous"}");
             await base.OnConnectedAsync();
         }
 
         public async Task JoinAuction(int auctionId)
         {
             await Groups.AddToGroupAsync(Context.ConnectionId, GetGroupName(auctionId));
-            Console.WriteLine($"User joined auction {auctionId}");
+            _logger.LogInformation($"User joined auction {auctionId}");
         }
 
         public async Task PlaceBid(int auctionId, decimal amount)
         {
-            // POPRAWKA: Użyj ClaimTypes.NameIdentifier
-            var userId = Context.User?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var userId = Context.User?.FindFirst(ClaimTypes.NameIdentifier)?.Value
+                ?? Context.User?.FindFirst("sub")?.Value;
 
             if (userId == null)
             {

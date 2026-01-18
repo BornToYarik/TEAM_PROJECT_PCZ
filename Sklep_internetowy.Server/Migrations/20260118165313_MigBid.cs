@@ -9,7 +9,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Sklep_internetowy.Server.Migrations
 {
     /// <inheritdoc />
-    public partial class ooo : Migration
+    public partial class MigBid : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -255,28 +255,22 @@ namespace Sklep_internetowy.Server.Migrations
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     ProductId = table.Column<int>(type: "integer", nullable: false),
-                    StartingPrice = table.Column<decimal>(type: "numeric", nullable: false),
-                    CurrentPrice = table.Column<decimal>(type: "numeric", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    StartingPrice = table.Column<decimal>(type: "numeric(18,2)", nullable: false),
+                    CurrentPrice = table.Column<decimal>(type: "numeric(18,2)", nullable: false),
                     EndTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    LastBidderId = table.Column<string>(type: "text", nullable: true),
                     IsFinished = table.Column<bool>(type: "boolean", nullable: false),
+                    LastBidderId = table.Column<string>(type: "text", nullable: true),
                     WinnerId = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Auctions", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Auctions_AspNetUsers_LastBidderId",
-                        column: x => x.LastBidderId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id");
-                    table.ForeignKey(
                         name: "FK_Auctions_Products_ProductId",
                         column: x => x.ProductId,
                         principalTable: "Products",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -330,20 +324,14 @@ namespace Sklep_internetowy.Server.Migrations
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Amount = table.Column<decimal>(type: "numeric", nullable: false),
+                    AuctionId = table.Column<int>(type: "integer", nullable: false),
                     BidderId = table.Column<string>(type: "text", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    AuctionId = table.Column<int>(type: "integer", nullable: false)
+                    Amount = table.Column<decimal>(type: "numeric(18,2)", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Bids", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Bids_AspNetUsers_BidderId",
-                        column: x => x.BidderId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Bids_Auctions_AuctionId",
                         column: x => x.AuctionId,
@@ -412,11 +400,6 @@ namespace Sklep_internetowy.Server.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Auctions_LastBidderId",
-                table: "Auctions",
-                column: "LastBidderId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Auctions_ProductId",
                 table: "Auctions",
                 column: "ProductId");
@@ -425,11 +408,6 @@ namespace Sklep_internetowy.Server.Migrations
                 name: "IX_Bids_AuctionId",
                 table: "Bids",
                 column: "AuctionId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Bids_BidderId",
-                table: "Bids",
-                column: "BidderId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_OrderProducts_ProductId",

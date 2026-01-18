@@ -12,8 +12,8 @@ using Sklep_internetowy.Server.Data;
 namespace Sklep_internetowy.Server.Migrations
 {
     [DbContext(typeof(StoreDbContext))]
-    [Migration("20260114195335_ooo")]
-    partial class ooo
+    [Migration("20260118165313_MigBid")]
+    partial class MigBid
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -165,11 +165,8 @@ namespace Sklep_internetowy.Server.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp with time zone");
-
                     b.Property<decimal>("CurrentPrice")
-                        .HasColumnType("numeric");
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<DateTime>("EndTime")
                         .HasColumnType("timestamp with time zone");
@@ -184,14 +181,12 @@ namespace Sklep_internetowy.Server.Migrations
                         .HasColumnType("integer");
 
                     b.Property<decimal>("StartingPrice")
-                        .HasColumnType("numeric");
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("WinnerId")
                         .HasColumnType("text");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("LastBidderId");
 
                     b.HasIndex("ProductId");
 
@@ -207,7 +202,7 @@ namespace Sklep_internetowy.Server.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<decimal>("Amount")
-                        .HasColumnType("numeric");
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("AuctionId")
                         .HasColumnType("integer");
@@ -222,8 +217,6 @@ namespace Sklep_internetowy.Server.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("AuctionId");
-
-                    b.HasIndex("BidderId");
 
                     b.ToTable("Bids");
                 });
@@ -592,17 +585,11 @@ namespace Sklep_internetowy.Server.Migrations
 
             modelBuilder.Entity("Sklep_internetowy.Server.Models.Auction", b =>
                 {
-                    b.HasOne("Sklep_internetowy.Server.Models.User", "LastBidder")
-                        .WithMany()
-                        .HasForeignKey("LastBidderId");
-
                     b.HasOne("Sklep_internetowy.Server.Models.Product", "Product")
                         .WithMany()
                         .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
-
-                    b.Navigation("LastBidder");
 
                     b.Navigation("Product");
                 });
@@ -615,15 +602,7 @@ namespace Sklep_internetowy.Server.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Sklep_internetowy.Server.Models.User", "Bidder")
-                        .WithMany()
-                        .HasForeignKey("BidderId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Auction");
-
-                    b.Navigation("Bidder");
                 });
 
             modelBuilder.Entity("Sklep_internetowy.Server.Models.Order", b =>

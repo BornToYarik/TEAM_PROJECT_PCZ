@@ -4,8 +4,10 @@
     {
         public int Id { get; set; }
         public int ProductId { get; set; }
-        public string ProductName { get; set; } = string.Empty;
+        public string ProductName { get; set; } = null!;
+        public ProductDto Product { get; set; } = null!;
         public decimal CurrentPrice { get; set; }
         public DateTime EndTime { get; set; }
     }
+
 }

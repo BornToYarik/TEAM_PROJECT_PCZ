@@ -2,6 +2,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import { getActiveAuctions } from "../../api/auctionApi";
 import { isAdmin } from "../../utils/authUtils";
+import './AuctionList.css';
 
 export default function AuctionList() {
     const [auctions, setAuctions] = useState([]);
@@ -32,51 +33,63 @@ export default function AuctionList() {
         navigate("/admin/create-auction");
     };
 
-    if (loading) return <p>Loading auctions...</p>;
-    if (error) return <p>{error}</p>;
+    if (loading) return <div className="loading">Loading auctions...</div>;
+    if (error) return <div className="error">{error}</div>;
 
     return (
-        <div>
-            <h1>Active Auctions</h1>
-
-            {isAdmin() && (
-                <button
-                    onClick={goToCreateAuction}
-                    className="btn btn-warning"
-                    style={{ marginBottom: 20 }}
-                >
-                    Create New Auction
-                </button>
-            )}
+        <div className="auction-list-page">
+            <header className="page-header">
+                <h1>🔥 Active Auctions</h1>
+                {isAdmin() && (
+                    <button
+                        onClick={goToCreateAuction}
+                        className="btn-create"
+                    >
+                        ➕ Create Auction
+                    </button>
+                )}
+            </header>
 
             {auctions.length === 0 ? (
-                <p>No active auctions at the moment.</p>
+                <div className="empty-state">
+                    <p>😔 No active auctions at the moment</p>
+                </div>
             ) : (
-                auctions.map(a => (
-                    <div
-                        key={a.id}
-                        style={{
-                            border: "1px solid gray",
-                            padding: 10,
-                            marginBottom: 10
-                        }}
-                    >
-                        <h3>
-                            {a.product?.name ?? `Product #${a.productId}`}
-                        </h3>
+                <div className="auction-grid">
+                    {auctions.map(a => (
+                        <div key={a.id} className="auction-card">
+                            <div className="card-image">
+                                <img
+                                    src={a.product?.imageUrl || '/placeholder.png'}
+                                    alt={a.product?.name}
+                                />
+                                <span className="badge-live">🔴 LIVE</span>
+                            </div>
 
-                        <p>Price: {a.currentPrice} USD</p>
+                            <div className="card-content">
+                                <h3>{a.product?.name ?? `Product #${a.productId}`}</h3>
 
-                        <p>
-                            Ends at:{" "}
-                            {a.endTime
-                                ? new Date(a.endTime).toLocaleString()
-                                : "Unknown"}
-                        </p>
+                                <div className="card-price">
+                                    <span className="label">Current Bid</span>
+                                    <span className="amount">${a.currentPrice}</span>
+                                </div>
 
-                        <Link to={`/auction/${a.id}`}>View Bids</Link>
-                    </div>
-                ))
+                                <div className="card-timer">
+                                    <span className="icon">⏳</span>
+                                    <span>
+                                        {a.endTime
+                                            ? new Date(a.endTime).toLocaleString('en-US')
+                                            : "Unknown"}
+                                    </span>
+                                </div>
+
+                                <Link to={`/auction/${a.id}`} className="btn-view">
+                                    View Auction →
+                                </Link>
+                            </div>
+                        </div>
+                    ))}
+                </div>
             )}
         </div>
     );

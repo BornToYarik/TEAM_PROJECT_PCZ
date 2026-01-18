@@ -1,0 +1,272 @@
+.auction-page {
+    min-height: 100vh;
+    background: #f5f5f5;
+}
+
+.auction-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background: #1a1a1a;
+    color: white;
+}
+
+.auction-header nav {
+    display: flex;
+    gap: 2rem;
+}
+
+.auction-header nav a {
+    color: white;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.auction-header nav a:hover {
+    color: #667eea;
+}
+
+.auction-container {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+.product-card {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    margin-bottom: 2rem;
+}
+
+.product-image {
+    width: 100%;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+}
+
+.product-info h1 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.product-specs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+    margin: 1rem 0;
+}
+
+.product-specs span {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.trust-badges {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.trust-badges span {
+    background: #4caf50;
+    color: white;
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+}
+
+.auction-block {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 2rem;
+    border-radius: 16px;
+    color: white;
+    margin-bottom: 2rem;
+}
+
+.current-bid {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.current-bid .label {
+    font-size: 1.2rem;
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.current-bid .price {
+    font-size: 3.5rem;
+    font-weight: bold;
+    display: block;
+}
+
+.auction-stats {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 2rem;
+}
+
+.stat {
+    text-align: center;
+}
+
+.stat .icon {
+    font-size: 2rem;
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.stat .value {
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+
+.bid-controls {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.bid-controls input {
+    flex: 1;
+    padding: 1rem;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+}
+
+.btn-bid {
+    background: #ff6b6b;
+    color: white;
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: transform 0.2s;
+    white-space: nowrap;
+}
+
+.btn-bid:hover:not(:disabled) {
+    transform: scale(1.05);
+}
+
+.btn-bid:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.btn-quick-bid {
+    background: white;
+    color: #667eea;
+    padding: 1rem 1.5rem;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.bid-history {
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    margin-bottom: 2rem;
+}
+
+.bid-history table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.bid-history th,
+.bid-history td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+}
+
+.bid-history th {
+    background: #f5f5f5;
+    font-weight: 600;
+}
+
+.latest-bid {
+    background: #fff3cd;
+    animation: highlight 0.5s ease;
+}
+
+@keyframes highlight {
+    from { background: #ffeb3b; }
+    to { background: #fff3cd; }
+}
+
+.product-description,
+.auction-rules {
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    margin-bottom: 2rem;
+}
+
+.product-description h3,
+.auction-rules h3 {
+    margin-bottom: 1rem;
+}
+
+details {
+    margin-bottom: 1rem;
+    cursor: pointer;
+}
+
+summary {
+    font-weight: 600;
+    padding: 0.5rem;
+    background: #f5f5f5;
+    border-radius: 4px;
+}
+
+@media (max-width: 768px) {
+    .product-card {
+        grid-template-columns: 1fr;
+    }
+
+    .bid-controls {
+        flex-direction: column;
+    }
+
+    .btn-bid,
+    .btn-quick-bid {
+        width: 100%;
+    }
+}
+
+.success-notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: #4caf50;
+    color: white;
+    padding: 1rem 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    z-index: 9999;
+    animation: slideIn 0.3s ease;
+    font-weight: 600;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}

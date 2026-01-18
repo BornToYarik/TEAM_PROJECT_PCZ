@@ -50,6 +50,7 @@ namespace Sklep_internetowy.Server.Data
                 new Product { Id = 33, Name = "Laptop B", Description = "High performance laptop", Price = 1500.00m, ProductCategoryId = 1, Brand = "Apple" }
             );
 
+
             modelBuilder.Entity<ProductCategory>().HasData(
                 new ProductCategory { Id = 1, Name = "Laptops", Slug = "laptops", Description = "Portable computers" },
                 new ProductCategory { Id = 2, Name = "Computers", Slug = "computers", Description = "Desktop computers" },
@@ -57,7 +58,32 @@ namespace Sklep_internetowy.Server.Data
                 new ProductCategory { Id = 4, Name = "Gaming", Slug = "gaming", Description = "Gaming devices and accessories" },
                 new ProductCategory { Id = 5, Name = "Accessories", Slug = "accessories", Description = "Computer accessories" },
                 new ProductCategory { Id = 6, Name = "Deals", Slug = "deals", Description = "Special offers" }
-            );  
+            );
+            modelBuilder.Entity<Auction>()
+              .HasOne(a => a.Product)
+              .WithMany()
+              .HasForeignKey(a => a.ProductId)
+              .OnDelete(DeleteBehavior.Restrict);
+
+          
+            modelBuilder.Entity<Bid>()
+                .HasOne(b => b.Auction)
+                .WithMany(a => a.Bids)
+                .HasForeignKey(b => b.AuctionId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+         
+            modelBuilder.Entity<Auction>()
+                .Property(a => a.StartingPrice)
+                .HasColumnType("decimal(18,2)");
+
+            modelBuilder.Entity<Auction>()
+                .Property(a => a.CurrentPrice)
+                .HasColumnType("decimal(18,2)");
+
+            modelBuilder.Entity<Bid>()
+                .Property(b => b.Amount)
+                .HasColumnType("decimal(18,2)");
         }
     }
 }

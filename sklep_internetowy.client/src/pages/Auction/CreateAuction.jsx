@@ -2,6 +2,7 @@
 import { createAuction } from "../../api/auctionApi";
 import axios from "axios";
 import { isAdmin } from "../../utils/authUtils";
+import './CreateAuction.css';
 
 export default function CreateAuction() {
     const [products, setProducts] = useState([]);
@@ -42,41 +43,49 @@ export default function CreateAuction() {
     };
 
     if (!isAdmin()) {
-        return <p>Access denied</p>;
+        return <div className="access-denied">🚫 Access Denied</div>;
     }
 
     return (
-        <form onSubmit={handleSubmit}>
-            <h1>Create Auction</h1>
+        <div className="create-auction-page">
+            <form onSubmit={handleSubmit} className="create-form">
+                <h1>➕ Create Auction</h1>
 
-            <label htmlFor="product">Product</label>
-            <select
-                id="product"
-                value={productId}
-                onChange={e => setProductId(e.target.value)}
-                required
-            >
-                <option value="">Select product</option>
-                {products.map(p => (
-                    <option key={p.id} value={p.id}>
-                        {p.name || "Unnamed product"}
-                    </option>
-                ))}
-            </select>
+                <div className="form-group">
+                    <label htmlFor="product">Product</label>
+                    <select
+                        id="product"
+                        value={productId}
+                        onChange={e => setProductId(e.target.value)}
+                        required
+                    >
+                        <option value="">Select product</option>
+                        {products.map(p => (
+                            <option key={p.id} value={p.id}>
+                                {p.name || "Unnamed product"}
+                            </option>
+                        ))}
+                    </select>
+                </div>
 
-            <label htmlFor="price">Starting price</label>
-            <input
-                id="price"
-                type="number"
-                min="0"
-                value={price}
-                onChange={e => setPrice(e.target.value)}
-                required
-            />
+                <div className="form-group">
+                    <label htmlFor="price">Starting Price ($)</label>
+                    <input
+                        id="price"
+                        type="number"
+                        min="0"
+                        step="0.01"
+                        value={price}
+                        onChange={e => setPrice(e.target.value)}
+                        placeholder="0.00"
+                        required
+                    />
+                </div>
 
-            <button type="submit" disabled={loading}>
-                {loading ? "Creating..." : "Create"}
-            </button>
-        </form>
+                <button type="submit" className="btn-submit" disabled={loading}>
+                    {loading ? "⏳ Creating..." : "🚀 Create"}
+                </button>
+            </form>
+        </div>
     );
 }
