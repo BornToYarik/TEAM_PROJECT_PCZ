@@ -4,14 +4,12 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+#pragma warning disable CA1814
 
 namespace Sklep_internetowy.Server.Migrations
 {
-    /// <inheritdoc />
-    public partial class ooo : Migration
+    public partial class qqq : Migration
     {
-        /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
@@ -227,6 +225,7 @@ namespace Sklep_internetowy.Server.Migrations
                     Description = table.Column<string>(type: "text", nullable: true),
                     IsOnAuction = table.Column<bool>(type: "boolean", nullable: false),
                     OwnerId = table.Column<string>(type: "text", nullable: true),
+                    Brand = table.Column<string>(type: "text", nullable: false),
                     DiscountPercentage = table.Column<decimal>(type: "numeric", nullable: true),
                     DiscountStartDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     DiscountEndDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
@@ -367,11 +366,11 @@ namespace Sklep_internetowy.Server.Migrations
 
             migrationBuilder.InsertData(
                 table: "Products",
-                columns: new[] { "Id", "Description", "DiscountEndDate", "DiscountPercentage", "DiscountStartDate", "IsOnAuction", "Name", "OwnerId", "Price", "ProductCategoryId", "Quantity" },
+                columns: new[] { "Id", "Brand", "Description", "DiscountEndDate", "DiscountPercentage", "DiscountStartDate", "IsOnAuction", "Name", "OwnerId", "Price", "ProductCategoryId", "Quantity" },
                 values: new object[,]
                 {
-                    { 33, "High performance laptop", null, null, null, false, "Laptop B", null, 1500.00m, 1, 0 },
-                    { 50, "High performance laptop", null, null, null, false, "Laptop A", null, 1500.00m, 1, 0 }
+                    { 33, "Apple", "High performance laptop", null, null, null, false, "Laptop B", null, 1500.00m, 1, 0 },
+                    { 50, "HP", "High performance laptop", null, null, null, false, "Laptop A", null, 1500.00m, 1, 0 }
                 });
 
             migrationBuilder.CreateIndex(

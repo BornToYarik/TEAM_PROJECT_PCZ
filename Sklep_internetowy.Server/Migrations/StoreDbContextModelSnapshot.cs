@@ -277,6 +277,10 @@ namespace Sklep_internetowy.Server.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("Brand")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<string>("Description")
                         .HasColumnType("text");
 
@@ -320,6 +324,7 @@ namespace Sklep_internetowy.Server.Migrations
                         new
                         {
                             Id = 50,
+                            Brand = "HP",
                             Description = "High performance laptop",
                             IsOnAuction = false,
                             Name = "Laptop A",
@@ -330,6 +335,7 @@ namespace Sklep_internetowy.Server.Migrations
                         new
                         {
                             Id = 33,
+                            Brand = "Apple",
                             Description = "High performance laptop",
                             IsOnAuction = false,
                             Name = "Laptop B",

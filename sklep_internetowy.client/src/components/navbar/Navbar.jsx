@@ -1,8 +1,10 @@
 ﻿import { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { isAdmin } from '../../utils/authUtils';
-import { useWishlist } from '../../context/WishlistContext'; 
+import { useWishlist } from '../../context/WishlistContext';
 import { useCart } from '../../context/CartContext';
+import { useTheme } from '../../context/ThemeContext';
+
 function Navbar({ compareCount }) {
     const [searchQuery, setSearchQuery] = useState('');
     const [suggestions, setSuggestions] = useState({ categories: [], products: [] });
@@ -11,11 +13,14 @@ function Navbar({ compareCount }) {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [isUserAdmin, setIsUserAdmin] = useState(false);
 
+    const { theme, toggleTheme, fontSize, toggleFontSize } = useTheme();
+
     const navigate = useNavigate();
     const location = useLocation();
     const dropdownRef = useRef(null);
     const { wishlist } = useWishlist();
     const { totalItems } = useCart();
+
     const handleLogout = () => {
         localStorage.removeItem("token");
         localStorage.removeItem("user");
@@ -117,7 +122,6 @@ function Navbar({ compareCount }) {
                             {showDropdown && (suggestions.products.length > 0 || suggestions.categories.length > 0) && (
                                 <div className="position-absolute bg-white shadow-lg rounded-3 mt-2 d-flex"
                                     style={{ width: '550px', zIndex: 1050, border: '1px solid #dee2e6', left: 0 }}>
-
                                     <div className="p-3 border-end" style={{ width: '40%', backgroundColor: '#f8f9fa' }}>
                                         <label className="text-muted small fw-bold text-uppercase mb-2 d-block">Categories</label>
                                         <ul className="list-unstyled mb-0">
@@ -155,9 +159,35 @@ function Navbar({ compareCount }) {
                             )}
                         </div>
 
-                        <div className="d-flex align-items-center gap-4">
+                        <div className="d-flex align-items-center gap-3">
 
-                            {/* 1. COMPARE */}
+                            <div className="d-flex bg-secondary bg-opacity-25 rounded p-1">
+                                <button
+                                    onClick={toggleFontSize}
+                                    className="btn btn-sm text-white"
+                                    title="Toggle Font Size"
+                                >
+                                    {fontSize === 'normal'
+                                        ? <i className="bi bi-file-font fs-5"></i>
+                                        : <i className="bi bi-file-font-fill fs-4 text-warning"></i>
+                                    }
+                                </button>
+
+                                <div className="vr bg-white mx-1"></div>
+
+                                <button
+                                    onClick={toggleTheme}
+                                    className="btn btn-sm text-white"
+                                    title="Toggle Dark Mode"
+                                >
+                                    {theme === 'light'
+                                        ? <i className="bi bi-moon-stars fs-5"></i>
+                                        : <i className="bi bi-sun-fill fs-5 text-warning"></i>
+                                    }
+                                </button>
+                            </div>
+
+
                             <Link to="/compare" className="text-white position-relative text-decoration-none">
                                 <i className="bi bi-shuffle fs-4"></i>
                                 {currentCompareCount > 0 && (
@@ -167,7 +197,6 @@ function Navbar({ compareCount }) {
                                 )}
                             </Link>
 
-                            {/* 2. CART */}
                             <Link to="/cart" className="text-white position-relative text-decoration-none">
                                 <i className="bi bi-cart4 fs-4"></i>
                                 {totalItems > 0 && (
@@ -177,7 +206,6 @@ function Navbar({ compareCount }) {
                                 )}
                             </Link>
 
-                            {/* 3. WISHLIST  */}
                             <Link to="/wishlistpage" className="text-white position-relative text-decoration-none me-2">
                                 <i className="bi bi-heart-fill" style={{ fontSize: '1.4rem' }}></i>
                                 {wishlist.length > 0 && (
@@ -187,7 +215,6 @@ function Navbar({ compareCount }) {
                                 )}
                             </Link>
 
-                            {/* AUTH BUTTONS */}
                             {isLoggedIn ? (
                                 <div className="d-flex gap-2 ms-2">
                                     <Link to="/profile" className="btn btn-outline-light btn-sm">Profile</Link>
