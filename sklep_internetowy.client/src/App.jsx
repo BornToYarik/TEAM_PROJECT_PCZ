@@ -27,10 +27,13 @@ import AuctionDetails from "./pages/Auction/AuctionDetails";
 import CreateAuction from "./pages/Auction/CreateAuction";
 import WishlistPage from './pages/WishList/WishlistPage';
 
+import { ThemeProvider } from './context/ThemeContext';
+
 function App() {
     const comparison = useComparison();
+
     return (
-        <>
+        <ThemeProvider>
             <Navbar compareCount={comparison.compareItems.length} />
             <Routes>
                 <Route path="/" element={<Home />}></Route>
@@ -85,21 +88,21 @@ function App() {
                 } />
 
 
-              <Route path="/admin/promotions" element={
-                     <ProtectedRoute>
-                         <PromotionManagement />
-                      </ProtectedRoute>
-              } />
+                <Route path="/admin/promotions" element={
+                    <ProtectedRoute>
+                        <PromotionManagement />
+                    </ProtectedRoute>
+                } />
 
-              <Route path="/search" element={
+                <Route path="/search" element={
                     <ProtectedRoute>
                         <SearchPage />
                     </ProtectedRoute>
-              } />
-        </Routes>
-        <Footer />
-    </>
-  )
+                } />
+            </Routes>
+            <Footer />
+        </ThemeProvider>
+    )
 }
 
 export default App;

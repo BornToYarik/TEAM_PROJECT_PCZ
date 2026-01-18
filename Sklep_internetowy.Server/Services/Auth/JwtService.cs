@@ -14,7 +14,6 @@ namespace Sklep_internetowy.Server.Services.Auth
         {
             var claims = new List<Claim> {
                 new Claim(ClaimTypes.Name, user.UserName),
-                //new Claim(ClaimTypes.NameIdentifier, user.UserName),
                 new Claim(ClaimTypes.NameIdentifier, user.Id),
                new Claim(JwtRegisteredClaimNames.Sub, user.Id),
 
