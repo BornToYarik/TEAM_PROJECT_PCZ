@@ -1,14 +1,18 @@
 ﻿import { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { isAdmin } from '../../utils/authUtils';
-import { useWishlist } from '../../context/WishListContext'; 
+import { useWishlist } from '../../context/WishListContext';
 import { useCart } from '../../context/CartContext';
 import { useTheme } from '../../context/ThemeContext';
+import { useTranslation } from 'react-i18next';
 
 function Navbar({ compareCount }) {
+    const { t, i18n } = useTranslation();
+
     const [searchQuery, setSearchQuery] = useState('');
     const [suggestions, setSuggestions] = useState({ categories: [], products: [] });
     const [showDropdown, setShowDropdown] = useState(false);
+    const DEFAULT_IMAGE = "https://cdn.pixabay.com/photo/2017/11/10/04/47/image-2935360_1280.png";
 
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [isUserAdmin, setIsUserAdmin] = useState(false);
@@ -20,6 +24,10 @@ function Navbar({ compareCount }) {
     const dropdownRef = useRef(null);
     const { wishlist } = useWishlist();
     const { totalItems } = useCart();
+
+    const changeLanguage = (lng) => {
+        i18n.changeLanguage(lng);
+    };
 
     const handleLogout = () => {
         localStorage.removeItem("token");
@@ -85,6 +93,8 @@ function Navbar({ compareCount }) {
 
     const currentCompareCount = compareCount || 0;
 
+    const menuItems = ['laptops', 'computers', 'smartphones', 'gaming', 'accessories'];
+
     return (
         <>
             <nav className="navbar navbar-dark bg-dark py-3 shadow">
@@ -98,7 +108,7 @@ function Navbar({ compareCount }) {
                         {isLoggedIn && isUserAdmin && (
                             <Link className="btn btn-outline-warning btn-sm" to="/admin">
                                 <i className="bi bi-speedometer2 me-1"></i>
-                                Admin
+                                {t('navbar.admin')}
                             </Link>
                         )}
                     </div>
@@ -109,7 +119,7 @@ function Navbar({ compareCount }) {
                                 <input
                                     className="form-control border-0 shadow-none"
                                     type="search"
-                                    placeholder="Search products..."
+                                    placeholder={t('navbar.searchPlaceholder')}
                                     value={searchQuery}
                                     onChange={(e) => setSearchQuery(e.target.value)}
                                     onFocus={() => searchQuery.length > 1 && setShowDropdown(true)}
@@ -123,7 +133,9 @@ function Navbar({ compareCount }) {
                                 <div className="position-absolute bg-white shadow-lg rounded-3 mt-2 d-flex"
                                     style={{ width: '550px', zIndex: 1050, border: '1px solid #dee2e6', left: 0 }}>
                                     <div className="p-3 border-end" style={{ width: '40%', backgroundColor: '#f8f9fa' }}>
-                                        <label className="text-muted small fw-bold text-uppercase mb-2 d-block">Categories</label>
+                                        <label className="text-muted small fw-bold text-uppercase mb-2 d-block">
+                                            {t('navbar.categoriesHeader')}
+                                        </label>
                                         <ul className="list-unstyled mb-0">
                                             {suggestions.categories.map((cat, idx) => (
                                                 <li key={idx} className="mb-2">
@@ -132,25 +144,32 @@ function Navbar({ compareCount }) {
                                                     </Link>
                                                 </li>
                                             ))}
-                                            {suggestions.categories.length === 0 && <span className="text-muted small">No categories found</span>}
+                                            {suggestions.categories.length === 0 && <span className="text-muted small">{t('navbar.noCategories')}</span>}
                                         </ul>
                                     </div>
 
                                     <div className="p-3" style={{ width: '60%' }}>
-                                        <label className="text-muted small fw-bold text-uppercase mb-2 d-block">Suggested Products</label>
+                                        <label className="text-muted small fw-bold text-uppercase mb-2 d-block">
+                                            {t('navbar.suggestedProducts')}
+                                        </label>
                                         {suggestions.products.map(product => (
                                             <div key={product.id}
                                                 className="d-flex align-items-center p-2 mb-1 rounded item-row"
                                                 style={{ cursor: 'pointer' }}
                                                 onClick={() => { navigate(`/product/${product.id}`); setShowDropdown(false); }}>
 
-                                                <div className="bg-light rounded d-flex align-items-center justify-content-center me-3" style={{ width: '40px', height: '40px' }}>
-                                                    <i className="bi bi-box text-secondary"></i>
-                                                </div>
+                                                <img
+                                                    src={(product.imageUrls && product.imageUrls.length > 0) ? product.imageUrls[0] : DEFAULT_IMAGE}
+                                                    alt={product.name}
+                                                    className="rounded me-3"
+                                                    style={{ width: '40px', height: '40px', objectFit: 'cover' }}
+                                                />
 
                                                 <div className="overflow-hidden">
                                                     <div className="small fw-bold text-dark text-truncate">{product.name}</div>
-                                                    <div className="text-success fw-bold small">{product.price.toFixed(2)} zl</div>
+                                                    <div className="text-success fw-bold small">
+                                                        {product.price.toFixed(2)} {t('navbar.currency')}
+                                                    </div>
                                                 </div>
                                             </div>
                                         ))}
@@ -161,11 +180,26 @@ function Navbar({ compareCount }) {
 
                         <div className="d-flex align-items-center gap-3">
 
+                            <div className="btn-group btn-group-sm">
+                                <button
+                                    className={`btn ${i18n.resolvedLanguage === 'pl' ? 'btn-light' : 'btn-outline-secondary text-white'}`}
+                                    onClick={() => changeLanguage('pl')}
+                                >
+                                    PL
+                                </button>
+                                <button
+                                    className={`btn ${i18n.resolvedLanguage === 'en' ? 'btn-light' : 'btn-outline-secondary text-white'}`}
+                                    onClick={() => changeLanguage('en')}
+                                >
+                                    EN
+                                </button>
+                            </div>
+
                             <div className="d-flex bg-secondary bg-opacity-25 rounded p-1">
                                 <button
                                     onClick={toggleFontSize}
                                     className="btn btn-sm text-white"
-                                    title="Toggle Font Size"
+                                    title={t('navbar.tooltips.fontSize')}
                                 >
                                     {fontSize === 'normal'
                                         ? <i className="bi bi-file-font fs-5"></i>
@@ -178,7 +212,7 @@ function Navbar({ compareCount }) {
                                 <button
                                     onClick={toggleTheme}
                                     className="btn btn-sm text-white"
-                                    title="Toggle Dark Mode"
+                                    title={t('navbar.tooltips.darkMode')}
                                 >
                                     {theme === 'light'
                                         ? <i className="bi bi-moon-stars fs-5"></i>
@@ -188,7 +222,7 @@ function Navbar({ compareCount }) {
                             </div>
 
 
-                            <Link to="/compare" className="text-white position-relative text-decoration-none">
+                            <Link to="/compare" title={t('navbar.tooltips.compare')} className="text-white position-relative text-decoration-none">
                                 <i className="bi bi-shuffle fs-4"></i>
                                 {currentCompareCount > 0 && (
                                     <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-info" style={{ fontSize: '0.65rem' }}>
@@ -197,7 +231,7 @@ function Navbar({ compareCount }) {
                                 )}
                             </Link>
 
-                            <Link to="/cart" className="text-white position-relative text-decoration-none">
+                            <Link to="/cart" title={t('navbar.tooltips.cart')} className="text-white position-relative text-decoration-none">
                                 <i className="bi bi-cart4 fs-4"></i>
                                 {totalItems > 0 && (
                                     <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style={{ fontSize: '0.65rem' }}>
@@ -206,7 +240,7 @@ function Navbar({ compareCount }) {
                                 )}
                             </Link>
 
-                            <Link to="/wishlistpage" className="text-white position-relative text-decoration-none me-2">
+                            <Link to="/wishlistpage" title={t('navbar.tooltips.wishlist')} className="text-white position-relative text-decoration-none me-2">
                                 <i className="bi bi-heart-fill" style={{ fontSize: '1.4rem' }}></i>
                                 {wishlist.length > 0 && (
                                     <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style={{ fontSize: '0.65rem' }}>
@@ -217,11 +251,11 @@ function Navbar({ compareCount }) {
 
                             {isLoggedIn ? (
                                 <div className="d-flex gap-2 ms-2">
-                                    <Link to="/profile" className="btn btn-outline-light btn-sm">Profile</Link>
-                                    <button onClick={handleLogout} className="btn btn-warning btn-sm">Logout</button>
+                                    <Link to="/profile" className="btn btn-outline-light btn-sm">{t('navbar.profile')}</Link>
+                                    <button onClick={handleLogout} className="btn btn-warning btn-sm">{t('navbar.logout')}</button>
                                 </div>
                             ) : (
-                                <Link className="btn btn-outline-light btn-sm ms-2" to="/login">Login</Link>
+                                <Link className="btn btn-outline-light btn-sm ms-2" to="/login">{t('navbar.login')}</Link>
                             )}
                         </div>
                     </div>
@@ -231,18 +265,22 @@ function Navbar({ compareCount }) {
             <nav className="navbar navbar-expand-lg navbar-light bg-light border-bottom">
                 <div className="container">
                     <ul className="navbar-nav mx-auto gap-4">
-                        {['Laptops', 'Computers', 'Smartphones', 'Gaming', 'Accessories'].map(item => (
+                        {menuItems.map(item => (
                             <li key={item} className="nav-item">
-                                <Link className="nav-link fw-semibold" to={`/${item.toLowerCase()}`}>{item}</Link>
+                                <Link className="nav-link fw-semibold" to={`/${item}`}>
+                                    {t(`navbar.menu.${item}`)}
+                                </Link>
                             </li>
                         ))}
                         <li className="nav-item">
-                            <Link className="nav-link fw-semibold text-danger" to="/deals">Deals</Link>
+                            <Link className="nav-link fw-semibold text-danger" to="/deals">
+                                {t('navbar.menu.deals')}
+                            </Link>
                         </li>
                         <li className="nav-item">
                             <Link className="nav-link fw-semibold text-danger" to="/auctions">
                                 <i className="bi bi-tag-fill me-1"></i>
-                                Auctions
+                                {t('navbar.menu.auctions')}
                             </Link>
                         </li>
                     </ul>

@@ -1,0 +1,52 @@
+{
+  "navbar": {
+    "searchPlaceholder": "Search products...",
+    "admin": "Admin",
+    "profile": "Profile",
+    "logout": "Logout",
+    "login": "Login",
+    "categoriesHeader": "CATEGORIES",
+    "noCategories": "No categories found",
+    "suggestedProducts": "SUGGESTED PRODUCTS",
+    "currency": "zl",
+    "tooltips": {
+      "fontSize": "Toggle Font Size",
+      "darkMode": "Toggle Dark Mode",
+      "compare": "Compare",
+      "cart": "Cart",
+      "wishlist": "Wishlist"
+    },
+    "menu": {
+      "laptops": "Laptops",
+      "computers": "Computers",
+      "smartphones": "Smartphones",
+      "gaming": "Gaming",
+      "accessories": "Accessories",
+      "deals": "Deals",
+      "auctions": "Auctions"
+    }
+  },
+  "footer": {
+    "contactHeader": "CONTACT US",
+    "email": "Email",
+    "name": "Name",
+    "phone": "Telephone",
+    "message": "Message",
+    "send": "Send",
+    "findUsHeader": "FIND US",
+    "weAreHere": "We are here!",
+    "copyright": "2025 Company, Inc",
+    "alerts": {
+      "success": "Message sent successfully!",
+      "error": "Error while sending message"
+    }
+  },
+  "productCard": {
+    "category": "Category:",
+    "none": "None",
+    "noDescription": "No description",
+    "currency": "zl",
+    "addToCart": "Add to cart",
+    "unavailable": "Unavailable"
+  }
+}

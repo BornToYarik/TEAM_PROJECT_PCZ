@@ -1,13 +1,19 @@
 import { useNavigate } from "react-router-dom";
 import { useWishlist } from '../../../context/WishListContext';
+import { useTranslation } from 'react-i18next';
+
 function ProductCard({ product, addToCart, onClick }) {
+    const { t } = useTranslation();
     const navigate = useNavigate();
+
     const isDiscountActive = (p) => p.hasActiveDiscount || p.discountPercentage > 0;
     const DEFAULT_IMAGE = "https://cdn.pixabay.com/photo/2017/11/10/04/47/image-2935360_1280.png";
+
     const { toggleWishlist, isInWishlist } = useWishlist();
     const isLiked = isInWishlist(product.id);
+
     const mainImage = (product.imageUrls && product.imageUrls.length > 0)
-        ? product.imageUrls[0] 
+        ? product.imageUrls[0]
         : DEFAULT_IMAGE;
 
     return (
@@ -34,26 +40,29 @@ function ProductCard({ product, addToCart, onClick }) {
                 <h5 className="card-title">{product.name}</h5>
 
                 <p className="text-muted small mb-1">
-                    Category: <strong>{product.productCategory?.name || "None"}</strong>
+                    {t('productCard.category')} <strong>{product.productCategory?.name || t('productCard.none')}</strong>
                 </p>
 
                 <p className="card-text text-muted">
-                    {product.description?.substring(0, 80) || "No description"}
+                    {product.description?.substring(0, 80) || t('productCard.noDescription')}
                 </p>
 
                 <div className="mt-auto">
                     {isDiscountActive(product) ? (
                         <div>
                             <p className="text-decoration-line-through text-muted mb-0">
-                                {product.price} zl
+                                {product.price} {t('productCard.currency')}
                             </p>
                             <p className="fw-bold text-danger fs-5">
-                                {product.finalPrice} zl
+                                {product.finalPrice} {t('productCard.currency')}
                             </p>
                         </div>
                     ) : (
-                        <p className="fw-bold text-success fs-5">{product.price} zl</p>
+                        <p className="fw-bold text-success fs-5">
+                            {product.price} {t('productCard.currency')}
+                        </p>
                     )}
+
                     <button
                         className="btn position-absolute top-0 end-0 m-2 rounded-circle shadow-sm"
                         style={{
@@ -66,7 +75,7 @@ function ProductCard({ product, addToCart, onClick }) {
                             zIndex: 10
                         }}
                         onClick={(e) => {
-                            e.preventDefault(); // „тобы не переходить по ссылке карточки (если есть)
+                            e.preventDefault();
                             toggleWishlist(product);
                         }}
                     >
@@ -76,6 +85,7 @@ function ProductCard({ product, addToCart, onClick }) {
                             <i className="bi bi-heart text-secondary"></i>
                         )}
                     </button>
+
                     <button
                         className="btn w-100 buy-btn"
                         disabled={product.quantity <= 0}
@@ -85,7 +95,7 @@ function ProductCard({ product, addToCart, onClick }) {
                             navigate("/cart");
                         }}
                     >
-                        {product.quantity > 0 ? "Add to cart" : "Unavailable"}
+                        {product.quantity > 0 ? t('productCard.addToCart') : t('productCard.unavailable')}
                     </button>
                 </div>
             </div>

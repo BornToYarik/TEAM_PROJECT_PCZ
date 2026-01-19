@@ -15,6 +15,7 @@ function CategoryProducts() {
     const navigate = useNavigate();
 
     const API_URL = '/api/ProductCategory';
+    const DEFAULT_IMAGE = "https://cdn.pixabay.com/photo/2017/11/10/04/47/image-2935360_1280.png";
 
     const isDiscountActive = (p) => p.hasActiveDiscount && p.finalPrice < p.price;
 
@@ -132,6 +133,7 @@ function CategoryProducts() {
             {products.length > 0 && (
                 <div className="row g-3">
                     {products.map((p) => (
+                        
                         <div key={p.id} className="col-12"
                             onClick={() => handleProductClick(p.id)}>
                             <div className="product-list-item d-flex align-items-center bg-white rounded-lg cursor-pointer"
@@ -147,10 +149,10 @@ function CategoryProducts() {
                                         </span>
                                     )}
                                     <img
-                                        src="https://cdn.pixabay.com/photo/2017/11/10/04/47/image-2935360_1280.png"
+                                        src={(p.imageUrls && p.imageUrls.length > 0) ? p.imageUrls[0] : DEFAULT_IMAGE}
                                         className="product-list-img"
                                         alt={p.name}
-                                    />
+                                    />{console.log(p.imageUrls)}
                                 </div>
 
                                 <div className="flex-grow-1 me-4">
@@ -158,7 +160,8 @@ function CategoryProducts() {
                                         <h5 className="card-title text-dark mb-1">{p.name}</h5>
                                     </Link>
                                     <p className="text-muted small mb-1">
-                                        Category: <strong>{p.productCategoryName || "None"}</strong>
+                                        Category: <strong>{p.productCategoryName || "None"}
+                                        </strong>
                                     </p>
                                     <p className="text-muted small mb-0 d-none d-md-block">
                                         {p.description?.substring(0, 150) + (p.description?.length > 150 ? '...' : '') || "No description"}
