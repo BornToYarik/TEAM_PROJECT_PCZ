@@ -1,5 +1,7 @@
 {
   "dependencies": {
+    "@stripe/react-stripe-js": "^5.4.1",
+    "@stripe/stripe-js": "^8.6.1",
     "bootstrap-icons": "^1.13.1"
   }
 }
