@@ -26,7 +26,7 @@ import AuctionList from "./pages/Auction/AuctionList";
 import AuctionDetails from "./pages/Auction/AuctionDetails";
 import CreateAuction from "./pages/Auction/CreateAuction";
 import WishlistPage from './pages/WishList/WishlistPage';
-
+import PaymentPage from './pages/Payment/PaymentPage';
 import { ThemeProvider } from './context/ThemeContext';
 
 function App() {
@@ -50,7 +50,7 @@ function App() {
                 <Route path="/auctions" element={<AuctionList />} />
                 <Route path="/auction/:id" element={<AuctionDetails />} />
                 <Route path="/admin/create-auction" element={<CreateAuction />} />
-
+                <Route path="/payment" element={<PaymentPage />} />
                 <Route path="/admin" element={
                     <ProtectedRoute>
                         <AdminDashboard />
