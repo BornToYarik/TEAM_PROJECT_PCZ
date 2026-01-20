@@ -13,6 +13,7 @@ namespace Sklep_internetowy.Server.Models
         public bool IsOnAuction { get; set; }
         public string? OwnerId { get; set; }
         public User? Owner { get; set; }
+        public string Brand { get; set; } = null!;
         public decimal? DiscountPercentage { get; set; }
         public DateTime? DiscountStartDate { get; set; }
         public DateTime? DiscountEndDate { get; set; }

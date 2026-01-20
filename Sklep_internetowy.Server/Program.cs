@@ -45,6 +45,8 @@ builder.Services.AddHostedService<AuctionBackgroundService>();
 builder.Services.AddScoped<AccountService>();
 builder.Services.AddScoped<JwtService>();
 builder.Services.AddScoped<PromotionService>();
+builder.Services.Configure<MailSettings>(builder.Configuration.GetSection("MailSettings"));
+builder.Services.AddTransient<EmailService>();
 builder.Services.Configure<AuthSettings>(builder.Configuration.GetSection("AuthSettings"));
 builder.Services.AddHostedService<AuctionFinisherService>();
 // Controllers
