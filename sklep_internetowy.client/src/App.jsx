@@ -25,7 +25,8 @@ import SearchPage from './pages/Products/Shop/SearchPage.jsx';
 import AuctionList from "./pages/Auction/AuctionList";
 import AuctionDetails from "./pages/Auction/AuctionDetails";
 import CreateAuction from "./pages/Auction/CreateAuction";
-
+import AuctionPayment from './pages/Auction/AuctionPayment';
+import MyAuctionWins from './pages/Auction/MyAuctionWins';
 
 function App() {
     const comparison = useComparison();
@@ -33,6 +34,7 @@ function App() {
         <>
             <Navbar compareCount={comparison.compareItems.length} />
             <Routes>
+
                 <Route path="/" element={<Home />}></Route>
                 <Route path="/login" element={<LoginPage />}></Route>
                 <Route path="/registration" element={<Registration />}></Route>
@@ -45,8 +47,10 @@ function App() {
 
                 <Route path="/auctions" element={<AuctionList />} />
                 <Route path="/auction/:id" element={<AuctionDetails />} />
-                <Route path="/admin/create-auction" element={<CreateAuction />} />
 
+                <Route path="/admin/create-auction" element={<CreateAuction />} />
+                <Route path="/auction-payment/:auctionId" element={<AuctionPayment />} />
+                <Route path="/my-auction-wins" element={<MyAuctionWins />} />
                 <Route path="/admin" element={
                     <ProtectedRoute>
                         <AdminDashboard />
