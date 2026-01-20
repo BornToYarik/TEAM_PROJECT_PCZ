@@ -47,7 +47,7 @@ function App() {
 
                 <Route path="/auctions" element={<AuctionList />} />
                 <Route path="/auction/:id" element={<AuctionDetails />} />
-
+                <Route path="/payment" element={<PaymentPage />} />
                 <Route path="/admin/create-auction" element={<CreateAuction />} />
                 <Route path="/auction-payment/:auctionId" element={<AuctionPayment />} />
                 <Route path="/my-auction-wins" element={<MyAuctionWins />} />
