@@ -3,9 +3,14 @@ import { useNavigate } from "react-router-dom";
 function FeaturedProductCard({ product }) {
     const navigate = useNavigate();
 
+    const DEFAULT_IMAGE = "https://cdn.pixabay.com/photo/2017/11/10/04/47/image-2935360_1280.png";
     if (!product) return null;
 
     const isDiscountActive = (p) => p.hasActiveDiscount || p.discountPercentage > 0;
+
+    const mainImage = (product.imageUrls && product.imageUrls.length > 0)
+        ? product.imageUrls[0]
+        : DEFAULT_IMAGE;
 
     return (
         <div className="col-12 col-md-6">
@@ -24,7 +29,7 @@ function FeaturedProductCard({ product }) {
                 )}
 
                 <img
-                    src="https://cdn.pixabay.com/photo/2017/11/10/04/47/image-2935360_1280.png"
+                    src={mainImage}
                     className="card-img-top"
                     style={{ height: 300, objectFit: "cover" }}
                     alt={product.name}

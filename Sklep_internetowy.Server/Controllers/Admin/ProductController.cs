@@ -309,6 +309,7 @@ namespace Sklep_internetowy.Server.Controllers.Admin
 
                 var allProducts = await _context.Products
                     .Include(p => p.ProductCategory)
+                    .Include(p => p.Images)
                     .Where(p => p.Name != null && p.Name.ToLower().Contains(query))
                     .ToListAsync();
 
@@ -324,7 +325,9 @@ namespace Sklep_internetowy.Server.Controllers.Admin
                         FinalPrice = p.FinalPrice,
                         HasActiveDiscount = p.HasActiveDiscount,
                         ProductCategoryName = p.ProductCategory?.Name,
-                        Description = p.Description
+                        Description = p.Description,
+
+                        ImageUrls = p.Images.Select(img => img.ImageUrl).ToList()
                     })
                     .ToList();
 
