@@ -12,6 +12,7 @@ function ComparePage({ comparison }) {
     const { addToCart } = useCart();
     const navigate = useNavigate();
 
+    const DEFAULT_IMAGE = "https://cdn.pixabay.com/photo/2017/11/10/04/47/image-2935360_1280.png";
 
     useEffect(() => {
         const fetchCompareProducts = async () => {
@@ -110,7 +111,12 @@ function ComparePage({ comparison }) {
                         <thead className="bg-light">
                             <tr>
                                 <th style={{ width: '20%' }} className="text-start">Feature</th>
-                                {products.map(product => (
+                                {products.map(product => {
+                                    const mainImage = (product.imageUrls && product.imageUrls.length > 0)
+                                        ? product.imageUrls[0]
+                                        : DEFAULT_IMAGE;
+
+                                        return(
                                     <th key={product.id} style={{ width: `${80 / products.length}%` }}>
                                         <div className="d-flex justify-content-end">
                                             <Button
@@ -123,15 +129,16 @@ function ComparePage({ comparison }) {
                                             </Button>
                                         </div>
                                         <Image
-                                            src="https://cdn.pixabay.com/photo/2017/11/10/04/47/image-2935360_1280.png" 
+                                            src={mainImage}
                                             alt={product.name}
                                             fluid
                                             style={{ maxHeight: '150px', objectFit: 'contain' }}
                                             className="mb-2"
                                         />
                                         <h5>{product.name}</h5>
-                                    </th>
-                                ))}
+                                        </th>
+                                    );
+                                })}
                             </tr>
                         </thead>
                         <tbody>

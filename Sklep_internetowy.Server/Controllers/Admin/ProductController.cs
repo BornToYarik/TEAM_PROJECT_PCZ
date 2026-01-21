@@ -268,6 +268,7 @@ namespace Sklep_internetowy.Server.Controllers.Admin
                 var products = await _context.Products
                     .Where(p => uniqueIds.Contains(p.Id))
                     .Include(p => p.ProductCategory)
+                    .Include(p => p.Images)
                     .Select(p => new ProductDto
                     {
                         Id = p.Id,
@@ -282,7 +283,9 @@ namespace Sklep_internetowy.Server.Controllers.Admin
                         HasActiveDiscount = p.HasActiveDiscount,
                         ProductCategoryId = p.ProductCategoryId,
                         ProductCategoryName = p.ProductCategory.Name,
-                        ProductCategorySlug = p.ProductCategory.Slug
+                        ProductCategorySlug = p.ProductCategory.Slug,
+
+                        ImageUrls = p.Images.Select(img => img.ImageUrl).ToList()
                     })
                     .ToListAsync();
 
