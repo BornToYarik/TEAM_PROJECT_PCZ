@@ -33,14 +33,19 @@ function ProductCard({ product, addToCart, onClick }) {
                 src={mainImage}
                 className="card-img-top"
                 alt={product.name}
-                style={{ objectFit: "cover", height: "200px" }}
+                style={{
+                    objectFit: "contain",
+                    height: "200px",
+                    width: "100%",
+                    padding: "15px"
+                }}
             />
 
             <div className="card-body d-flex flex-column">
                 <h5 className="card-title">{product.name}</h5>
 
                 <p className="text-muted small mb-1">
-                    {t('productCard.category')} <strong>{product.productCategory?.name || t('productCard.none')}</strong>
+                    {t('productCard.category')} <strong>{product.productCategoryName || t('productCard.none')}</strong>
                 </p>
 
                 <p className="card-text text-muted">

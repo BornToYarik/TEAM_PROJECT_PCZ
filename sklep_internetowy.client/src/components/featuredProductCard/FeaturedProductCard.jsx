@@ -13,7 +13,7 @@ function FeaturedProductCard({ product }) {
         : DEFAULT_IMAGE;
 
     return (
-        <div className="col-12 col-md-6">
+        <div className="featured-product-card col-12 col-md-6">
             <div
                 className={`card h-100 shadow-lg p-3 product-card cursor-pointer 
                     ${isDiscountActive(product) ? "discount" : "no-discount"}`}
@@ -31,7 +31,11 @@ function FeaturedProductCard({ product }) {
                 <img
                     src={mainImage}
                     className="card-img-top"
-                    style={{ height: 300, objectFit: "cover" }}
+                    style={{
+                        objectFit: "contain",
+                        height: "300px",
+                        padding: "15px"
+                    }}
                     alt={product.name}
                 />
 
