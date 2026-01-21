@@ -1,14 +1,18 @@
 ﻿import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { useCart } from '../../context/CartContext';
 
 export default function MyAuctionWins() {
     const [wins, setWins] = useState([]);
     const [loading, setLoading] = useState(true);
+    const { addToCart } = useCart(); // добавление в корзину
+    const navigate = useNavigate();
 
     useEffect(() => {
         loadWins();
     }, []);
 
+    // Загружаем выигранные аукционы пользователя
     const loadWins = async () => {
         try {
             const response = await fetch('/api/auction-winner/my-wins', {
@@ -27,6 +31,42 @@ export default function MyAuctionWins() {
             setLoading(false);
         }
     };
+
+    // Обработчик кнопки "Pay now"
+   const handlePayNow = async (auctionId) => {
+    try {
+        const response = await fetch(`/api/auction-winner/auction/${auctionId}/add-to-cart`, {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                'Content-Type': 'application/json'
+            }
+        });
+
+        if (!response.ok) {
+            const err = await response.json();
+            alert(err.message || "Cannot add to cart");
+            return;
+        }
+
+        const product = await response.json();
+        addToCart(product); // добавляем продукт в корзину
+
+        // Обновляем статус аукции как "оплачено"
+        setWins(prevWins =>
+            prevWins.map(win =>
+                win.auctionId === auctionId ? { ...win, isPaid: true } : win
+            )
+        );
+
+        alert("Product added to cart. Please complete the payment in the cart.");
+        navigate('/cart');
+    } catch (err) {
+        console.error(err);
+        alert("Error adding product to cart");
+    }
+};
+
 
     if (loading) {
         return (
@@ -77,12 +117,12 @@ export default function MyAuctionWins() {
                                             Paid
                                         </div>
                                     ) : (
-                                        <Link
-                                            to={`/auction-payment/${win.auctionId}`}
+                                        <button
+                                            onClick={() => handlePayNow(win.auctionId)}
                                             className="btn btn-primary w-100"
                                         >
                                             Pay now
-                                        </Link>
+                                        </button>
                                     )}
                                 </div>
                             </div>

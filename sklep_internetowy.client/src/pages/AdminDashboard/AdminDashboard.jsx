@@ -14,7 +14,7 @@ function AdminDashboard() {
                                 <i className="bi bi-bag-check-fill fs-1 text-primary mb-3"></i>
                                 <Card.Title>Orders</Card.Title>
                                 <Card.Text>Manage customer orders</Card.Text>
-                                { /* tu zmieñcie œcie¿kê */}
+                                { /* tu zmieï¿½cie ï¿½cieï¿½kï¿½ */}
                                 <Link to="/admin/orders" className="btn btn-primary">
                                     Go to Orders
                                 </Link>
@@ -28,7 +28,7 @@ function AdminDashboard() {
                                 <i className="bi bi-people-fill fs-1 text-success mb-3"></i>
                                 <Card.Title>Users</Card.Title>
                                 <Card.Text>Manage registered users</Card.Text>
-                                { /* tu zmieñcie œcie¿kê */}
+                                { /* tu zmieï¿½cie ï¿½cieï¿½kï¿½ */}
                                 <Link to="/admin/users" className="btn btn-success">
                                     Go to Users
                                 </Link>
@@ -42,7 +42,7 @@ function AdminDashboard() {
                                 <i className="bi bi-box-seam fs-1 text-warning mb-3"></i>
                                 <Card.Title>Products</Card.Title>
                                 <Card.Text>Manage store products</Card.Text>
-                                { /* tu zmieñcie œcie¿kê */}
+                                { /* tu zmieï¿½cie ï¿½cieï¿½kï¿½ */}
                                 <Link to="/admin/products" className="btn btn-warning text-white">
                                     Go to Products
                                 </Link>
@@ -56,13 +56,25 @@ function AdminDashboard() {
                                 <i className="bi bi-envelope fs-1 text-warning mb-3"></i>
                                 <Card.Title>Messages</Card.Title>
                                 <Card.Text>Manage customer messages</Card.Text>
-                                { /* tu zmieñcie œcie¿kê */}
+                                { /* tu zmieï¿½cie ï¿½cieï¿½kï¿½ */}
                                 <Link to="/admin/messages" className="btn btn-warning text-white">
                                     Go to Messages
                                 </Link>
                             </Card.Body>
                         </Card>
                     </Col>
+                    <Col md={4}>
+    <Card className="shadow-sm text-center border-0">
+        <Card.Body>
+            <i className="bi bi-gem fs-1 text-danger mb-3"></i>
+            <Card.Title>Create Auction</Card.Title>
+            <Card.Text>Create new auctions for products</Card.Text>
+            <Link to="/admin/create-auction" className="btn btn-danger text-white">
+                Go to Create Auction
+            </Link>
+        </Card.Body>
+    </Card>
+</Col>
 
                     <Col md={4}>
                         <Card className="shadow-sm text-center border-0">

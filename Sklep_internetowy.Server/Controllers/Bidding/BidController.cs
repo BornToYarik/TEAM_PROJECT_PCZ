@@ -38,7 +38,7 @@ namespace Sklep_internetowy.Server.Controllers
 
             if (auction == null) return NotFound();
 
-            // Znajdź aktualnego zwycięzcę
+        
             var highestBid = auction.Bids.OrderByDescending(b => b.Amount).FirstOrDefault();
             string? currentWinnerName = null;
 

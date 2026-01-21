@@ -139,6 +139,10 @@ namespace Sklep_internetowy.Server.Data
             modelBuilder.Entity<AuctionWinner>()
                 .Property(aw => aw.WinningAmount)
                 .HasPrecision(18, 2);
+            modelBuilder.Entity<AuctionWinner>()
+              .HasIndex(x => x.AuctionId)
+              .IsUnique();
+
         }
     }
 }

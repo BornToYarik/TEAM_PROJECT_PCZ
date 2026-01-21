@@ -1,7 +1,7 @@
 ﻿import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { getActiveAuctions } from "../../api/auctionApi";
-import { isAdmin } from "../../utils/authUtils";
+
 
 export default function AuctionList() {
     const [auctions, setAuctions] = useState([]);
@@ -27,9 +27,7 @@ export default function AuctionList() {
         fetchAuctions();
     }, []);
 
-    const goToCreateAuction = () => {
-        navigate("/admin/create-auction");
-    };
+   
 
     const getTimeRemaining = (endTime) => {
         const now = Date.now();
@@ -68,14 +66,7 @@ export default function AuctionList() {
             <div className="d-flex justify-content-between align-items-center mb-4">
                 <h1 className="h2">Active Auctions</h1>
                 <div>
-                    {isAdmin() && (
-                        <button
-                            onClick={goToCreateAuction}
-                            className="btn btn-success me-2"
-                        >
-                            + Create auction
-                        </button>
-                    )}
+                   
                     <button
                         onClick={() => navigate("/my-auction-wins")}
                         className="btn btn-primary"

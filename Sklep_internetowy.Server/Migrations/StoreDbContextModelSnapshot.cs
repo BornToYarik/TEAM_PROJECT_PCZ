@@ -212,6 +212,9 @@ namespace Sklep_internetowy.Server.Migrations
                     b.Property<int?>("OrderId")
                         .HasColumnType("integer");
 
+                    b.Property<DateTime?>("PaidAt")
+                        .HasColumnType("timestamp with time zone");
+
                     b.Property<string>("UserId")
                         .IsRequired()
                         .HasColumnType("text");
@@ -225,7 +228,8 @@ namespace Sklep_internetowy.Server.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AuctionId");
+                    b.HasIndex("AuctionId")
+                        .IsUnique();
 
                     b.HasIndex("OrderId");
 

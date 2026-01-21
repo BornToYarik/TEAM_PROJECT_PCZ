@@ -58,54 +58,68 @@ namespace Sklep_internetowy.Server.Controllers
 
             return Ok(dto);
         }
-
-    
-        [HttpPost("{auctionId}/pay")]
-        public async Task<IActionResult> PayForAuction(int auctionId)
+        [HttpPost("auction/{auctionId}/add-to-cart")]
+        public async Task<IActionResult> AddAuctionWinToCart(int auctionId)
         {
-            var userId = GetUserId();
+            var userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
             if (userId == null) return Unauthorized();
 
-            var auctionWinner = await _context.AuctionWinners
-                .Include(aw => aw.Order)
-                    .ThenInclude(o => o.OrderProducts)
-                    .ThenInclude(op => op.Product)
+            var winner = await _context.AuctionWinners
                 .Include(aw => aw.Auction)
                     .ThenInclude(a => a.Product)
                 .FirstOrDefaultAsync(aw => aw.AuctionId == auctionId && aw.UserId == userId);
 
-            if (auctionWinner == null) return NotFound(new { message = "You are not the winner" });
-            if (auctionWinner.IsPaid) return BadRequest(new { message = "Already paid" });
+            if (winner == null) return NotFound(new { message = "You are not the winner" });
+            if (winner.IsPaid) return BadRequest(new { message = "Already paid" });
 
-            auctionWinner.Order.Status = "Paid";
-            auctionWinner.IsPaid = true;
+            var product = winner.Auction.Product;
+            if (product == null) return NotFound(new { message = "Product not found" });
+
+            return Ok(new
+            {
+                id = product.Id,
+                name = product.Name,
+                price = winner.WinningAmount,
+                auctionId = auctionId,
+                quantity = 1
+            });
+        }
+
+        [HttpPost("mark-auction-paid")]
+        [Authorize]
+        public async Task<IActionResult> MarkAuctionPaid([FromBody] MarkPaidRequest request)
+        {
+            var userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+            if (string.IsNullOrEmpty(userId))
+                return Unauthorized();
+
+            var winner = await _context.AuctionWinners
+                .FirstOrDefaultAsync(w => w.AuctionId == request.AuctionId && w.UserId == userId);
+
+            if (winner == null)
+                return NotFound(new { message = "Auction win not found" });
+
+            if (winner.IsPaid)
+                return BadRequest(new { message = "Already paid" });
+
+            winner.IsPaid = true;
+            winner.PaidAt = DateTime.UtcNow;
+
             await _context.SaveChangesAsync();
 
-            
-            var products = auctionWinner.Order.OrderProducts.Select(op => new
-            {
-                name = op.Product.Name,
-                quantity = op.Quantity > 0 ? op.Quantity : 1,
-                price = op.Price 
-            }).ToList();
-
-            decimal subtotal = products.Sum(p => p.price * p.quantity);
-            decimal tax = subtotal * 0.23m; 
-            decimal total = subtotal + tax;
-
-            var orderDto = new
-            {
-                id = auctionWinner.Order.Id,
-                orderDate = auctionWinner.Order.OrderDate,
-                status = auctionWinner.Order.Status,
-                subtotal,
-                tax,
-                total,
-                products
-            };
-
-            return Ok(orderDto);
+            return Ok(new { message = "Payment status updated" });
         }
+
+        public class PaymentRequest
+        {
+            public long Amount { get; set; }
+        }
+
+        public class MarkPaidRequest
+        {
+            public int AuctionId { get; set; }
+        }
+
 
 
         // GET: api/auction-winner/my-wins

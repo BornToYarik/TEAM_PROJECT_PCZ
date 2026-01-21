@@ -13,7 +13,7 @@ namespace Sklep_internetowy.Server.Models
 
         // Navigation properties
         public Auction? Auction { get; set; }
-        public User? User { get; set; } // DODANE - dla relacji z User
+        public User? User { get; set; } 
     }
 
 }

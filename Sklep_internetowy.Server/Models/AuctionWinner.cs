@@ -8,9 +8,9 @@
         public decimal WinningAmount { get; set; }
         public DateTime WonAt { get; set; }
         public bool IsPaid { get; set; }
-        public int? OrderId { get; set; } 
+        public int? OrderId { get; set; }
+        public DateTime? PaidAt { get; set; }
 
-     
         public Auction Auction { get; set; } = null!;
         public User User { get; set; } = null!;
         public Order? Order { get; set; }

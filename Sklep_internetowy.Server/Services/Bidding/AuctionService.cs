@@ -110,7 +110,7 @@ namespace Sklep_internetowy.Server.Services.Bidding
             auction.CurrentPrice = amount;
             auction.LastBidderId = userId;
 
-            // Przedłuż aukcję jeśli mało czasu
+          
             var timeLeft = auction.EndTime - DateTime.UtcNow;
             if (timeLeft.TotalMinutes < 5)
             {
@@ -120,11 +120,11 @@ namespace Sklep_internetowy.Server.Services.Bidding
 
             await _context.SaveChangesAsync();
 
-            // Pobierz nazwę użytkownika
+       
             var user = await _context.Users.FindAsync(userId);
             var winnerName = user?.UserName ?? user?.Email ?? "Użytkownik";
 
-            // SignalR notification
+            
             await _hubContext.Clients.Group($"auction_{auctionId}")
                 .SendAsync("BidPlaced", amount, auction.EndTime, winnerName);
 
@@ -135,80 +135,83 @@ namespace Sklep_internetowy.Server.Services.Bidding
 
         public async Task FinishAuctionAsync(int auctionId)
         {
+            using var tx = await _context.Database.BeginTransactionAsync();
+
             var auction = await _context.Auctions
                 .Include(a => a.Bids)
                 .Include(a => a.Product)
                 .FirstOrDefaultAsync(a => a.Id == auctionId);
 
             if (auction == null || auction.IsFinished)
+                return;
+
+           
+            var existingWinner = await _context.AuctionWinners
+                .AnyAsync(w => w.AuctionId == auctionId);
+
+            if (existingWinner)
             {
-                _logger.LogWarning($"Auction {auctionId} not found or already finished");
+                auction.IsFinished = true;
+                await _context.SaveChangesAsync();
+                await tx.CommitAsync();
                 return;
             }
 
             auction.IsFinished = true;
 
-            // Znajdź zwycięzcę
-            var winningBid = auction.Bids.OrderByDescending(b => b.Amount).FirstOrDefault();
+            var winningBid = auction.Bids
+                .OrderByDescending(b => b.Amount)
+                .FirstOrDefault();
 
-            if (winningBid != null)
+            if (winningBid == null)
             {
-                auction.WinnerId = winningBid.BidderId;
-
-                // Zmniejsz ilość produktu
-                if (auction.Product.Quantity > 0)
-                {
-                    auction.Product.Quantity--;
-                }
-
-                // Utwórz zamówienie
-                var order = new Order
-                {
-                    UserId = winningBid.BidderId,
-                    OrderDate = DateTime.UtcNow,
-                    Status = "AwaitingPayment",
-                    TotalAmount = winningBid.Amount
-                };
-                _context.Orders.Add(order);
-                await _context.SaveChangesAsync(); // Save aby otrzymać OrderId
-
-                // Dodaj produkt do zamówienia
-                var orderProduct = new OrderProduct
-                {
-                    OrderId = order.Id,
-                    ProductId = auction.ProductId,
-                    Quantity = 1,
-                    Price = winningBid.Amount
-                };
-                _context.OrderProducts.Add(orderProduct);
-
-                // Zapisz zwycięzcę aukcji
-                var auctionWinner = new AuctionWinner
-                {
-                    AuctionId = auctionId,
-                    UserId = winningBid.BidderId,
-                    WinningAmount = winningBid.Amount,
-                    WonAt = DateTime.UtcNow,
-                    IsPaid = false,
-                    OrderId = order.Id
-                };
-                _context.AuctionWinners.Add(auctionWinner);
-
-                _logger.LogInformation($"Auction {auctionId} finished. Winner: {winningBid.BidderId}, Amount: {winningBid.Amount}, OrderId: {order.Id}");
-
-                // TODO: Wyślij email do zwycięzcy z linkiem do płatności
-                // Przykład: /auction-payment/{auctionId}
-            }
-            else
-            {
-                _logger.LogInformation($"Auction {auctionId} finished with no bids");
+                await _context.SaveChangesAsync();
+                await tx.CommitAsync();
+                return;
             }
 
+            auction.WinnerId = winningBid.BidderId;
+
+            if (auction.Product.Quantity > 0)
+                auction.Product.Quantity--;
+
+            var order = new Order
+            {
+                UserId = winningBid.BidderId,
+                OrderDate = DateTime.UtcNow,
+                Status = "AwaitingPayment",
+                TotalAmount = winningBid.Amount
+            };
+
+            _context.Orders.Add(order);
             await _context.SaveChangesAsync();
 
-            // SignalR notification - przekieruj zwycięzcę do płatności
-            await _hubContext.Clients.Group($"auction_{auctionId}")
+            _context.OrderProducts.Add(new OrderProduct
+            {
+                OrderId = order.Id,
+                ProductId = auction.ProductId,
+                Quantity = 1,
+                Price = winningBid.Amount
+            });
+
+            _context.AuctionWinners.Add(new AuctionWinner
+            {
+                AuctionId = auctionId,
+                UserId = winningBid.BidderId,
+                WinningAmount = winningBid.Amount,
+                WonAt = DateTime.UtcNow,
+                IsPaid = false,
+                OrderId = order.Id
+            });
+
+            await _context.SaveChangesAsync();
+            await tx.CommitAsync();
+
+            await _hubContext.Clients
+                .Group($"auction_{auctionId}")
                 .SendAsync("AuctionFinished", auctionId);
         }
+
+
     }
 }
