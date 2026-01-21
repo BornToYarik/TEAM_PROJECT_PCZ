@@ -83,14 +83,17 @@ function ProductDetailsShop({ comparison }) {
                                 <button
                                     className="btn btn-light position-absolute top-50 start-0 translate-middle-y ms-2 shadow-sm"
                                     onClick={prevImage}
+                                    style={{ border: "2px solid black" }}
                                 >
-                                    
+                                    <i className="bi bi-chevron-left"></i>
                                 </button>
+
                                 <button
                                     className="btn btn-light position-absolute top-50 end-0 translate-middle-y me-2 shadow-sm"
                                     onClick={nextImage}
+                                    style={{ border: "2px solid black" }}
                                 >
-                                    
+                                    <i className="bi bi-chevron-right"></i>
                                 </button>
 
                                 <div className="d-flex justify-content-center gap-2 mt-2">
