@@ -14,5 +14,6 @@
         public Auction Auction { get; set; } = null!;
         public User User { get; set; } = null!;
         public Order? Order { get; set; }
+        
     }
 }

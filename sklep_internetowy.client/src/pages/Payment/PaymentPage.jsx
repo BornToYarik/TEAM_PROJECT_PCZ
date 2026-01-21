@@ -75,13 +75,16 @@ export default function PaymentPage() {
 
     const handleOrderSuccess = async (paymentId) => {
     const user = JSON.parse(localStorage.getItem("user"));
-    const orderDto = {
-        userId: user.id,
-        products: cartItems.map(item => ({
-            productId: item.id,
-            quantity: item.quantity
-        })),
-    };
+  const orderDto = {
+    userId: user.id,
+    products: cartItems.map(item => ({
+        productId: item.id,
+        quantity: item.quantity,
+        price: item.price,        
+        auctionId: item.auctionId 
+    })),
+};
+
 
     try {
         const response = await fetch('/api/Orders', {
@@ -106,7 +109,7 @@ export default function PaymentPage() {
                         'Content-Type': 'application/json',
                         'Authorization': `Bearer ${localStorage.getItem('token')}`
                     },
-                    body: JSON.stringify({ auctionId: item.auctionId })
+                    body: JSON.stringify({ auctionId: item.auctionId, orderId: data.id })
                 });
             } catch (err) {
                 console.error('Error marking auction as paid:', err);

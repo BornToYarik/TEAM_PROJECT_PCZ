@@ -1,10 +1,10 @@
-﻿// ==================== Controllers/AuctionWinnerController.cs ====================
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Sklep_internetowy.Server.Data;
 using Sklep_internetowy.Server.DTOs;
 using System.Security.Claims;
+using Sklep_internetowy.Server.Models;
 
 namespace Sklep_internetowy.Server.Controllers
 {
@@ -89,26 +89,36 @@ namespace Sklep_internetowy.Server.Controllers
         [Authorize]
         public async Task<IActionResult> MarkAuctionPaid([FromBody] MarkPaidRequest request)
         {
-            var userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             if (string.IsNullOrEmpty(userId))
                 return Unauthorized();
 
             var winner = await _context.AuctionWinners
-                .FirstOrDefaultAsync(w => w.AuctionId == request.AuctionId && w.UserId == userId);
+                .Include(w => w.Auction)
+                    .ThenInclude(a => a.Product)
+                .FirstOrDefaultAsync(w =>
+                    w.AuctionId == request.AuctionId &&
+                    w.UserId == userId);
 
             if (winner == null)
                 return NotFound(new { message = "Auction win not found" });
 
             if (winner.IsPaid)
-                return BadRequest(new { message = "Already paid" });
+                return BadRequest(new { message = "Auction already paid" });
 
             winner.IsPaid = true;
             winner.PaidAt = DateTime.UtcNow;
+            winner.OrderId = request.OrderId;
+
+            if (winner.Auction.Product.Quantity > 0)
+                winner.Auction.Product.Quantity--;
 
             await _context.SaveChangesAsync();
 
-            return Ok(new { message = "Payment status updated" });
+            return Ok(new { message = "Auction marked as paid" });
         }
+
+
 
         public class PaymentRequest
         {
@@ -117,6 +127,7 @@ namespace Sklep_internetowy.Server.Controllers
 
         public class MarkPaidRequest
         {
+            public int OrderId { get; set; }
             public int AuctionId { get; set; }
         }
 

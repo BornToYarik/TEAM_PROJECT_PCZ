@@ -110,7 +110,7 @@ namespace Sklep_internetowy.Server.Services.Bidding
             auction.CurrentPrice = amount;
             auction.LastBidderId = userId;
 
-          
+
             var timeLeft = auction.EndTime - DateTime.UtcNow;
             if (timeLeft.TotalMinutes < 5)
             {
@@ -120,11 +120,11 @@ namespace Sklep_internetowy.Server.Services.Bidding
 
             await _context.SaveChangesAsync();
 
-       
+
             var user = await _context.Users.FindAsync(userId);
             var winnerName = user?.UserName ?? user?.Email ?? "Użytkownik";
 
-            
+
             await _hubContext.Clients.Group($"auction_{auctionId}")
                 .SendAsync("BidPlaced", amount, auction.EndTime, winnerName);
 
@@ -139,24 +139,12 @@ namespace Sklep_internetowy.Server.Services.Bidding
 
             var auction = await _context.Auctions
                 .Include(a => a.Bids)
-                .Include(a => a.Product)
                 .FirstOrDefaultAsync(a => a.Id == auctionId);
 
             if (auction == null || auction.IsFinished)
                 return;
 
-           
-            var existingWinner = await _context.AuctionWinners
-                .AnyAsync(w => w.AuctionId == auctionId);
-
-            if (existingWinner)
-            {
-                auction.IsFinished = true;
-                await _context.SaveChangesAsync();
-                await tx.CommitAsync();
-                return;
-            }
-
+            
             auction.IsFinished = true;
 
             var winningBid = auction.Bids
@@ -170,38 +158,22 @@ namespace Sklep_internetowy.Server.Services.Bidding
                 return;
             }
 
-            auction.WinnerId = winningBid.BidderId;
+            var winnerExists = await _context.AuctionWinners
+                .AnyAsync(w => w.AuctionId == auctionId);
 
-            if (auction.Product.Quantity > 0)
-                auction.Product.Quantity--;
-
-            var order = new Order
+            if (winnerExists)
             {
-                UserId = winningBid.BidderId,
-                OrderDate = DateTime.UtcNow,
-                Status = "AwaitingPayment",
-                TotalAmount = winningBid.Amount
-            };
-
-            _context.Orders.Add(order);
-            await _context.SaveChangesAsync();
-
-            _context.OrderProducts.Add(new OrderProduct
-            {
-                OrderId = order.Id,
-                ProductId = auction.ProductId,
-                Quantity = 1,
-                Price = winningBid.Amount
-            });
+                await tx.RollbackAsync();
+                return;
+            }
 
             _context.AuctionWinners.Add(new AuctionWinner
             {
                 AuctionId = auctionId,
                 UserId = winningBid.BidderId,
-                WinningAmount = winningBid.Amount,
+                WinningAmount = winningBid.Amount, 
                 WonAt = DateTime.UtcNow,
-                IsPaid = false,
-                OrderId = order.Id
+                IsPaid = false
             });
 
             await _context.SaveChangesAsync();
@@ -213,5 +185,7 @@ namespace Sklep_internetowy.Server.Services.Bidding
         }
 
 
+
     }
+
 }

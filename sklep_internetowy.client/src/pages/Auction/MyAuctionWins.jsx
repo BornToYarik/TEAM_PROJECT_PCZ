@@ -5,14 +5,14 @@ import { useCart } from '../../context/CartContext';
 export default function MyAuctionWins() {
     const [wins, setWins] = useState([]);
     const [loading, setLoading] = useState(true);
-    const { addToCart } = useCart(); // добавление в корзину
+    const { addToCart } = useCart(); 
     const navigate = useNavigate();
 
     useEffect(() => {
         loadWins();
     }, []);
 
-    // Загружаем выигранные аукционы пользователя
+    
     const loadWins = async () => {
         try {
             const response = await fetch('/api/auction-winner/my-wins', {
@@ -32,7 +32,7 @@ export default function MyAuctionWins() {
         }
     };
 
-    // Обработчик кнопки "Pay now"
+   
    const handlePayNow = async (auctionId) => {
     try {
         const response = await fetch(`/api/auction-winner/auction/${auctionId}/add-to-cart`, {
@@ -50,9 +50,16 @@ export default function MyAuctionWins() {
         }
 
         const product = await response.json();
-        addToCart(product); // добавляем продукт в корзину
 
-        // Обновляем статус аукции как "оплачено"
+       
+        addToCart({
+            id: product.id,
+            name: product.name,
+            quantity: 1,
+            price: product.price,  
+            auctionId: product.auctionId
+        });
+
         setWins(prevWins =>
             prevWins.map(win =>
                 win.auctionId === auctionId ? { ...win, isPaid: true } : win
@@ -66,6 +73,7 @@ export default function MyAuctionWins() {
         alert("Error adding product to cart");
     }
 };
+
 
 
     if (loading) {
