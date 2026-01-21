@@ -7,13 +7,14 @@ namespace Sklep_internetowy.Server.Controllers.Payment
     [ApiController]
     public class PaymentController : Controller
     {
-       
+
         private readonly IConfiguration _configuration;
         public PaymentController(IConfiguration configuration)
         {
             _configuration = configuration;
             StripeConfiguration.ApiKey = _configuration["Stripe:SecretKey"];
         }
+
         [HttpPost("create-payment-intent")]
         public ActionResult CreatePaymentIntent([FromBody] PaymentRequest request)
         {
@@ -32,11 +33,11 @@ namespace Sklep_internetowy.Server.Controllers.Payment
 
             return Ok(new { clientSecret = intent.ClientSecret });
         }
-    }
-
-    public class PaymentRequest
-    {
-        public long Amount { get; set; } 
+        public class PaymentRequest
+        {
+            public long Amount { get; set; }       
+        
+        }
     }
 }
 

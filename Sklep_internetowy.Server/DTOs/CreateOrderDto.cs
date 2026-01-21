@@ -4,6 +4,8 @@
     {
         public int ProductId { get; set; }
         public int Quantity { get; set; }
+        public int? AuctionId { get; set; }
+
     }
 
     public class CreateOrderRequestDto

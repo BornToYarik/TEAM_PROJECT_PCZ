@@ -21,7 +21,7 @@ namespace Sklep_internetowy.Server.Data
         public DbSet<UserMessage> Messages { get; set; }
         public DbSet<ProductCategory> ProductCategories { get; set; }
         public DbSet<ProductImage> ProductImages { get; set; }
-
+        public DbSet<AuctionWinner> AuctionWinners { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder) 
         {
             base.OnModelCreating(modelBuilder);
@@ -57,7 +57,92 @@ namespace Sklep_internetowy.Server.Data
                 new ProductCategory { Id = 4, Name = "Gaming", Slug = "gaming", Description = "Gaming devices and accessories" },
                 new ProductCategory { Id = 5, Name = "Accessories", Slug = "accessories", Description = "Computer accessories" },
                 new ProductCategory { Id = 6, Name = "Deals", Slug = "deals", Description = "Special offers" }
-            );  
+            );
+            modelBuilder.Entity<Auction>()
+                .HasOne(a => a.Product)
+                .WithMany()
+                .HasForeignKey(a => a.ProductId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Auction>()
+                .HasMany(a => a.Bids)
+                .WithOne(b => b.Auction)
+                .HasForeignKey(b => b.AuctionId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            // Bid relationships
+            modelBuilder.Entity<Bid>()
+                .HasOne(b => b.User)
+                .WithMany()
+                .HasForeignKey(b => b.BidderId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            // AuctionWinner relationships
+            modelBuilder.Entity<AuctionWinner>()
+                .HasOne(aw => aw.Auction)
+                .WithMany()
+                .HasForeignKey(aw => aw.AuctionId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<AuctionWinner>()
+                .HasOne(aw => aw.User)
+                .WithMany()
+                .HasForeignKey(aw => aw.UserId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<AuctionWinner>()
+                .HasOne(aw => aw.Order)
+                .WithMany()
+                .HasForeignKey(aw => aw.OrderId)
+                .OnDelete(DeleteBehavior.SetNull);
+
+            // Order relationships
+            modelBuilder.Entity<Order>()
+                .HasOne(o => o.User)
+                .WithMany()
+                .HasForeignKey(o => o.UserId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<OrderProduct>()
+                .HasOne(op => op.Order)
+                .WithMany(o => o.OrderProducts)
+                .HasForeignKey(op => op.OrderId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<OrderProduct>()
+                .HasOne(op => op.Product)
+                .WithMany()
+                .HasForeignKey(op => op.ProductId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            // Decimal precision
+            modelBuilder.Entity<Auction>()
+                .Property(a => a.StartingPrice)
+                .HasPrecision(18, 2);
+
+            modelBuilder.Entity<Auction>()
+                .Property(a => a.CurrentPrice)
+                .HasPrecision(18, 2);
+
+            modelBuilder.Entity<Bid>()
+                .Property(b => b.Amount)
+                .HasPrecision(18, 2);
+
+            modelBuilder.Entity<Order>()
+                .Property(o => o.TotalAmount)
+                .HasPrecision(18, 2);
+
+            modelBuilder.Entity<OrderProduct>()
+                .Property(op => op.Price)
+                .HasPrecision(18, 2);
+
+            modelBuilder.Entity<AuctionWinner>()
+                .Property(aw => aw.WinningAmount)
+                .HasPrecision(18, 2);
+            modelBuilder.Entity<AuctionWinner>()
+              .HasIndex(x => x.AuctionId)
+              .IsUnique();
+
         }
     }
 }

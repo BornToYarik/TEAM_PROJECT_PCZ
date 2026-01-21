@@ -55,13 +55,13 @@ namespace Sklep_internetowy.Server.Services
             }
             catch (Exception ex)
             {
-                // Logowanie błędu w konsoli serwera, żebyś widział co jest nie tak
+               
                 Console.WriteLine($"BŁĄD WYSYŁANIA MAILA: {ex.Message}");
                 if (ex.InnerException != null)
                 {
                     Console.WriteLine($"Szczegóły: {ex.InnerException.Message}");
                 }
-                // Rzucamy wyjątek dalej, żeby kontroler wiedział, że coś poszło nie tak (opcjonalne)
+                
                 throw;
             }
         }

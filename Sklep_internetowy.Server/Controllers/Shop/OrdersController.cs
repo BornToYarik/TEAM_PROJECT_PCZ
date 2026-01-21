@@ -68,7 +68,7 @@ public class OrdersController : ControllerBase
                     ProductId = op.ProductId,
                     Name = op.Product.Name,
                     QuantityInOrder = op.Quantity,
-                    Price = op.Product.Price
+                    Price = op.Price
                 }).ToList()
             })
             .ToListAsync();
@@ -190,95 +190,119 @@ public class OrdersController : ControllerBase
     {
         var user = await _context.Users.FindAsync(dto.UserId);
         if (user == null)
-        {
             return BadRequest(new { message = $"User with id {dto.UserId} not found." });
-        }
 
-        using (var transaction = await _context.Database.BeginTransactionAsync())
+        using var transaction = await _context.Database.BeginTransactionAsync();
+        try
         {
-            try
+            var newOrder = new Order
             {
-                var newOrder = new Order
+                UserId = dto.UserId,
+                Status = "Pending",
+                OrderDate = DateTime.UtcNow
+            };
+            _context.Orders.Add(newOrder);
+            await _context.SaveChangesAsync();
+
+            var productDetailsForDto = new List<OrderProductDetailsDto>();
+            decimal totalAmount = 0;
+
+            foreach (var item in dto.Products)
+            {
+                var product = await _context.Products.FindAsync(item.ProductId);
+                if (product == null)
+                    throw new Exception($"Product {item.ProductId} not found");
+
+                decimal unitPrice;
+                int? auctionId = null;
+
+                if (item.AuctionId.HasValue)
                 {
-                    UserId = dto.UserId,
-                    Status = "Pending"
-                };
+                    // товар из аукциона
+                    var winner = await _context.AuctionWinners
+                        .FirstOrDefaultAsync(w => w.AuctionId == item.AuctionId.Value && w.UserId == dto.UserId);
+                    if (winner == null)
+                        throw new Exception("Auction winner not found");
 
-                _context.Orders.Add(newOrder);
-                await _context.SaveChangesAsync();
+                    unitPrice = winner.WinningAmount;
+                    auctionId = winner.AuctionId;
 
-                var productDetailsForDto = new List<OrderProductDetailsDto>();
-                decimal totalAmount = 0;
+                    if (winner.IsPaid)
+                        throw new Exception("Auction item already paid");
 
-                foreach (var item in dto.Products)
+                    winner.IsPaid = true;
+                    winner.PaidAt = DateTime.UtcNow;
+                    winner.OrderId = newOrder.Id;
+                }
+                else
                 {
-                    var product = await _context.Products.FindAsync(item.ProductId);
-                    if (product == null)
-                    {
-                        throw new Exception($"Product with id {item.ProductId} not found");
-                    }
+                    // обычная покупка
+                    unitPrice = product.Price;
 
                     if (product.Quantity < item.Quantity)
-                    {
-                        throw new Exception($"Not enough stock for {product.Name}. Available: {product.Quantity}, Requested: {item.Quantity}");
-                    }
-
-                    product.Quantity -= item.Quantity;
-
-                    var orderProduct = new OrderProduct
-                    {
-                        OrderId = newOrder.Id,
-                        ProductId = item.ProductId,
-                        Quantity = item.Quantity
-                    };
-                    _context.OrderProducts.Add(orderProduct);
-
-                    totalAmount += product.Price * item.Quantity;
-
-                    productDetailsForDto.Add(new OrderProductDetailsDto
-                    {
-                        ProductId = product.Id,
-                        Name = product.Name,
-                        QuantityInOrder = item.Quantity,
-                        QuantityInStock = product.Quantity,
-                        Price = product.Price
-                    });
+                        throw new Exception($"Not enough stock for {product.Name}");
                 }
 
-                await _context.SaveChangesAsync();
+                // уменьшаем складскую позицию
+                if (product.Quantity < item.Quantity)
+                    throw new Exception($"Not enough stock for {product.Name}");
 
-                await transaction.CommitAsync();
+                product.Quantity -= item.Quantity;
 
-                try
+                var orderProduct = new OrderProduct
                 {
-                    await _emailService.SendOrderConfirmationAsync(
-                        user.Email,
-                        newOrder.Id,
-                        totalAmount,
-                        newOrder.OrderDate.ToString("yyyy-MM-dd HH:mm")
-                    );
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine($"Błąd wysyłania maila: {ex.Message}");
-                }
-
-                var resultDto = new OrderDetailsDto
-                {
-                    Id = newOrder.Id,
-                    UserId = newOrder.UserId,
-                    UserEmail = user.Email,
-                    Status = newOrder.Status,
-                    Products = productDetailsForDto
+                    OrderId = newOrder.Id,
+                    ProductId = item.ProductId,
+                    Quantity = item.Quantity,
+                    Price = unitPrice,
+                    AuctionId = auctionId
                 };
+                _context.OrderProducts.Add(orderProduct);
 
-                return CreatedAtAction(nameof(GetOrders), new { id = newOrder.Id }, resultDto);
+                totalAmount += unitPrice * item.Quantity;
+
+                productDetailsForDto.Add(new OrderProductDetailsDto
+                {
+                    ProductId = product.Id,
+                    Name = product.Name,
+                    QuantityInOrder = item.Quantity,
+                    QuantityInStock = product.Quantity,
+                    Price = unitPrice
+                });
             }
-            catch (Exception ex)
+
+            await _context.SaveChangesAsync();
+            await transaction.CommitAsync();
+
+           
+            try
             {
-                await transaction.RollbackAsync();
-                return BadRequest(new { message = ex.Message });
+                await _emailService.SendOrderConfirmationAsync(
+                    user.Email,
+                    newOrder.Id,
+                    totalAmount,
+                    newOrder.OrderDate.ToString("yyyy-MM-dd HH:mm")
+                );
             }
+            catch { }
+
+            var resultDto = new OrderDetailsDto
+            {
+                Id = newOrder.Id,
+                UserId = newOrder.UserId,
+                UserEmail = user.Email,
+                Status = newOrder.Status,
+                OrderDate = newOrder.OrderDate,
+                Products = productDetailsForDto
+            };
+
+            return CreatedAtAction(nameof(GetOrders), new { id = newOrder.Id }, resultDto);
+        }
+        catch (Exception ex)
+        {
+            await transaction.RollbackAsync();
+            return BadRequest(new { message = ex.Message });
         }
     }
+
 }

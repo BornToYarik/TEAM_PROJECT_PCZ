@@ -74,44 +74,68 @@ export default function PaymentPage() {
     }, [cartTotal]);
 
     const handleOrderSuccess = async (paymentId) => {
-        const user = JSON.parse(localStorage.getItem("user"));
-        const orderDto = {
-            userId: user.id,
-            products: cartItems.map(item => ({
-                productId: item.id,
-                quantity: item.quantity
-            })),
-        };
+    const user = JSON.parse(localStorage.getItem("user"));
+  const orderDto = {
+    userId: user.id,
+    products: cartItems.map(item => ({
+        productId: item.id,
+        quantity: item.quantity,
+        price: item.price,        
+        auctionId: item.auctionId 
+    })),
+};
 
-        try {
-            const response = await fetch('/api/Orders', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(orderDto)
-            });
 
-            if (!response.ok) throw new Error("Order failed");
-            const data = await response.json();
+    try {
+        const response = await fetch('/api/Orders', {
+            method: 'POST',
+            headers: { 
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('token')}`
+            },
+            body: JSON.stringify(orderDto)
+        });
 
+        if (!response.ok) throw new Error("Order failed");
+        const data = await response.json();
+
+        
+        const auctionItems = cartItems.filter(item => item.auctionId);
+        for (const item of auctionItems) {
             try {
-                const blob = await pdf(<InvoiceDocument order={data} />).toBlob();
-                const url = URL.createObjectURL(blob);
-                const link = document.createElement('a');
-                link.href = url;
-                link.download = `faktura_${data.id}.pdf`;
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
-            } catch (e) { console.error("PDF Error", e); }
-
-            clearCart();
-            alert("Payment Successful!");
-            navigate('/profile');
-        } catch (err) {
-            console.error(err);
-            alert("Payment passed, but order saving failed.");
+                await fetch('/api/auction-winner/mark-auction-paid', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`
+                    },
+                    body: JSON.stringify({ auctionId: item.auctionId, orderId: data.id })
+                });
+            } catch (err) {
+                console.error('Error marking auction as paid:', err);
+            }
         }
-    };
+
+       
+        try {
+            const blob = await pdf(<InvoiceDocument order={data} />).toBlob();
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `faktura_${data.id}.pdf`;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        } catch (e) { console.error("PDF Error", e); }
+
+        clearCart();
+        alert("Payment Successful!");
+        navigate('/profile');
+    } catch (err) {
+        console.error(err);
+        alert("Payment passed, but order saving failed.");
+    }
+};
 
     return (
         <div className="container mt-5" style={{ maxWidth: "500px" }}>
