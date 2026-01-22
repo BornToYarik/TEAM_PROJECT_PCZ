@@ -9,7 +9,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Sklep_internetowy.Server.Migrations
 {
     /// <inheritdoc />
-    public partial class AuctionExtend : Migration
+    public partial class initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -291,6 +291,7 @@ namespace Sklep_internetowy.Server.Migrations
                     Id = table.Column<int>(type: "integer", nullable: false),
                     Quantity = table.Column<int>(type: "integer", nullable: false),
                     Price = table.Column<decimal>(type: "numeric(18,2)", precision: 18, scale: 2, nullable: false),
+                    AuctionId = table.Column<int>(type: "integer", nullable: true),
                     ProductId1 = table.Column<int>(type: "integer", nullable: true)
                 },
                 constraints: table =>
@@ -346,7 +347,8 @@ namespace Sklep_internetowy.Server.Migrations
                     WinningAmount = table.Column<decimal>(type: "numeric(18,2)", precision: 18, scale: 2, nullable: false),
                     WonAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     IsPaid = table.Column<bool>(type: "boolean", nullable: false),
-                    OrderId = table.Column<int>(type: "integer", nullable: true)
+                    OrderId = table.Column<int>(type: "integer", nullable: true),
+                    PaidAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
                 },
                 constraints: table =>
                 {

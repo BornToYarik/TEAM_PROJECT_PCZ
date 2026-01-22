@@ -45,10 +45,6 @@ namespace Sklep_internetowy.Server.Data
                 .HasForeignKey(p => p.ProductCategoryId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            modelBuilder.Entity<Product>().HasData(
-                new Product { Id = 50, Name = "Laptop A", Description = "High performance laptop", Price = 1500.00m, ProductCategoryId = 1, Brand = "HP" },
-                new Product { Id = 33, Name = "Laptop B", Description = "High performance laptop", Price = 1500.00m, ProductCategoryId = 1, Brand = "Apple" }
-            );
 
             modelBuilder.Entity<ProductCategory>().HasData(
                 new ProductCategory { Id = 1, Name = "Laptops", Slug = "laptops", Description = "Portable computers" },
