@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useCart } from "../../../context/CartContext"; 
+import { useWishlist } from '../../../context/WishListContext';
+
 
 function ProductDetailsShop({ comparison }) {
     const { id } = useParams();
@@ -9,6 +11,8 @@ function ProductDetailsShop({ comparison }) {
     const { addToCart } = useCart();
     const navigate = useNavigate();
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+    const { toggleWishlist, isInWishlist } = useWishlist();
 
     const DEFAULT_IMAGE = "https://cdn.pixabay.com/photo/2017/11/10/04/47/image-2935360_1280.png";
 
@@ -30,7 +34,7 @@ function ProductDetailsShop({ comparison }) {
 
     if (loading) return <div className="container my-5">Loading...</div>;
     if (!product) return <div className="container my-5">Product not found.</div>;
-
+    const isLiked = isInWishlist(product.id);
 
     const isCompared = (comparison) ? comparison.isCompared(product.id) : false;
     const maxReached = (comparison) ? comparison.maxReached && !isCompared : false;
@@ -144,7 +148,7 @@ function ProductDetailsShop({ comparison }) {
                             <i className="bi-cart-fill me-1"></i>
                             {product.quantity > 0 ? "Add to cart" : "Product unavailable"}
                         </button>
-
+                        
                         {comparison && (
                             <button
                                 className={`btn flex-shrink-0 ${isCompared ? 'btn-outline-danger' : 'btn-outline-primary'}`}
@@ -158,6 +162,28 @@ function ProductDetailsShop({ comparison }) {
                                 {maxReached && " (Max 2)"}
                             </button>
                         )}
+                        <button
+                            className="btn m-2 rounded-circle shadow-sm"
+                            style={{
+                                backgroundColor: 'white',
+                                width: '35px',
+                                height: '35px',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                zIndex: 10
+                            }}
+                            onClick={(e) => {
+                                e.preventDefault();
+                                toggleWishlist(product);
+                            }}
+                        >
+                            {isLiked ? (
+                                <i className="bi bi-heart-fill text-danger"></i>
+                            ) : (
+                                <i className="bi bi-heart text-secondary"></i>
+                            )}
+                        </button>
                     </div>
                     <p className="mt-3 text-muted small">Pieces available: {product.quantity}</p>
                 </div>
