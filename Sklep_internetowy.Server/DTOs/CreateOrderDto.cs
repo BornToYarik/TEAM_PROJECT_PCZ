@@ -11,6 +11,8 @@
 
         /// <summary>Liczba sztuk danego produktu, którą użytkownik zamierza nabyć.</summary>
         public int Quantity { get; set; }
+        public int? AuctionId { get; set; }
+
     }
 
     /// <summary>

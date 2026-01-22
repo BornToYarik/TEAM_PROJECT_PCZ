@@ -1,4 +1,4 @@
-﻿using Microsoft.Extensions.Options;
+using Microsoft.Extensions.Options;
 using Sklep_internetowy.Server.Models;
 using System.Net;
 using System.Net.Mail;
@@ -75,7 +75,8 @@ namespace Sklep_internetowy.Server.Services
             catch (Exception ex)
             {
                 // Logowanie błędu po stronie serwera
-                Console.WriteLine($"Błąd wysyłania e-maila: {ex.Message}");
+                Console.WriteLine($"BŁĄD WYSYŁANIA MAILA: {ex.Message}");
+
                 if (ex.InnerException != null)
                 {
                     Console.WriteLine($"Szczegóły: {ex.InnerException.Message}");

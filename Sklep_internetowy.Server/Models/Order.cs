@@ -25,5 +25,7 @@ namespace Sklep_internetowy.Server.Models
 
         /// <summary>Kolekcja pozycji wchodzących w skład zamówienia (tabela łącząca z produktami).</summary>
         public ICollection<OrderProduct> OrderProducts { get; set; } = new List<OrderProduct>();
+        public decimal TotalAmount { get; set; }
+      
     }
 }

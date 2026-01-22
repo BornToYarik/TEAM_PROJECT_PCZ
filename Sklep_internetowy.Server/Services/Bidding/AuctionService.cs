@@ -1,6 +1,7 @@
-﻿using Sklep_internetowy.Server.Data;
-using Sklep_internetowy.Server.Models;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
+using Sklep_internetowy.Server.Data;
+using Sklep_internetowy.Server.Models;
 using Sklep_internetowy.Server.DTOs;
 
 namespace Sklep_internetowy.Server.Services.Bidding
@@ -9,72 +10,107 @@ namespace Sklep_internetowy.Server.Services.Bidding
      * @class AuctionService
      * @brief Serwis odpowiedzialny za pełną obsługę logiki aukcji.
      * @details Umożliwia tworzenie aukcji, składanie ofert, pobieranie aktywnych aukcji
-     * oraz finalizowanie zakończonych licytacji.
+     * oraz finalizowanie zakończonych licytacji zintegrowane z komunikacją SignalR.
      */
     public class AuctionService
     {
         private readonly StoreDbContext _context;
+        private readonly IHubContext<AuctionHub> _hubContext;
         private readonly ILogger<AuctionService> _logger;
 
         /**
          * @brief Konstruktor serwisu AuctionService.
          * @param context Kontekst bazy danych.
+         * @param hubContext Kontekst huba SignalR do powiadomień w czasie rzeczywistym.
          * @param logger Logger do zapisywania informacji diagnostycznych.
          */
-        public AuctionService(StoreDbContext context, ILogger<AuctionService> logger)
+        public AuctionService(
+            StoreDbContext context,
+            IHubContext<AuctionHub> hubContext,
+            ILogger<AuctionService> logger)
         {
             _context = context;
+            _hubContext = hubContext;
             _logger = logger;
         }
 
         /**
          * @brief Tworzy nową aukcję dla wybranego produktu.
-         * @details Sprawdza, czy produkt istnieje oraz czy nie jest już wystawiony na aukcję.
+         * @details Sprawdza dostępność produktu, ustawia czas trwania i inicjalizuje stan aukcji.
          * @param productId Identyfikator produktu.
          * @param startingPrice Cena początkowa aukcji.
-         * @return Utworzona aukcja.
+         * @param durationMinutes Czas trwania aukcji w minutach (domyślnie 10).
+         * @return Utworzony obiekt aukcji.
          */
-        public async Task<Auction> CreateAuctionAsync(int productId, decimal startingPrice)
+        public async Task<Auction> CreateAuctionAsync(int productId, decimal startingPrice, int durationMinutes = 10)
         {
-            var product = await _context.Products.FindAsync(productId);
+            var product = await _context.Products
+                .Include(p => p.Images)
+                .Include(p => p.ProductCategory)
+                .FirstOrDefaultAsync(p => p.Id == productId);
+
             if (product == null)
                 throw new Exception("Product not found");
 
-            if (product.IsOnAuction)
-                throw new Exception("Product is already on auction");
-
-            // Oznaczenie produktu jako wystawionego na aukcję
-            product.IsOnAuction = true;
+            if (product.Quantity < 1)
+                throw new Exception("Product is out of stock");
 
             var auction = new Auction
             {
                 ProductId = productId,
                 StartingPrice = startingPrice,
                 CurrentPrice = startingPrice,
-                EndTime = DateTime.UtcNow.AddMinutes(10)
+                StartTime = DateTime.UtcNow,
+                EndTime = DateTime.UtcNow.AddMinutes(durationMinutes),
+                IsFinished = false
             };
 
             _context.Auctions.Add(auction);
             await _context.SaveChangesAsync();
 
+            // Przypisanie produktu do obiektu aukcji przed zwróceniem
+            auction.Product = product;
+
+            _logger.LogInformation($"Created auction {auction.Id} for product {productId}, duration: {durationMinutes} minutes");
+
             return auction;
         }
 
         /**
-         * @brief Pobiera aukcję na podstawie jej identyfikatora.
-         * @param auctionId Identyfikator aukcji.
-         * @return Obiekt aukcji lub null, jeśli nie istnieje.
+         * @brief Pobiera aukcję na podstawie jej identyfikatora wraz z powiązanymi danymi.
+         * @param id Identyfikator aukcji.
+         * @return Obiekt aukcji z produktem, zdjęciami i ofertami lub null.
          */
-        public async Task<Auction?> GetAuctionByIdAsync(int auctionId)
+        public async Task<Auction?> GetAuctionByIdAsync(int id)
         {
             return await _context.Auctions
                 .Include(a => a.Product)
-                .FirstOrDefaultAsync(a => a.Id == auctionId);
+                    .ThenInclude(p => p.Images)
+                .Include(a => a.Product)
+                    .ThenInclude(p => p.ProductCategory)
+                .Include(a => a.Bids)
+                .FirstOrDefaultAsync(a => a.Id == id);
         }
 
         /**
-         * @brief Składa ofertę w aukcji.
-         * @details Sprawdza poprawność aukcji, wysokość oferty oraz aktualizuje dane w bazie.
+         * @brief Pobiera listę wszystkich aktywnych (niezakończonych) aukcji.
+         * @return Lista obiektów Auction.
+         */
+        public async Task<List<Auction>> GetActiveAuctionsAsync()
+        {
+            var now = DateTime.UtcNow;
+            return await _context.Auctions
+                .Include(a => a.Product)
+                    .ThenInclude(p => p.Images)
+                .Include(a => a.Bids)
+                .Where(a => a.EndTime > now && !a.IsFinished)
+                .ToListAsync();
+        }
+
+        /**
+         * @brief Składa ofertę w aukcji i powiadamia uczestników przez SignalR.
+         * @details Weryfikuje cenę, aktualizuje czas zakończenia (jeśli zostało < 5 min) 
+         * oraz rozsyła informację o nowej ofercie do grupy subskrybentów aukcji.
          * @param auctionId Identyfikator aukcji.
          * @param amount Kwota oferty.
          * @param userId Identyfikator użytkownika składającego ofertę.
@@ -82,105 +118,17 @@ namespace Sklep_internetowy.Server.Services.Bidding
          */
         public async Task<bool> PlaceBidAsync(int auctionId, decimal amount, string userId)
         {
-            try
-            {
-                _logger.LogInformation($"PlaceBidAsync called: AuctionId={auctionId}, Amount={amount}, UserId={userId}");
-
-                var auction = await _context.Auctions
-                    .Include(a => a.Product)
-                    .FirstOrDefaultAsync(a => a.Id == auctionId);
-
-                if (auction == null)
-                {
-                    _logger.LogWarning($"Auction not found: {auctionId}");
-                    throw new Exception("Auction not found");
-                }
-
-                if (auction.IsFinished)
-                {
-                    _logger.LogWarning($"Auction already finished: {auctionId}");
-                    return false;
-                }
-
-                if (amount <= auction.CurrentPrice)
-                {
-                    _logger.LogWarning($"Bid too low: {amount} <= {auction.CurrentPrice}");
-                    return false;
-                }
-
-                _logger.LogInformation($"Updating auction: OldPrice={auction.CurrentPrice}, NewPrice={amount}");
-
-                // Aktualizacja danych aukcji
-                auction.CurrentPrice = amount;
-                auction.LastBidderId = userId;
-                auction.EndTime = DateTime.UtcNow.AddMinutes(10);
-
-                // Utworzenie rekordu oferty
-                var bid = new Bid
-                {
-                    Amount = amount,
-                    BidderId = userId,
-                    AuctionId = auctionId,
-                    CreatedAt = DateTime.UtcNow
-                };
-
-                _context.Bids.Add(bid);
-
-                var savedChanges = await _context.SaveChangesAsync();
-                _logger.LogInformation($"Bid saved successfully. Changes: {savedChanges}");
-
-                return true;
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, $"Error in PlaceBidAsync: AuctionId={auctionId}, Amount={amount}, UserId={userId}");
-                throw;
-            }
-        }
-
-        /**
-         * @brief Pobiera listę wszystkich aktywnych (niezakończonych) aukcji.
-         * @return Lista obiektów AuctionDto.
-         */
-        public async Task<List<AuctionDto>> GetActiveAuctionsAsync()
-        {
-            return await _context.Auctions
+            var auction = await _context.Auctions
+                .Include(a => a.Bids)
                 .Include(a => a.Product)
-                .Where(a => !a.IsFinished)
-                .Select(a => new AuctionDto
-                {
-                    Id = a.Id,
-                    ProductId = a.ProductId,
-                    ProductName = a.Product.Name,
-                    CurrentPrice = a.CurrentPrice,
-                    EndTime = a.EndTime
-                })
-                .ToListAsync();
-        }
+                .FirstOrDefaultAsync(a => a.Id == auctionId);
 
-        /**
-         * @brief Finalizuje aukcję po jej zakończeniu.
-         * @details Ustawia zwycięzcę, oznacza aukcję jako zakończoną oraz aktualizuje właściciela produktu.
-         * @param auction Aukcja do zakończenia.
-         */
-        public async Task FinishAuctionAsync(Auction auction)
-        {
-            auction.IsFinished = true;
-            auction.WinnerId = auction.LastBidderId;
-
-            var product = await _context.Products.FindAsync(auction.ProductId);
-            if (product != null)
+            if (auction == null || auction.IsFinished || auction.EndTime <= DateTime.UtcNow)
             {
-                if (auction.WinnerId != null)
-                {
-                    product.OwnerId = auction.WinnerId;
-                }
-
-                // Zdjęcie produktu z aukcji
-                product.IsOnAuction = false;
+                _logger.LogWarning($"Cannot place bid on auction {auctionId}: auction not found or expired");
+                return false;
             }
 
-            await _context.SaveChangesAsync();
-        }
-    }
-}
+            if (amount <= auction.CurrentPrice)
+            {
+                _logger.LogWarning($"Bid amount {amount} is not higher than

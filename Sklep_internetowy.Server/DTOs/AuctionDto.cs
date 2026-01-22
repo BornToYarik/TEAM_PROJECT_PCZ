@@ -20,6 +20,10 @@
         public decimal CurrentPrice { get; set; }
 
         /// <summary>Data i godzina planowanego zakończenia licytacji w formacie UTC.</summary>
+        public string ProductName { get; set; } = null!;
+        public ProductDto Product { get; set; } = null!;
+        public decimal CurrentPrice { get; set; }
+        public string? CurrentWinnerName { get; set; }
         public DateTime EndTime { get; set; }
     }
 }

@@ -3,14 +3,14 @@ import { Page, Text, View, Document, StyleSheet, Font } from '@react-pdf/rendere
 
 /**
  * @file InvoiceTemplates.jsx
- * @brief Szablony dokumentow PDF (faktury i paragony) generowane przy uzyciu biblioteki @react-pdf/renderer.
- * @details Plik zawiera definicje stylow CSS-in-JS oraz komponenty React odpowiedzialne za renderowanie
- * profesjonalnych dokumentow sprzedazy gotowych do druku lub zapisu.
+ * @brief Szablony dokumentów PDF (faktury i paragony) generowane przy użyciu biblioteki @react-pdf/renderer.
+ * @details Plik zawiera definicje stylów CSS-in-JS oraz komponenty React odpowiedzialne za renderowanie
+ * profesjonalnych dokumentów sprzedaży gotowych do druku lub zapisu.
  */
 
 /**
  * @section Styles
- * @brief Konfiguracja stylow graficznych dla dokumentu faktury.
+ * @brief Konfiguracja stylów graficznych dla dokumentu faktury.
  */
 const styles = StyleSheet.create({
     page: { padding: 40, fontFamily: 'Helvetica', fontSize: 10, color: '#333' },
@@ -76,14 +76,14 @@ const simpleStyles = StyleSheet.create({
 
 /**
  * @component InvoiceDocument
- * @brief Komponent renderujacy pelny dokument faktury VAT.
- * @param {Object} props Wlasciwosci komponentu.
- * @param {Object} props.order Obiekt zamowienia zawierajacy dane klienta, status oraz liste produktow.
+ * @brief Komponent renderujący pełny dokument faktury VAT.
+ * @param {Object} props Właściwości komponentu.
+ * @param {Object} props.order Obiekt zamówienia zawierający dane klienta, status oraz listę produktów.
  * @returns {JSX.Element} Obiekt dokumentu PDF.
  */
 export const InvoiceDocument = ({ order }) => {
     const subtotal = order.products.reduce((sum, p) => sum + (p.price * p.quantityInOrder), 0);
-    const taxRate = 0.23; // 23% VAT
+    const taxRate = 0.23; // 23% VAT (stawka domyślna)
     const taxAmount = subtotal * taxRate;
     const total = subtotal + taxAmount;
 
@@ -95,40 +95,36 @@ export const InvoiceDocument = ({ order }) => {
         <Document>
             <Page size="A4" style={styles.page}>
 
-                {/*  */}
                 <View style={styles.divider} />
                 <View style={styles.headerContainer}>
-                    <Text style={styles.headerTitle}>INVOICE</Text>
+                    <Text style={styles.headerTitle}>FAKTURA VAT</Text>
                 </View>
 
-                {/*  */}
                 <View style={styles.infoContainer}>
-                    {/* */}
                     <View style={styles.infoColumnLeft}>
-                        <Text style={styles.label}>ISSUED TO:</Text>
+                        <Text style={styles.label}>NABYWCA:</Text>
                         <Text style={styles.textBold}>{order.userEmail}</Text>
-                        <Text style={styles.text}>Client ID: {order.userId}</Text>
-                        <Text style={styles.text}>Ul. Klienta 12/3</Text>
-                        <Text style={styles.text}>00-001 Warszawa, Poland</Text>
+                        <Text style={styles.text}>ID Klienta: {order.userId}</Text>
+                        <Text style={styles.text}>Ul. Przykładowa 12/3</Text>
+                        <Text style={styles.text}>00-001 Warszawa, Polska</Text>
 
-                        <Text style={[styles.label, { marginTop: 15 }]}>PAY TO:</Text>
+                        <Text style={[styles.label, { marginTop: 15 }]}>SPRZEDAWCA:</Text>
                         <Text style={styles.textBold}>TechShop Sp. z o.o.</Text>
                         <Text style={styles.text}>Bank: mBank Polska</Text>
-                        <Text style={styles.text}>Account: PL 12 3456 7890 0000 0000</Text>
+                        <Text style={styles.text}>Konto: PL 12 3456 7890 0000 0000</Text>
                     </View>
 
-                    {/* */}
                     <View style={styles.infoColumnRight}>
                         <View style={styles.dateRow}>
-                            <Text style={styles.dateLabel}>INVOICE NO:</Text>
+                            <Text style={styles.dateLabel}>NR FAKTURY:</Text>
                             <Text style={styles.dateValue}>#{order.id}</Text>
                         </View>
                         <View style={styles.dateRow}>
-                            <Text style={styles.dateLabel}>DATE:</Text>
+                            <Text style={styles.dateLabel}>DATA WYSTAWIENIA:</Text>
                             <Text style={styles.dateValue}>{today}</Text>
                         </View>
                         <View style={styles.dateRow}>
-                            <Text style={styles.dateLabel}>DUE DATE:</Text>
+                            <Text style={styles.dateLabel}>TERMIN PŁATNOŚCI:</Text>
                             <Text style={styles.dateValue}>{dueDate.toLocaleDateString()}</Text>
                         </View>
                         <View style={styles.dateRow}>
@@ -138,40 +134,36 @@ export const InvoiceDocument = ({ order }) => {
                     </View>
                 </View>
 
-                {/*  */}
                 <View style={styles.tableContainer}>
-                    {/*  */}
                     <View style={styles.tableHeader}>
-                        <Text style={[styles.th, styles.colDesc]}>DESCRIPTION</Text>
-                        <Text style={[styles.th, styles.colPrice]}>UNIT PRICE</Text>
-                        <Text style={[styles.th, styles.colQty]}>QTY</Text>
-                        <Text style={[styles.th, styles.colTotal]}>TOTAL</Text>
+                        <Text style={[styles.th, styles.colDesc]}>NAZWA USŁUGI/TOWARU</Text>
+                        <Text style={[styles.th, styles.colPrice]}>CENA JEDN.</Text>
+                        <Text style={[styles.th, styles.colQty]}>ILOŚĆ</Text>
+                        <Text style={[styles.th, styles.colTotal]}>WARTOŚĆ</Text>
                     </View>
 
-                    {/*  */}
                     {order.products.map((product, index) => (
                         <View key={index} style={styles.tableRow}>
                             <Text style={[styles.text, styles.colDesc]}>{product.name}</Text>
-                            <Text style={[styles.text, styles.colPrice]}>{product.price.toFixed(2)}</Text>
+                            <Text style={[styles.text, styles.colPrice]}>{product.price.toFixed(2)} zl</Text>
                             <Text style={[styles.text, styles.colQty]}>{product.quantityInOrder}</Text>
-                            <Text style={[styles.text, styles.colTotal]}>{(product.price * product.quantityInOrder).toFixed(2)}</Text>
+                            <Text style={[styles.text, styles.colTotal]}>{(product.price * product.quantityInOrder).toFixed(2)} zl</Text>
                         </View>
                     ))}
                 </View>
 
-                {/*  */}
                 <View style={styles.totalsContainer}>
                     <View style={styles.totalsBlock}>
                         <View style={styles.totalRow}>
-                            <Text style={styles.text}>SUBTOTAL</Text>
+                            <Text style={styles.text}>NETTO</Text>
                             <Text style={styles.text}>{subtotal.toFixed(2)} zl</Text>
                         </View>
                         <View style={styles.totalRow}>
-                            <Text style={styles.text}>TAX (23%)</Text>
+                            <Text style={styles.text}>VAT (23%)</Text>
                             <Text style={styles.text}>{taxAmount.toFixed(2)} zl</Text>
                         </View>
                         <View style={styles.grandTotal}>
-                            <Text style={styles.grandTotalText}>TOTAL</Text>
+                            <Text style={styles.grandTotalText}>SUMA BRUTTO</Text>
                             <Text style={styles.grandTotalText}>{total.toFixed(2)} zl</Text>
                         </View>
                     </View>
@@ -184,9 +176,9 @@ export const InvoiceDocument = ({ order }) => {
 
 /**
  * @component SimpleReceipt
- * @brief Komponent renderujacy uproszczony paragon fiskalny.
- * @param {Object} props Wlasciwosci komponentu.
- * @param {Object} props.order Obiekt zamowienia zawierajacy liste produktow.
+ * @brief Komponent renderujący uproszczony paragon fiskalny.
+ * @param {Object} props Właściwości komponentu.
+ * @param {Object} props.order Obiekt zamówienia zawierający listę produktów.
  * @returns {JSX.Element} Obiekt dokumentu PDF.
  */
 export const SimpleReceipt = ({ order }) => {
@@ -196,11 +188,11 @@ export const SimpleReceipt = ({ order }) => {
         <Document>
             <Page size="A4" style={simpleStyles.page}>
                 <View style={simpleStyles.section}>
-                    <Text style={simpleStyles.header}>Receipt #{order.id}</Text>
-                    <Text style={{ fontSize: 12, marginBottom: 10 }}>Client: {order.userEmail}</Text>
+                    <Text style={simpleStyles.header}>Paragon #{order.id}</Text>
+                    <Text style={{ fontSize: 12, marginBottom: 10 }}>Klient: {order.userEmail}</Text>
                 </View>
                 <View style={simpleStyles.section}>
-                    <Text style={{ fontSize: 14, marginBottom: 10, borderBottomWidth: 2 }}>Products:</Text>
+                    <Text style={{ fontSize: 14, marginBottom: 10, borderBottomWidth: 2 }}>Produkty:</Text>
                     {order.products.map((product, index) => (
                         <View key={index} style={simpleStyles.row}>
                             <Text style={simpleStyles.label}>{product.name}</Text>
@@ -209,7 +201,7 @@ export const SimpleReceipt = ({ order }) => {
                     ))}
                 </View>
                 <View style={simpleStyles.section}>
-                    <Text style={simpleStyles.total}>Total: {total.toFixed(2)} zl</Text>
+                    <Text style={simpleStyles.total}>Razem: {total.toFixed(2)} zl</Text>
                 </View>
             </Page>
         </Document>

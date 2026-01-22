@@ -1,60 +1,69 @@
-﻿import { useEffect, useState, useRef } from "react";
-import { useParams } from "react-router-dom";
+import { useEffect, useState, useRef } from "react";
+import { useParams, Link } from "react-router-dom";
 import { getAuction, placeBid } from "../../api/auctionApi";
 import { useAuth } from "../../auth/useAuth";
 import * as signalR from "@microsoft/signalr";
 
 /**
  * @file AuctionDetails.jsx
- * @brief Komponent widoku szczegolowego aukcji z obsluga licytacji w czasie rzeczywistym.
- * @details Modul integruje sie z SignalR w celu zapewnienia natychmiastowych aktualizacji ceny 
- * bez koniecznosci odswiezania strony. Obsluguje uwierzytelnianie JWT oraz walidacje ofert.
+ * @brief Komponent widoku szczegółowego aukcji z obsługą licytacji w czasie rzeczywistym.
+ * @details Moduł integruje się z SignalR w celu zapewnienia natychmiastowych aktualizacji ceny 
+ * bez konieczności odświeżania strony. Obsługuje uwierzytelnianie JWT, walidację ofert, 
+ * galerię zdjęć oraz automatyczny licznik czasu.
  */
 
 /**
  * @component AuctionDetails
- * @description Wyswietla pelne dane aukcji, zarzadza cyklem zycia polaczenia SignalR 
- * oraz umozliwia zalogowanym uzytkownikom branie udzialu w licytacji.
+ * @description Wyświetla pełne dane aukcji, zarządza cyklem życia połączenia SignalR 
+ * oraz umożliwia zalogowanym użytkownikom branie udziału w licytacji.
  */
 export default function AuctionDetails() {
-    /** @brief Pobranie identyfikatora aukcji z parametrow sciezki URL. */
+    /** @brief Pobranie identyfikatora aukcji z parametrów ścieżki URL. */
     const { id } = useParams();
 
-    /** @brief Status autoryzacji uzytkownika pobrany z dedykowanego hooka. */
+    /** @brief Status autoryzacji użytkownika pobrany z dedykowanego hooka. */
     const { isAuthenticated } = useAuth();
 
-    /** @brief Stan przechowujacy szczegolowe informacje o aukcji (produkt, cena, czas). */
+    /** @brief Stan przechowujący szczegółowe informacje o aukcji (produkt, cena, czas). */
     const [auction, setAuction] = useState(null);
 
-    /** @brief Wartosc nowej oferty licytacyjnej wpisana w formularzu. */
+    /** @brief Wartość nowej oferty licytacyjnej wpisana w formularzu. */
     const [amount, setAmount] = useState("");
 
-    /** @brief Flaga kontrolujaca blokowanie interfejsu podczas wysylania oferty. */
+    /** @brief Flaga kontrolująca blokowanie interfejsu podczas wysyłania oferty. */
     const [loadingBid, setLoadingBid] = useState(false);
 
-    /** @brief Referencja do obiektu polaczenia SignalR zachowujaca stan miedzy renderami. */
+    /** @brief Sformatowany ciąg znaków reprezentujący czas pozostały do końca aukcji. */
+    const [timeLeft, setTimeLeft] = useState("");
+
+    /** @brief Indeks aktualnie wyświetlanego zdjęcia w galerii. */
+    const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+    /** @brief Nazwa użytkownika, który aktualnie prowadzi w licytacji. */
+    const [currentWinner, setCurrentWinner] = useState(null);
+
+    /** @brief Referencja do obiektu połączenia SignalR zachowująca stan między renderami. */
     const connectionRef = useRef(null);
+
+    const API_URL = "http://localhost:8080";
+    const DEFAULT_IMAGE = "/placeholder.png";
 
     /**
      * @effect Inicjalizacja komponentu i konfiguracja SignalR.
-     * @details Pobiera dane poczatkowe aukcji i ustanawia polaczenie z Hubem aukcyjnym. 
-     * Rejestruje handlery dla zdarzen "BidPlaced" oraz "AuctionFinished".
+     * @details Pobiera dane początkowe aukcji i ustanawia połączenie z Hubem aukcyjnym. 
+     * Rejestruje handlery dla zdarzeń "BidPlaced" oraz "AuctionFinished".
      */
     useEffect(() => {
         loadAuction();
 
         const token = localStorage.getItem("token");
-        console.log("Token exists:", !!token);
-        console.log("Token preview:", token?.substring(0, 50));
-
         if (!token) {
-            console.warn("No token found - user must log in");
+            console.warn("No token found - SignalR in read-only mode or disabled");
             return;
         }
 
-        // Budowa polaczenia z adresem Hub-a na serwerze
         const connection = new signalR.HubConnectionBuilder()
-            .withUrl("http://localhost:8080/auctionHub", {
+            .withUrl(`${API_URL}/auctionHub`, {
                 accessTokenFactory: () => token
             })
             .withAutomaticReconnect()
@@ -62,44 +71,68 @@ export default function AuctionDetails() {
 
         connectionRef.current = connection;
 
-        // Uruchomienie polaczenia i dolaczenie do grupy konkretnej aukcji
         connection.start()
-            .then(() => {
-                console.log("SignalR connected");
-                return connection.invoke("JoinAuction", Number(id));
-            })
+            .then(() => connection.invoke("JoinAuction", Number(id)))
             .catch(err => console.error("SignalR connection error:", err));
 
         /** @callback BidPlaced
-         * @description Reaguje na powiadomienie o nowej najwyzszej ofercie od innego uzytkownika.
+         * @description Reaguje na powiadomienie o nowej najwyższej ofercie.
          */
-        connection.on("BidPlaced", (price, endTime) => {
+        connection.on("BidPlaced", (price, endTime, winnerName) => {
             setAuction(prev => prev ? { ...prev, currentPrice: price, endTime } : prev);
+            setCurrentWinner(winnerName);
         });
 
         /** @callback AuctionFinished
-         * @description Wyswietla powiadomienie o zakonczeniu licytacji i odswieza dane.
+         * @description Wywoływana przez serwer, gdy czas aukcji dobiegnie końca.
          */
-        connection.on("AuctionFinished", () => {
-            alert("Auction finished");
-            loadAuction();
+        connection.on("AuctionFinished", (auctionId) => {
+            checkIfWinner(auctionId);
         });
 
-        // Sprzatanie zasobow (zamykanie polaczenia) przy odmontowaniu komponentu
         return () => {
-            if (connectionRef.current) {
-                connectionRef.current.stop().catch(err => console.error("SignalR stop error:", err));
-            }
+            if (connectionRef.current) connectionRef.current.stop();
         };
     }, [id]);
 
     /**
+     * @effect Timer odliczający czas do końca aukcji.
+     * @description Aktualizuje stan timeLeft co sekundę na podstawie auction.endTime.
+     */
+    useEffect(() => {
+        if (!auction?.endTime) return;
+
+        const timer = setInterval(() => {
+            const now = Date.now();
+            const end = new Date(auction.endTime).getTime();
+            const diff = end - now;
+
+            if (diff <= 0) {
+                setTimeLeft("Auction ended");
+                clearInterval(timer);
+            } else {
+                const h = Math.floor(diff / (1000 * 60 * 60));
+                const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                const s = Math.floor((diff % (1000 * 60)) / 1000);
+                setTimeLeft(`${h}h ${m}m ${s}s`);
+            }
+        }, 1000);
+
+        return () => clearInterval(timer);
+    }, [auction?.endTime]);
+
+    /**
      * @function loadAuction
-     * @description Pobiera aktualny stan aukcji z serwera za pomoca API REST.
+     * @description Pobiera aktualny stan aukcji z serwera za pomocą API REST.
      */
     const loadAuction = () => {
         getAuction(id)
-            .then(res => setAuction(res.data || null))
+            .then(res => {
+                if (res.data) {
+                    setAuction(res.data);
+                    setCurrentWinner(res.data.currentWinnerName);
+                }
+            })
             .catch(err => {
                 console.error("Failed to load auction:", err);
                 setAuction(null);
@@ -107,53 +140,166 @@ export default function AuctionDetails() {
     };
 
     /**
+     * @function checkIfWinner
+     * @async
+     * @description Sprawdza, czy zalogowany użytkownik wygrał właśnie zakończoną aukcję.
+     * Jeśli tak, przekierowuje do płatności.
+     */
+    const checkIfWinner = async (auctionId) => {
+        try {
+            const response = await fetch(`${API_URL}/api/auction-winner/${auctionId}`, {
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                }
+            });
+
+            if (response.ok) {
+                alert("Congratulations! You won the auction!");
+                window.location.href = `/auction-payment/${auctionId}`;
+            } else {
+                alert("The auction has ended.");
+                loadAuction();
+            }
+        } catch (err) {
+            console.error("Error checking winner:", err);
+            loadAuction();
+        }
+    };
+
+    /**
      * @function submitBid
      * @async
-     * @description Przesyla nowa oferte cenowa do systemu. 
-     * Obsluguje walidacje oraz wyswietla komunikaty o bledach (np. zbyt niska kwota).
+     * @description Przesyła nową ofertę cenową do systemu. 
+     * Obsługuje walidację kwoty oraz blokuje przycisk na czas żądania.
      */
     const submitBid = async () => {
-        if (!amount) return alert("Enter bid amount");
+        if (!amount) return alert("Please enter a bid amount");
+
+        const bidAmount = Number(amount);
+        if (isNaN(bidAmount) || bidAmount <= auction.currentPrice) {
+            return alert(`Your bid must be higher than ${auction.currentPrice} PLN`);
+        }
+
         setLoadingBid(true);
         try {
-            await placeBid(id, Number(amount));
+            await placeBid(id, bidAmount);
             setAmount("");
         } catch (err) {
-            console.error("Bid error:", err);
-            alert("Bid too low or auction finished");
+            alert("Failed to place bid. It might be too low or the auction has ended.");
         } finally {
             setLoadingBid(false);
         }
     };
 
-    if (!auction) return <p>Loading auction...</p>;
+    if (!auction) {
+        return <div className="container mt-5"><p>Loading auction details...</p></div>;
+    }
 
-    /** @brief Logika wyznaczania nazwy produktu z roznych zrodel danych DTO. */
     const productName = auction.product?.name || auction.productName || "Unknown product";
+    
+    /** @brief Przygotowanie listy zdjęć z uwzględnieniem ścieżek bezwzględnych. */
+    const images = auction.product?.imageUrls?.length > 0
+        ? auction.product.imageUrls.map(url => url.startsWith("http") ? url : `${API_URL}${url}`)
+        : [DEFAULT_IMAGE];
+
+    const nextImage = () => setCurrentImageIndex(prev => (prev + 1) % images.length);
+    const prevImage = () => setCurrentImageIndex(prev => (prev - 1 + images.length) % images.length);
 
     return (
-        <div>
-            <h2>{productName}</h2>
-            <p>Current price: {auction.currentPrice ?? "N/A"} USD</p>
-            <p>Ends at: {auction.endTime ? new Date(auction.endTime).toLocaleString() : "N/A"}</p>
+        <div className="container my-4">
+            <div className="row g-4">
+                {/* Kolumna Lewa: Galeria Zdjęć */}
+                <div className="col-lg-6">
+                    <div className="position-relative">
+                        <img
+                            src={images[currentImageIndex]}
+                            alt={productName}
+                            className="img-fluid rounded shadow-sm w-100"
+                            style={{ objectFit: "contain", maxHeight: "500px", backgroundColor: "#f8f9fa" }}
+                            onError={(e) => { e.target.src = DEFAULT_IMAGE; }}
+                        />
 
-            {/* Sekcja licytacji widoczna tylko dla zalogowanych uzytkownikow */}
-            {isAuthenticated ? (
-                <>
-                    <input
-                        type="number"
-                        placeholder="Your bid"
-                        value={amount}
-                        onChange={e => setAmount(e.target.value)}
-                        min="0"
-                    />
-                    <button onClick={submitBid} disabled={loadingBid}>
-                        {loadingBid ? "Placing bid..." : "Place Bid"}
-                    </button>
-                </>
-            ) : (
-                <p>Please log in to bid</p>
-            )}
+                        {images.length > 1 && (
+                            <>
+                                <button className="btn btn-light position-absolute top-50 start-0 translate-middle-y ms-2 shadow-sm" onClick={prevImage}>◀</button>
+                                <button className="btn btn-light position-absolute top-50 end-0 translate-middle-y me-2 shadow-sm" onClick={nextImage}>▶</button>
+                                <div className="d-flex justify-content-center gap-2 mt-3">
+                                    {images.map((img, idx) => (
+                                        <img
+                                            key={idx}
+                                            src={img}
+                                            className="rounded"
+                                            style={{ 
+                                                width: "60px", height: "60px", objectFit: "cover", 
+                                                border: idx === currentImageIndex ? "3px solid #0d6efd" : "1px solid #dee2e6",
+                                                cursor: "pointer", opacity: idx === currentImageIndex ? 1 : 0.6 
+                                            }}
+                                            onClick={() => setCurrentImageIndex(idx)}
+                                        />
+                                    ))}
+                                </div>
+                            </>
+                        )}
+                    </div>
+                </div>
+
+                {/* Kolumna Prawa: Informacje i Licytacja */}
+                <div className="col-lg-6">
+                    <div className="card shadow-sm h-100">
+                        <div className="card-body">
+                            <h2 className="card-title mb-3">{productName}</h2>
+
+                            <div className="alert alert-primary d-flex justify-content-between align-items-center mb-3">
+                                <div>
+                                    <small className="text-muted d-block">Current bid</small>
+                                    <h3 className="mb-0">{auction.currentPrice} PLN</h3>
+                                </div>
+                                <div className="text-end">
+                                    <small className="text-muted d-block">Time left</small>
+                                    <strong className="text-danger">{timeLeft}</strong>
+                                </div>
+                            </div>
+
+                            {currentWinner && (
+                                <div className="alert alert-success mb-3">
+                                    <small className="text-muted d-block">Currently leading</small>
+                                    <strong>{currentWinner}</strong>
+                                </div>
+                            )}
+
+                            {isAuthenticated ? (
+                                <div className="mb-3">
+                                    <label className="form-label">Your bid (PLN)</label>
+                                    <div className="input-group">
+                                        <input
+                                            type="number"
+                                            className="form-control"
+                                            value={amount}
+                                            onChange={e => setAmount(e.target.value)}
+                                            placeholder={`Min. ${auction.currentPrice + 1} PLN`}
+                                        />
+                                        <button className="btn btn-primary" onClick={submitBid} disabled={loadingBid}>
+                                            {loadingBid ? "Placing bid..." : "Place bid"}
+                                        </button>
+                                    </div>
+                                    <small className="text-muted">Minimum bid: {auction.currentPrice + 1} PLN</small>
+                                </div>
+                            ) : (
+                                <div className="alert alert-warning">
+                                    <Link to="/login" className="alert-link">Log in</Link> to participate in the auction
+                                </div>
+                            )}
+
+                            {auction.product?.description && (
+                                <div className="mt-4">
+                                    <h5>Description</h5>
+                                    <p className="text-muted">{auction.product.description}</p>
+                                </div>
+                            )}
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     );
 }

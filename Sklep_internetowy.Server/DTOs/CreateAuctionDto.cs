@@ -12,5 +12,6 @@
 
         /// <summary>Cena początkowa (wywoławcza), od której rozpocznie się proces licytacji produktu.</summary>
         public decimal StartingPrice { get; set; }
+        public int DurationMinutes { get; set; } 
     }
 }

@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using Stripe;
 
 namespace Sklep_internetowy.Server.Controllers.Payment

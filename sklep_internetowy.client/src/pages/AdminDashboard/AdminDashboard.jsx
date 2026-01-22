@@ -4,15 +4,15 @@ import { Link } from 'react-router-dom';
 
 /**
  * @file AdminDashboard.jsx
- * @brief Glowny panel sterowania (Dashboard) administratora systemu TechStore.
- * @details Komponent sluzy jako centralny punkt nawigacyjny, agregujacy skroty do wszystkich 
- * kluczowych modulow administracyjnych: zamowien, uzytkownikow, produktow, wiadomosci oraz promocji.
+ * @brief Główny panel sterowania (Dashboard) administratora systemu TechStore.
+ * @details Komponent służy jako centralny punkt nawigacyjny, agregujący skróty do wszystkich 
+ * kluczowych modułów administracyjnych: zamówień, użytkowników, produktów, wiadomości oraz promocji.
  */
 
 /**
  * @component AdminDashboard
- * @description Renderuje responsywny interfejs kafelkowy (grid kart), gdzie kazda karta 
- * reprezentuje osobny obszar zarzadzania systemem e-commerce.
+ * @description Renderuje responsywny interfejs kafelkowy (grid kart), gdzie każda karta 
+ * reprezentuje osobny obszar zarządzania systemem e-commerce.
  */
 function AdminDashboard() {
     return (
@@ -21,14 +21,14 @@ function AdminDashboard() {
                 <h2 className="text-center mb-5">Admin Dashboard</h2>
 
                 <Row className="justify-content-center g-4">
-                    {/* MODUL: ZAMOWIENIA */}
+                    {/* MODUŁ: ZAMÓWIENIA */}
                     <Col md={4}>
                         <Card className="shadow-sm text-center border-0 h-100">
                             <Card.Body className="d-flex flex-column">
                                 <i className="bi bi-bag-check-fill fs-1 text-primary mb-3"></i>
                                 <Card.Title>Orders</Card.Title>
                                 <Card.Text className="flex-grow-1">Manage customer orders</Card.Text>
-                                {/* Sciezka do zarzadzania zamowieniami */}
+                                {/* Ścieżka do zarządzania zamówieniami */}
                                 <Link to="/admin/orders" className="btn btn-primary">
                                     Go to Orders
                                 </Link>
@@ -36,14 +36,14 @@ function AdminDashboard() {
                         </Card>
                     </Col>
 
-                    {/* MODUL: UZYTKOWNICY */}
+                    {/* MODUŁ: UŻYTKOWNICY */}
                     <Col md={4}>
                         <Card className="shadow-sm text-center border-0 h-100">
                             <Card.Body className="d-flex flex-column">
                                 <i className="bi bi-people-fill fs-1 text-success mb-3"></i>
                                 <Card.Title>Users</Card.Title>
                                 <Card.Text className="flex-grow-1">Manage registered users</Card.Text>
-                                {/* Sciezka do zarzadzania uzytkownikami */}
+                                {/* Ścieżka do zarządzania użytkownikami */}
                                 <Link to="/admin/users" className="btn btn-success">
                                     Go to Users
                                 </Link>
@@ -51,14 +51,14 @@ function AdminDashboard() {
                         </Card>
                     </Col>
 
-                    {/* MODUL: PRODUKTY */}
+                    {/* MODUŁ: PRODUKTY */}
                     <Col md={4}>
                         <Card className="shadow-sm text-center border-0 h-100">
                             <Card.Body className="d-flex flex-column">
                                 <i className="bi bi-box-seam fs-1 text-warning mb-3"></i>
                                 <Card.Title>Products</Card.Title>
                                 <Card.Text className="flex-grow-1">Manage store products</Card.Text>
-                                {/* Sciezka do katalogu produktow */}
+                                {/* Ścieżka do katalogu produktów */}
                                 <Link to="/admin/products" className="btn btn-warning text-white">
                                     Go to Products
                                 </Link>
@@ -66,14 +66,14 @@ function AdminDashboard() {
                         </Card>
                     </Col>
 
-                    {/* MODUL: WIADOMOSCI */}
+                    {/* MODUŁ: WIADOMOŚCI */}
                     <Col md={4}>
                         <Card className="shadow-sm text-center border-0 h-100">
                             <Card.Body className="d-flex flex-column">
                                 <i className="bi bi-envelope fs-1 text-warning mb-3"></i>
                                 <Card.Title>Messages</Card.Title>
                                 <Card.Text className="flex-grow-1">Manage customer messages</Card.Text>
-                                {/* Sciezka do skrzynki odbiorczej */}
+                                {/* Ścieżka do skrzynki odbiorczej */}
                                 <Link to="/admin/messages" className="btn btn-warning text-white">
                                     Go to Messages
                                 </Link>
@@ -81,16 +81,31 @@ function AdminDashboard() {
                         </Card>
                     </Col>
 
-                    {/* MODUL: PROMOCJE I WYPRZEDAZE */}
+                    {/* MODUŁ: AUKCJE */}
+                    <Col md={4}>
+                        <Card className="shadow-sm text-center border-0 h-100">
+                            <Card.Body className="d-flex flex-column">
+                                <i className="bi bi-gem fs-1 text-danger mb-3"></i>
+                                <Card.Title>Create Auction</Card.Title>
+                                <Card.Text className="flex-grow-1">Create new auctions for products</Card.Text>
+                                {/* Ścieżka do tworzenia nowych aukcji */}
+                                <Link to="/admin/create-auction" className="btn btn-danger text-white">
+                                    Go to Create Auction
+                                </Link>
+                            </Card.Body>
+                        </Card>
+                    </Col>
+
+                    {/* MODUŁ: PROMOCJE I WYPRZEDAŻE */}
                     <Col md={4}>
                         <Card className="shadow-sm text-center border-0 h-100">
                             <Card.Body className="d-flex flex-column">
                                 <i className="bi bi-tags fs-1 text-warning mb-3"></i>
                                 <Card.Title>Promotions Management</Card.Title>
-                                <Card.Text className="flex-grow-1">Manage promotions</Card.Text>
-                                {/* Sciezka do panelu automatyzacji promocji */}
+                                <Card.Text className="flex-grow-1">Manage store-wide promotions</Card.Text>
+                                {/* Ścieżka do panelu automatyzacji promocji */}
                                 <Link to="/admin/promotions" className="btn btn-warning text-white">
-                                    Manage
+                                    Manage Promotions
                                 </Link>
                             </Card.Body>
                         </Card>

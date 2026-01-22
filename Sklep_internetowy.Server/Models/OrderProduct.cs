@@ -1,4 +1,4 @@
-﻿namespace Sklep_internetowy.Server.Models
+namespace Sklep_internetowy.Server.Models
 {
     /// <summary>
     /// Klasa pośrednicząca (tabela łącząca) reprezentująca relację wiele-do-wielu 
@@ -7,6 +7,7 @@
     /// </summary>
     public class OrderProduct
     {
+        public int Id { get; set; }
         /// <summary>Identyfikator powiązanego zamówienia.</summary>
         public int OrderId { get; set; }
 
@@ -21,5 +22,7 @@
 
         /// <summary>Liczba sztuk danego produktu zakupiona w ramach tego zamówienia.</summary>
         public int Quantity { get; set; }
+        public decimal Price { get; set; }
+        public int? AuctionId { get; set; }
     }
 }

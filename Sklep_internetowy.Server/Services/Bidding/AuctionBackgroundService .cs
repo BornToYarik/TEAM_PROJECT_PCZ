@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Sklep_internetowy.Server.Data;
 
 namespace Sklep_internetowy.Server.Services.Bidding
@@ -17,12 +17,21 @@ namespace Sklep_internetowy.Server.Services.Bidding
         private readonly IServiceScopeFactory _scopeFactory;
 
         /**
+         * @brief Serwis logowania do rejestrowania zdarzeń i błędów.
+         */
+        private readonly ILogger<AuctionBackgroundService> _logger;
+
+        /**
          * @brief Konstruktor usługi AuctionBackgroundService.
          * @param scopeFactory Fabryka zakresów serwisów do tworzenia kontekstu zależności.
+         * @param logger Serwis do logowania operacji wykonywanych w tle.
          */
-        public AuctionBackgroundService(IServiceScopeFactory scopeFactory)
+        public AuctionBackgroundService(
+            IServiceScopeFactory scopeFactory,
+            ILogger<AuctionBackgroundService> logger)
         {
             _scopeFactory = scopeFactory;
+            _logger = logger;
         }
 
         /**
@@ -32,32 +41,53 @@ namespace Sklep_internetowy.Server.Services.Bidding
          */
         protected override async Task ExecuteAsync(CancellationToken ct)
         {
+            _logger.LogInformation("AuctionBackgroundService started");
+
+            /**
+             * @brief Początkowe opóźnienie (10 sekund) na start aplikacji.
+             */
+            await Task.Delay(TimeSpan.FromSeconds(10), ct);
+
             // Pętla wykonująca się dopóki aplikacja działa
             while (!ct.IsCancellationRequested)
             {
-                // Utworzenie nowego zakresu zależności (scope)
-                using var scope = _scopeFactory.CreateScope();
-
-                // Pobranie kontekstu bazy danych
-                var context = scope.ServiceProvider.GetRequiredService<StoreDbContext>();
-
-                // Pobranie serwisu obsługującego aukcje
-                var service = scope.ServiceProvider.GetRequiredService<AuctionService>();
-
-                /**
-                 * @brief Pobranie listy aukcji, które powinny zostać zakończone.
-                 * @details Wybierane są aukcje, które nie są jeszcze zakończone i których czas dobiegł końca.
-                 */
-                var expired = await context.Auctions
-                    .Where(a => !a.IsFinished && DateTime.UtcNow > a.EndTime)
-                    .ToListAsync();
-
-                /**
-                 * @brief Finalizacja każdej wygasłej aukcji.
-                 */
-                foreach (var auction in expired)
+                try
                 {
-                    await service.FinishAuctionAsync(auction);
+                    // Utworzenie nowego zakresu zależności (scope)
+                    using var scope = _scopeFactory.CreateScope();
+
+                    // Pobranie kontekstu bazy danych
+                    var context = scope.ServiceProvider.GetRequiredService<StoreDbContext>();
+
+                    // Pobranie serwisu obsługującego aukcje
+                    var service = scope.ServiceProvider.GetRequiredService<AuctionService>();
+
+                    /**
+                     * @brief Pobranie listy aukcji, które powinny zostać zakończone.
+                     * @details Wybierane są aukcje, które nie są jeszcze zakończone i których czas dobiegł końca.
+                     */
+                    var expired = await context.Auctions
+                        .Where(a => !a.IsFinished && DateTime.UtcNow > a.EndTime)
+                        .ToListAsync(ct);
+
+                    if (expired.Any())
+                    {
+                        _logger.LogInformation($"Found {expired.Count} expired auctions to process");
+                    }
+
+                    /**
+                     * @brief Finalizacja każdej wygasłej aukcji.
+                     * @details Wywołuje asynchroniczną metodę kończenia aukcji na podstawie jej ID.
+                     */
+                    foreach (var auction in expired)
+                    {
+                        await service.FinishAuctionAsync(auction.Id);
+                        _logger.LogInformation($"Finished auction {auction.Id}");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogError(ex, "Error in AuctionBackgroundService");
                 }
 
                 /**
@@ -65,6 +95,8 @@ namespace Sklep_internetowy.Server.Services.Bidding
                  */
                 await Task.Delay(30000, ct);
             }
+
+            _logger.LogInformation("AuctionBackgroundService stopped");
         }
     }
 }

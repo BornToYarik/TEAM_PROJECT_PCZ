@@ -18,6 +18,8 @@ namespace Sklep_internetowy.Server.Models
         public Product Product { get; set; } = null!;
 
         /// <summary>Cena początkowa (wywoławcza), od której zaczyna się licytacja.</summary>
+        public int Id { get; set; }
+        public int ProductId { get; set; }
         public decimal StartingPrice { get; set; }
 
         /// <summary>Aktualna najwyższa cena zaoferowana przez licytujących.</summary>
@@ -42,6 +44,8 @@ namespace Sklep_internetowy.Server.Models
         public string? WinnerId { get; set; }
 
         /// <summary>Kolekcja wszystkich ofert (postąpień) złożonych w ramach danej aukcji.</summary>
-        public List<Bid> Bids { get; set; } = new();
+        public DateTime StartTime { get; set; }
+        
+        public ICollection<Bid> Bids { get; set; } = new List<Bid>();
     }
 }

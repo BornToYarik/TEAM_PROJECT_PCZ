@@ -1,4 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 
 namespace Sklep_internetowy.Server.Models
@@ -29,5 +29,6 @@ namespace Sklep_internetowy.Server.Models
 
         /// <summary>Obiekt aukcji powiązanej z tą ofertą, umożliwiający nawigację do szczegółów licytacji.</summary>
         public Auction Auction { get; set; } = null!;
+        public User? User { get; set; }
     }
 }

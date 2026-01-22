@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.SignalR;
 using System.Security.Claims;
 
@@ -19,12 +19,19 @@ namespace Sklep_internetowy.Server.Services.Bidding
         private readonly AuctionService _auctionService;
 
         /**
+         * @brief Serwis logowania do rejestrowania zdarzeń połączeń i ofert.
+         */
+        private readonly ILogger<AuctionHub> _logger;
+
+        /**
          * @brief Konstruktor huba AuctionHub.
          * @param auctionService Serwis odpowiedzialny za obsługę aukcji.
+         * @param logger Serwis do logowania zdarzeń wewnątrz huba.
          */
-        public AuctionHub(AuctionService auctionService)
+        public AuctionHub(AuctionService auctionService, ILogger<AuctionHub> logger)
         {
             _auctionService = auctionService;
+            _logger = logger;
         }
 
         /**
@@ -35,7 +42,7 @@ namespace Sklep_internetowy.Server.Services.Bidding
         public override async Task OnConnectedAsync()
         {
             var userId = Context.User?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            Console.WriteLine($"User connected: {userId ?? "Anonymous"}");
+            _logger.LogInformation($"User connected: {userId ?? "Anonymous"}");
             await base.OnConnectedAsync();
         }
 
@@ -47,21 +54,24 @@ namespace Sklep_internetowy.Server.Services.Bidding
         public async Task JoinAuction(int auctionId)
         {
             await Groups.AddToGroupAsync(Context.ConnectionId, GetGroupName(auctionId));
-            Console.WriteLine($"User joined auction {auctionId}");
+            _logger.LogInformation($"User joined auction {auctionId}");
         }
 
         /**
          * @brief Składa ofertę w wybranej aukcji.
-         * @details Metoda weryfikuje użytkownika, a następnie próbuje zapisać ofertę w systemie.
-         * W przypadku sukcesu informuje wszystkich uczestników aukcji o nowej cenie.
+         * @details Metoda weryfikuje użytkownika (sprawdzając ClaimTypes.NameIdentifier lub "sub"), 
+         * a następnie próbuje zapisać ofertę w systemie. W przypadku sukcesu informuje 
+         * wszystkich uczestników aukcji o nowej cenie i czasie zakończenia.
          * @param auctionId Identyfikator aukcji.
          * @param amount Kwota oferty.
          * @return Zadanie asynchroniczne.
+         * @exception HubException Rzucany, gdy użytkownik nie jest uwierzytelniony lub oferta jest zbyt niska.
          */
         public async Task PlaceBid(int auctionId, decimal amount)
         {
-            // Pobranie identyfikatora użytkownika z tokena JWT
-            var userId = Context.User?.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            // Pobranie identyfikatora użytkownika z tokena JWT (obsługa standardowego Claimu oraz 'sub')
+            var userId = Context.User?.FindFirst(ClaimTypes.NameIdentifier)?.Value
+                        ?? Context.User?.FindFirst("sub")?.Value;
 
             if (userId == null)
             {
@@ -83,10 +93,12 @@ namespace Sklep_internetowy.Server.Services.Bidding
                         auction.CurrentPrice,
                         auction.EndTime
                     );
+                    _logger.LogInformation($"Bid placed successfully on auction {auctionId} by user {userId}");
                 }
             }
             else
             {
+                _logger.LogWarning($"Bid attempt failed for auction {auctionId} (amount too low or finished)");
                 throw new HubException("Bid too low or auction finished");
             }
         }
@@ -99,12 +111,13 @@ namespace Sklep_internetowy.Server.Services.Bidding
         public async Task FinishAuction(int auctionId)
         {
             await Clients.Group(GetGroupName(auctionId)).SendAsync("AuctionFinished");
+            _logger.LogInformation($"Broadcasted finish for auction {auctionId}");
         }
 
         /**
          * @brief Generuje nazwę grupy SignalR dla danej aukcji.
          * @param auctionId Identyfikator aukcji.
-         * @return Nazwa grupy SignalR.
+         * @return Nazwa grupy SignalR (np. "auction-123").
          */
         private string GetGroupName(int auctionId) => $"auction-{auctionId}";
     }

@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using Sklep_internetowy.Server.DTOs;
 using Sklep_internetowy.Server.Models;
 using Sklep_internetowy.Server.Services.Bidding;

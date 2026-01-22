@@ -1,4 +1,4 @@
-﻿/// @file Program.cs
+/// @file Program.cs
 /// @brief Główny punkt wejścia aplikacji TechStore, odpowiedzialny za konfigurację usług i potoku HTTP.
 /// @details Plik ten zawiera definicję kontenera wstrzykiwania zależności (Dependency Injection),
 /// konfigurację systemów bezpieczeństwa (CORS, Identity, JWT), rejestrację usług biznesowych
@@ -8,12 +8,14 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using Sklep_internetowy.Server.Data;
 using Sklep_internetowy.Server.Models;
 using Sklep_internetowy.Server.Services;
 using Sklep_internetowy.Server.Services.Auth;
 using Sklep_internetowy.Server.Services.Bidding;
 using Sklep_internetowy.Server.Services.Promotion;
+using System.Reflection;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -150,7 +152,36 @@ builder.Services.AddSignalR()
     });
 
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(options =>
+{
+    var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
+
+    options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    {
+        Name = "Authorization",
+        Type = SecuritySchemeType.Http,
+        Scheme = "bearer",
+        BearerFormat = "JWT",
+        In = ParameterLocation.Header,
+        Description = "Wprowadź sam token JWT (bez słowa Bearer)"
+    });
+
+    options.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                {
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "Bearer"
+                }
+            },
+            new string[] { }
+        }
+    });
+});
 
 var app = builder.Build();
 
