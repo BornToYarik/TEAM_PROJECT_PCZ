@@ -1,19 +1,42 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Table, Button, Image, Alert, Spinner, Badge } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
-import { useCart } from '../../context/CartContext'; 
+import { useCart } from '../../context/CartContext';
 import { Trash2, ShoppingCart, ArrowLeft } from 'lucide-react';
 
+/**
+ * @file SearchPage.jsx
+ * @brief Komponent strony porownywarki produktow.
+ * @details Modul umozliwia uzytkownikowi zestawienie cech dwoch wybranych produktow w formie tabeli. 
+ * Dane sa pobierane dynamicznie z API na podstawie listy identyfikatorow z kontekstu.
+ */
+
+/**
+ * @component ComparePage
+ * @description Renderuje interfejs porownawczy. Obsluguje wyswietlanie zdjec, cen, 
+ * dostepnosci oraz opisow produktow.
+ * @param {Object} props - Wlasciwosci komponentu.
+ * @param {Object} props.comparison - Obiekt zawierajacy stan i funkcje porownywarki.
+ */
 function ComparePage({ comparison }) {
+    /** @brief Stan przechowujacy szczegolowe dane produktow pobrane z serwera. */
     const [products, setProducts] = useState([]);
+    /** @brief Flaga okreslajaca stan ladowania danych asynchronicznych. */
     const [loading, setLoading] = useState(false);
+    /** @brief Tresc komunikatu o bledzie. */
     const [error, setError] = useState('');
 
     const { addToCart } = useCart();
     const navigate = useNavigate();
 
+    /** @brief Adres domyslnego obrazu w przypadku braku grafik produktu. */
     const DEFAULT_IMAGE = "https://cdn.pixabay.com/photo/2017/11/10/04/47/image-2935360_1280.png";
 
+    /**
+     * @effect Pobieranie danych do porownania.
+     * @description Uruchamia sie przy kazdej zmianie listy compareItems. 
+     * Wysyla zapytanie POST z tablica ID do punktu koncowego API.
+     */
     useEffect(() => {
         const fetchCompareProducts = async () => {
 
@@ -26,7 +49,6 @@ function ComparePage({ comparison }) {
             setError('');
 
             try {
-
                 const response = await fetch('/api/panel/Product/compare-list', {
                     method: 'POST',
                     headers: {
@@ -52,7 +74,13 @@ function ComparePage({ comparison }) {
         fetchCompareProducts();
     }, [comparison.compareItems]);
 
-
+    /**
+     * @function renderPrice
+     * @description Pomocnicza funkcja do renderowania bloku ceny.
+     * @details Obsluguje wyswietlanie ceny promocyjnej (z przekresleniem) oraz standardowej.
+     * @param {Object} product - Obiekt danych produktu.
+     * @returns {JSX.Element} Sformatowany widok ceny.
+     */
     const renderPrice = (product) => {
         if (product.hasActiveDiscount) {
             return (
@@ -71,7 +99,9 @@ function ComparePage({ comparison }) {
         return <span className="fw-bold">{product.price.toFixed(2)} zl</span>;
     };
 
-
+    /** @section EmptyState 
+     * Obsluga wyswietlania komunikatu o braku elementow do porownania.
+     */
     if (comparison.compareItems.length === 0) {
         return (
             <Container className="my-5 text-center">
@@ -84,7 +114,9 @@ function ComparePage({ comparison }) {
         );
     }
 
-
+    /** @section LoadingState 
+     * Wyswietlanie spinnera podczas pobierania danych z API.
+     */
     if (loading && products.length === 0) {
         return (
             <Container className="my-5 text-center">
@@ -116,33 +148,33 @@ function ComparePage({ comparison }) {
                                         ? product.imageUrls[0]
                                         : DEFAULT_IMAGE;
 
-                                        return(
-                                    <th key={product.id} style={{ width: `${80 / products.length}%` }}>
-                                        <div className="d-flex justify-content-end">
-                                            <Button
-                                                variant="link"
-                                                className="text-danger p-0"
-                                                onClick={() => comparison.removeCompareItem(product.id)}
-                                                title="Remove"
-                                            >
-                                                <Trash2 size={18} />
-                                            </Button>
-                                        </div>
-                                        <Image
-                                            src={mainImage}
-                                            alt={product.name}
-                                            fluid
-                                            style={{ maxHeight: '150px', objectFit: 'contain' }}
-                                            className="mb-2"
-                                        />
-                                        <h5>{product.name}</h5>
+                                    return (
+                                        <th key={product.id} style={{ width: `${80 / products.length}%` }}>
+                                            <div className="d-flex justify-content-end">
+                                                <Button
+                                                    variant="link"
+                                                    className="text-danger p-0"
+                                                    onClick={() => comparison.removeCompareItem(product.id)}
+                                                    title="Remove"
+                                                >
+                                                    <Trash2 size={18} />
+                                                </Button>
+                                            </div>
+                                            <Image
+                                                src={mainImage}
+                                                alt={product.name}
+                                                fluid
+                                                style={{ maxHeight: '150px', objectFit: 'contain' }}
+                                                className="mb-2"
+                                            />
+                                            <h5>{product.name}</h5>
                                         </th>
                                     );
                                 })}
                             </tr>
                         </thead>
                         <tbody>
-                         
+
                             <tr>
                                 <td className="fw-bold text-start bg-light">Price</td>
                                 {products.map(product => (
@@ -161,7 +193,7 @@ function ComparePage({ comparison }) {
                                 ))}
                             </tr>
 
-                            
+
                             <tr>
                                 <td className="fw-bold text-start bg-light">Availability</td>
                                 {products.map(product => (
@@ -175,7 +207,7 @@ function ComparePage({ comparison }) {
                                 ))}
                             </tr>
 
-                           
+
                             <tr>
                                 <td className="fw-bold text-start bg-light">Description</td>
                                 {products.map(product => (
@@ -186,7 +218,7 @@ function ComparePage({ comparison }) {
                                 ))}
                             </tr>
 
-                            
+
                             <tr>
                                 <td className="text-start bg-light">Action</td>
                                 {products.map(product => (
@@ -194,6 +226,7 @@ function ComparePage({ comparison }) {
                                         <Button
                                             variant="success"
                                             size="sm"
+                                            className="w-75 mb-2"
                                             disabled={product.quantity <= 0}
                                             onClick={() => addToCart(product)}
                                         >

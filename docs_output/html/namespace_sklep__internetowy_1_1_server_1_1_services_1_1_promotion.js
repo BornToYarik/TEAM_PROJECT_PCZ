@@ -1,0 +1,4 @@
+var namespace_sklep__internetowy_1_1_server_1_1_services_1_1_promotion =
+[
+    [ "PromotionService", "class_sklep__internetowy_1_1_server_1_1_services_1_1_promotion_1_1_promotion_service.html", "class_sklep__internetowy_1_1_server_1_1_services_1_1_promotion_1_1_promotion_service" ]
+];

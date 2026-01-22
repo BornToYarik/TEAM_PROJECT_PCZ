@@ -1,0 +1,52 @@
+\doxysection{Dokumentacja klasy Sklep\+\_\+internetowy.\+Server.\+DTOs.\+Create\+Product\+Dto}
+\hypertarget{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_create_product_dto}{}\label{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_create_product_dto}\index{Sklep\_internetowy.Server.DTOs.CreateProductDto@{Sklep\_internetowy.Server.DTOs.CreateProductDto}}
+
+
+Obiekt transferu danych (DTO) wykorzystywany podczas procesu dodawania nowego produktu do katalogu sklepu. Zawiera kompletny zestaw informacji o towarze, jego parametrach cenowych oraz logice promocyjnej.  
+
+
+
+
+Diagram współpracy dla Sklep\+\_\+internetowy.\+Server.\+DTOs.\+Create\+Product\+Dto:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=202pt]{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_create_product_dto__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Właściwości}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_create_product_dto_a124e5445a337a4a1fa69f23655d186cd}\label{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_create_product_dto_a124e5445a337a4a1fa69f23655d186cd} 
+string {\bfseries Name} = null!\hspace{0.3cm}{\ttfamily  \+[get, set]\+}
+\begin{DoxyCompactList}\small\item\em Nazwa handlowa produktu (pole wymagane). \end{DoxyCompactList}\item 
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_create_product_dto_a385321a7d7b4c9661fdd61ce7c437712}\label{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_create_product_dto_a385321a7d7b4c9661fdd61ce7c437712} 
+decimal {\bfseries Price}\hspace{0.3cm}{\ttfamily  \+[get, set]\+}
+\begin{DoxyCompactList}\small\item\em Podstawowa cena jednostkowa towaru. \end{DoxyCompactList}\item 
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_create_product_dto_aeaa528de4253b577bf56461d61a05873}\label{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_create_product_dto_aeaa528de4253b577bf56461d61a05873} 
+int {\bfseries Quantity}\hspace{0.3cm}{\ttfamily  \+[get, set]\+}
+\begin{DoxyCompactList}\small\item\em Początkowa liczba sztuk wprowadzana na stan magazynowy. \end{DoxyCompactList}\item 
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_create_product_dto_a6ccdeaae287e81014a4c5f0c141e9b1b}\label{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_create_product_dto_a6ccdeaae287e81014a4c5f0c141e9b1b} 
+string? {\bfseries Description}\hspace{0.3cm}{\ttfamily  \+[get, set]\+}
+\begin{DoxyCompactList}\small\item\em Szczegółowy opis techniczny lub marketingowy produktu. \end{DoxyCompactList}\item 
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_create_product_dto_ae3fdc7f7e3913c432f087f339e432491}\label{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_create_product_dto_ae3fdc7f7e3913c432f087f339e432491} 
+decimal? {\bfseries Discount\+Percentage}\hspace{0.3cm}{\ttfamily  \+[get, set]\+}
+\begin{DoxyCompactList}\small\item\em Wartość procentowa rabatu w przedziale od 0 do 100. \end{DoxyCompactList}\item 
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_create_product_dto_a0965f3d2f95d151232961d11597c7c9d}\label{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_create_product_dto_a0965f3d2f95d151232961d11597c7c9d} 
+Date\+Time? {\bfseries Discount\+Start\+Date}\hspace{0.3cm}{\ttfamily  \+[get, set]\+}
+\begin{DoxyCompactList}\small\item\em \doxylink{namespace_sklep__internetowy_1_1_server_1_1_data}{Data} i godzina rozpoczęcia okresu obowiązywania promocji. \end{DoxyCompactList}\item 
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_create_product_dto_ac67582650b584569797fe64b00e4d42d}\label{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_create_product_dto_ac67582650b584569797fe64b00e4d42d} 
+Date\+Time? {\bfseries Discount\+End\+Date}\hspace{0.3cm}{\ttfamily  \+[get, set]\+}
+\begin{DoxyCompactList}\small\item\em \doxylink{namespace_sklep__internetowy_1_1_server_1_1_data}{Data} i godzina zakończenia okresu obowiązywania promocji. \end{DoxyCompactList}\item 
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_create_product_dto_a657293f6ef5a2fe0061c012d2e0475d3}\label{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_create_product_dto_a657293f6ef5a2fe0061c012d2e0475d3} 
+int {\bfseries Product\+Category\+Id}\hspace{0.3cm}{\ttfamily  \+[get, set]\+}
+\begin{DoxyCompactList}\small\item\em Identyfikator kategorii nadrzędnej, do której zostanie przypisany produkt. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Opis szczegółowy}
+Obiekt transferu danych (DTO) wykorzystywany podczas procesu dodawania nowego produktu do katalogu sklepu. Zawiera kompletny zestaw informacji o towarze, jego parametrach cenowych oraz logice promocyjnej. 
+
+Dokumentacja dla tej klasy została wygenerowana z pliku:\+\begin{DoxyCompactItemize}
+\item 
+Sklep\+\_\+internetowy.\+Server/\+\+DTOs/\+Create\+Product\+Dto.\+cs\end{DoxyCompactItemize}

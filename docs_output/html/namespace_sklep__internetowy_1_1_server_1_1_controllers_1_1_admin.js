@@ -1,0 +1,9 @@
+var namespace_sklep__internetowy_1_1_server_1_1_controllers_1_1_admin =
+[
+    [ "ProductCategoryController", "class_sklep__internetowy_1_1_server_1_1_controllers_1_1_admin_1_1_product_category_controller.html", "class_sklep__internetowy_1_1_server_1_1_controllers_1_1_admin_1_1_product_category_controller" ],
+    [ "ProductController", "class_sklep__internetowy_1_1_server_1_1_controllers_1_1_admin_1_1_product_controller.html", "class_sklep__internetowy_1_1_server_1_1_controllers_1_1_admin_1_1_product_controller" ],
+    [ "PromotionController", "class_sklep__internetowy_1_1_server_1_1_controllers_1_1_admin_1_1_promotion_controller.html", "class_sklep__internetowy_1_1_server_1_1_controllers_1_1_admin_1_1_promotion_controller" ],
+    [ "ApplyBulkDiscountRequest", "class_sklep__internetowy_1_1_server_1_1_controllers_1_1_admin_1_1_apply_bulk_discount_request.html", "class_sklep__internetowy_1_1_server_1_1_controllers_1_1_admin_1_1_apply_bulk_discount_request" ],
+    [ "UserMessageController", "class_sklep__internetowy_1_1_server_1_1_controllers_1_1_admin_1_1_user_message_controller.html", "class_sklep__internetowy_1_1_server_1_1_controllers_1_1_admin_1_1_user_message_controller" ],
+    [ "UsersController", "class_sklep__internetowy_1_1_server_1_1_controllers_1_1_admin_1_1_users_controller.html", "class_sklep__internetowy_1_1_server_1_1_controllers_1_1_admin_1_1_users_controller" ]
+];

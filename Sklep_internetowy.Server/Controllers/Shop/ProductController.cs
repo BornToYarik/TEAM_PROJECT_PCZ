@@ -6,23 +6,36 @@ using Sklep_internetowy.Server.Models;
 
 namespace Sklep_internetowy.Server.Controllers.Shop
 {
+    /// <summary>
+    /// Kontroler API odpowiedzialny za dostarczanie danych o produktach dla czesci sklepowej (ogolnodostepnej).
+    /// Obsluguje operacje przegladania katalogu produktow oraz wyswietlania szczegolowych informacji o konkretnym towarze.
+    /// </summary>
     [Route("api/home/[controller]")]
     [ApiController]
     public class ProductController : Controller
     {
         private readonly StoreDbContext _context;
 
+        /// <summary>
+        /// Inicjalizuje nowa instancje klasy ProductController.
+        /// </summary>
+        /// <param name="context">Kontekst bazy danych StoreDbContext do obslugi zapytan.</param>
         public ProductController(StoreDbContext context)
         {
             _context = context;
         }
 
+        /// <summary>
+        /// Pobiera liste wszystkich produktow zarejestrowanych w systemie wraz z ich kategoriami i powiazanymi zdjeciami.
+        /// </summary>
+        /// <returns>Kolekcja obiektow ProductDto zawierajaca kompletne dane o cenach, znizkach i mediach.</returns>
+        /// <response code="200">Zwraca liste produktow dostepnych w sklepie.</response>
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ProductDto>>> GetProducts() 
+        public async Task<ActionResult<IEnumerable<ProductDto>>> GetProducts()
         {
             var products = await _context.Products
-                .Include(p => p.ProductCategory) 
-                .Include(p => p.Images) 
+                .Include(p => p.ProductCategory)
+                .Include(p => p.Images)
                 .Select(p => new ProductDto
                 {
                     Id = p.Id,
@@ -45,6 +58,13 @@ namespace Sklep_internetowy.Server.Controllers.Shop
             return Ok(products);
         }
 
+        /// <summary>
+        /// Pobiera szczegolowe dane o pojedynczym produkcie na podstawie jego unikalnego identyfikatora ID.
+        /// </summary>
+        /// <param name="id">Identyfikator techniczny produktu.</param>
+        /// <returns>Obiekt ProductDto reprezentujacy szczegoly towaru lub NotFound w przypadku braku rekordu.</returns>
+        /// <response code="200">Zwraca dane wybranego produktu.</response>
+        /// <response code="404">Gdy produkt o podanym ID nie istnieje w bazie danych.</response>
         [HttpGet("{id}")]
         public async Task<ActionResult<ProductDto>> GetProduct(int id)
         {

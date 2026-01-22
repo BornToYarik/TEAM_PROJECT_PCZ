@@ -1,0 +1,4 @@
+var namespace_sklep__internetowy_1_1_server_1_1_controllers_1_1_message =
+[
+    [ "MessageController", "class_sklep__internetowy_1_1_server_1_1_controllers_1_1_message_1_1_message_controller.html", "class_sklep__internetowy_1_1_server_1_1_controllers_1_1_message_1_1_message_controller" ]
+];

@@ -1,0 +1,148 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="pl">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>TechStore System: Dokumentacja pliku sklep_internetowy.client/src/pages/AdminDashboard/Order/OrderManagement.jsx</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">TechStore System<span id="projectnumber">&#160;1.0</span>
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Wygenerowano za pomocą Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+$(function() {
+  initMenu('',true,false,'search.php','Szukaj',true);
+  $(function() { init_search(); });
+});
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('_order_management_8jsx.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Wczytywanie...</div>
+<div class="SRStatus" id="Searching">Szukanie...</div>
+<div class="SRStatus" id="NoMatches">Brak dopasowań</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">Dokumentacja pliku OrderManagement.jsx</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>Komponent panelu administracyjnego do kompleksowego zarzadzania zamowieniami.  
+<a href="#details">Więcej...</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-var-members" class="groupheader"><a id="var-members" name="var-members"></a>
+Zmienne</h2></td></tr>
+<tr class="memitem:ab59b41c3f483e28eb48d06e1b7e1821b" id="r_ab59b41c3f483e28eb48d06e1b7e1821b"><td class="memItemLeft">export default&#160;</td><td class="memItemRight"><a class="el" href="#ab59b41c3f483e28eb48d06e1b7e1821b">OrderManagement</a></td></tr>
+</table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Opis szczegółowy</h2>
+<div class="textblock"><p>Komponent panelu administracyjnego do kompleksowego zarzadzania zamowieniami. </p>
+<p>Obsluguje pelny cykl zycia zamowienia (CRUD), w tym dynamiczna edycje listy produktow, automatyczna korekte stanow magazynowych oraz generowanie faktur PDF. </p>
+</div><a name="doc-var-members" id="doc-var-members"></a><h2 id="header-doc-var-members" class="groupheader">Dokumentacja zmiennych</h2>
+<a id="ab59b41c3f483e28eb48d06e1b7e1821b" name="ab59b41c3f483e28eb48d06e1b7e1821b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab59b41c3f483e28eb48d06e1b7e1821b">&#9670;&#160;</a></span>OrderManagement</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">export default OrderManagement</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Lista wszystkich zamowien pobrana z API.</p>
+<p>Katalog produktow uzywany do walidacji i dodawania pozycji.</p>
+<p>Lista uzytkownikow do przypisania przy tworzeniu recznym zamowienia.</p>
+<p>Flaga okreslajaca stan ladowania danych.</p>
+<p>Przechowuje komunikaty o bledach operacji asynchronicznych.</p>
+<p>Stany widocznosci okien modalnych.</p>
+<p>Dane zamowienia bedacego w procesie edycji (gleboka kopia).</p>
+<p>Stan inicjalny dla nowego zamowienia.</p>
+<dl class="section note"><dt>Nota</dt><dd>React useEffect: Pobiera dane startowe (zamowienia, produkty, uzytkownicy) przy montowaniu komponentu.</dd></dl>
+<dl class="section note"><dt>Nota</dt><dd>Funkcja asynchroniczna @description Odswieza liste zamowien z serwera.</dd></dl>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><b>sklep_internetowy.client</b></li><li class="navelem"><b>src</b></li><li class="navelem"><b>pages</b></li><li class="navelem"><b>AdminDashboard</b></li><li class="navelem"><b>Order</b></li><li class="navelem"><a href="_order_management_8jsx.html">OrderManagement.jsx</a></li>
+    <li class="footer">Wygenerowano za pomocą <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

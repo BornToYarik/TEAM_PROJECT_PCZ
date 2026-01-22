@@ -29,13 +29,29 @@ import WishlistPage from './pages/WishList/WishlistPage';
 import PaymentPage from './pages/Payment/PaymentPage';
 import { ThemeProvider } from './context/ThemeContext';
 
+/**
+ * @file App.jsx
+ * @brief Glowny komponent konfiguracyjny aplikacji TechStore.
+ * @details Modul ten definiuje strukture routingu, zarzadza globalnymi dostawcami kontekstu (Theme) 
+ * oraz integruje kluczowe elementy interfejsu takie jak pasek nawigacji i stopka.
+ */
+
+/**
+ * @component App
+ * @description Glowna funkcja aplikacji React. Odpowiada za renderowanie odpowiednich widokow 
+ * na podstawie sciezki URL oraz przekazywanie stanu porownywarki do komponentow potomnych.
+ */
 function App() {
+    /** @brief Inicjalizacja hooka zarzadzajacego stanem porownywarki produktow. */
     const comparison = useComparison();
 
     return (
         <ThemeProvider>
+            {/* Pasek nawigacji z licznikiem przedmiotow w porownywarce */}
             <Navbar compareCount={comparison.compareItems.length} />
+
             <Routes>
+                {/* --- SCIEZKI PUBLICZNE --- */}
                 <Route path="/" element={<Home />}></Route>
                 <Route path="/login" element={<LoginPage />}></Route>
                 <Route path="/registration" element={<Registration />}></Route>
@@ -45,12 +61,20 @@ function App() {
                 <Route path="/profile" element={<UserProfile />} />
                 <Route path="/compare" element={<ComparePage comparison={comparison} />} />
 
+                {/* --- SZCZEGOLY PRODUKTU I PLATNOSCI --- */}
                 <Route path="/product/:id" element={<ProductDetailsShop comparison={comparison} />} />
+                <Route path="/payment" element={<PaymentPage />} />
 
+                {/* --- MODUL AUKCJI --- */}
                 <Route path="/auctions" element={<AuctionList />} />
                 <Route path="/auction/:id" element={<AuctionDetails />} />
-                <Route path="/admin/create-auction" element={<CreateAuction />} />
-                <Route path="/payment" element={<PaymentPage />} />
+
+                {/* --- SCIEZKI ADMINISTRACYJNE (CHRONIONE) --- */}
+                <Route path="/admin/create-auction" element={
+                    <ProtectedRoute>
+                        <CreateAuction />
+                    </ProtectedRoute>
+                } />
                 <Route path="/admin" element={
                     <ProtectedRoute>
                         <AdminDashboard />
@@ -87,19 +111,21 @@ function App() {
                     </ProtectedRoute>
                 } />
 
-
                 <Route path="/admin/promotions" element={
                     <ProtectedRoute>
                         <PromotionManagement />
                     </ProtectedRoute>
                 } />
 
+                {/* --- WYSZUKIWARKA --- */}
                 <Route path="/search" element={
                     <ProtectedRoute>
                         <SearchPage />
                     </ProtectedRoute>
                 } />
             </Routes>
+
+            {/* Globalna stopka strony */}
             <Footer />
         </ThemeProvider>
     )

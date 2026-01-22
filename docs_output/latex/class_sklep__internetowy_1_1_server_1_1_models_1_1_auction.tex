@@ -1,0 +1,64 @@
+\doxysection{Dokumentacja klasy Sklep\+\_\+internetowy.\+Server.\+Models.\+Auction}
+\hypertarget{class_sklep__internetowy_1_1_server_1_1_models_1_1_auction}{}\label{class_sklep__internetowy_1_1_server_1_1_models_1_1_auction}\index{Sklep\_internetowy.Server.Models.Auction@{Sklep\_internetowy.Server.Models.Auction}}
+
+
+Klasa reprezentująca aukcję (licytację) konkretnego produktu w systemie. Przechowuje informacje o cenach, czasie trwania oraz uczestnikach biorących udział w licytacji.  
+
+
+
+
+Diagram współpracy dla Sklep\+\_\+internetowy.\+Server.\+Models.\+Auction:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=202pt]{class_sklep__internetowy_1_1_server_1_1_models_1_1_auction__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Właściwości}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_models_1_1_auction_ac79036a83e6077ee105f6b85f39596f1}\label{class_sklep__internetowy_1_1_server_1_1_models_1_1_auction_ac79036a83e6077ee105f6b85f39596f1} 
+int {\bfseries Id}\hspace{0.3cm}{\ttfamily  \+[get, set]\+}
+\begin{DoxyCompactList}\small\item\em Unikalny identyfikator aukcji. \end{DoxyCompactList}\item 
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_models_1_1_auction_a2b4f83e09a3ee88c72a952d4b6cb8e9c}\label{class_sklep__internetowy_1_1_server_1_1_models_1_1_auction_a2b4f83e09a3ee88c72a952d4b6cb8e9c} 
+int {\bfseries Product\+Id}\hspace{0.3cm}{\ttfamily  \+[get, set]\+}
+\begin{DoxyCompactList}\small\item\em Identyfikator powiązanego produktu, który jest przedmiotem licytacji. \end{DoxyCompactList}\item 
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_models_1_1_auction_a5188d9207c42a2920d1954ee123b9de8}\label{class_sklep__internetowy_1_1_server_1_1_models_1_1_auction_a5188d9207c42a2920d1954ee123b9de8} 
+Product {\bfseries Product} = null!\hspace{0.3cm}{\ttfamily  \+[get, set]\+}
+\begin{DoxyCompactList}\small\item\em Obiekt nawigacyjny do szczegółowych danych produktu wystawionego na aukcję. \end{DoxyCompactList}\item 
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_models_1_1_auction_a2e67f76df14fbfc41bab0249c50b2598}\label{class_sklep__internetowy_1_1_server_1_1_models_1_1_auction_a2e67f76df14fbfc41bab0249c50b2598} 
+decimal {\bfseries Starting\+Price}\hspace{0.3cm}{\ttfamily  \+[get, set]\+}
+\begin{DoxyCompactList}\small\item\em Cena początkowa (wywoławcza), od której zaczyna się licytacja. \end{DoxyCompactList}\item 
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_models_1_1_auction_aa80d9ca5df48648714053c07235c8ca3}\label{class_sklep__internetowy_1_1_server_1_1_models_1_1_auction_aa80d9ca5df48648714053c07235c8ca3} 
+decimal {\bfseries Current\+Price}\hspace{0.3cm}{\ttfamily  \+[get, set]\+}
+\begin{DoxyCompactList}\small\item\em Aktualna najwyższa cena zaoferowana przez licytujących. \end{DoxyCompactList}\item 
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_models_1_1_auction_a79142d382564cbe83b66adae56b01623}\label{class_sklep__internetowy_1_1_server_1_1_models_1_1_auction_a79142d382564cbe83b66adae56b01623} 
+Date\+Time {\bfseries Created\+At} = Date\+Time.\+Utc\+Now\hspace{0.3cm}{\ttfamily  \+[get, set]\+}
+\begin{DoxyCompactList}\small\item\em \doxylink{namespace_sklep__internetowy_1_1_server_1_1_data}{Data} i godzina utworzenia aukcji (domyślnie czas UTC). \end{DoxyCompactList}\item 
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_models_1_1_auction_a2a1e06a77071b8547fd419971886f82b}\label{class_sklep__internetowy_1_1_server_1_1_models_1_1_auction_a2a1e06a77071b8547fd419971886f82b} 
+Date\+Time {\bfseries End\+Time}\hspace{0.3cm}{\ttfamily  \+[get, set]\+}
+\begin{DoxyCompactList}\small\item\em \doxylink{namespace_sklep__internetowy_1_1_server_1_1_data}{Data} i godzina planowanego zakończenia aukcji. \end{DoxyCompactList}\item 
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_models_1_1_auction_a66619a260145ed18f900264f2fcd5e59}\label{class_sklep__internetowy_1_1_server_1_1_models_1_1_auction_a66619a260145ed18f900264f2fcd5e59} 
+string? {\bfseries Last\+Bidder\+Id}\hspace{0.3cm}{\ttfamily  \+[get, set]\+}
+\begin{DoxyCompactList}\small\item\em Identyfikator użytkownika (GUID), który złożył ostatnią (najwyższą) ofertę. \end{DoxyCompactList}\item 
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_models_1_1_auction_a1de3656c3ab31c1c281bde38fd989de6}\label{class_sklep__internetowy_1_1_server_1_1_models_1_1_auction_a1de3656c3ab31c1c281bde38fd989de6} 
+\doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_models_1_1_user}{User}}? {\bfseries Last\+Bidder}\hspace{0.3cm}{\ttfamily  \+[get, set]\+}
+\begin{DoxyCompactList}\small\item\em Obiekt użytkownika będącego aktualnym liderem licytacji. \end{DoxyCompactList}\item 
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_models_1_1_auction_a72afcb49669c85f940df30c5a637d669}\label{class_sklep__internetowy_1_1_server_1_1_models_1_1_auction_a72afcb49669c85f940df30c5a637d669} 
+bool {\bfseries Is\+Finished}\hspace{0.3cm}{\ttfamily  \+[get, set]\+}
+\begin{DoxyCompactList}\small\item\em Flaga określająca, czy aukcja została już sfinalizowana. \end{DoxyCompactList}\item 
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_models_1_1_auction_ace0286526ca0577ecf442e1b6d2d7827}\label{class_sklep__internetowy_1_1_server_1_1_models_1_1_auction_ace0286526ca0577ecf442e1b6d2d7827} 
+string? {\bfseries Winner\+Id}\hspace{0.3cm}{\ttfamily  \+[get, set]\+}
+\begin{DoxyCompactList}\small\item\em Identyfikator użytkownika, który wygrał aukcję (został zwycięzcą). \end{DoxyCompactList}\item 
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_models_1_1_auction_a2ea53a6f042dbece610e541067e92ce7}\label{class_sklep__internetowy_1_1_server_1_1_models_1_1_auction_a2ea53a6f042dbece610e541067e92ce7} 
+List$<$ \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_models_1_1_bid}{Bid}} $>$ {\bfseries Bids} = new()\hspace{0.3cm}{\ttfamily  \+[get, set]\+}
+\begin{DoxyCompactList}\small\item\em Kolekcja wszystkich ofert (postąpień) złożonych w ramach danej aukcji. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Opis szczegółowy}
+Klasa reprezentująca aukcję (licytację) konkretnego produktu w systemie. Przechowuje informacje o cenach, czasie trwania oraz uczestnikach biorących udział w licytacji. 
+
+Dokumentacja dla tej klasy została wygenerowana z pliku:\+\begin{DoxyCompactItemize}
+\item 
+Sklep\+\_\+internetowy.\+Server/\+\+Models/\+Auction.\+cs\end{DoxyCompactItemize}

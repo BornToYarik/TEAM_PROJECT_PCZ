@@ -1,0 +1,90 @@
+\doxysection{Dokumentacja klasy Sklep\+\_\+internetowy.\+Server.\+Controllers.\+Account.\+Account\+Controller}
+\hypertarget{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_account_1_1_account_controller}{}\label{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_account_1_1_account_controller}\index{Sklep\_internetowy.Server.Controllers.Account.AccountController@{Sklep\_internetowy.Server.Controllers.Account.AccountController}}
+
+
+Kontroler API odpowiedzialny za zarzadzanie danymi konta zalogowanego uzytkownika. Wymaga autoryzacji przy uzyciu schematu Bearer (token JWT).  
+
+
+
+
+Diagram współpracy dla Sklep\+\_\+internetowy.\+Server.\+Controllers.\+Account.\+Account\+Controller:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_account_1_1_account_controller__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Metody publiczne}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_account_1_1_account_controller_a259713fb5fc79655d239f3fe78a815b1}{Account\+Controller}} (\doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_services_1_1_auth_1_1_account_service}{Account\+Service}} account\+Service)
+\begin{DoxyCompactList}\small\item\em Inicjalizuje nowa instancje klasy \doxylink{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_account_1_1_account_controller}{Account\+Controller}. \end{DoxyCompactList}\item 
+async Task$<$ IAction\+Result $>$ \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_account_1_1_account_controller_a12a4e303f690f7573fb267e3cdf9d904}{Get\+Current\+User}} ()
+\begin{DoxyCompactList}\small\item\em Pobiera szczegolowe dane profilowe aktualnie uwierzytelnionego uzytkownika. \end{DoxyCompactList}\item 
+async Task$<$ IAction\+Result $>$ \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_account_1_1_account_controller_a181e7119a4965896ebe868ea0558c92d}{Update\+User}} (\+[From\+Body]\+ \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_update_user_request}{Update\+User\+Request}} request)
+\begin{DoxyCompactList}\small\item\em Aktualizuje informacje o profilu zalogowanego uzytkownika (np. zmiana adresu e-\/mail). \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Opis szczegółowy}
+Kontroler API odpowiedzialny za zarzadzanie danymi konta zalogowanego uzytkownika. Wymaga autoryzacji przy uzyciu schematu Bearer (token JWT). 
+
+\label{doc-constructors}
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_account_1_1_account_controller_doc-constructors}
+\doxysubsection{Dokumentacja konstruktora i destruktora}
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_account_1_1_account_controller_a259713fb5fc79655d239f3fe78a815b1}\index{Sklep\_internetowy.Server.Controllers.Account.AccountController@{Sklep\_internetowy.Server.Controllers.Account.AccountController}!AccountController@{AccountController}}
+\index{AccountController@{AccountController}!Sklep\_internetowy.Server.Controllers.Account.AccountController@{Sklep\_internetowy.Server.Controllers.Account.AccountController}}
+\doxysubsubsection{\texorpdfstring{AccountController()}{AccountController()}}
+{\footnotesize\ttfamily \label{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_account_1_1_account_controller_a259713fb5fc79655d239f3fe78a815b1} 
+Sklep\+\_\+internetowy.\+Server.\+Controllers.\+Account.\+Account\+Controller.\+Account\+Controller (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_services_1_1_auth_1_1_account_service}{Account\+Service}}}]{account\+Service}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Inicjalizuje nowa instancje klasy \doxylink{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_account_1_1_account_controller}{Account\+Controller}. 
+
+
+\begin{DoxyParams}{Parametry}
+{\em account\+Service} & Serwis obslugujacy logike biznesowa kont uzytkownikow.\\
+\hline
+\end{DoxyParams}
+
+
+\label{doc-func-members}
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_account_1_1_account_controller_doc-func-members}
+\doxysubsection{Dokumentacja funkcji składowych}
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_account_1_1_account_controller_a12a4e303f690f7573fb267e3cdf9d904}\index{Sklep\_internetowy.Server.Controllers.Account.AccountController@{Sklep\_internetowy.Server.Controllers.Account.AccountController}!GetCurrentUser@{GetCurrentUser}}
+\index{GetCurrentUser@{GetCurrentUser}!Sklep\_internetowy.Server.Controllers.Account.AccountController@{Sklep\_internetowy.Server.Controllers.Account.AccountController}}
+\doxysubsubsection{\texorpdfstring{GetCurrentUser()}{GetCurrentUser()}}
+{\footnotesize\ttfamily \label{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_account_1_1_account_controller_a12a4e303f690f7573fb267e3cdf9d904} 
+async Task$<$ IAction\+Result $>$ Sklep\+\_\+internetowy.\+Server.\+Controllers.\+Account.\+Account\+Controller.\+Get\+Current\+User (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Pobiera szczegolowe dane profilowe aktualnie uwierzytelnionego uzytkownika. 
+
+\begin{DoxyReturn}{Zwraca}
+Obiekt zawierajacy nazwe uzytkownika oraz adres e-\/mail.
+\end{DoxyReturn}
+$<$response code="{}200"{}$>$Zwraca dane profilowe uzytkownika.$<$/\+response$>$ $<$response code="{}401"{}$>$Gdy struktura tokenu jest nieprawidlowa lub uzytkownik nie jest zalogowany.$<$/\+response$>$ $<$response code="{}404"{}$>$Gdy uzytkownik nie figuruje w bazie danych.$<$/\+response$>$ \Hypertarget{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_account_1_1_account_controller_a181e7119a4965896ebe868ea0558c92d}\index{Sklep\_internetowy.Server.Controllers.Account.AccountController@{Sklep\_internetowy.Server.Controllers.Account.AccountController}!UpdateUser@{UpdateUser}}
+\index{UpdateUser@{UpdateUser}!Sklep\_internetowy.Server.Controllers.Account.AccountController@{Sklep\_internetowy.Server.Controllers.Account.AccountController}}
+\doxysubsubsection{\texorpdfstring{UpdateUser()}{UpdateUser()}}
+{\footnotesize\ttfamily \label{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_account_1_1_account_controller_a181e7119a4965896ebe868ea0558c92d} 
+async Task$<$ IAction\+Result $>$ Sklep\+\_\+internetowy.\+Server.\+Controllers.\+Account.\+Account\+Controller.\+Update\+User (\begin{DoxyParamCaption}\item[{\+[\+From\+Body]\+ \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_update_user_request}{Update\+User\+Request}}}]{request}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Aktualizuje informacje o profilu zalogowanego uzytkownika (np. zmiana adresu e-\/mail). 
+
+
+\begin{DoxyParams}{Parametry}
+{\em request} & Obiekt DTO zawierajacy nowe dane do zapisu.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Zwraca}
+Komunikat o powodzeniu operacji lub opis bledu.
+\end{DoxyReturn}
+$<$response code="{}200"{}$>$Profil zostal pomyslnie zaktualizowany.$<$/\+response$>$ $<$response code="{}400"{}$>$Gdy format zadania jest bledny lub wystapil blad podczas zapisu danych.$<$/\+response$>$ $<$response code="{}401"{}$>$Gdy uzytkownik nie posiada uprawnien do wykonania akcji.$<$/\+response$>$ 
+
+Dokumentacja dla tej klasy została wygenerowana z pliku:\+\begin{DoxyCompactItemize}
+\item 
+Sklep\+\_\+internetowy.\+Server/\+\+Controllers/\+\+Account/\+Account\+Controller.\+cs\end{DoxyCompactItemize}

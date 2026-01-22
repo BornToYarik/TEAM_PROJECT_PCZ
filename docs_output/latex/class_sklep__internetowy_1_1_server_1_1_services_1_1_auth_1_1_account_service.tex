@@ -1,0 +1,183 @@
+\doxysection{Dokumentacja klasy Sklep\+\_\+internetowy.\+Server.\+Services.\+Auth.\+Account\+Service}
+\hypertarget{class_sklep__internetowy_1_1_server_1_1_services_1_1_auth_1_1_account_service}{}\label{class_sklep__internetowy_1_1_server_1_1_services_1_1_auth_1_1_account_service}\index{Sklep\_internetowy.Server.Services.Auth.AccountService@{Sklep\_internetowy.Server.Services.Auth.AccountService}}
+
+
+Serwis odpowiedzialny za obsługę kont użytkowników.  
+
+
+
+
+Diagram współpracy dla Sklep\+\_\+internetowy.\+Server.\+Services.\+Auth.\+Account\+Service:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=342pt]{class_sklep__internetowy_1_1_server_1_1_services_1_1_auth_1_1_account_service__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Metody publiczne}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_services_1_1_auth_1_1_account_service_acfa516b4b0bc601354cfef73ed2e4089}{Account\+Service}} (User\+Manager$<$ \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_models_1_1_user}{User}} $>$ user\+Manager, Role\+Manager$<$ Identity\+Role $>$ role\+Manager, \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_services_1_1_auth_1_1_jwt_service}{Jwt\+Service}} jwt\+Service, IConfiguration config, ILogger$<$ Account\+Service $>$ logger)
+\begin{DoxyCompactList}\small\item\em Konstruktor serwisu \doxylink{class_sklep__internetowy_1_1_server_1_1_services_1_1_auth_1_1_account_service}{Account\+Service}. \end{DoxyCompactList}\item 
+async Task \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_services_1_1_auth_1_1_account_service_a6f7fac6806f183d9240c3b094e29cbbb}{Register}} (string username, string email, string password)
+\begin{DoxyCompactList}\small\item\em Rejestruje nowego użytkownika w systemie. \end{DoxyCompactList}\item 
+async Task$<$(string Token, \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_models_1_1_user}{User}} \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_models_1_1_user}{User}})$>$ \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_services_1_1_auth_1_1_account_service_abdd86bea53f057ecb816261c1bb00bd5}{Login}} (string username, string password)
+\begin{DoxyCompactList}\small\item\em Loguje użytkownika do systemu. \end{DoxyCompactList}\item 
+async Task$<$ \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_models_1_1_user}{User}} $>$ \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_services_1_1_auth_1_1_account_service_ad7561999acff3970367ea77c3b4ad312}{Get\+User\+By\+Name\+Async}} (string username)
+\begin{DoxyCompactList}\small\item\em Pobiera użytkownika po nazwie. \end{DoxyCompactList}\item 
+async Task \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_services_1_1_auth_1_1_account_service_a16872010aa757db4795902f482dabcf5}{Update\+User\+Async}} (string current\+Username, \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_update_user_request}{Update\+User\+Request}} request)
+\begin{DoxyCompactList}\small\item\em Aktualizuje dane użytkownika. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Atrybuty prywatne}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_services_1_1_auth_1_1_account_service_a8ba208a577084e9dac729f46023b52c1}\label{class_sklep__internetowy_1_1_server_1_1_services_1_1_auth_1_1_account_service_a8ba208a577084e9dac729f46023b52c1} 
+readonly User\+Manager$<$ \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_models_1_1_user}{User}} $>$ {\bfseries \+\_\+user\+Manager}
+\begin{DoxyCompactList}\small\item\em Menedżer użytkowników ASP.\+NET Identity. \end{DoxyCompactList}\item 
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_services_1_1_auth_1_1_account_service_a5fa5bb689aef7b26dfd3f1eb8eff0a17}\label{class_sklep__internetowy_1_1_server_1_1_services_1_1_auth_1_1_account_service_a5fa5bb689aef7b26dfd3f1eb8eff0a17} 
+readonly Role\+Manager$<$ Identity\+Role $>$ {\bfseries \+\_\+role\+Manager}
+\begin{DoxyCompactList}\small\item\em Menedżer ról ASP.\+NET Identity. \end{DoxyCompactList}\item 
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_services_1_1_auth_1_1_account_service_a7c0bed421256f1e6956653f4025ca860}\label{class_sklep__internetowy_1_1_server_1_1_services_1_1_auth_1_1_account_service_a7c0bed421256f1e6956653f4025ca860} 
+readonly \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_data_1_1_store_db_context}{Store\+Db\+Context}} {\bfseries \+\_\+context}
+\begin{DoxyCompactList}\small\item\em Kontekst bazy danych. \end{DoxyCompactList}\item 
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_services_1_1_auth_1_1_account_service_adf86f39999a553ad76a7f073abfd1217}\label{class_sklep__internetowy_1_1_server_1_1_services_1_1_auth_1_1_account_service_adf86f39999a553ad76a7f073abfd1217} 
+readonly \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_services_1_1_auth_1_1_jwt_service}{Jwt\+Service}} {\bfseries \+\_\+jwt\+Service}
+\begin{DoxyCompactList}\small\item\em Serwis generowania tokenów JWT. \end{DoxyCompactList}\item 
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_services_1_1_auth_1_1_account_service_af0346dc230b180f962db68a6d85fa593}\label{class_sklep__internetowy_1_1_server_1_1_services_1_1_auth_1_1_account_service_af0346dc230b180f962db68a6d85fa593} 
+readonly IConfiguration {\bfseries \+\_\+config}
+\begin{DoxyCompactList}\small\item\em Konfiguracja aplikacji. \end{DoxyCompactList}\item 
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_services_1_1_auth_1_1_account_service_a5b053873dac05519c85c3a6b11b7cca8}\label{class_sklep__internetowy_1_1_server_1_1_services_1_1_auth_1_1_account_service_a5b053873dac05519c85c3a6b11b7cca8} 
+readonly ILogger {\bfseries \+\_\+logger}
+\begin{DoxyCompactList}\small\item\em Logger serwisu. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Opis szczegółowy}
+Serwis odpowiedzialny za obsługę kont użytkowników. 
+
+Realizuje rejestrację, logowanie, pobieranie oraz aktualizację danych użytkownika. 
+
+\label{doc-constructors}
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_services_1_1_auth_1_1_account_service_doc-constructors}
+\doxysubsection{Dokumentacja konstruktora i destruktora}
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_services_1_1_auth_1_1_account_service_acfa516b4b0bc601354cfef73ed2e4089}\index{Sklep\_internetowy.Server.Services.Auth.AccountService@{Sklep\_internetowy.Server.Services.Auth.AccountService}!AccountService@{AccountService}}
+\index{AccountService@{AccountService}!Sklep\_internetowy.Server.Services.Auth.AccountService@{Sklep\_internetowy.Server.Services.Auth.AccountService}}
+\doxysubsubsection{\texorpdfstring{AccountService()}{AccountService()}}
+{\footnotesize\ttfamily \label{class_sklep__internetowy_1_1_server_1_1_services_1_1_auth_1_1_account_service_acfa516b4b0bc601354cfef73ed2e4089} 
+Sklep\+\_\+internetowy.\+Server.\+Services.\+Auth.\+Account\+Service.\+Account\+Service (\begin{DoxyParamCaption}\item[{User\+Manager$<$ \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_models_1_1_user}{User}} $>$}]{user\+Manager}{, }\item[{Role\+Manager$<$ Identity\+Role $>$}]{role\+Manager}{, }\item[{\doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_services_1_1_auth_1_1_jwt_service}{Jwt\+Service}}}]{jwt\+Service}{, }\item[{IConfiguration}]{config}{, }\item[{ILogger$<$ Account\+Service $>$}]{logger}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Konstruktor serwisu \doxylink{class_sklep__internetowy_1_1_server_1_1_services_1_1_auth_1_1_account_service}{Account\+Service}. 
+
+
+\begin{DoxyParams}{Parametry}
+{\em user\+Manager} & Menedżer użytkowników. \\
+\hline
+{\em role\+Manager} & Menedżer ról. \\
+\hline
+{\em jwt\+Service} & Serwis JWT. \\
+\hline
+{\em config} & Konfiguracja aplikacji. \\
+\hline
+{\em logger} & Logger. \\
+\hline
+\end{DoxyParams}
+
+
+\label{doc-func-members}
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_services_1_1_auth_1_1_account_service_doc-func-members}
+\doxysubsection{Dokumentacja funkcji składowych}
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_services_1_1_auth_1_1_account_service_ad7561999acff3970367ea77c3b4ad312}\index{Sklep\_internetowy.Server.Services.Auth.AccountService@{Sklep\_internetowy.Server.Services.Auth.AccountService}!GetUserByNameAsync@{GetUserByNameAsync}}
+\index{GetUserByNameAsync@{GetUserByNameAsync}!Sklep\_internetowy.Server.Services.Auth.AccountService@{Sklep\_internetowy.Server.Services.Auth.AccountService}}
+\doxysubsubsection{\texorpdfstring{GetUserByNameAsync()}{GetUserByNameAsync()}}
+{\footnotesize\ttfamily \label{class_sklep__internetowy_1_1_server_1_1_services_1_1_auth_1_1_account_service_ad7561999acff3970367ea77c3b4ad312} 
+async Task$<$ \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_models_1_1_user}{User}} $>$ Sklep\+\_\+internetowy.\+Server.\+Services.\+Auth.\+Account\+Service.\+Get\+User\+By\+Name\+Async (\begin{DoxyParamCaption}\item[{string}]{username}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Pobiera użytkownika po nazwie. 
+
+
+\begin{DoxyParams}{Parametry}
+{\em username} & Nazwa użytkownika. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Zwraca}
+Obiekt użytkownika lub null jeśli nie istnieje. 
+\end{DoxyReturn}
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_services_1_1_auth_1_1_account_service_abdd86bea53f057ecb816261c1bb00bd5}\index{Sklep\_internetowy.Server.Services.Auth.AccountService@{Sklep\_internetowy.Server.Services.Auth.AccountService}!Login@{Login}}
+\index{Login@{Login}!Sklep\_internetowy.Server.Services.Auth.AccountService@{Sklep\_internetowy.Server.Services.Auth.AccountService}}
+\doxysubsubsection{\texorpdfstring{Login()}{Login()}}
+{\footnotesize\ttfamily \label{class_sklep__internetowy_1_1_server_1_1_services_1_1_auth_1_1_account_service_abdd86bea53f057ecb816261c1bb00bd5} 
+async Task$<$(string Token, \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_models_1_1_user}{User}} \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_models_1_1_user}{User}})$>$ Sklep\+\_\+internetowy.\+Server.\+Services.\+Auth.\+Account\+Service.\+Login (\begin{DoxyParamCaption}\item[{string}]{username}{, }\item[{string}]{password}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Loguje użytkownika do systemu. 
+
+
+\begin{DoxyParams}{Parametry}
+{\em username} & Nazwa użytkownika. \\
+\hline
+{\em password} & Hasło. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Zwraca}
+Krotka zawierająca token JWT oraz obiekt użytkownika. 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Wyjątki}
+{\em Exception} & Gdy użytkownik nie istnieje lub hasło jest błędne. \\
+\hline
+\end{DoxyExceptions}
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_services_1_1_auth_1_1_account_service_a6f7fac6806f183d9240c3b094e29cbbb}\index{Sklep\_internetowy.Server.Services.Auth.AccountService@{Sklep\_internetowy.Server.Services.Auth.AccountService}!Register@{Register}}
+\index{Register@{Register}!Sklep\_internetowy.Server.Services.Auth.AccountService@{Sklep\_internetowy.Server.Services.Auth.AccountService}}
+\doxysubsubsection{\texorpdfstring{Register()}{Register()}}
+{\footnotesize\ttfamily \label{class_sklep__internetowy_1_1_server_1_1_services_1_1_auth_1_1_account_service_a6f7fac6806f183d9240c3b094e29cbbb} 
+async Task Sklep\+\_\+internetowy.\+Server.\+Services.\+Auth.\+Account\+Service.\+Register (\begin{DoxyParamCaption}\item[{string}]{username}{, }\item[{string}]{email}{, }\item[{string}]{password}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Rejestruje nowego użytkownika w systemie. 
+
+Tworzy role Admin i \doxylink{class_sklep__internetowy_1_1_server_1_1_models_1_1_user}{User} jeśli nie istnieją. Pierwszy użytkownik dostaje rolę Admin. 
+\begin{DoxyParams}{Parametry}
+{\em username} & Nazwa użytkownika. \\
+\hline
+{\em email} & Adres e-\/mail. \\
+\hline
+{\em password} & Hasło. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyExceptions}{Wyjątki}
+{\em Exception} & Gdy rejestracja się nie powiedzie. \\
+\hline
+\end{DoxyExceptions}
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_services_1_1_auth_1_1_account_service_a16872010aa757db4795902f482dabcf5}\index{Sklep\_internetowy.Server.Services.Auth.AccountService@{Sklep\_internetowy.Server.Services.Auth.AccountService}!UpdateUserAsync@{UpdateUserAsync}}
+\index{UpdateUserAsync@{UpdateUserAsync}!Sklep\_internetowy.Server.Services.Auth.AccountService@{Sklep\_internetowy.Server.Services.Auth.AccountService}}
+\doxysubsubsection{\texorpdfstring{UpdateUserAsync()}{UpdateUserAsync()}}
+{\footnotesize\ttfamily \label{class_sklep__internetowy_1_1_server_1_1_services_1_1_auth_1_1_account_service_a16872010aa757db4795902f482dabcf5} 
+async Task Sklep\+\_\+internetowy.\+Server.\+Services.\+Auth.\+Account\+Service.\+Update\+User\+Async (\begin{DoxyParamCaption}\item[{string}]{current\+Username}{, }\item[{\doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_update_user_request}{Update\+User\+Request}}}]{request}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Aktualizuje dane użytkownika. 
+
+
+\begin{DoxyParams}{Parametry}
+{\em current\+Username} & Aktualna nazwa użytkownika. \\
+\hline
+{\em request} & Obiekt DTO z nowymi danymi. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyExceptions}{Wyjątki}
+{\em Exception} & Gdy użytkownik nie istnieje lub aktualizacja się nie powiedzie. \\
+\hline
+\end{DoxyExceptions}
+
+
+Dokumentacja dla tej klasy została wygenerowana z pliku:\+\begin{DoxyCompactItemize}
+\item 
+Sklep\+\_\+internetowy.\+Server/\+\+Services/\+\+Auth/\+Account\+Service.\+cs\end{DoxyCompactItemize}

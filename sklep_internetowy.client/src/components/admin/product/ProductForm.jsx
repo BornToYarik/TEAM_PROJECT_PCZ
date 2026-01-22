@@ -1,6 +1,22 @@
 import React, { useState, useEffect } from 'react';
 
+/**
+ * @file ProductForm.jsx
+ * @brief Komponent formularza przeznaczony do tworzenia i edycji produktow w panelu administracyjnym.
+ * @details Obsluguje wprowadzanie danych tekstowych, numerycznych, wybor kategorii z API oraz przesylanie plikow graficznych.
+ */
+
+/**
+ * @component ProductForm
+ * @description Zarzadza stanem formularza produktu, walidacja pol oraz przygotowaniem danych do wysylki (w tym plikow).
+ * @param {Object} props - Wlasciwosci komponentu.
+ * @param {Function} props.onSubmit - Funkcja wywolywana przy zapisie, przyjmuje (data, files).
+ * @param {Function} props.onCancel - Funkcja anulujaca edycje/tworzenie.
+ * @param {Object} props.initialData - Dane istniejacego produktu uzywane do wypelnienia pol w trybie edycji.
+ * @param {Boolean} props.isEditing - Flaga przelaczajaca naglowki i etykiety przyciskow miedzy trybem tworzenia a edycji.
+ */
 const ProductForm = ({ onSubmit, onCancel, initialData, isEditing }) => {
+    /** @brief Stan przechowuj?cy dane tekstowe i numeryczne formularza. */
     const [formData, setFormData] = useState({
         name: '',
         brand: '',
@@ -12,18 +28,27 @@ const ProductForm = ({ onSubmit, onCancel, initialData, isEditing }) => {
         discountStartDate: '',
         discountEndDate: ''
     });
+    /** @brief Lista kategorii pobrana z serwera dla menu rozwijanego. */
     const [categories, setCategories] = useState([]);
+    /** @brief Obiekt przechowujacy komunikaty bledow walidacji dla poszczegolnych pol. */
     const [errors, setErrors] = useState({});
+    /** @brief Tablica wybranych przez uzytkownika plikow graficznych. */
     const [selectedFiles, setSelectedFiles] = useState([]);
-
+    /** @brief Podstawowy adres URL do punktu koncowego produktow. */
     const API_URL = '/api/panel/Product';
-
+    /** * @effect Pobiera liste kategorii przy montowaniu komponentu.
+     */
     useEffect(() => {
         fetchCategories();
     }, []);
-
+    /**
+     * @effect Inicjalizuje formularz danymi z initialData, jesli zostaly przekazane (tryb edycji).
+     */
     useEffect(() => {
         if (initialData) {
+            /** * @function formatDate
+             * @description Konwertuje date ISO na format akceptowany przez input type="date" (YYYY-MM-DD).
+             */
             const formatDate = (dateString) => {
                 if (!dateString) return '';
                 return new Date(dateString).toISOString().substring(0, 10);
@@ -42,7 +67,11 @@ const ProductForm = ({ onSubmit, onCancel, initialData, isEditing }) => {
             });
         }
     }, [initialData]);
-
+    /**
+    * @function fetchCategories
+    * @async
+    * @description Pobiera dostepne kategorie produktow z serwera.
+    */
     const fetchCategories = async () => {
         try {
             const response = await fetch(`/api/ProductCategory`);
@@ -54,11 +83,19 @@ const ProductForm = ({ onSubmit, onCancel, initialData, isEditing }) => {
             console.error('Error fetching categories:', err);
         }
     };
-
+    /**
+    * @function handleFileChange
+    * @description Obsluguje wybor plikow graficznych i aktualizuje stan selectedFiles.
+    * @param {Event} e - Zdarzenie zmiany inputa typu file.
+    */
     const handleFileChange = (e) => {
         setSelectedFiles(Array.from(e.target.files));
     };
-
+    /**
+     * @function handleInputChange
+     * @description Uniwersalny handler dla pol tekstowych i numerycznych. Usuwa blad pola przy zmianie.
+     * @param {Event} e - Zdarzenie zmiany pola input.
+     */
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setFormData(prev => ({
@@ -72,7 +109,11 @@ const ProductForm = ({ onSubmit, onCancel, initialData, isEditing }) => {
             }));
         }
     };
-
+    /**
+     * @function validateForm
+     * @description Sprawdza poprawnosc wypelnienia wymaganych pol formularza.
+     * @returns {Boolean} True, jesli formularz jest poprawny, w przeciwnym razie False.
+     */
     const validateForm = () => {
         const newErrors = {};
 
@@ -108,7 +149,11 @@ const ProductForm = ({ onSubmit, onCancel, initialData, isEditing }) => {
         setErrors(newErrors);
         return Object.keys(newErrors).length === 0;
     };
-
+    /**
+     * @function handleSubmit
+     * @description Obsluguje zdarzenie wyslania formularza. Po walidacji wywoluje props.onSubmit z przygotowanym obiektem.
+     * @param {Event} e - Zdarzenie submit formularza.
+     */
     const handleSubmit = (e) => {
         e.preventDefault();
 

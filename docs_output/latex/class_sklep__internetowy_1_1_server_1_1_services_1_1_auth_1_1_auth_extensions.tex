@@ -1,0 +1,57 @@
+\doxysection{Dokumentacja klasy Sklep\+\_\+internetowy.\+Server.\+Services.\+Auth.\+Auth\+Extensions}
+\hypertarget{class_sklep__internetowy_1_1_server_1_1_services_1_1_auth_1_1_auth_extensions}{}\label{class_sklep__internetowy_1_1_server_1_1_services_1_1_auth_1_1_auth_extensions}\index{Sklep\_internetowy.Server.Services.Auth.AuthExtensions@{Sklep\_internetowy.Server.Services.Auth.AuthExtensions}}
+
+
+Klasa rozszerzeń konfiguracji uwierzytelniania JWT.  
+
+
+
+
+Diagram współpracy dla Sklep\+\_\+internetowy.\+Server.\+Services.\+Auth.\+Auth\+Extensions:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=222pt]{class_sklep__internetowy_1_1_server_1_1_services_1_1_auth_1_1_auth_extensions__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Statyczne metody publiczne}
+\begin{DoxyCompactItemize}
+\item 
+static IService\+Collection \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_services_1_1_auth_1_1_auth_extensions_ad461ec68abbec5272f5e66f1b4d5426b}{Add\+Auth}} (this IService\+Collection service\+Collection, IConfiguration configuration)
+\begin{DoxyCompactList}\small\item\em Dodaje konfigurację uwierzytelniania JWT do kontenera usług. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Opis szczegółowy}
+Klasa rozszerzeń konfiguracji uwierzytelniania JWT. 
+
+Zawiera metodę rozszerzającą do konfiguracji mechanizmu autoryzacji w aplikacji. 
+
+\label{doc-func-members}
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_services_1_1_auth_1_1_auth_extensions_doc-func-members}
+\doxysubsection{Dokumentacja funkcji składowych}
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_services_1_1_auth_1_1_auth_extensions_ad461ec68abbec5272f5e66f1b4d5426b}\index{Sklep\_internetowy.Server.Services.Auth.AuthExtensions@{Sklep\_internetowy.Server.Services.Auth.AuthExtensions}!AddAuth@{AddAuth}}
+\index{AddAuth@{AddAuth}!Sklep\_internetowy.Server.Services.Auth.AuthExtensions@{Sklep\_internetowy.Server.Services.Auth.AuthExtensions}}
+\doxysubsubsection{\texorpdfstring{AddAuth()}{AddAuth()}}
+{\footnotesize\ttfamily \label{class_sklep__internetowy_1_1_server_1_1_services_1_1_auth_1_1_auth_extensions_ad461ec68abbec5272f5e66f1b4d5426b} 
+IService\+Collection Sklep\+\_\+internetowy.\+Server.\+Services.\+Auth.\+Auth\+Extensions.\+Add\+Auth (\begin{DoxyParamCaption}\item[{this IService\+Collection}]{service\+Collection}{, }\item[{IConfiguration}]{configuration}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Dodaje konfigurację uwierzytelniania JWT do kontenera usług. 
+
+Konfiguruje walidację tokena JWT oraz klucz szyfrujący na podstawie ustawień aplikacji. 
+\begin{DoxyParams}{Parametry}
+{\em service\+Collection} & Kolekcja usług aplikacji. \\
+\hline
+{\em configuration} & Konfiguracja aplikacji. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Zwraca}
+Zmieniona kolekcja usług z dodaną obsługą JWT. 
+\end{DoxyReturn}
+
+
+Dokumentacja dla tej klasy została wygenerowana z pliku:\+\begin{DoxyCompactItemize}
+\item 
+Sklep\+\_\+internetowy.\+Server/\+\+Services/\+\+Auth/\+Auth\+Extensions.\+cs\end{DoxyCompactItemize}

@@ -1,0 +1,294 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="pl">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>TechStore System: Dokumentacja pliku Sklep_internetowy.Server/Program.cs</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">TechStore System<span id="projectnumber">&#160;1.0</span>
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Wygenerowano za pomocą Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+$(function() {
+  initMenu('',true,false,'search.php','Szukaj',true);
+  $(function() { init_search(); });
+});
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('_program_8cs.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Wczytywanie...</div>
+<div class="SRStatus" id="Searching">Szukanie...</div>
+<div class="SRStatus" id="NoMatches">Brak dopasowań</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">Dokumentacja pliku Program.cs</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>Główny punkt wejścia aplikacji TechStore, odpowiedzialny za konfigurację usług i potoku HTTP.  
+<a href="#details">Więcej...</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
+Funkcje</h2></td></tr>
+<tr class="memitem:a4c11a59284d085b2e0a73d619402385c" id="r_a4c11a59284d085b2e0a73d619402385c"><td class="memItemLeft">builder.Services.&#160;</td><td class="memItemRight"><a class="el" href="#a4c11a59284d085b2e0a73d619402385c">AddCors</a> (options=&gt; { options.AddPolicy(&quot;AllowReactApp&quot;, policy=&gt; { policy .WithOrigins(&quot;http://localhost:5173&quot;, &quot;https://localhost:5173&quot;, &quot;http://localhost:5174&quot;, &quot;https://localhost:5174&quot;, &quot;http://localhost:5084&quot;, &quot;https://localhost:5084&quot;) .AllowAnyMethod() .AllowAnyHeader() .AllowCredentials();});})</td></tr>
+<tr class="memitem:a960fbbba8351a357733e5d9ee8a25301" id="r_a960fbbba8351a357733e5d9ee8a25301"><td class="memItemLeft">builder.Services.&#160;</td><td class="memItemRight"><a class="el" href="#a960fbbba8351a357733e5d9ee8a25301">AddScoped&lt; AuctionService &gt;</a> ()</td></tr>
+<tr class="memitem:af1ac677ad5b0b73dc97062c292e88d5e" id="r_af1ac677ad5b0b73dc97062c292e88d5e"><td class="memItemLeft">builder.Services.&#160;</td><td class="memItemRight"><a class="el" href="#af1ac677ad5b0b73dc97062c292e88d5e">AddControllers</a> () .AddJsonOptions(options</td></tr>
+<tr class="memitem:aa1f1dea7bcdfa0f0bd85565da0472a8e" id="r_aa1f1dea7bcdfa0f0bd85565da0472a8e"><td class="memItemLeft">builder.Services.&#160;</td><td class="memItemRight"><a class="el" href="#aa1f1dea7bcdfa0f0bd85565da0472a8e">AddIdentity&lt; User, IdentityRole &gt;</a> (options=&gt; { options.Password.RequireDigit=false;options.Password.RequireLowercase=false;options.Password.RequireUppercase=false;options.Password.RequireNonAlphanumeric=false;options.Password.RequiredLength=6;options.User.RequireUniqueEmail=true;}) .AddEntityFrameworkStores&lt; <a class="el" href="class_sklep__internetowy_1_1_server_1_1_data_1_1_store_db_context.html">StoreDbContext</a> &gt;() .AddDefaultTokenProviders() .AddRoles&lt; IdentityRole &gt;()</td></tr>
+<tr class="memitem:aed3db05c3ef9045e32b8d9c848121f73" id="r_aed3db05c3ef9045e32b8d9c848121f73"><td class="memItemLeft">builder.Services.&#160;</td><td class="memItemRight"><a class="el" href="#aed3db05c3ef9045e32b8d9c848121f73">AddSignalR</a> () .AddHubOptions&lt; <a class="el" href="class_sklep__internetowy_1_1_server_1_1_services_1_1_bidding_1_1_auction_hub.html">AuctionHub</a> &gt;(options</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-var-members" class="groupheader"><a id="var-members" name="var-members"></a>
+Zmienne</h2></td></tr>
+<tr class="memitem:a067cdd5f0fed6b2598fae7de8607e7da" id="r_a067cdd5f0fed6b2598fae7de8607e7da"><td class="memItemLeft">var&#160;</td><td class="memItemRight"><a class="el" href="#a067cdd5f0fed6b2598fae7de8607e7da">connectionString</a> = builder.Configuration.GetConnectionString(&quot;DefaultConnection&quot;)</td></tr>
+<tr class="memitem:af5e732acac75f2de122dfedaba997c46" id="r_af5e732acac75f2de122dfedaba997c46"><td class="memItemLeft">var&#160;</td><td class="memItemRight"><a class="el" href="#af5e732acac75f2de122dfedaba997c46">secretKey</a></td></tr>
+</table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Opis szczegółowy</h2>
+<div class="textblock"><p>Główny punkt wejścia aplikacji TechStore, odpowiedzialny za konfigurację usług i potoku HTTP. </p>
+<p>Plik ten zawiera definicję kontenera wstrzykiwania zależności (Dependency Injection), konfigurację systemów bezpieczeństwa (CORS, Identity, JWT), rejestrację usług biznesowych oraz ustawienia middleware sterującego przepływem żądań. </p>
+</div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Dokumentacja funkcji</h2>
+<a id="af1ac677ad5b0b73dc97062c292e88d5e" name="af1ac677ad5b0b73dc97062c292e88d5e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af1ac677ad5b0b73dc97062c292e88d5e">&#9670;&#160;</a></span>AddControllers()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">builder.Services. AddControllers </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<h1 class="doxsection"><a class="anchor" id="Controllers"></a>
+Controllers</h1>
+<p>Konfiguracja kontrolerów API z obsługą cykli w serializacji JSON. </p>
+
+</div>
+</div>
+<a id="a4c11a59284d085b2e0a73d619402385c" name="a4c11a59284d085b2e0a73d619402385c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4c11a59284d085b2e0a73d619402385c">&#9670;&#160;</a></span>AddCors()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">builder.Services. AddCors </td>
+          <td>(</td>
+          <td class="paramtype">options</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">{ options.AddPolicy(&quot;AllowReactApp&quot;, policy=&gt; { policy .WithOrigins(&quot;http://localhost:5173&quot;, &quot;https://localhost:5173&quot;, &quot;http://localhost:5174&quot;, &quot;https://localhost:5174&quot;, &quot;http://localhost:5084&quot;, &quot;https://localhost:5084&quot;) .AllowAnyMethod() .AllowAnyHeader() .AllowCredentials();});}</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<h1 class="doxsection"><a class="anchor" id="CORS"></a>
+CORS</h1>
+<p>Konfiguracja polityki Cross-Origin Resource Sharing (CORS). </p><dl class="section note"><dt>Nota</dt><dd>MUSI być zarejestrowana przed innymi usługami, aby umożliwić komunikację z frontendem React. </dd></dl>
+
+</div>
+</div>
+<a id="aa1f1dea7bcdfa0f0bd85565da0472a8e" name="aa1f1dea7bcdfa0f0bd85565da0472a8e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa1f1dea7bcdfa0f0bd85565da0472a8e">&#9670;&#160;</a></span>AddIdentity&lt; User, IdentityRole &gt;()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">builder.Services. AddIdentity&lt; <a class="el" href="class_sklep__internetowy_1_1_server_1_1_models_1_1_user.html">User</a>, IdentityRole &gt; </td>
+          <td>(</td>
+          <td class="paramtype">options</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">{ options.Password.RequireDigit=false;options.Password.RequireLowercase=false;options.Password.RequireUppercase=false;options.Password.RequireNonAlphanumeric=false;options.Password.RequiredLength=6;options.User.RequireUniqueEmail=true;}</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<h1 class="doxsection"><a class="anchor" id="Identity"></a>
+Identity</h1>
+<p>Konfiguracja systemu ASP.NET Core Identity dla autoryzacji opartej na użytkownikach i rolach. </p>
+
+</div>
+</div>
+<a id="a960fbbba8351a357733e5d9ee8a25301" name="a960fbbba8351a357733e5d9ee8a25301"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a960fbbba8351a357733e5d9ee8a25301">&#9670;&#160;</a></span>AddScoped&lt; AuctionService &gt;()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">builder.Services. AddScoped&lt; <a class="el" href="class_sklep__internetowy_1_1_server_1_1_services_1_1_bidding_1_1_auction_service.html">AuctionService</a> &gt; </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<h1 class="doxsection"><a class="anchor" id="BusinessServices"></a>
+BusinessServices</h1>
+<p>Rejestracja usług logicznych i pomocniczych aplikacji. </p>
+
+</div>
+</div>
+<a id="aed3db05c3ef9045e32b8d9c848121f73" name="aed3db05c3ef9045e32b8d9c848121f73"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aed3db05c3ef9045e32b8d9c848121f73">&#9670;&#160;</a></span>AddSignalR()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">builder.Services. AddSignalR </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<h1 class="doxsection"><a class="anchor" id="SignalR"></a>
+SignalR</h1>
+<p>Rejestracja usług czasu rzeczywistego (WebSockets). </p>
+
+</div>
+</div>
+<a name="doc-var-members" id="doc-var-members"></a><h2 id="header-doc-var-members" class="groupheader">Dokumentacja zmiennych</h2>
+<a id="a067cdd5f0fed6b2598fae7de8607e7da" name="a067cdd5f0fed6b2598fae7de8607e7da"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a067cdd5f0fed6b2598fae7de8607e7da">&#9670;&#160;</a></span>connectionString</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">var connectionString = builder.Configuration.GetConnectionString(&quot;DefaultConnection&quot;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<h1 class="doxsection"><a class="anchor" id="Database"></a>
+Database</h1>
+<p>Rejestracja kontekstu bazy danych PostgreSQL (Entity Framework Core). </p>
+
+</div>
+</div>
+<a id="af5e732acac75f2de122dfedaba997c46" name="af5e732acac75f2de122dfedaba997c46"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af5e732acac75f2de122dfedaba997c46">&#9670;&#160;</a></span>secretKey</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">var secretKey</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Wartość początkowa:</b><div class="fragment"><div class="line">= builder.Configuration.GetValue&lt;<span class="keywordtype">string</span>&gt;(<span class="stringliteral">&quot;AuthSettings:Key&quot;</span>) ??</div>
+<div class="line">  builder.Configuration.GetValue&lt;<span class="keywordtype">string</span>&gt;(<span class="stringliteral">&quot;AuthSettings:SecretKey&quot;</span>)</div>
+</div><!-- fragment --><h1 class="doxsection"><a class="anchor" id="Authentication"></a>
+Authentication</h1>
+<p>Konfiguracja uwierzytelniania opartego na tokenach JWT oraz obsługa protokołu SignalR. </p>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><b>Sklep_internetowy.Server</b></li><li class="navelem"><a href="_program_8cs.html">Program.cs</a></li>
+    <li class="footer">Wygenerowano za pomocą <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

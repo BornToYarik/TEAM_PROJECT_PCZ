@@ -1,0 +1,75 @@
+\doxysection{Dokumentacja klasy Sklep\+\_\+internetowy.\+Server.\+Controllers.\+Payment.\+Payment\+Controller}
+\hypertarget{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_payment_1_1_payment_controller}{}\label{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_payment_1_1_payment_controller}\index{Sklep\_internetowy.Server.Controllers.Payment.PaymentController@{Sklep\_internetowy.Server.Controllers.Payment.PaymentController}}
+
+
+Kontroler API odpowiedzialny za integracje z systemem platnosci Stripe. Umozliwia generowanie zamiarow platnosci (Payment\+Intents) dla transakcji elektronicznych.  
+
+
+
+
+Diagram współpracy dla Sklep\+\_\+internetowy.\+Server.\+Controllers.\+Payment.\+Payment\+Controller:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=261pt]{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_payment_1_1_payment_controller__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Metody publiczne}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_payment_1_1_payment_controller_ac30f1f264c7b731ca4760240258221bb}{Payment\+Controller}} (IConfiguration configuration)
+\begin{DoxyCompactList}\small\item\em Inicjalizuje nowa instancje klasy \doxylink{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_payment_1_1_payment_controller}{Payment\+Controller}. Konfiguruje globalny klucz API Stripe na podstawie pliku konfiguracyjnego aplikacji. \end{DoxyCompactList}\item 
+Action\+Result \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_payment_1_1_payment_controller_ac5838b25aecb0337eea40167b8833229}{Create\+Payment\+Intent}} (\+[From\+Body]\+ \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_payment_1_1_payment_request}{Payment\+Request}} request)
+\begin{DoxyCompactList}\small\item\em Tworzy nowy obiekt Payment\+Intent w systemie Stripe. Zamiar ten jest wykorzystywany przez frontend do bezpiecznego sfinalizowania transakcji. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Opis szczegółowy}
+Kontroler API odpowiedzialny za integracje z systemem platnosci Stripe. Umozliwia generowanie zamiarow platnosci (Payment\+Intents) dla transakcji elektronicznych. 
+
+\label{doc-constructors}
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_payment_1_1_payment_controller_doc-constructors}
+\doxysubsection{Dokumentacja konstruktora i destruktora}
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_payment_1_1_payment_controller_ac30f1f264c7b731ca4760240258221bb}\index{Sklep\_internetowy.Server.Controllers.Payment.PaymentController@{Sklep\_internetowy.Server.Controllers.Payment.PaymentController}!PaymentController@{PaymentController}}
+\index{PaymentController@{PaymentController}!Sklep\_internetowy.Server.Controllers.Payment.PaymentController@{Sklep\_internetowy.Server.Controllers.Payment.PaymentController}}
+\doxysubsubsection{\texorpdfstring{PaymentController()}{PaymentController()}}
+{\footnotesize\ttfamily \label{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_payment_1_1_payment_controller_ac30f1f264c7b731ca4760240258221bb} 
+Sklep\+\_\+internetowy.\+Server.\+Controllers.\+Payment.\+Payment\+Controller.\+Payment\+Controller (\begin{DoxyParamCaption}\item[{IConfiguration}]{configuration}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Inicjalizuje nowa instancje klasy \doxylink{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_payment_1_1_payment_controller}{Payment\+Controller}. Konfiguruje globalny klucz API Stripe na podstawie pliku konfiguracyjnego aplikacji. 
+
+
+\begin{DoxyParams}{Parametry}
+{\em configuration} & Interfejs dostepu do konfiguracji systemowej (sekcja Stripe:\+Secret\+Key).\\
+\hline
+\end{DoxyParams}
+
+
+\label{doc-func-members}
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_payment_1_1_payment_controller_doc-func-members}
+\doxysubsection{Dokumentacja funkcji składowych}
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_payment_1_1_payment_controller_ac5838b25aecb0337eea40167b8833229}\index{Sklep\_internetowy.Server.Controllers.Payment.PaymentController@{Sklep\_internetowy.Server.Controllers.Payment.PaymentController}!CreatePaymentIntent@{CreatePaymentIntent}}
+\index{CreatePaymentIntent@{CreatePaymentIntent}!Sklep\_internetowy.Server.Controllers.Payment.PaymentController@{Sklep\_internetowy.Server.Controllers.Payment.PaymentController}}
+\doxysubsubsection{\texorpdfstring{CreatePaymentIntent()}{CreatePaymentIntent()}}
+{\footnotesize\ttfamily \label{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_payment_1_1_payment_controller_ac5838b25aecb0337eea40167b8833229} 
+Action\+Result Sklep\+\_\+internetowy.\+Server.\+Controllers.\+Payment.\+Payment\+Controller.\+Create\+Payment\+Intent (\begin{DoxyParamCaption}\item[{\+[\+From\+Body]\+ \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_payment_1_1_payment_request}{Payment\+Request}}}]{request}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Tworzy nowy obiekt Payment\+Intent w systemie Stripe. Zamiar ten jest wykorzystywany przez frontend do bezpiecznego sfinalizowania transakcji. 
+
+
+\begin{DoxyParams}{Parametry}
+{\em request} & Obiekt zawierajacy calkowita kwote do zaplaty (w jednostkach glownych, np. zlotych).\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Zwraca}
+Obiekt JSON zawierajacy client\+Secret podrzednego obiektu Payment\+Intent.
+\end{DoxyReturn}
+$<$response code="{}200"{}$>$Zwraca klucz sesji platnosci (client\+Secret).$<$/\+response$>$ 
+
+Dokumentacja dla tej klasy została wygenerowana z pliku:\+\begin{DoxyCompactItemize}
+\item 
+Sklep\+\_\+internetowy.\+Server/\+\+Controllers/\+\+Payment/\+Payment\+Controller.\+cs\end{DoxyCompactItemize}

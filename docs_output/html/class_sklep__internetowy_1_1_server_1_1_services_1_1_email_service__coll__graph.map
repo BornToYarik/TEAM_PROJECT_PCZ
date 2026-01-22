@@ -1,0 +1,5 @@
+<map id="Sklep_internetowy.Server.Services.EmailService" name="Sklep_internetowy.Server.Services.EmailService">
+<area shape="rect" id="Node000001" title="Serwis odpowiedzialny za wysyłanie wiadomości e&#45;mail." alt="" coords="5,269,210,376"/>
+<area shape="rect" id="Node000002" href="$class_sklep__internetowy_1_1_server_1_1_models_1_1_mail_settings.html" title="Klasa konfiguracyjna przechowująca parametry serwera poczty elektronicznej (SMTP)...." alt="" coords="26,5,189,197"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="109,195,110,253,105,252,107,200"/>
+</map>

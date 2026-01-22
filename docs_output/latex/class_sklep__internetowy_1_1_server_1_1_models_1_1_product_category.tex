@@ -1,0 +1,43 @@
+\doxysection{Dokumentacja klasy Sklep\+\_\+internetowy.\+Server.\+Models.\+Product\+Category}
+\hypertarget{class_sklep__internetowy_1_1_server_1_1_models_1_1_product_category}{}\label{class_sklep__internetowy_1_1_server_1_1_models_1_1_product_category}\index{Sklep\_internetowy.Server.Models.ProductCategory@{Sklep\_internetowy.Server.Models.ProductCategory}}
+
+
+Klasa reprezentująca kategorię produktów w systemie Tech\+Store. Służy do logicznego grupowania towarów, co ułatwia zarządzanie asortymentem oraz nawigację użytkownika w części frontendowej sklepu.  
+
+
+
+
+Diagram współpracy dla Sklep\+\_\+internetowy.\+Server.\+Models.\+Product\+Category:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=202pt]{class_sklep__internetowy_1_1_server_1_1_models_1_1_product_category__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Właściwości}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_models_1_1_product_category_a086d50c1645bf3f2ee9498f22559014e}\label{class_sklep__internetowy_1_1_server_1_1_models_1_1_product_category_a086d50c1645bf3f2ee9498f22559014e} 
+int {\bfseries Id}\hspace{0.3cm}{\ttfamily  \+[get, set]\+}
+\begin{DoxyCompactList}\small\item\em Unikalny identyfikator kategorii w bazie danych. \end{DoxyCompactList}\item 
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_models_1_1_product_category_ab63d0c2b659a1f337cf0cb4acc6bdd99}\label{class_sklep__internetowy_1_1_server_1_1_models_1_1_product_category_ab63d0c2b659a1f337cf0cb4acc6bdd99} 
+string {\bfseries Name} = null!\hspace{0.3cm}{\ttfamily  \+[get, set]\+}
+\begin{DoxyCompactList}\small\item\em Nazwa wyświetlana kategorii (np. "{}\+Laptopy"{}, "{}\+Akcesoria"{}). \end{DoxyCompactList}\item 
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_models_1_1_product_category_a5da37cba3f8dbae7ac9e2ec0132111c2}\label{class_sklep__internetowy_1_1_server_1_1_models_1_1_product_category_a5da37cba3f8dbae7ac9e2ec0132111c2} 
+string {\bfseries Slug} = null!\hspace{0.3cm}{\ttfamily  \+[get, set]\+}
+\begin{DoxyCompactList}\small\item\em Przyjazny dla wyszukiwarek tekstowy identyfikator URL (tzw. slug). \end{DoxyCompactList}\item 
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_models_1_1_product_category_af09f0e852294b39917662c950af10d32}\label{class_sklep__internetowy_1_1_server_1_1_models_1_1_product_category_af09f0e852294b39917662c950af10d32} 
+string? {\bfseries Description}\hspace{0.3cm}{\ttfamily  \+[get, set]\+}
+\begin{DoxyCompactList}\small\item\em Opcjonalny opis charakterystyki lub przeznaczenia danej kategorii. \end{DoxyCompactList}\item 
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_models_1_1_product_category_a81edf8fe7d89aab17eb6984b5cede5a0}\label{class_sklep__internetowy_1_1_server_1_1_models_1_1_product_category_a81edf8fe7d89aab17eb6984b5cede5a0} 
+ICollection$<$ \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_models_1_1_product}{Product}} $>$ {\bfseries Products} = new List$<$\doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_models_1_1_product}{Product}}$>$()\hspace{0.3cm}{\ttfamily  \+[get, set]\+}
+\begin{DoxyCompactList}\small\item\em Lista produktów przypisanych do tej kategorii (relacja jeden-\/do-\/wielu). \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Opis szczegółowy}
+Klasa reprezentująca kategorię produktów w systemie Tech\+Store. Służy do logicznego grupowania towarów, co ułatwia zarządzanie asortymentem oraz nawigację użytkownika w części frontendowej sklepu. 
+
+Dokumentacja dla tej klasy została wygenerowana z pliku:\+\begin{DoxyCompactItemize}
+\item 
+Sklep\+\_\+internetowy.\+Server/\+\+Models/\+Product\+Category.\+cs\end{DoxyCompactItemize}

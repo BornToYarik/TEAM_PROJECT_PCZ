@@ -1,0 +1,46 @@
+\doxysection{Dokumentacja klasy Sklep\+\_\+internetowy.\+Server.\+DTOs.\+Order\+Details\+Dto}
+\hypertarget{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_order_details_dto}{}\label{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_order_details_dto}\index{Sklep\_internetowy.Server.DTOs.OrderDetailsDto@{Sklep\_internetowy.Server.DTOs.OrderDetailsDto}}
+
+
+Obiekt transferu danych (DTO) reprezentujący szczegółowe informacje o zamówieniu klienta. Klasa agreguje dane identyfikacyjne użytkownika, aktualny status realizacji zamówienia oraz pełną listę produktów wraz z datą operacji, służąc do prezentacji danych w interfejsie użytkownika.  
+
+
+
+
+Diagram współpracy dla Sklep\+\_\+internetowy.\+Server.\+DTOs.\+Order\+Details\+Dto:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=202pt]{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_order_details_dto__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Właściwości}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_order_details_dto_aea06a44243691d0d3e820d2716ef9fa5}\label{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_order_details_dto_aea06a44243691d0d3e820d2716ef9fa5} 
+int {\bfseries Id}\hspace{0.3cm}{\ttfamily  \+[get, set]\+}
+\begin{DoxyCompactList}\small\item\em Unikalny identyfikator zamówienia w bazie danych. \end{DoxyCompactList}\item 
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_order_details_dto_a4164dd583cefa6a07c2dfa6e82217630}\label{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_order_details_dto_a4164dd583cefa6a07c2dfa6e82217630} 
+string {\bfseries User\+Id} = null!\hspace{0.3cm}{\ttfamily  \+[get, set]\+}
+\begin{DoxyCompactList}\small\item\em Identyfikator użytkownika (GUID), który złożył zamówienie. \end{DoxyCompactList}\item 
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_order_details_dto_aaf2b4a7c0b05c3e5a7c57ea120e64a50}\label{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_order_details_dto_aaf2b4a7c0b05c3e5a7c57ea120e64a50} 
+string {\bfseries User\+Email} = null!\hspace{0.3cm}{\ttfamily  \+[get, set]\+}
+\begin{DoxyCompactList}\small\item\em Adres e-\/mail użytkownika przypisany do zamówienia, wykorzystywany do powiadomień. \end{DoxyCompactList}\item 
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_order_details_dto_a315d393b6ef09a33817827799e03b01c}\label{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_order_details_dto_a315d393b6ef09a33817827799e03b01c} 
+string {\bfseries Status} = null!\hspace{0.3cm}{\ttfamily  \+[get, set]\+}
+\begin{DoxyCompactList}\small\item\em Aktualny status realizacji zamówienia (np. "{}\+Pending"{}, "{}\+Shipped"{}, "{}\+Completed"{}). \end{DoxyCompactList}\item 
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_order_details_dto_a8c79299ba151749bfad868d64556a7b9}\label{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_order_details_dto_a8c79299ba151749bfad868d64556a7b9} 
+List$<$ \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_order_product_details_dto}{Order\+Product\+Details\+Dto}} $>$ {\bfseries Products} = new List$<$\doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_order_product_details_dto}{Order\+Product\+Details\+Dto}}$>$()\hspace{0.3cm}{\ttfamily  \+[get, set]\+}
+\begin{DoxyCompactList}\small\item\em Kolekcja szczegółowych informacji o produktach wchodzących w skład tego zamówienia. \end{DoxyCompactList}\item 
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_order_details_dto_ac9d34e3567a3f542a15b89a43c5a60f0}\label{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_order_details_dto_ac9d34e3567a3f542a15b89a43c5a60f0} 
+Date\+Time {\bfseries Order\+Date}\hspace{0.3cm}{\ttfamily  \+[get, set]\+}
+\begin{DoxyCompactList}\small\item\em \doxylink{namespace_sklep__internetowy_1_1_server_1_1_data}{Data} i godzina zarejestrowania zamówienia w systemie. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Opis szczegółowy}
+Obiekt transferu danych (DTO) reprezentujący szczegółowe informacje o zamówieniu klienta. Klasa agreguje dane identyfikacyjne użytkownika, aktualny status realizacji zamówienia oraz pełną listę produktów wraz z datą operacji, służąc do prezentacji danych w interfejsie użytkownika. 
+
+Dokumentacja dla tej klasy została wygenerowana z pliku:\+\begin{DoxyCompactItemize}
+\item 
+Sklep\+\_\+internetowy.\+Server/\+\+DTOs/\+Order\+Details\+Dto.\+cs\end{DoxyCompactItemize}

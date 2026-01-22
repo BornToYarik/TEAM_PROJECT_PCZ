@@ -1,16 +1,35 @@
 import React, { useEffect, useState } from "react";
 import { Container, Table, Button, Modal, Form, Spinner, Alert } from "react-bootstrap";
 
+/**
+ * @file UserMessageManagement.jsx
+ * @brief Komponent panelu administracyjnego do zarzadzania wiadomosciami kontaktowymi.
+ * @details Umozliwia przegladanie, tworzenie, edycje oraz usuwanie zgloszen przeslanych przez uzytkownikow.
+ */
+
+/**
+ * @component UserMessageManagement
+ * @description Renderuje interfejs administratora do obslugi wiadomosci. 
+ * Zawiera logike pobierania danych z API oraz zarzadzania oknami modalnymi dla operacji CRUD.
+ */
 function UserMessageManagement() {
+    /** @brief Stan przechowujacy liste wiadomosci pobranych z bazy danych. */
     const [messages, setMessages] = useState([]);
+    /** @brief Flaga okreslajaca stan ladowania danych. */
     const [loading, setLoading] = useState(true);
+    /** @brief Przechowuje komunikaty o bledach operacji asynchronicznych. */
     const [error, setError] = useState(null);
 
+    /** @brief Status widocznosci modala edycji. */
     const [showEditModal, setShowEditModal] = useState(false);
+    /** @brief Status widocznosci modala usuwania. */
     const [showDeleteModal, setShowDeleteModal] = useState(false);
+    /** @brief Status widocznosci modala tworzenia nowej wiadomosci. */
     const [showCreateModal, setShowCreateModal] = useState(false);
 
+    /** @brief Obiekt aktualnie edytowanej lub usuwanej wiadomosci. */
     const [editingMessage, setEditingMessage] = useState(null);
+    /** @brief Dane poczatkowe dla formularza nowej wiadomosci. */
     const [newMessage, setNewMessage] = useState({
         email: "",
         name: "",
@@ -18,6 +37,11 @@ function UserMessageManagement() {
         content: ""
     });
 
+    /**
+     * @function fetchMessages
+     * @async
+     * @description Pobiera wszystkie wiadomosci z punktu koncowego API.
+     */
     const fetchMessages = async () => {
         try {
             const res = await fetch("/api/panel/UserMessage");
@@ -31,8 +55,13 @@ function UserMessageManagement() {
         }
     };
 
+    /** @effect Inicjalizacja komponentu poprzez pobranie danych z serwera. */
     useEffect(() => { fetchMessages(); }, []);
 
+    /**
+     * @function handleCloseModal
+     * @description Zamyka wszystkie otwarte okna modalne i resetuje stany formularzy oraz bledow.
+     */
     const handleCloseModal = () => {
         setShowEditModal(false);
         setShowDeleteModal(false);
@@ -42,7 +71,11 @@ function UserMessageManagement() {
         setError(null);
     };
 
-    // --- CREATE ---
+    /**
+     * @function handleCreate
+     * @async
+     * @description Przesyla nowa wiadomosc do serwera metoda POST.
+     */
     const handleCreate = async () => {
         try {
             const res = await fetch("/api/panel/UserMessage", {
@@ -58,7 +91,11 @@ function UserMessageManagement() {
         }
     };
 
-    // --- UPDATE ---
+    /**
+     * @function handleSave
+     * @async
+     * @description Aktualizuje istniejaca wiadomosc metoda PUT.
+     */
     const handleSave = async () => {
         try {
             const res = await fetch(`/api/panel/UserMessage/${editingMessage.id}`, {
@@ -74,7 +111,11 @@ function UserMessageManagement() {
         }
     };
 
-    // --- DELETE ---
+    /**
+     * @function confirmDelete
+     * @async
+     * @description Trwale usuwa wiadomosc z bazy danych metoda DELETE.
+     */
     const confirmDelete = async () => {
         try {
             const res = await fetch(`/api/panel/UserMessage/${editingMessage.id}`, { method: "DELETE" });

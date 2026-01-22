@@ -1,0 +1,34 @@
+\doxysection{Dokumentacja klasy Sklep\+\_\+internetowy.\+Server.\+DTOs.\+Order\+Update\+Dto}
+\hypertarget{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_order_update_dto}{}\label{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_order_update_dto}\index{Sklep\_internetowy.Server.DTOs.OrderUpdateDto@{Sklep\_internetowy.Server.DTOs.OrderUpdateDto}}
+
+
+Obiekt transferu danych (DTO) wykorzystywany do kompleksowej modyfikacji istniejącego zamówienia. Klasa umożliwia jednoczesną zmianę statusu logistycznego zamówienia oraz aktualizację zestawienia produktów wchodzących w jego skład.  
+
+
+
+
+Diagram współpracy dla Sklep\+\_\+internetowy.\+Server.\+DTOs.\+Order\+Update\+Dto:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=202pt]{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_order_update_dto__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Właściwości}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_order_update_dto_a31fa636e287fb2024ae8e16fb268511c}\label{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_order_update_dto_a31fa636e287fb2024ae8e16fb268511c} 
+string {\bfseries Status} = null!\hspace{0.3cm}{\ttfamily  \+[get, set]\+}
+\begin{DoxyCompactList}\small\item\em Nowy status realizacji zamówienia (np. "{}\+Processing"{}, "{}\+Shipped"{}, "{}\+Cancelled"{}). \end{DoxyCompactList}\item 
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_order_update_dto_a5a491855e32a59bf578e037510993b7b}\label{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_order_update_dto_a5a491855e32a59bf578e037510993b7b} 
+List$<$ \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_order_update_item_dto}{Order\+Update\+Item\+Dto}} $>$ {\bfseries Products} = new List$<$\doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_order_update_item_dto}{Order\+Update\+Item\+Dto}}$>$()\hspace{0.3cm}{\ttfamily  \+[get, set]\+}
+\begin{DoxyCompactList}\small\item\em Kolekcja pozycji (produktów i ich ilości), które mają zostać zaktualizowane w bazie danych. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Opis szczegółowy}
+Obiekt transferu danych (DTO) wykorzystywany do kompleksowej modyfikacji istniejącego zamówienia. Klasa umożliwia jednoczesną zmianę statusu logistycznego zamówienia oraz aktualizację zestawienia produktów wchodzących w jego skład. 
+
+Dokumentacja dla tej klasy została wygenerowana z pliku:\+\begin{DoxyCompactItemize}
+\item 
+Sklep\+\_\+internetowy.\+Server/\+\+DTOs/\+Order\+Update\+Dto.\+cs\end{DoxyCompactItemize}

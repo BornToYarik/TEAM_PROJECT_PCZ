@@ -6,29 +6,98 @@ import { useCart } from '../../context/CartContext';
 import { useTheme } from '../../context/ThemeContext';
 import { useTranslation } from 'react-i18next';
 
+/**
+ * @file Navbar.jsx
+ * @brief Komponent paska nawigacji aplikacji.
+ * @details Odpowiada za wyswietlanie glownego menu, wyszukiwarki z podpowiedziami,
+ * przelaczanie jezyka, motywu, rozmiaru czcionki oraz za obsluge stanu logowania uzytkownika.
+ */
+
+/**
+ * @component Navbar
+ * @brief Glowny komponent paska nawigacji.
+ * @param {number} compareCount Liczba produktow w porownywarce.
+ * @return JSX.Element Element paska nawigacji.
+ */
 function Navbar({ compareCount }) {
+
+    /**
+     * @brief Hook tlumaczen oraz obiektu konfiguracji jezyka.
+     */
     const { t, i18n } = useTranslation();
 
+    /**
+     * @brief Aktualna wartosc zapytania wyszukiwania.
+     */
     const [searchQuery, setSearchQuery] = useState('');
+
+    /**
+     * @brief Podpowiedzi wyszukiwania dla kategorii i produktow.
+     */
     const [suggestions, setSuggestions] = useState({ categories: [], products: [] });
+
+    /**
+     * @brief Flaga okreslajaca widocznosc listy podpowiedzi.
+     */
     const [showDropdown, setShowDropdown] = useState(false);
+
+    /**
+     * @brief Domyslny obrazek produktu uzywany gdy brak zdjecia.
+     */
     const DEFAULT_IMAGE = "https://cdn.pixabay.com/photo/2017/11/10/04/47/image-2935360_1280.png";
 
+    /**
+     * @brief Flaga informujaca czy uzytkownik jest zalogowany.
+     */
     const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+    /**
+     * @brief Flaga informujaca czy uzytkownik posiada uprawnienia administratora.
+     */
     const [isUserAdmin, setIsUserAdmin] = useState(false);
 
+    /**
+     * @brief Kontekst motywu oraz rozmiaru czcionki.
+     */
     const { theme, toggleTheme, fontSize, toggleFontSize } = useTheme();
 
+    /**
+     * @brief Hook do nawigacji pomiedzy stronami.
+     */
     const navigate = useNavigate();
+
+    /**
+     * @brief Aktualna lokalizacja routingu.
+     */
     const location = useLocation();
+
+    /**
+     * @brief Referencja do kontenera listy podpowiedzi wyszukiwania.
+     */
     const dropdownRef = useRef(null);
+
+    /**
+     * @brief Lista produktow w liscie zyczen.
+     */
     const { wishlist } = useWishlist();
+
+    /**
+     * @brief Lacznba liczba produktow w koszyku.
+     */
     const { totalItems } = useCart();
 
+    /**
+     * @brief Zmienia aktualny jezyk aplikacji.
+     * @param {string} lng Kod jezyka.
+     */
     const changeLanguage = (lng) => {
         i18n.changeLanguage(lng);
     };
 
+    /**
+     * @brief Wylogowuje aktualnego uzytkownika.
+     * @details Usuwa dane sesji z localStorage i przekierowuje na strone logowania.
+     */
     const handleLogout = () => {
         localStorage.removeItem("token");
         localStorage.removeItem("user");
@@ -37,6 +106,9 @@ function Navbar({ compareCount }) {
         navigate("/login");
     };
 
+    /**
+     * @brief Efekt odpowiedzialny za zamykanie listy podpowiedzi po kliknieciu poza nia.
+     */
     useEffect(() => {
         const handleClickOutside = (event) => {
             if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
@@ -47,6 +119,10 @@ function Navbar({ compareCount }) {
         return () => document.removeEventListener("mousedown", handleClickOutside);
     }, []);
 
+    /**
+     * @brief Efekt pobierajacy podpowiedzi wyszukiwania z API.
+     * @details Wysylany jest request po krotkim opoznieniu (debounce).
+     */
     useEffect(() => {
         const fetchSuggestions = async () => {
             if (searchQuery.length > 1) {
@@ -69,6 +145,10 @@ function Navbar({ compareCount }) {
         return () => clearTimeout(timer);
     }, [searchQuery]);
 
+    /**
+     * @brief Efekt reagujacy na zmiane trasy.
+     * @details Resetuje pole wyszukiwania oraz sprawdza stan logowania uzytkownika.
+     */
     useEffect(() => {
         if (!location.pathname.startsWith('/search')) {
             setSearchQuery('');
@@ -83,6 +163,10 @@ function Navbar({ compareCount }) {
         }
     }, [location]);
 
+    /**
+     * @brief Obsluguje wyslanie formularza wyszukiwania.
+     * @param {Event} e Zdarzenie formularza.
+     */
     const handleSearchSubmit = (e) => {
         if (e) e.preventDefault();
         if (searchQuery.trim()) {
@@ -91,10 +175,15 @@ function Navbar({ compareCount }) {
         }
     };
 
+    /**
+     * @brief Aktualna liczba produktow w porownywarce.
+     */
     const currentCompareCount = compareCount || 0;
 
+    /**
+     * @brief Lista glownego menu kategorii.
+     */
     const menuItems = ['laptops', 'computers', 'smartphones', 'gaming', 'accessories'];
-
     return (
         <>
             <nav className="navbar navbar-dark bg-dark py-3 shadow">

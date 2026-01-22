@@ -1,0 +1,63 @@
+\doxysection{Dokumentacja pliku sklep\+\_\+internetowy.\+client/\+src/\+i18n.js}
+\hypertarget{i18n_8js}{}\label{i18n_8js}\index{sklep\_internetowy.client/src/i18n.js@{sklep\_internetowy.client/src/i18n.js}}
+
+
+Modul konfiguracji tlumaczen i lokalizacji aplikacji Tech\+Store.  
+
+
+\doxysubsubsection*{Funkcje}
+\begin{DoxyCompactItemize}
+\item 
+i18n \doxymbox{\hyperlink{i18n_8js_a9f5bf69663ece27694776ea3fbf52ece}{use}} (Language\+Detector) .use(init\+React\+I18next) .init(
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Zmienne}
+\begin{DoxyCompactItemize}
+\item 
+const \doxymbox{\hyperlink{i18n_8js_a56574c5de734e9d6202bfc17813fa30e}{resources}}
+\begin{DoxyCompactList}\small\item\em Obiekt zasobow zawierajacy mapowanie kluczy jezykowych na zaimportowane pliki tlumaczen. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Opis szczegółowy}
+Modul konfiguracji tlumaczen i lokalizacji aplikacji Tech\+Store. 
+
+Plik odpowiada za inicjalizacje biblioteki i18next, automatyczne wykrywanie jezyka uzytkownika oraz mapowanie plikow JSON z tlumaczeniami na wspierane kody jezykowe (PL, EN). 
+
+\label{doc-func-members}
+\Hypertarget{i18n_8js_doc-func-members}
+\doxysubsection{Dokumentacja funkcji}
+\Hypertarget{i18n_8js_a9f5bf69663ece27694776ea3fbf52ece}\index{i18n.js@{i18n.js}!use@{use}}
+\index{use@{use}!i18n.js@{i18n.js}}
+\doxysubsubsection{\texorpdfstring{use()}{use()}}
+{\footnotesize\ttfamily \label{i18n_8js_a9f5bf69663ece27694776ea3fbf52ece} 
+i18n use (\begin{DoxyParamCaption}\item[{}]{Language\+Detector}{}\end{DoxyParamCaption})}
+
+@description Inicjalizacja i konfiguracja i18next. @use Language\+Detector -\/ Wykrywa preferowany jezyk na podstawie ustawien przegladarki lub ciasteczek. @use init\+React\+I18next -\/ Przekazuje instancje i18n do biblioteki react-\/i18next w celu obslugi hookow. Jezyk domyslny, uzywany gdy tlumaczenie dla wybranego jezyka nie jest dostepne.
+
+Wylaczenie eskapowania wartosci (React domyslnie chroni przed atakami XSS).
+
+\label{doc-var-members}
+\Hypertarget{i18n_8js_doc-var-members}
+\doxysubsection{Dokumentacja zmiennych}
+\Hypertarget{i18n_8js_a56574c5de734e9d6202bfc17813fa30e}\index{i18n.js@{i18n.js}!resources@{resources}}
+\index{resources@{resources}!i18n.js@{i18n.js}}
+\doxysubsubsection{\texorpdfstring{resources}{resources}}
+{\footnotesize\ttfamily \label{i18n_8js_a56574c5de734e9d6202bfc17813fa30e} 
+const resources}
+
+{\bfseries Wartość początkowa:\+}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ \{}
+\DoxyCodeLine{\ \ \ \ en:\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ translation:\ translationEN}
+\DoxyCodeLine{\ \ \ \ \},}
+\DoxyCodeLine{\ \ \ \ pl:\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ translation:\ translationPL}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+
+
+Obiekt zasobow zawierajacy mapowanie kluczy jezykowych na zaimportowane pliki tlumaczen. 
+
+Struktura obejmuje jezyk angielski (en) oraz polski (pl). 

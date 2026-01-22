@@ -1,4 +1,10 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿/// @file Program.cs
+/// @brief Główny punkt wejścia aplikacji TechStore, odpowiedzialny za konfigurację usług i potoku HTTP.
+/// @details Plik ten zawiera definicję kontenera wstrzykiwania zależności (Dependency Injection),
+/// konfigurację systemów bezpieczeństwa (CORS, Identity, JWT), rejestrację usług biznesowych
+/// oraz ustawienia middleware sterującego przepływem żądań.
+
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -12,7 +18,13 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// CORS Configuration - MUSI być przed innymi usługami
+// --- KONFIGURACJA USŁUG (Dependency Injection) ---
+
+/**
+ * @section CORS
+ * Konfiguracja polityki Cross-Origin Resource Sharing (CORS).
+ * @note MUSI być zarejestrowana przed innymi usługami, aby umożliwić komunikację z frontendem React.
+ */
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowReactApp", policy =>
@@ -32,13 +44,19 @@ builder.Services.AddCors(options =>
     });
 });
 
-// Database
+/**
+ * @section Database
+ * Rejestracja kontekstu bazy danych PostgreSQL (Entity Framework Core).
+ */
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<StoreDbContext>(options =>
     options.UseNpgsql(connectionString)
 );
 
-// Services
+/**
+ * @section BusinessServices
+ * Rejestracja usług logicznych i pomocniczych aplikacji.
+ */
 builder.Services.AddScoped<AuctionService>();
 builder.Services.AddHostedService<AuctionBackgroundService>();
 builder.Services.AddScoped<AccountService>();
@@ -48,7 +66,10 @@ builder.Services.Configure<MailSettings>(builder.Configuration.GetSection("MailS
 builder.Services.AddTransient<EmailService>();
 builder.Services.Configure<AuthSettings>(builder.Configuration.GetSection("AuthSettings"));
 
-// Controllers
+/**
+ * @section Controllers
+ * Konfiguracja kontrolerów API z obsługą cykli w serializacji JSON.
+ */
 builder.Services.AddControllers()
     .AddJsonOptions(options =>
     {
@@ -56,7 +77,10 @@ builder.Services.AddControllers()
         options.JsonSerializerOptions.WriteIndented = true;
     });
 
-// Identity
+/**
+ * @section Identity
+ * Konfiguracja systemu ASP.NET Core Identity dla autoryzacji opartej na użytkownikach i rolach.
+ */
 builder.Services.AddIdentity<User, IdentityRole>(options =>
 {
     options.Password.RequireDigit = false;
@@ -70,7 +94,10 @@ builder.Services.AddIdentity<User, IdentityRole>(options =>
 .AddDefaultTokenProviders()
 .AddRoles<IdentityRole>();
 
-// JWT Authentication
+/**
+ * @section Authentication
+ * Konfiguracja uwierzytelniania opartego na tokenach JWT oraz obsługa protokołu SignalR.
+ */
 var secretKey = builder.Configuration.GetValue<string>("AuthSettings:Key") ??
                 builder.Configuration.GetValue<string>("AuthSettings:SecretKey");
 
@@ -112,7 +139,10 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
-// SignalR
+/**
+ * @section SignalR
+ * Rejestracja usług czasu rzeczywistego (WebSockets).
+ */
 builder.Services.AddSignalR()
     .AddHubOptions<AuctionHub>(options =>
     {
@@ -123,6 +153,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
+
+// --- KONFIGURACJA POTOKU PRZETWARZANIA (Middleware) ---
 
 if (app.Environment.IsDevelopment())
 {

@@ -1,0 +1,97 @@
+\doxysection{Dokumentacja klasy Sklep\+\_\+internetowy.\+Server.\+Controllers.\+Auth.\+Auth\+Controller}
+\hypertarget{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_auth_1_1_auth_controller}{}\label{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_auth_1_1_auth_controller}\index{Sklep\_internetowy.Server.Controllers.Auth.AuthController@{Sklep\_internetowy.Server.Controllers.Auth.AuthController}}
+
+
+Kontroler API odpowiedzialny za procesy uwierzytelniania i autoryzacji uzytkownikow. Obsluguje operacje rejestracji nowych kont oraz logowania (generowania tokenow JWT).  
+
+
+
+
+Diagram współpracy dla Sklep\+\_\+internetowy.\+Server.\+Controllers.\+Auth.\+Auth\+Controller:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_auth_1_1_auth_controller__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Metody publiczne}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_auth_1_1_auth_controller_a910a83cda925cac55ee86643f074a146}{Auth\+Controller}} (\doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_services_1_1_auth_1_1_account_service}{Account\+Service}} Account\+Servcice, IConfiguration configuration)
+\begin{DoxyCompactList}\small\item\em Inicjalizuje nowa instancje klasy \doxylink{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_auth_1_1_auth_controller}{Auth\+Controller}. \end{DoxyCompactList}\item 
+async Task$<$ IAction\+Result $>$ \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_auth_1_1_auth_controller_a2ed0a802f91c0c82eedc0bfd19dc4109}{Register}} (\+[From\+Body]\+ \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_register_user_request}{Register\+User\+Request}} request)
+\begin{DoxyCompactList}\small\item\em Rejestruje nowego uzytkownika w systemie. \end{DoxyCompactList}\item 
+async Task$<$ IAction\+Result $>$ \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_auth_1_1_auth_controller_a6b5a7289535453988ef2f57715532d9d}{Login}} (\+[From\+Body]\+ \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_login_request}{Login\+Request}} request)
+\begin{DoxyCompactList}\small\item\em Loguje uzytkownika do systemu i zwraca token autoryzacyjny. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Opis szczegółowy}
+Kontroler API odpowiedzialny za procesy uwierzytelniania i autoryzacji uzytkownikow. Obsluguje operacje rejestracji nowych kont oraz logowania (generowania tokenow JWT). 
+
+\label{doc-constructors}
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_auth_1_1_auth_controller_doc-constructors}
+\doxysubsection{Dokumentacja konstruktora i destruktora}
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_auth_1_1_auth_controller_a910a83cda925cac55ee86643f074a146}\index{Sklep\_internetowy.Server.Controllers.Auth.AuthController@{Sklep\_internetowy.Server.Controllers.Auth.AuthController}!AuthController@{AuthController}}
+\index{AuthController@{AuthController}!Sklep\_internetowy.Server.Controllers.Auth.AuthController@{Sklep\_internetowy.Server.Controllers.Auth.AuthController}}
+\doxysubsubsection{\texorpdfstring{AuthController()}{AuthController()}}
+{\footnotesize\ttfamily \label{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_auth_1_1_auth_controller_a910a83cda925cac55ee86643f074a146} 
+Sklep\+\_\+internetowy.\+Server.\+Controllers.\+Auth.\+Auth\+Controller.\+Auth\+Controller (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_services_1_1_auth_1_1_account_service}{Account\+Service}}}]{Account\+Servcice}{, }\item[{IConfiguration}]{configuration}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Inicjalizuje nowa instancje klasy \doxylink{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_auth_1_1_auth_controller}{Auth\+Controller}. 
+
+
+\begin{DoxyParams}{Parametry}
+{\em Account\+Servcice} & Serwis zarzadzajacy kontami uzytkownikow i logika uwierzytelniania.\\
+\hline
+{\em configuration} & Interfejs dostepu do konfiguracji aplikacji (np. ustawienia JWT).\\
+\hline
+\end{DoxyParams}
+
+
+\label{doc-func-members}
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_auth_1_1_auth_controller_doc-func-members}
+\doxysubsection{Dokumentacja funkcji składowych}
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_auth_1_1_auth_controller_a6b5a7289535453988ef2f57715532d9d}\index{Sklep\_internetowy.Server.Controllers.Auth.AuthController@{Sklep\_internetowy.Server.Controllers.Auth.AuthController}!Login@{Login}}
+\index{Login@{Login}!Sklep\_internetowy.Server.Controllers.Auth.AuthController@{Sklep\_internetowy.Server.Controllers.Auth.AuthController}}
+\doxysubsubsection{\texorpdfstring{Login()}{Login()}}
+{\footnotesize\ttfamily \label{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_auth_1_1_auth_controller_a6b5a7289535453988ef2f57715532d9d} 
+async Task$<$ IAction\+Result $>$ Sklep\+\_\+internetowy.\+Server.\+Controllers.\+Auth.\+Auth\+Controller.\+Login (\begin{DoxyParamCaption}\item[{\+[\+From\+Body]\+ \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_login_request}{Login\+Request}}}]{request}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Loguje uzytkownika do systemu i zwraca token autoryzacyjny. 
+
+
+\begin{DoxyParams}{Parametry}
+{\em request} & Obiekt DTO zawierajacy poswiadczenia (login i haslo).\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Zwraca}
+Token JWT oraz podstawowe dane uzytkownika (ID, e-\/mail).
+\end{DoxyReturn}
+$<$response code="{}200"{}$>$Zwraca token dostępowy oraz dane zalogowanego profilu.$<$/\+response$>$ $<$response code="{}400"{}$>$Gdy poswiadczenia sa bledne lub wystapil blad serwera.$<$/\+response$>$ \Hypertarget{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_auth_1_1_auth_controller_a2ed0a802f91c0c82eedc0bfd19dc4109}\index{Sklep\_internetowy.Server.Controllers.Auth.AuthController@{Sklep\_internetowy.Server.Controllers.Auth.AuthController}!Register@{Register}}
+\index{Register@{Register}!Sklep\_internetowy.Server.Controllers.Auth.AuthController@{Sklep\_internetowy.Server.Controllers.Auth.AuthController}}
+\doxysubsubsection{\texorpdfstring{Register()}{Register()}}
+{\footnotesize\ttfamily \label{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_auth_1_1_auth_controller_a2ed0a802f91c0c82eedc0bfd19dc4109} 
+async Task$<$ IAction\+Result $>$ Sklep\+\_\+internetowy.\+Server.\+Controllers.\+Auth.\+Auth\+Controller.\+Register (\begin{DoxyParamCaption}\item[{\+[\+From\+Body]\+ \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_register_user_request}{Register\+User\+Request}}}]{request}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Rejestruje nowego uzytkownika w systemie. 
+
+
+\begin{DoxyParams}{Parametry}
+{\em request} & Obiekt DTO zawierajacy nazwe uzytkownika, e-\/mail oraz haslo.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Zwraca}
+Komunikat o pomyslnej rejestracji lub blad walidacji.
+\end{DoxyReturn}
+$<$response code="{}200"{}$>$Uzytkownik zostal pomyslnie zarejestrowany.$<$/\+response$>$ $<$response code="{}400"{}$>$Gdy dane wejsciowe sa nieprawidlowe lub proces rejestracji sie nie powiodl.$<$/\+response$>$ 
+
+Dokumentacja dla tej klasy została wygenerowana z pliku:\+\begin{DoxyCompactItemize}
+\item 
+Sklep\+\_\+internetowy.\+Server/\+\+Controllers/\+\+Auth/\+Auth\+Controller.\+cs\end{DoxyCompactItemize}

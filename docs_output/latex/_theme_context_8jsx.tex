@@ -1,0 +1,38 @@
+\doxysection{Dokumentacja pliku sklep\+\_\+internetowy.\+client/\+src/\+context/\+\+Theme\+Context.jsx}
+\hypertarget{_theme_context_8jsx}{}\label{_theme_context_8jsx}\index{sklep\_internetowy.client/src/context/ThemeContext.jsx@{sklep\_internetowy.client/src/context/ThemeContext.jsx}}
+
+
+Kontekst globalny do zarzadzania motywem oraz rozmiarem czcionki aplikacji.  
+
+
+\doxysubsubsection*{Zmienne}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{_theme_context_8jsx_adaf102fa1c9427bc2e4db90392c075d0}\label{_theme_context_8jsx_adaf102fa1c9427bc2e4db90392c075d0} 
+const {\bfseries Theme\+Context} = create\+Context()
+\begin{DoxyCompactList}\small\item\em Kontekst React przechowujacy ustawienia wygladu aplikacji. \end{DoxyCompactList}\item 
+export const \doxymbox{\hyperlink{_theme_context_8jsx_ac1b077075a24f41f0ac2fafcff8384cd}{use\+Theme}} = () =$>$ use\+Context(\doxymbox{\hyperlink{_theme_context_8jsx_adaf102fa1c9427bc2e4db90392c075d0}{Theme\+Context}})
+\begin{DoxyCompactList}\small\item\em Hook do pobierania kontekstu motywu aplikacji. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Opis szczegółowy}
+Kontekst globalny do zarzadzania motywem oraz rozmiarem czcionki aplikacji. 
+
+Pozwala przelaczac miedzy trybem jasnym i ciemnym oraz zmieniac rozmiar czcionki. Ustawienia sa zapisywane w local\+Storage. 
+
+\label{doc-var-members}
+\Hypertarget{_theme_context_8jsx_doc-var-members}
+\doxysubsection{Dokumentacja zmiennych}
+\Hypertarget{_theme_context_8jsx_ac1b077075a24f41f0ac2fafcff8384cd}\index{ThemeContext.jsx@{ThemeContext.jsx}!useTheme@{useTheme}}
+\index{useTheme@{useTheme}!ThemeContext.jsx@{ThemeContext.jsx}}
+\doxysubsubsection{\texorpdfstring{useTheme}{useTheme}}
+{\footnotesize\ttfamily \label{_theme_context_8jsx_ac1b077075a24f41f0ac2fafcff8384cd} 
+export const use\+Theme = () =$>$ use\+Context(\doxymbox{\hyperlink{_theme_context_8jsx_adaf102fa1c9427bc2e4db90392c075d0}{Theme\+Context}})}
+
+
+
+Hook do pobierania kontekstu motywu aplikacji. 
+
+\begin{DoxyReturn}{Zwraca}
+\{Object\} Aktualny kontekst motywu. 
+\end{DoxyReturn}

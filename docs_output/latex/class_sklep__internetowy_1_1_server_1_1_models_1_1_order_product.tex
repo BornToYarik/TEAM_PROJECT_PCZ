@@ -1,0 +1,43 @@
+\doxysection{Dokumentacja klasy Sklep\+\_\+internetowy.\+Server.\+Models.\+Order\+Product}
+\hypertarget{class_sklep__internetowy_1_1_server_1_1_models_1_1_order_product}{}\label{class_sklep__internetowy_1_1_server_1_1_models_1_1_order_product}\index{Sklep\_internetowy.Server.Models.OrderProduct@{Sklep\_internetowy.Server.Models.OrderProduct}}
+
+
+Klasa pośrednicząca (tabela łącząca) reprezentująca relację wiele-\/do-\/wielu pomiędzy zamówieniami a produktami. Przechowuje informacje o tym, jakie produkty i w jakiej ilości wchodzą w skład danego zamówienia.  
+
+
+
+
+Diagram współpracy dla Sklep\+\_\+internetowy.\+Server.\+Models.\+Order\+Product:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=202pt]{class_sklep__internetowy_1_1_server_1_1_models_1_1_order_product__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Właściwości}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_models_1_1_order_product_a27e08f0e25307fe5b3ea42ececaa18fc}\label{class_sklep__internetowy_1_1_server_1_1_models_1_1_order_product_a27e08f0e25307fe5b3ea42ececaa18fc} 
+int {\bfseries Order\+Id}\hspace{0.3cm}{\ttfamily  \+[get, set]\+}
+\begin{DoxyCompactList}\small\item\em Identyfikator powiązanego zamówienia. \end{DoxyCompactList}\item 
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_models_1_1_order_product_a77085c9dea3b3cec65fbf312fa59dc47}\label{class_sklep__internetowy_1_1_server_1_1_models_1_1_order_product_a77085c9dea3b3cec65fbf312fa59dc47} 
+Order {\bfseries Order} = null!\hspace{0.3cm}{\ttfamily  \+[get, set]\+}
+\begin{DoxyCompactList}\small\item\em Obiekt nawigacyjny do szczegółowych danych zamówienia. \end{DoxyCompactList}\item 
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_models_1_1_order_product_aa30b3883adf57093e347040beb308cc9}\label{class_sklep__internetowy_1_1_server_1_1_models_1_1_order_product_aa30b3883adf57093e347040beb308cc9} 
+int {\bfseries Product\+Id}\hspace{0.3cm}{\ttfamily  \+[get, set]\+}
+\begin{DoxyCompactList}\small\item\em Identyfikator powiązanego produktu. \end{DoxyCompactList}\item 
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_models_1_1_order_product_a8e130dd3d55d9ebcdd9325b60cb70580}\label{class_sklep__internetowy_1_1_server_1_1_models_1_1_order_product_a8e130dd3d55d9ebcdd9325b60cb70580} 
+Product {\bfseries Product} = null!\hspace{0.3cm}{\ttfamily  \+[get, set]\+}
+\begin{DoxyCompactList}\small\item\em Obiekt nawigacyjny do szczegółowych danych produktu. \end{DoxyCompactList}\item 
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_models_1_1_order_product_a1754993f8cba9fa67985fcff8bc9f218}\label{class_sklep__internetowy_1_1_server_1_1_models_1_1_order_product_a1754993f8cba9fa67985fcff8bc9f218} 
+int {\bfseries Quantity}\hspace{0.3cm}{\ttfamily  \+[get, set]\+}
+\begin{DoxyCompactList}\small\item\em Liczba sztuk danego produktu zakupiona w ramach tego zamówienia. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Opis szczegółowy}
+Klasa pośrednicząca (tabela łącząca) reprezentująca relację wiele-\/do-\/wielu pomiędzy zamówieniami a produktami. Przechowuje informacje o tym, jakie produkty i w jakiej ilości wchodzą w skład danego zamówienia. 
+
+Dokumentacja dla tej klasy została wygenerowana z pliku:\+\begin{DoxyCompactItemize}
+\item 
+Sklep\+\_\+internetowy.\+Server/\+\+Models/\+Order\+Product.\+cs\end{DoxyCompactItemize}

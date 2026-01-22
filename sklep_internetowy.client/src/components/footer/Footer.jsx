@@ -1,9 +1,30 @@
 import { useState } from "react";
 import { useTranslation } from 'react-i18next';
 
+/**
+ * @file Footer.jsx
+ * @brief Komponent stopki strony zawierajacy formularz kontaktowy oraz mape Google.
+ * @details Komponent umozliwia uzytkownikowi wyslanie wiadomosci przez formularz kontaktowy
+ * oraz wyswietla informacje o lokalizacji firmy za pomoca osadzonej mapy Google.
+ */
+
+/**
+ * @component Footer
+ * @brief Glowny komponent stopki strony.
+ * @details Zawiera formularz kontaktowy, obsluge jego stanu, wysylke danych do API
+ * oraz sekcje z informacja o lokalizacji firmy.
+ * @return JSX.Element Element stopki strony.
+ */
 function Footer() {
+    /**
+     * @brief Funkcja tlumaczen z biblioteki i18next.
+     */
     const { t } = useTranslation();
 
+    /**
+     * @brief Stan formularza kontaktowego.
+     * @details Przechowuje dane wprowadzone przez uzytkownika do formularza.
+     */
     const [form, setForm] = useState({
         email: "",
         name: "",
@@ -11,10 +32,19 @@ function Footer() {
         message: "",
     });
 
+    /**
+     * @brief Obsluga zmiany wartosci w polach formularza.
+     * @param {Event} e Zdarzenie zmiany pola formularza.
+     */
     const handleChange = (e) => {
         setForm({ ...form, [e.target.id]: e.target.value });
     };
 
+    /**
+     * @brief Obsluga wyslania formularza kontaktowego.
+     * @details Wysyla dane formularza do API przy uzyciu metody POST.
+     * @param {Event} e Zdarzenie wyslania formularza.
+     */
     const handleSubmit = async (e) => {
         e.preventDefault();
 

@@ -1,8 +1,24 @@
 import React from 'react';
+/**
+ * @file Carousel.jsx
+ * @brief Komponent karuzeli obrazow wykorzystujacy biblioteke Bootstrap.
+ * @details Komponent renderuje pelnowymiarowy baner z funkcja automatycznego przewijania, 
+ * zoptymalizowany pod katem stalej wysokosci i responsywnego wypelnienia obrazem.
+ */
 
+/**
+ * @component Carousel
+ * @description Wyswietla interaktywny suwak obrazow (carousel) z kontrolkami nawigacji.
+ * Wykorzystuje klasy Bootstrapa (data-bs-ride="carousel") do zapewnienia animacji.
+ */
 function Carosuel() {
     return (
         <>
+            {/* @section Styles
+              Definicja stylow lokalnych dla karuzeli.
+              - .full-width-carousel-fixed-height: Zapewnia stala wysokosc 450px dla wszystkich slajdow.
+              - object-fit: cover: Gwarantuje, ze zdjecia wypelnia przestrzen bez znieksztalcen proporcji.
+            */}
             <style type="text/css">{`
                 .full-width-carousel-fixed-height .carousel-item {
                     height: 450px;

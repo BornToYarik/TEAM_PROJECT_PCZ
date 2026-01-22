@@ -1,0 +1,82 @@
+\doxysection{Dokumentacja klasy Sklep\+\_\+internetowy.\+Server.\+Models.\+Product}
+\hypertarget{class_sklep__internetowy_1_1_server_1_1_models_1_1_product}{}\label{class_sklep__internetowy_1_1_server_1_1_models_1_1_product}\index{Sklep\_internetowy.Server.Models.Product@{Sklep\_internetowy.Server.Models.Product}}
+
+
+Klasa reprezentująca produkt w systemie sklepu internetowego. Zawiera szczegółowe informacje o towarze, stanach magazynowych oraz logikę zarządzania cenami promocyjnymi i powiązaniami z kategoriami.  
+
+
+
+
+Diagram współpracy dla Sklep\+\_\+internetowy.\+Server.\+Models.\+Product:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=202pt]{class_sklep__internetowy_1_1_server_1_1_models_1_1_product__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Właściwości}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_models_1_1_product_a21a5f46ad7b7f178d1ea62ece1d020ec}\label{class_sklep__internetowy_1_1_server_1_1_models_1_1_product_a21a5f46ad7b7f178d1ea62ece1d020ec} 
+int {\bfseries Id}\hspace{0.3cm}{\ttfamily  \+[get, set]\+}
+\begin{DoxyCompactList}\small\item\em Unikalny identyfikator produktu w bazie danych. \end{DoxyCompactList}\item 
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_models_1_1_product_a7ee435620e450af47c542c8efaad7b6e}\label{class_sklep__internetowy_1_1_server_1_1_models_1_1_product_a7ee435620e450af47c542c8efaad7b6e} 
+string {\bfseries Name} = null!\hspace{0.3cm}{\ttfamily  \+[get, set]\+}
+\begin{DoxyCompactList}\small\item\em Nazwa handlowa produktu. \end{DoxyCompactList}\item 
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_models_1_1_product_a461c501179c16e7bc596c7e8dd1163fc}\label{class_sklep__internetowy_1_1_server_1_1_models_1_1_product_a461c501179c16e7bc596c7e8dd1163fc} 
+decimal {\bfseries Price}\hspace{0.3cm}{\ttfamily  \+[get, set]\+}
+\begin{DoxyCompactList}\small\item\em Podstawowa cena jednostkowa przed naliczeniem rabatów. \end{DoxyCompactList}\item 
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_models_1_1_product_a6640378130b101737f01c47e572b1c70}\label{class_sklep__internetowy_1_1_server_1_1_models_1_1_product_a6640378130b101737f01c47e572b1c70} 
+int {\bfseries Quantity}\hspace{0.3cm}{\ttfamily  \+[get, set]\+}
+\begin{DoxyCompactList}\small\item\em Liczba dostępnych sztuk produktu w magazynie. \end{DoxyCompactList}\item 
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_models_1_1_product_abe91916de3cc6dbbbd8a6c71e25e15cc}\label{class_sklep__internetowy_1_1_server_1_1_models_1_1_product_abe91916de3cc6dbbbd8a6c71e25e15cc} 
+string? {\bfseries Description}\hspace{0.3cm}{\ttfamily  \+[get, set]\+}
+\begin{DoxyCompactList}\small\item\em Opcjonalny opis techniczny lub marketingowy produktu. \end{DoxyCompactList}\item 
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_models_1_1_product_a5e47f48e1a5a62b45544c411ca2ea476}\label{class_sklep__internetowy_1_1_server_1_1_models_1_1_product_a5e47f48e1a5a62b45544c411ca2ea476} 
+bool {\bfseries Is\+On\+Auction}\hspace{0.3cm}{\ttfamily  \+[get, set]\+}
+\begin{DoxyCompactList}\small\item\em Flaga określająca, czy produkt jest aktualnie wystawiony w module aukcyjnym. \end{DoxyCompactList}\item 
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_models_1_1_product_a40cd9fb664ccd6618453466e3913bae7}\label{class_sklep__internetowy_1_1_server_1_1_models_1_1_product_a40cd9fb664ccd6618453466e3913bae7} 
+string? {\bfseries Owner\+Id}\hspace{0.3cm}{\ttfamily  \+[get, set]\+}
+\begin{DoxyCompactList}\small\item\em Identyfikator właściciela lub sprzedawcy produktu (jeśli dotyczy). \end{DoxyCompactList}\item 
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_models_1_1_product_a6b2b88b17f8a5617c1411b28bee8605a}\label{class_sklep__internetowy_1_1_server_1_1_models_1_1_product_a6b2b88b17f8a5617c1411b28bee8605a} 
+\doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_models_1_1_user}{User}}? {\bfseries Owner}\hspace{0.3cm}{\ttfamily  \+[get, set]\+}
+\begin{DoxyCompactList}\small\item\em Obiekt nawigacyjny do danych właściciela produktu. \end{DoxyCompactList}\item 
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_models_1_1_product_a73ca8a7f997400eb42bb3289dc1ce480}\label{class_sklep__internetowy_1_1_server_1_1_models_1_1_product_a73ca8a7f997400eb42bb3289dc1ce480} 
+string {\bfseries Brand} = null!\hspace{0.3cm}{\ttfamily  \+[get, set]\+}
+\begin{DoxyCompactList}\small\item\em Marka lub producent danego towaru. \end{DoxyCompactList}\item 
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_models_1_1_product_a6581a907e2a8638a10e2be70465b5459}\label{class_sklep__internetowy_1_1_server_1_1_models_1_1_product_a6581a907e2a8638a10e2be70465b5459} 
+decimal? {\bfseries Discount\+Percentage}\hspace{0.3cm}{\ttfamily  \+[get, set]\+}
+\begin{DoxyCompactList}\small\item\em Wartość procentowa rabatu (np. 20.\+00 dla 20\% zniżki). \end{DoxyCompactList}\item 
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_models_1_1_product_a3e65389e79d69f4a6f3350ce2e88a9ac}\label{class_sklep__internetowy_1_1_server_1_1_models_1_1_product_a3e65389e79d69f4a6f3350ce2e88a9ac} 
+Date\+Time? {\bfseries Discount\+Start\+Date}\hspace{0.3cm}{\ttfamily  \+[get, set]\+}
+\begin{DoxyCompactList}\small\item\em \doxylink{namespace_sklep__internetowy_1_1_server_1_1_data}{Data} i godzina rozpoczęcia okresu obowiązywania promocji. \end{DoxyCompactList}\item 
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_models_1_1_product_ac0e7cb1fc73a952088c74b6170521a29}\label{class_sklep__internetowy_1_1_server_1_1_models_1_1_product_ac0e7cb1fc73a952088c74b6170521a29} 
+Date\+Time? {\bfseries Discount\+End\+Date}\hspace{0.3cm}{\ttfamily  \+[get, set]\+}
+\begin{DoxyCompactList}\small\item\em \doxylink{namespace_sklep__internetowy_1_1_server_1_1_data}{Data} i godzina zakończenia okresu obowiązywania promocji. \end{DoxyCompactList}\item 
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_models_1_1_product_a2664d6d3239c688d13ccbd8a6dfbfb22}\label{class_sklep__internetowy_1_1_server_1_1_models_1_1_product_a2664d6d3239c688d13ccbd8a6dfbfb22} 
+ICollection$<$ \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_models_1_1_product_image}{Product\+Image}} $>$ {\bfseries Images} = new List$<$\doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_models_1_1_product_image}{Product\+Image}}$>$()\hspace{0.3cm}{\ttfamily  \+[get, set]\+}
+\begin{DoxyCompactList}\small\item\em Kolekcja zdjęć przypisanych do tego produktu. \end{DoxyCompactList}\item 
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_models_1_1_product_a001efe918a9a4fdbf9169f69f751a685}\label{class_sklep__internetowy_1_1_server_1_1_models_1_1_product_a001efe918a9a4fdbf9169f69f751a685} 
+decimal {\bfseries Final\+Price}\hspace{0.3cm}{\ttfamily  \+[get]\+}
+\begin{DoxyCompactList}\small\item\em Wylicza cenę końcową produktu. Jeśli promocja jest aktywna, zwraca cenę pomniejszoną o rabat, w przeciwnym razie cenę bazową. \end{DoxyCompactList}\item 
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_models_1_1_product_aaee8df93fc5aaf975f3ac617cb457c01}\label{class_sklep__internetowy_1_1_server_1_1_models_1_1_product_aaee8df93fc5aaf975f3ac617cb457c01} 
+bool {\bfseries Has\+Active\+Discount}\hspace{0.3cm}{\ttfamily  \+[get]\+}
+\begin{DoxyCompactList}\small\item\em Weryfikuje, czy produkt posiada w tej chwili aktywną i ważną zniżkę. Sprawdza zarówno wartość procentową, jak i ramy czasowe (UTC). \end{DoxyCompactList}\item 
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_models_1_1_product_a0c8ac81b3599d4f22f0c33689fd0076f}\label{class_sklep__internetowy_1_1_server_1_1_models_1_1_product_a0c8ac81b3599d4f22f0c33689fd0076f} 
+int {\bfseries Product\+Category\+Id}\hspace{0.3cm}{\ttfamily  \+[get, set]\+}
+\begin{DoxyCompactList}\small\item\em Identyfikator kategorii nadrzędnej, do której należy produkt. \end{DoxyCompactList}\item 
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_models_1_1_product_a14fda32ee90af9e8d9a8cd39b4f33e9f}\label{class_sklep__internetowy_1_1_server_1_1_models_1_1_product_a14fda32ee90af9e8d9a8cd39b4f33e9f} 
+Product\+Category {\bfseries Product\+Category} = null!\hspace{0.3cm}{\ttfamily  \+[get, set]\+}
+\begin{DoxyCompactList}\small\item\em Obiekt kategorii umożliwiający dostęp do jej nazwy i parametrów. \end{DoxyCompactList}\item 
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_models_1_1_product_a8a110151ee1831bea0b9a9812d252b90}\label{class_sklep__internetowy_1_1_server_1_1_models_1_1_product_a8a110151ee1831bea0b9a9812d252b90} 
+ICollection$<$ \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_models_1_1_order_product}{Order\+Product}} $>$ {\bfseries Order\+Products} = new List$<$\doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_models_1_1_order_product}{Order\+Product}}$>$()\hspace{0.3cm}{\ttfamily  \+[get, set]\+}
+\begin{DoxyCompactList}\small\item\em Kolekcja pozycji zamówień zawierających ten produkt (relacja wiele-\/do-\/wielu). \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Opis szczegółowy}
+Klasa reprezentująca produkt w systemie sklepu internetowego. Zawiera szczegółowe informacje o towarze, stanach magazynowych oraz logikę zarządzania cenami promocyjnymi i powiązaniami z kategoriami. 
+
+Dokumentacja dla tej klasy została wygenerowana z pliku:\+\begin{DoxyCompactItemize}
+\item 
+Sklep\+\_\+internetowy.\+Server/\+\+Models/\+Product.\+cs\end{DoxyCompactItemize}

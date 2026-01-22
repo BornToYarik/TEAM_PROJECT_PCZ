@@ -1,0 +1,157 @@
+\doxysection{Dokumentacja klasy Sklep\+\_\+internetowy.\+Server.\+Services.\+Bidding.\+Auction\+Service}
+\hypertarget{class_sklep__internetowy_1_1_server_1_1_services_1_1_bidding_1_1_auction_service}{}\label{class_sklep__internetowy_1_1_server_1_1_services_1_1_bidding_1_1_auction_service}\index{Sklep\_internetowy.Server.Services.Bidding.AuctionService@{Sklep\_internetowy.Server.Services.Bidding.AuctionService}}
+
+
+Serwis odpowiedzialny za pełną obsługę logiki aukcji.  
+
+
+
+
+Diagram współpracy dla Sklep\+\_\+internetowy.\+Server.\+Services.\+Bidding.\+Auction\+Service:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=231pt]{class_sklep__internetowy_1_1_server_1_1_services_1_1_bidding_1_1_auction_service__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Metody publiczne}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_services_1_1_bidding_1_1_auction_service_aaf29fec451317ec7527d7ec7164f503a}{Auction\+Service}} (\doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_data_1_1_store_db_context}{Store\+Db\+Context}} context, ILogger$<$ Auction\+Service $>$ logger)
+\begin{DoxyCompactList}\small\item\em Konstruktor serwisu \doxylink{class_sklep__internetowy_1_1_server_1_1_services_1_1_bidding_1_1_auction_service}{Auction\+Service}. \end{DoxyCompactList}\item 
+async Task$<$ \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_models_1_1_auction}{Auction}} $>$ \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_services_1_1_bidding_1_1_auction_service_adb114fbed706990ce7e43d8fbe5de705}{Create\+Auction\+Async}} (int product\+Id, decimal starting\+Price)
+\begin{DoxyCompactList}\small\item\em Tworzy nową aukcję dla wybranego produktu. \end{DoxyCompactList}\item 
+async Task$<$ \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_models_1_1_auction}{Auction}}?$>$ \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_services_1_1_bidding_1_1_auction_service_aafa4f74017d9d1b5220ed3a95045a831}{Get\+Auction\+By\+Id\+Async}} (int auction\+Id)
+\begin{DoxyCompactList}\small\item\em Pobiera aukcję na podstawie jej identyfikatora. \end{DoxyCompactList}\item 
+async Task$<$ bool $>$ \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_services_1_1_bidding_1_1_auction_service_a044d72c40cd671d4e64fe4e2f178775b}{Place\+Bid\+Async}} (int auction\+Id, decimal amount, string user\+Id)
+\begin{DoxyCompactList}\small\item\em Składa ofertę w aukcji. \end{DoxyCompactList}\item 
+async Task$<$ List$<$ \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_auction_dto}{Auction\+Dto}} $>$ $>$ \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_services_1_1_bidding_1_1_auction_service_a18c79b9dbf46d1fd10ae38e72b4a7bd5}{Get\+Active\+Auctions\+Async}} ()
+\begin{DoxyCompactList}\small\item\em Pobiera listę wszystkich aktywnych (niezakończonych) aukcji. \end{DoxyCompactList}\item 
+async Task \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_services_1_1_bidding_1_1_auction_service_a48639846cdd196bc4c2148e56a510bf3}{Finish\+Auction\+Async}} (\doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_models_1_1_auction}{Auction}} auction)
+\begin{DoxyCompactList}\small\item\em Finalizuje aukcję po jej zakończeniu. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Opis szczegółowy}
+Serwis odpowiedzialny za pełną obsługę logiki aukcji. 
+
+Umożliwia tworzenie aukcji, składanie ofert, pobieranie aktywnych aukcji oraz finalizowanie zakończonych licytacji. 
+
+\label{doc-constructors}
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_services_1_1_bidding_1_1_auction_service_doc-constructors}
+\doxysubsection{Dokumentacja konstruktora i destruktora}
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_services_1_1_bidding_1_1_auction_service_aaf29fec451317ec7527d7ec7164f503a}\index{Sklep\_internetowy.Server.Services.Bidding.AuctionService@{Sklep\_internetowy.Server.Services.Bidding.AuctionService}!AuctionService@{AuctionService}}
+\index{AuctionService@{AuctionService}!Sklep\_internetowy.Server.Services.Bidding.AuctionService@{Sklep\_internetowy.Server.Services.Bidding.AuctionService}}
+\doxysubsubsection{\texorpdfstring{AuctionService()}{AuctionService()}}
+{\footnotesize\ttfamily \label{class_sklep__internetowy_1_1_server_1_1_services_1_1_bidding_1_1_auction_service_aaf29fec451317ec7527d7ec7164f503a} 
+Sklep\+\_\+internetowy.\+Server.\+Services.\+Bidding.\+Auction\+Service.\+Auction\+Service (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_data_1_1_store_db_context}{Store\+Db\+Context}}}]{context}{, }\item[{ILogger$<$ Auction\+Service $>$}]{logger}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Konstruktor serwisu \doxylink{class_sklep__internetowy_1_1_server_1_1_services_1_1_bidding_1_1_auction_service}{Auction\+Service}. 
+
+
+\begin{DoxyParams}{Parametry}
+{\em context} & Kontekst bazy danych. \\
+\hline
+{\em logger} & Logger do zapisywania informacji diagnostycznych. \\
+\hline
+\end{DoxyParams}
+
+
+\label{doc-func-members}
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_services_1_1_bidding_1_1_auction_service_doc-func-members}
+\doxysubsection{Dokumentacja funkcji składowych}
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_services_1_1_bidding_1_1_auction_service_adb114fbed706990ce7e43d8fbe5de705}\index{Sklep\_internetowy.Server.Services.Bidding.AuctionService@{Sklep\_internetowy.Server.Services.Bidding.AuctionService}!CreateAuctionAsync@{CreateAuctionAsync}}
+\index{CreateAuctionAsync@{CreateAuctionAsync}!Sklep\_internetowy.Server.Services.Bidding.AuctionService@{Sklep\_internetowy.Server.Services.Bidding.AuctionService}}
+\doxysubsubsection{\texorpdfstring{CreateAuctionAsync()}{CreateAuctionAsync()}}
+{\footnotesize\ttfamily \label{class_sklep__internetowy_1_1_server_1_1_services_1_1_bidding_1_1_auction_service_adb114fbed706990ce7e43d8fbe5de705} 
+async Task$<$ \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_models_1_1_auction}{Auction}} $>$ Sklep\+\_\+internetowy.\+Server.\+Services.\+Bidding.\+Auction\+Service.\+Create\+Auction\+Async (\begin{DoxyParamCaption}\item[{int}]{product\+Id}{, }\item[{decimal}]{starting\+Price}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Tworzy nową aukcję dla wybranego produktu. 
+
+Sprawdza, czy produkt istnieje oraz czy nie jest już wystawiony na aukcję. 
+\begin{DoxyParams}{Parametry}
+{\em product\+Id} & Identyfikator produktu. \\
+\hline
+{\em starting\+Price} & Cena początkowa aukcji. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Zwraca}
+Utworzona aukcja. 
+\end{DoxyReturn}
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_services_1_1_bidding_1_1_auction_service_a48639846cdd196bc4c2148e56a510bf3}\index{Sklep\_internetowy.Server.Services.Bidding.AuctionService@{Sklep\_internetowy.Server.Services.Bidding.AuctionService}!FinishAuctionAsync@{FinishAuctionAsync}}
+\index{FinishAuctionAsync@{FinishAuctionAsync}!Sklep\_internetowy.Server.Services.Bidding.AuctionService@{Sklep\_internetowy.Server.Services.Bidding.AuctionService}}
+\doxysubsubsection{\texorpdfstring{FinishAuctionAsync()}{FinishAuctionAsync()}}
+{\footnotesize\ttfamily \label{class_sklep__internetowy_1_1_server_1_1_services_1_1_bidding_1_1_auction_service_a48639846cdd196bc4c2148e56a510bf3} 
+async Task Sklep\+\_\+internetowy.\+Server.\+Services.\+Bidding.\+Auction\+Service.\+Finish\+Auction\+Async (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_models_1_1_auction}{Auction}}}]{auction}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Finalizuje aukcję po jej zakończeniu. 
+
+Ustawia zwycięzcę, oznacza aukcję jako zakończoną oraz aktualizuje właściciela produktu. 
+\begin{DoxyParams}{Parametry}
+{\em auction} & Aukcja do zakończenia. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_services_1_1_bidding_1_1_auction_service_a18c79b9dbf46d1fd10ae38e72b4a7bd5}\index{Sklep\_internetowy.Server.Services.Bidding.AuctionService@{Sklep\_internetowy.Server.Services.Bidding.AuctionService}!GetActiveAuctionsAsync@{GetActiveAuctionsAsync}}
+\index{GetActiveAuctionsAsync@{GetActiveAuctionsAsync}!Sklep\_internetowy.Server.Services.Bidding.AuctionService@{Sklep\_internetowy.Server.Services.Bidding.AuctionService}}
+\doxysubsubsection{\texorpdfstring{GetActiveAuctionsAsync()}{GetActiveAuctionsAsync()}}
+{\footnotesize\ttfamily \label{class_sklep__internetowy_1_1_server_1_1_services_1_1_bidding_1_1_auction_service_a18c79b9dbf46d1fd10ae38e72b4a7bd5} 
+async Task$<$ List$<$ \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_auction_dto}{Auction\+Dto}} $>$ $>$ Sklep\+\_\+internetowy.\+Server.\+Services.\+Bidding.\+Auction\+Service.\+Get\+Active\+Auctions\+Async (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Pobiera listę wszystkich aktywnych (niezakończonych) aukcji. 
+
+\begin{DoxyReturn}{Zwraca}
+Lista obiektów \doxylink{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_auction_dto}{Auction\+Dto}. 
+\end{DoxyReturn}
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_services_1_1_bidding_1_1_auction_service_aafa4f74017d9d1b5220ed3a95045a831}\index{Sklep\_internetowy.Server.Services.Bidding.AuctionService@{Sklep\_internetowy.Server.Services.Bidding.AuctionService}!GetAuctionByIdAsync@{GetAuctionByIdAsync}}
+\index{GetAuctionByIdAsync@{GetAuctionByIdAsync}!Sklep\_internetowy.Server.Services.Bidding.AuctionService@{Sklep\_internetowy.Server.Services.Bidding.AuctionService}}
+\doxysubsubsection{\texorpdfstring{GetAuctionByIdAsync()}{GetAuctionByIdAsync()}}
+{\footnotesize\ttfamily \label{class_sklep__internetowy_1_1_server_1_1_services_1_1_bidding_1_1_auction_service_aafa4f74017d9d1b5220ed3a95045a831} 
+async Task$<$ \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_models_1_1_auction}{Auction}}?$>$ Sklep\+\_\+internetowy.\+Server.\+Services.\+Bidding.\+Auction\+Service.\+Get\+Auction\+By\+Id\+Async (\begin{DoxyParamCaption}\item[{int}]{auction\+Id}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Pobiera aukcję na podstawie jej identyfikatora. 
+
+
+\begin{DoxyParams}{Parametry}
+{\em auction\+Id} & Identyfikator aukcji. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Zwraca}
+Obiekt aukcji lub null, jeśli nie istnieje. 
+\end{DoxyReturn}
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_services_1_1_bidding_1_1_auction_service_a044d72c40cd671d4e64fe4e2f178775b}\index{Sklep\_internetowy.Server.Services.Bidding.AuctionService@{Sklep\_internetowy.Server.Services.Bidding.AuctionService}!PlaceBidAsync@{PlaceBidAsync}}
+\index{PlaceBidAsync@{PlaceBidAsync}!Sklep\_internetowy.Server.Services.Bidding.AuctionService@{Sklep\_internetowy.Server.Services.Bidding.AuctionService}}
+\doxysubsubsection{\texorpdfstring{PlaceBidAsync()}{PlaceBidAsync()}}
+{\footnotesize\ttfamily \label{class_sklep__internetowy_1_1_server_1_1_services_1_1_bidding_1_1_auction_service_a044d72c40cd671d4e64fe4e2f178775b} 
+async Task$<$ bool $>$ Sklep\+\_\+internetowy.\+Server.\+Services.\+Bidding.\+Auction\+Service.\+Place\+Bid\+Async (\begin{DoxyParamCaption}\item[{int}]{auction\+Id}{, }\item[{decimal}]{amount}{, }\item[{string}]{user\+Id}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Składa ofertę w aukcji. 
+
+Sprawdza poprawność aukcji, wysokość oferty oraz aktualizuje dane w bazie. 
+\begin{DoxyParams}{Parametry}
+{\em auction\+Id} & Identyfikator aukcji. \\
+\hline
+{\em amount} & Kwota oferty. \\
+\hline
+{\em user\+Id} & Identyfikator użytkownika składającego ofertę. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Zwraca}
+True jeśli oferta została przyjęta, w przeciwnym wypadku false. 
+\end{DoxyReturn}
+
+
+Dokumentacja dla tej klasy została wygenerowana z pliku:\+\begin{DoxyCompactItemize}
+\item 
+Sklep\+\_\+internetowy.\+Server/\+\+Services/\+\+Bidding/\+Auction\+Service.\+cs\end{DoxyCompactItemize}

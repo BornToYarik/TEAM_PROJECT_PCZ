@@ -1,0 +1,124 @@
+\doxysection{Dokumentacja klasy Sklep\+\_\+internetowy.\+Server.\+Services.\+Promotion.\+Promotion\+Service}
+\hypertarget{class_sklep__internetowy_1_1_server_1_1_services_1_1_promotion_1_1_promotion_service}{}\label{class_sklep__internetowy_1_1_server_1_1_services_1_1_promotion_1_1_promotion_service}\index{Sklep\_internetowy.Server.Services.Promotion.PromotionService@{Sklep\_internetowy.Server.Services.Promotion.PromotionService}}
+
+
+Serwis biznesowy odpowiedzialny za zaawansowane zarządzanie akcjami promocyjnymi w systemie Tech\+Store. Klasa dostarcza metody do identyfikacji produktów o niskiej rotacji, masowego nakładania rabatów oraz automatycznego czyszczenia bazy danych z wygasłych ofert cenowych.  
+
+
+
+
+Diagram współpracy dla Sklep\+\_\+internetowy.\+Server.\+Services.\+Promotion.\+Promotion\+Service:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=254pt]{class_sklep__internetowy_1_1_server_1_1_services_1_1_promotion_1_1_promotion_service__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Metody publiczne}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_services_1_1_promotion_1_1_promotion_service_a3bdf8b4d8b38221e21b28d799c98ba99}{Promotion\+Service}} (\doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_data_1_1_store_db_context}{Store\+Db\+Context}} context)
+\begin{DoxyCompactList}\small\item\em Inicjalizuje nową instancję klasy \doxylink{class_sklep__internetowy_1_1_server_1_1_services_1_1_promotion_1_1_promotion_service}{Promotion\+Service}. \end{DoxyCompactList}\item 
+async Task$<$ IEnumerable$<$ \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_product_dto}{Product\+Dto}} $>$ $>$ \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_services_1_1_promotion_1_1_promotion_service_a9835818d447fc7fac885cbe03ad73764}{Get\+Promotion\+Candidates\+Async}} (int? category\+Id, int min\+Stock, int days\+Since\+Last\+Sale)
+\begin{DoxyCompactList}\small\item\em Analizuje stan magazynowy i wyszukuje produkty kwalifikujące się do objęcia nową akcją promocyjną. \end{DoxyCompactList}\item 
+async Task$<$ int $>$ \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_services_1_1_promotion_1_1_promotion_service_a96fe6e1a6e8a68afff975968a7f599eb}{Apply\+Bulk\+Discounts\+Async}} (List$<$ int $>$ product\+Ids, int percentage, int duration\+Days)
+\begin{DoxyCompactList}\small\item\em Wykonuje operację masowej aktualizacji cen (Bulk Update) dla wybranych produktów. \end{DoxyCompactList}\item 
+async Task$<$ int $>$ \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_services_1_1_promotion_1_1_promotion_service_ac7562759aebf7b8697c0ffd129e59ccf}{Remove\+Expired\+Discounts\+Async}} ()
+\begin{DoxyCompactList}\small\item\em Przeprowadza procedurę czyszczenia rekordów promocyjnych, których termin ważności upłynął. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Opis szczegółowy}
+Serwis biznesowy odpowiedzialny za zaawansowane zarządzanie akcjami promocyjnymi w systemie Tech\+Store. Klasa dostarcza metody do identyfikacji produktów o niskiej rotacji, masowego nakładania rabatów oraz automatycznego czyszczenia bazy danych z wygasłych ofert cenowych. 
+
+\label{doc-constructors}
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_services_1_1_promotion_1_1_promotion_service_doc-constructors}
+\doxysubsection{Dokumentacja konstruktora i destruktora}
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_services_1_1_promotion_1_1_promotion_service_a3bdf8b4d8b38221e21b28d799c98ba99}\index{Sklep\_internetowy.Server.Services.Promotion.PromotionService@{Sklep\_internetowy.Server.Services.Promotion.PromotionService}!PromotionService@{PromotionService}}
+\index{PromotionService@{PromotionService}!Sklep\_internetowy.Server.Services.Promotion.PromotionService@{Sklep\_internetowy.Server.Services.Promotion.PromotionService}}
+\doxysubsubsection{\texorpdfstring{PromotionService()}{PromotionService()}}
+{\footnotesize\ttfamily \label{class_sklep__internetowy_1_1_server_1_1_services_1_1_promotion_1_1_promotion_service_a3bdf8b4d8b38221e21b28d799c98ba99} 
+Sklep\+\_\+internetowy.\+Server.\+Services.\+Promotion.\+Promotion\+Service.\+Promotion\+Service (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_data_1_1_store_db_context}{Store\+Db\+Context}}}]{context}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Inicjalizuje nową instancję klasy \doxylink{class_sklep__internetowy_1_1_server_1_1_services_1_1_promotion_1_1_promotion_service}{Promotion\+Service}. 
+
+
+\begin{DoxyParams}{Parametry}
+{\em context} & Kontekst bazy danych umożliwiający dostęp do repozytorium produktów i kategorii.\\
+\hline
+\end{DoxyParams}
+
+
+\label{doc-func-members}
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_services_1_1_promotion_1_1_promotion_service_doc-func-members}
+\doxysubsection{Dokumentacja funkcji składowych}
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_services_1_1_promotion_1_1_promotion_service_a96fe6e1a6e8a68afff975968a7f599eb}\index{Sklep\_internetowy.Server.Services.Promotion.PromotionService@{Sklep\_internetowy.Server.Services.Promotion.PromotionService}!ApplyBulkDiscountsAsync@{ApplyBulkDiscountsAsync}}
+\index{ApplyBulkDiscountsAsync@{ApplyBulkDiscountsAsync}!Sklep\_internetowy.Server.Services.Promotion.PromotionService@{Sklep\_internetowy.Server.Services.Promotion.PromotionService}}
+\doxysubsubsection{\texorpdfstring{ApplyBulkDiscountsAsync()}{ApplyBulkDiscountsAsync()}}
+{\footnotesize\ttfamily \label{class_sklep__internetowy_1_1_server_1_1_services_1_1_promotion_1_1_promotion_service_a96fe6e1a6e8a68afff975968a7f599eb} 
+async Task$<$ int $>$ Sklep\+\_\+internetowy.\+Server.\+Services.\+Promotion.\+Promotion\+Service.\+Apply\+Bulk\+Discounts\+Async (\begin{DoxyParamCaption}\item[{List$<$ int $>$}]{product\+Ids}{, }\item[{int}]{percentage}{, }\item[{int}]{duration\+Days}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Wykonuje operację masowej aktualizacji cen (Bulk Update) dla wybranych produktów. 
+
+Metoda automatycznie wyznacza datę rozpoczęcia (bieżący czas UTC) oraz datę zakończenia na podstawie przekazanego parametru czasu trwania. Wszystkie zmiany są zatwierdzane w ramach jednej transakcji. 
+
+
+\begin{DoxyParams}{Parametry}
+{\em product\+Ids} & Lista unikalnych identyfikatorów produktów objętych przeceną.\\
+\hline
+{\em percentage} & Wartość procentowa rabatu (np. 15 dla 15\% zniżki).\\
+\hline
+{\em duration\+Days} & Liczba dni, przez które promocja ma pozostać aktywna.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Zwraca}
+Liczba rekordów pomyślnie zaktualizowanych w bazie danych.
+\end{DoxyReturn}
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_services_1_1_promotion_1_1_promotion_service_a9835818d447fc7fac885cbe03ad73764}\index{Sklep\_internetowy.Server.Services.Promotion.PromotionService@{Sklep\_internetowy.Server.Services.Promotion.PromotionService}!GetPromotionCandidatesAsync@{GetPromotionCandidatesAsync}}
+\index{GetPromotionCandidatesAsync@{GetPromotionCandidatesAsync}!Sklep\_internetowy.Server.Services.Promotion.PromotionService@{Sklep\_internetowy.Server.Services.Promotion.PromotionService}}
+\doxysubsubsection{\texorpdfstring{GetPromotionCandidatesAsync()}{GetPromotionCandidatesAsync()}}
+{\footnotesize\ttfamily \label{class_sklep__internetowy_1_1_server_1_1_services_1_1_promotion_1_1_promotion_service_a9835818d447fc7fac885cbe03ad73764} 
+async Task$<$ IEnumerable$<$ \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_product_dto}{Product\+Dto}} $>$ $>$ Sklep\+\_\+internetowy.\+Server.\+Services.\+Promotion.\+Promotion\+Service.\+Get\+Promotion\+Candidates\+Async (\begin{DoxyParamCaption}\item[{int?}]{category\+Id}{, }\item[{int}]{min\+Stock}{, }\item[{int}]{days\+Since\+Last\+Sale}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Analizuje stan magazynowy i wyszukuje produkty kwalifikujące się do objęcia nową akcją promocyjną. 
+
+Metoda filtruje produkty, które posiadają stan magazynowy powyżej określonego progu i nie są obecnie objęte żadną aktywną zniżką (sprawdzane są ramy czasowe oraz status pola Discount\+Percentage). 
+
+
+\begin{DoxyParams}{Parametry}
+{\em category\+Id} & Opcjonalny identyfikator kategorii, do której ma zostać ograniczone wyszukiwanie.\\
+\hline
+{\em min\+Stock} & Minimalna liczba sztuk produktu wymagana, aby system uznał go za kandydata do promocji.\\
+\hline
+{\em days\+Since\+Last\+Sale} & Parametr określający czas braku aktywności sprzedażowej (liczba dni).\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Zwraca}
+Kolekcja obiektów \doxylink{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_product_dto}{Product\+Dto} reprezentujących wyselekcjonowane produkty.
+\end{DoxyReturn}
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_services_1_1_promotion_1_1_promotion_service_ac7562759aebf7b8697c0ffd129e59ccf}\index{Sklep\_internetowy.Server.Services.Promotion.PromotionService@{Sklep\_internetowy.Server.Services.Promotion.PromotionService}!RemoveExpiredDiscountsAsync@{RemoveExpiredDiscountsAsync}}
+\index{RemoveExpiredDiscountsAsync@{RemoveExpiredDiscountsAsync}!Sklep\_internetowy.Server.Services.Promotion.PromotionService@{Sklep\_internetowy.Server.Services.Promotion.PromotionService}}
+\doxysubsubsection{\texorpdfstring{RemoveExpiredDiscountsAsync()}{RemoveExpiredDiscountsAsync()}}
+{\footnotesize\ttfamily \label{class_sklep__internetowy_1_1_server_1_1_services_1_1_promotion_1_1_promotion_service_ac7562759aebf7b8697c0ffd129e59ccf} 
+async Task$<$ int $>$ Sklep\+\_\+internetowy.\+Server.\+Services.\+Promotion.\+Promotion\+Service.\+Remove\+Expired\+Discounts\+Async (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Przeprowadza procedurę czyszczenia rekordów promocyjnych, których termin ważności upłynął. 
+
+Metoda wyszukuje produkty z datą końcową mniejszą niż aktualny czas systemowy i resetuje wszystkie pola związane z rabatem do wartości domyślnych (null). 
+
+\begin{DoxyReturn}{Zwraca}
+Liczba produktów, z których pomyślnie usunięto wygasłe promocje.
+\end{DoxyReturn}
+
+
+Dokumentacja dla tej klasy została wygenerowana z pliku:\+\begin{DoxyCompactItemize}
+\item 
+Sklep\+\_\+internetowy.\+Server/\+\+Services/\+\+Promotion/\+Promotion\+Service.\+cs\end{DoxyCompactItemize}

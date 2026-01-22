@@ -1,0 +1,65 @@
+\doxysection{Dokumentacja klasy Sklep\+\_\+internetowy.\+Server.\+Services.\+Auth.\+Jwt\+Service(IOptions\texorpdfstring{$<$}{<} Auth\+Settings \texorpdfstring{$>$}{>} options, User\+Manager\texorpdfstring{$<$}{<} User \texorpdfstring{$>$}{>} user\+Manager)}
+\hypertarget{class_sklep__internetowy_1_1_server_1_1_services_1_1_auth_1_1_jwt_service}{}\label{class_sklep__internetowy_1_1_server_1_1_services_1_1_auth_1_1_jwt_service}\index{Sklep\_internetowy.Server.Services.Auth.JwtService@{Sklep\_internetowy.Server.Services.Auth.JwtService}}
+
+
+Serwis odpowiedzialny za generowanie tokenów JWT dla użytkowników.  
+
+
+
+
+Diagram współpracy dla Sklep\+\_\+internetowy.\+Server.\+Services.\+Auth.\+Jwt\+Service:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=202pt]{class_sklep__internetowy_1_1_server_1_1_services_1_1_auth_1_1_jwt_service__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Metody publiczne}
+\begin{DoxyCompactItemize}
+\item 
+async Task$<$ string $>$ \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_services_1_1_auth_1_1_jwt_service_a1ab4dbdcfa27bb6ef94f342370ab01f8}{Generate\+Token}} (\doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_models_1_1_user}{User}} user)
+\begin{DoxyCompactList}\small\item\em Generuje token JWT dla podanego użytkownika. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Opis szczegółowy}
+Serwis odpowiedzialny za generowanie tokenów JWT dla użytkowników. 
+
+Tworzy token JWT zawierający dane użytkownika oraz jego role na podstawie ustawień z klasy \doxylink{class_sklep__internetowy_1_1_server_1_1_services_1_1_auth_1_1_auth_settings}{Auth\+Settings}. 
+
+\label{doc-func-members}
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_services_1_1_auth_1_1_jwt_service_doc-func-members}
+\doxysubsection{Dokumentacja funkcji składowych}
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_services_1_1_auth_1_1_jwt_service_a1ab4dbdcfa27bb6ef94f342370ab01f8}\index{Sklep\_internetowy.Server.Services.Auth.JwtService@{Sklep\_internetowy.Server.Services.Auth.JwtService}!GenerateToken@{GenerateToken}}
+\index{GenerateToken@{GenerateToken}!Sklep\_internetowy.Server.Services.Auth.JwtService@{Sklep\_internetowy.Server.Services.Auth.JwtService}}
+\doxysubsubsection{\texorpdfstring{GenerateToken()}{GenerateToken()}}
+{\footnotesize\ttfamily \label{class_sklep__internetowy_1_1_server_1_1_services_1_1_auth_1_1_jwt_service_a1ab4dbdcfa27bb6ef94f342370ab01f8} 
+async Task$<$ string $>$ Sklep\+\_\+internetowy.\+Server.\+Services.\+Auth.\+Jwt\+Service.\+Generate\+Token (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_models_1_1_user}{User}}}]{user}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Generuje token JWT dla podanego użytkownika. 
+
+
+\begin{DoxyParams}{Parametry}
+{\em user} & Obiekt użytkownika, dla którego generowany jest token. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Zwraca}
+Ciąg znaków reprezentujący token JWT. 
+\end{DoxyReturn}
+Lista claimów umieszczanych w tokenie JWT.
+
+Zawiera podstawowe informacje identyfikujące użytkownika.
+
+Pobranie ról przypisanych do użytkownika.
+
+Dodanie ról użytkownika do listy claimów.
+
+Utworzenie obiektu tokena JWT.
+
+Serializacja tokena JWT do postaci tekstowej.
+
+Dokumentacja dla tej klasy została wygenerowana z pliku:\+\begin{DoxyCompactItemize}
+\item 
+Sklep\+\_\+internetowy.\+Server/\+\+Services/\+\+Auth/\+Jwt\+Service.\+cs\end{DoxyCompactItemize}

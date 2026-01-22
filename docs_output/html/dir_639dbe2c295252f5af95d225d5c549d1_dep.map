@@ -1,0 +1,16 @@
+<map id="sklep_internetowy.client/src/pages" name="sklep_internetowy.client/src/pages">
+<area shape="rect" id="node2" href="dir_bf90b6dcd8fb459db19493b241c7d492.html" title="AdminDashboard" alt="" coords="118,64,239,91"/>
+<area shape="rect" id="node3" href="dir_2c06588f3c625df73991fb31f1da76b4.html" title="Auction" alt="" coords="263,64,329,91"/>
+<area shape="rect" id="node4" href="dir_5a2e42d7facf988febe5dfec1ae8b58d.html" title="Cart" alt="" coords="353,64,399,91"/>
+<area shape="rect" id="node5" href="dir_42483a67a054afe232bccdc0f9a0e696.html" title="ForgotPassword" alt="" coords="423,64,540,91"/>
+<area shape="rect" id="node6" href="dir_1f285efb0102c7357e2a3f3c669f3e00.html" title="Home" alt="" coords="564,64,620,91"/>
+<area shape="rect" id="node7" href="dir_a0259d39b8482994f91a069ba813e349.html" title="LoginPage" alt="" coords="644,64,726,91"/>
+<area shape="rect" id="node8" href="dir_84f4d864600474148a28ca04e3a1f615.html" title="Payment" alt="" coords="750,64,823,91"/>
+<area shape="rect" id="node9" href="dir_e68e90ac41f4fa41be8809105dd3149a.html" title="Products" alt="" coords="847,64,921,91"/>
+<area shape="rect" id="node10" href="dir_c2b868601ec553742d842385dc4ab740.html" title="Registration" alt="" coords="945,64,1036,91"/>
+<area shape="rect" id="node11" href="dir_daa8e266111d32cc64069ea9079d17ef.html" title="ResetPassword" alt="" coords="1060,64,1174,91"/>
+<area shape="rect" id="node12" href="dir_54d3ca6416817e9c3e86de0ef9893546.html" title="UserProfile" alt="" coords="1198,64,1284,91"/>
+<area shape="rect" id="node13" href="dir_eb15adb0d71db913ae47692b97b4c03b.html" title="WishList" alt="" coords="1309,64,1382,91"/>
+<area shape="rect" id="clust2" href="dir_639dbe2c295252f5af95d225d5c549d1.html" alt="" coords="27,53,1392,101"/>
+<area shape="rect" id="clust1" href="dir_a480f0ed79f8eb3b7329befb5c92fa46.html" title="src" alt="" coords="16,16,1403,112"/>
+</map>

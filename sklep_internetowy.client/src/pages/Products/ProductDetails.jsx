@@ -4,20 +4,49 @@ import { ArrowLeft, Edit, Trash2 } from 'lucide-react';
 import ProductForm from '../../components/admin/product/ProductForm';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
+/**
+ * @file ProductDetails.jsx
+ * @brief Komponent widoku szczegolowego produktu przeznaczony dla panelu administracyjnego.
+ * @details Modul odpowiada za wyswietlanie pelnych informacji o konkretnym produkcie, 
+ * umozliwia przelaczenie w tryb edycji przy uzyciu ProductForm oraz wykonanie 
+ * operacji usuniecia produktu z systemu.
+ */
+
+/**
+ * @component ProductDetails
+ * @description Zarzadza stanem pojedynczego produktu, obsluguje asynchroniczne pobieranie danych 
+ * oraz koordynuje procesy aktualizacji i usuwania rekordow poprzez API.
+ */
 function ProductDetails() {
+    /** @brief Pobranie identyfikatora produktu z parametrow sciezki URL. */
     const { id } = useParams();
     const navigate = useNavigate();
+
+    /** @brief Stan przechowujacy szczegolowe dane pobranego produktu. */
     const [product, setProduct] = useState(null);
+    /** @brief Flaga kontrolujaca wyswietlanie stanu ladowania. */
     const [loading, setLoading] = useState(true);
+    /** @brief Przechowuje komunikaty o bledach operacji API. */
     const [error, setError] = useState('');
+    /** @brief Flaga okreslajaca widocznosc formularza edycji. */
     const [showForm, setShowForm] = useState(false);
 
+    /** @brief Bazowy adres URL dla punktu koncowego API produktow. */
     const API_URL = '/api/panel/Product';
 
+    /**
+     * @effect Inicjalizacja danych.
+     * @description Pobiera dane produktu przy kazdym zamontowaniu komponentu lub zmianie ID.
+     */
     useEffect(() => {
         fetchProduct();
     }, [id]);
 
+    /**
+     * @function fetchProduct
+     * @async
+     * @description Pobiera z serwera dane konkretnego produktu na podstawie identyfikatora.
+     */
     const fetchProduct = async () => {
         setLoading(true);
         setError('');
@@ -38,6 +67,12 @@ function ProductDetails() {
         }
     };
 
+    /**
+     * @function handleFormSubmit
+     * @async
+     * @description Obsluguje wysylanie zaktualizowanych danych produktu do API.
+     * @param {Object} formData - Obiekt danych zwalidowany przez ProductForm.
+     */
     const handleFormSubmit = async (formData) => {
         setError('');
 
@@ -71,6 +106,11 @@ function ProductDetails() {
         }
     };
 
+    /**
+     * @function handleDelete
+     * @async
+     * @description Usuwa produkt z bazy danych po potwierdzeniu przez uzytkownika.
+     */
     const handleDelete = async () => {
         if (!window.confirm('Are you sure you want to delete this product?')) {
             return;
@@ -133,6 +173,7 @@ function ProductDetails() {
                 </div>
             )}
 
+            {/* Renderowanie warunkowe: Formularz lub Podglad */}
             {showForm ? (
                 <ProductForm
                     onSubmit={handleFormSubmit}

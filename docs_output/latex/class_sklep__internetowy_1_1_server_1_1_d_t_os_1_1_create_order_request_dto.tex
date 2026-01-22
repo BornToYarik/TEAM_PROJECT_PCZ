@@ -1,0 +1,34 @@
+\doxysection{Dokumentacja klasy Sklep\+\_\+internetowy.\+Server.\+DTOs.\+Create\+Order\+Request\+Dto}
+\hypertarget{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_create_order_request_dto}{}\label{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_create_order_request_dto}\index{Sklep\_internetowy.Server.DTOs.CreateOrderRequestDto@{Sklep\_internetowy.Server.DTOs.CreateOrderRequestDto}}
+
+
+Obiekt transferu danych (DTO) reprezentujący kompletne żądanie utworzenia nowego zamówienia. Przesyłany z warstwy frontendu podczas finalizacji koszyka zakupowego w celu zainicjowania transakcji po stronie serwerowej.  
+
+
+
+
+Diagram współpracy dla Sklep\+\_\+internetowy.\+Server.\+DTOs.\+Create\+Order\+Request\+Dto:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=223pt]{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_create_order_request_dto__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Właściwości}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_create_order_request_dto_a2c23e6f3dcb0ce63f58cba5615ca0843}\label{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_create_order_request_dto_a2c23e6f3dcb0ce63f58cba5615ca0843} 
+string {\bfseries User\+Id} = null!\hspace{0.3cm}{\ttfamily  \+[get, set]\+}
+\begin{DoxyCompactList}\small\item\em Unikalny identyfikator użytkownika (GUID) składającego zamówienie. \end{DoxyCompactList}\item 
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_create_order_request_dto_ad4705dfc071e275e677275aaa7ceda7e}\label{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_create_order_request_dto_ad4705dfc071e275e677275aaa7ceda7e} 
+List$<$ \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_create_order_item_dto}{Create\+Order\+Item\+Dto}} $>$ {\bfseries Products} = new List$<$\doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_create_order_item_dto}{Create\+Order\+Item\+Dto}}$>$()\hspace{0.3cm}{\ttfamily  \+[get, set]\+}
+\begin{DoxyCompactList}\small\item\em Lista pozycji wchodzących w skład zamówienia (kolekcja produktów wraz z ilościami). \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Opis szczegółowy}
+Obiekt transferu danych (DTO) reprezentujący kompletne żądanie utworzenia nowego zamówienia. Przesyłany z warstwy frontendu podczas finalizacji koszyka zakupowego w celu zainicjowania transakcji po stronie serwerowej. 
+
+Dokumentacja dla tej klasy została wygenerowana z pliku:\+\begin{DoxyCompactItemize}
+\item 
+Sklep\+\_\+internetowy.\+Server/\+\+DTOs/\+Create\+Order\+Dto.\+cs\end{DoxyCompactItemize}

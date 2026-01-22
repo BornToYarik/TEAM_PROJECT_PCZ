@@ -3,29 +3,54 @@ import { useLocation, Link, useNavigate } from 'react-router-dom';
 import { ArrowLeft, Search, Filter, Trash2, Package, Check, Tag } from 'lucide-react';
 import { useCart } from "../../../context/CartContext";
 
+/**
+ * @file SearchPage.jsx
+ * @brief Komponent strony wynikow wyszukiwania z zaawansowanym filtrowaniem i sortowaniem.
+ * @details Modul odpowiada za prezentacje wynikow wyszukiwania tekstowego, umozliwiajac 
+ * uzytkownikowi dynamiczne zawezanie listy produktow wedlug ceny, marki oraz statusu promocji.
+ */
+
+/**
+ * @component SearchPage
+ * @description Glowny komponent strony wyszukiwania. Zarzadza stanem wynikow pobranych z API, 
+ * lista producentow oraz kompleksowa logika filtrow po stronie klienta.
+ */
 function SearchPage() {
+    /** @brief Stan przechowujacy surowa liste produktow zwrocona przez wyszukiwarke API. */
     const [products, setProducts] = useState([]);
+    /** @brief Lista wszystkich dostepnych marek (pobrana z API lub zdefiniowana domyslnie). */
     const [allBrands, setAllBrands] = useState([]);
+    /** @brief Flaga logiczna okreslajaca stan ladowania danych. */
     const [loading, setLoading] = useState(false);
+    /** @brief Tresc bledu w przypadku problemow z polaczeniem lub serwerem. */
     const [error, setError] = useState('');
+    /** @brief Aktualnie wyszukiwana fraza tekstowa wyodrebniona z adresu URL. */
     const [searchQuery, setSearchQuery] = useState('');
 
-    // Фильтры и сортировка
+    /** @brief Stan filtrow cenowych (cena minimalna i maksymalna). */
     const [minPrice, setMinPrice] = useState('');
     const [maxPrice, setMaxPrice] = useState('');
+    /** @brief Tablica wybranych identyfikatorow marek do filtrowania. */
     const [selectedBrands, setSelectedBrands] = useState([]);
-    const [onlyPromoted, setOnlyPromoted] = useState(false); // Состояние для фильтра "Promocja"
+    /** @brief Flaga filtrujaca wylacznie produkty objete aktywna promocja. */
+    const [onlyPromoted, setOnlyPromoted] = useState(false);
+    /** @brief Wybrany tryb sortowania wynikow (domyslny, cena, nazwa). */
     const [sortOrder, setSortOrder] = useState('default');
 
     const location = useLocation();
     const navigate = useNavigate();
     const { addToCart } = useCart();
 
+    /** @brief Lista popularnych marek uzywana jako fallback w przypadku braku danych z bazy. */
     const POPULAR_BRANDS_STUB = [
         "Apple", "Samsung", "Sony", "LG", "ASUS", "HP", "Logitech",
         "MSI", "Intel", "Nvidia", "Dell", "Lenovo", "Xiaomi", "Huawei", "Microsoft"
     ];
 
+    /**
+     * @effect Inicjalizacja danych przy kazdej zmianie parametrow URL.
+     * @description Pobiera aktualna fraze wyszukiwania (q) i wywoluje funkcje API.
+     */
     useEffect(() => {
         const params = new URLSearchParams(location.search);
         const query = params.get('q') || '';
@@ -37,6 +62,11 @@ function SearchPage() {
         fetchAllBrands();
     }, [location.search]);
 
+    /**
+     * @function fetchAllBrands
+     * @async
+     * @description Pobiera unikalna liste marek produktow z bazy danych w celu wypelnienia filtra bocznego.
+     */
     const fetchAllBrands = async () => {
         try {
             const response = await fetch('/api/panel/Product/all-brands');
@@ -52,6 +82,12 @@ function SearchPage() {
         }
     };
 
+    /**
+     * @function fetchSearchResults
+     * @async
+     * @description Wysyla zapytanie do serwera o produkty pasujace do podanej frazy.
+     * @param {string} query - Fraza wyszukiwania przekazana do API.
+     */
     const fetchSearchResults = async (query) => {
         setLoading(true);
         setError('');
@@ -70,25 +106,30 @@ function SearchPage() {
         }
     };
 
-    // Главный алгоритм фильтрации и сортировки
+    /**
+     * @function processedProducts
+     * @description Glowny algorytm przetwarzania danych (memoizowany).
+     * @details Filtruje i sortuje pobrana liste produktow w pamieci przegladarki na podstawie stanu filtrow.
+     * @returns {Array} Przetworzona lista produktow gotowa do wyswietlenia.
+     */
     const processedProducts = useMemo(() => {
         let result = [...products];
 
-        // 1. Фильтр по цене
+        // 1. Filtr po cenie
         if (minPrice) result = result.filter(p => p.finalPrice >= parseFloat(minPrice));
         if (maxPrice) result = result.filter(p => p.finalPrice <= parseFloat(maxPrice));
 
-        // 2. Фильтр по брендам
+        // 2. Filtr po markach
         if (selectedBrands.length > 0) {
             result = result.filter(p => selectedBrands.includes(p.brand));
         }
 
-        // 3. Фильтр по статусу (Promocja)
+        // 3. Filtr po statusie (Promocja)
         if (onlyPromoted) {
             result = result.filter(p => p.hasActiveDiscount);
         }
 
-        // 4. Сортировка
+        // 4. Logika sortowania
         if (sortOrder === 'price-asc') result.sort((a, b) => a.finalPrice - b.finalPrice);
         if (sortOrder === 'price-desc') result.sort((a, b) => b.finalPrice - a.finalPrice);
         if (sortOrder === 'name-asc') result.sort((a, b) => a.name.localeCompare(b.name));
@@ -96,12 +137,21 @@ function SearchPage() {
         return result;
     }, [products, minPrice, maxPrice, selectedBrands, onlyPromoted, sortOrder]);
 
+    /**
+     * @function handleBrandToggle
+     * @description Przelacza zaznaczenie danej marki w liscie filtrow producentow.
+     * @param {string} brand - Nazwa marki do dodania lub usuniecia z zestawu.
+     */
     const handleBrandToggle = (brand) => {
         setSelectedBrands(prev =>
             prev.includes(brand) ? prev.filter(b => b !== brand) : [...prev, brand]
         );
     };
 
+    /**
+     * @function resetFilters
+     * @description Przywraca wszystkie filtry oraz parametry sortowania do wartosci domyslnych.
+     */
     const resetFilters = () => {
         setMinPrice('');
         setMaxPrice('');
@@ -143,7 +193,7 @@ function SearchPage() {
                             )}
                         </div>
 
-                        {/* Status Filter (Promocja) */}
+                        {/* Sekcja statusu (Promocje) */}
                         <div className="card border-0 shadow-sm mb-3 p-3">
                             <label className="fw-bold small text-uppercase text-muted mb-3 d-flex align-items-center gap-2">
                                 Status
@@ -162,7 +212,7 @@ function SearchPage() {
                             </div>
                         </div>
 
-                        {/* Price Filter */}
+                        {/* Sekcja zakresu cenowego */}
                         <div className="card border-0 shadow-sm mb-3 p-3">
                             <label className="fw-bold small text-uppercase text-muted mb-3">Price range (zl)</label>
                             <div className="d-flex align-items-center gap-2">
@@ -178,7 +228,7 @@ function SearchPage() {
                             </div>
                         </div>
 
-                        {/* Brands Filter */}
+                        {/* Sekcja wyboru producenta */}
                         <div className="card border-0 shadow-sm p-3">
                             <label className="fw-bold small text-uppercase text-muted mb-3">Producer</label>
                             <div className="brand-scroll-box" style={{ maxHeight: '400px', overflowY: 'auto', paddingRight: '5px' }}>
@@ -232,6 +282,7 @@ function SearchPage() {
 
                     {error && <div className="alert alert-danger shadow-sm border-0">{error}</div>}
 
+                    {/* Prezentacja listy produktow */}
                     {processedProducts.length > 0 ? (
                         <div className="d-flex flex-column gap-3">
                             {processedProducts.map((p) => (
@@ -306,6 +357,7 @@ function SearchPage() {
                             ))}
                         </div>
                     ) : (
+                        /* Widok braku wynikow */
                         <div className="text-center py-5 bg-white rounded shadow-sm border mt-4">
                             <Search size={64} className="text-muted opacity-25 mb-4" />
                             <h3 className="h5 fw-bold">No products matched your criteria</h3>

@@ -1,0 +1,48 @@
+\doxysection{Dokumentacja pliku sklep\+\_\+internetowy.\+client/\+src/\+pages/\+\+Products/\+\+Product\+Details.jsx}
+\hypertarget{_product_details_8jsx}{}\label{_product_details_8jsx}\index{sklep\_internetowy.client/src/pages/Products/ProductDetails.jsx@{sklep\_internetowy.client/src/pages/Products/ProductDetails.jsx}}
+
+
+Komponent widoku szczegolowego produktu przeznaczony dla panelu administracyjnego.  
+
+
+\doxysubsubsection*{Zmienne}
+\begin{DoxyCompactItemize}
+\item 
+export default \doxymbox{\hyperlink{_product_details_8jsx_a75d0c2efad6638155dea7f467ad9c9bd}{Product\+Details}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Opis szczegółowy}
+Komponent widoku szczegolowego produktu przeznaczony dla panelu administracyjnego. 
+
+Modul odpowiada za wyswietlanie pelnych informacji o konkretnym produkcie, umozliwia przelaczenie w tryb edycji przy uzyciu \doxylink{class_product_form}{Product\+Form} oraz wykonanie operacji usuniecia produktu z systemu. 
+
+\label{doc-var-members}
+\Hypertarget{_product_details_8jsx_doc-var-members}
+\doxysubsection{Dokumentacja zmiennych}
+\Hypertarget{_product_details_8jsx_a75d0c2efad6638155dea7f467ad9c9bd}\index{ProductDetails.jsx@{ProductDetails.jsx}!ProductDetails@{ProductDetails}}
+\index{ProductDetails@{ProductDetails}!ProductDetails.jsx@{ProductDetails.jsx}}
+\doxysubsubsection{\texorpdfstring{ProductDetails}{ProductDetails}}
+{\footnotesize\ttfamily \label{_product_details_8jsx_a75d0c2efad6638155dea7f467ad9c9bd} 
+export default Product\+Details}
+
+Pobranie identyfikatora produktu z parametrow sciezki URL.
+
+Stan przechowujacy szczegolowe dane pobranego produktu.
+
+Flaga kontrolujaca wyswietlanie stanu ladowania.
+
+Przechowuje komunikaty o bledach operacji API.
+
+Flaga okreslajaca widocznosc formularza edycji.
+
+Bazowy adres URL dla punktu koncowego API produktow.
+
+\begin{DoxyNote}{Nota}
+React use\+Effect:\+ Inicjalizacja danych. @description Pobiera dane produktu przy kazdym zamontowaniu komponentu lub zmianie ID.
+\end{DoxyNote}
+
+
+\begin{DoxyNote}{Nota}
+Funkcja asynchroniczna @description Pobiera z serwera dane konkretnego produktu na podstawie identyfikatora.
+\end{DoxyNote}

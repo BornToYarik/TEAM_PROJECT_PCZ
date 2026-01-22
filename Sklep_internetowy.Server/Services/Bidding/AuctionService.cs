@@ -5,17 +5,35 @@ using Sklep_internetowy.Server.DTOs;
 
 namespace Sklep_internetowy.Server.Services.Bidding
 {
+    /**
+     * @class AuctionService
+     * @brief Serwis odpowiedzialny za pełną obsługę logiki aukcji.
+     * @details Umożliwia tworzenie aukcji, składanie ofert, pobieranie aktywnych aukcji
+     * oraz finalizowanie zakończonych licytacji.
+     */
     public class AuctionService
     {
         private readonly StoreDbContext _context;
         private readonly ILogger<AuctionService> _logger;
 
+        /**
+         * @brief Konstruktor serwisu AuctionService.
+         * @param context Kontekst bazy danych.
+         * @param logger Logger do zapisywania informacji diagnostycznych.
+         */
         public AuctionService(StoreDbContext context, ILogger<AuctionService> logger)
         {
             _context = context;
             _logger = logger;
         }
 
+        /**
+         * @brief Tworzy nową aukcję dla wybranego produktu.
+         * @details Sprawdza, czy produkt istnieje oraz czy nie jest już wystawiony na aukcję.
+         * @param productId Identyfikator produktu.
+         * @param startingPrice Cena początkowa aukcji.
+         * @return Utworzona aukcja.
+         */
         public async Task<Auction> CreateAuctionAsync(int productId, decimal startingPrice)
         {
             var product = await _context.Products.FindAsync(productId);
@@ -25,6 +43,7 @@ namespace Sklep_internetowy.Server.Services.Bidding
             if (product.IsOnAuction)
                 throw new Exception("Product is already on auction");
 
+            // Oznaczenie produktu jako wystawionego na aukcję
             product.IsOnAuction = true;
 
             var auction = new Auction
@@ -41,6 +60,11 @@ namespace Sklep_internetowy.Server.Services.Bidding
             return auction;
         }
 
+        /**
+         * @brief Pobiera aukcję na podstawie jej identyfikatora.
+         * @param auctionId Identyfikator aukcji.
+         * @return Obiekt aukcji lub null, jeśli nie istnieje.
+         */
         public async Task<Auction?> GetAuctionByIdAsync(int auctionId)
         {
             return await _context.Auctions
@@ -48,6 +72,14 @@ namespace Sklep_internetowy.Server.Services.Bidding
                 .FirstOrDefaultAsync(a => a.Id == auctionId);
         }
 
+        /**
+         * @brief Składa ofertę w aukcji.
+         * @details Sprawdza poprawność aukcji, wysokość oferty oraz aktualizuje dane w bazie.
+         * @param auctionId Identyfikator aukcji.
+         * @param amount Kwota oferty.
+         * @param userId Identyfikator użytkownika składającego ofertę.
+         * @return True jeśli oferta została przyjęta, w przeciwnym wypadku false.
+         */
         public async Task<bool> PlaceBidAsync(int auctionId, decimal amount, string userId)
         {
             try
@@ -78,10 +110,12 @@ namespace Sklep_internetowy.Server.Services.Bidding
 
                 _logger.LogInformation($"Updating auction: OldPrice={auction.CurrentPrice}, NewPrice={amount}");
 
+                // Aktualizacja danych aukcji
                 auction.CurrentPrice = amount;
                 auction.LastBidderId = userId;
                 auction.EndTime = DateTime.UtcNow.AddMinutes(10);
 
+                // Utworzenie rekordu oferty
                 var bid = new Bid
                 {
                     Amount = amount,
@@ -104,6 +138,10 @@ namespace Sklep_internetowy.Server.Services.Bidding
             }
         }
 
+        /**
+         * @brief Pobiera listę wszystkich aktywnych (niezakończonych) aukcji.
+         * @return Lista obiektów AuctionDto.
+         */
         public async Task<List<AuctionDto>> GetActiveAuctionsAsync()
         {
             return await _context.Auctions
@@ -120,6 +158,11 @@ namespace Sklep_internetowy.Server.Services.Bidding
                 .ToListAsync();
         }
 
+        /**
+         * @brief Finalizuje aukcję po jej zakończeniu.
+         * @details Ustawia zwycięzcę, oznacza aukcję jako zakończoną oraz aktualizuje właściciela produktu.
+         * @param auction Aukcja do zakończenia.
+         */
         public async Task FinishAuctionAsync(Auction auction)
         {
             auction.IsFinished = true;
@@ -132,7 +175,8 @@ namespace Sklep_internetowy.Server.Services.Bidding
                 {
                     product.OwnerId = auction.WinnerId;
                 }
-              
+
+                // Zdjęcie produktu z aukcji
                 product.IsOnAuction = false;
             }
 

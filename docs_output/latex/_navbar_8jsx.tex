@@ -1,0 +1,81 @@
+\doxysection{Dokumentacja pliku sklep\+\_\+internetowy.\+client/\+src/\+components/\+navbar/\+\+Navbar.jsx}
+\hypertarget{_navbar_8jsx}{}\label{_navbar_8jsx}\index{sklep\_internetowy.client/src/components/navbar/Navbar.jsx@{sklep\_internetowy.client/src/components/navbar/Navbar.jsx}}
+
+
+Komponent paska nawigacji aplikacji.  
+
+
+\doxysubsubsection*{Funkcje}
+\begin{DoxyCompactItemize}
+\item 
+function \doxymbox{\hyperlink{_navbar_8jsx_a36622ebb12ffcc755d37e5a5aed63173}{Navbar}} (\{ compare\+Count \})
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Opis szczegółowy}
+Komponent paska nawigacji aplikacji. 
+
+Odpowiada za wyswietlanie glownego menu, wyszukiwarki z podpowiedziami, przelaczanie jezyka, motywu, rozmiaru czcionki oraz za obsluge stanu logowania uzytkownika. 
+
+\label{doc-func-members}
+\Hypertarget{_navbar_8jsx_doc-func-members}
+\doxysubsection{Dokumentacja funkcji}
+\Hypertarget{_navbar_8jsx_a36622ebb12ffcc755d37e5a5aed63173}\index{Navbar.jsx@{Navbar.jsx}!Navbar@{Navbar}}
+\index{Navbar@{Navbar}!Navbar.jsx@{Navbar.jsx}}
+\doxysubsubsection{\texorpdfstring{Navbar()}{Navbar()}}
+{\footnotesize\ttfamily \label{_navbar_8jsx_a36622ebb12ffcc755d37e5a5aed63173} 
+function Navbar (\begin{DoxyParamCaption}\item[{}]{\{ compare\+Count \}}{}\end{DoxyParamCaption})}
+
+Hook tlumaczen oraz obiektu konfiguracji jezyka.
+
+Aktualna wartosc zapytania wyszukiwania.
+
+Podpowiedzi wyszukiwania dla kategorii i produktow.
+
+Flaga okreslajaca widocznosc listy podpowiedzi.
+
+Domyslny obrazek produktu uzywany gdy brak zdjecia.
+
+Flaga informujaca czy uzytkownik jest zalogowany.
+
+Flaga informujaca czy uzytkownik posiada uprawnienia administratora.
+
+Kontekst motywu oraz rozmiaru czcionki.
+
+Hook do nawigacji pomiedzy stronami.
+
+Aktualna lokalizacja routingu.
+
+Referencja do kontenera listy podpowiedzi wyszukiwania.
+
+Lista produktow w liscie zyczen.
+
+Lacznba liczba produktow w koszyku.
+
+Zmienia aktualny jezyk aplikacji. 
+\begin{DoxyParams}{Parametry}
+{\em \{string\}} & lng Kod jezyka.\\
+\hline
+\end{DoxyParams}
+Wylogowuje aktualnego uzytkownika.
+
+Usuwa dane sesji z local\+Storage i przekierowuje na strone logowania.
+
+Efekt odpowiedzialny za zamykanie listy podpowiedzi po kliknieciu poza nia.
+
+Efekt pobierajacy podpowiedzi wyszukiwania z API.
+
+Wysylany jest request po krotkim opoznieniu (debounce).
+
+Efekt reagujacy na zmiane trasy.
+
+Resetuje pole wyszukiwania oraz sprawdza stan logowania uzytkownika.
+
+Obsluguje wyslanie formularza wyszukiwania. 
+\begin{DoxyParams}{Parametry}
+{\em \{\+Event\}} & e Zdarzenie formularza.\\
+\hline
+\end{DoxyParams}
+Aktualna liczba produktow w porownywarce.
+
+Lista glownego menu kategorii.

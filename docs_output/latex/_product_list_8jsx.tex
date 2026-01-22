@@ -1,0 +1,83 @@
+\doxysection{Dokumentacja pliku sklep\+\_\+internetowy.\+client/\+src/\+pages/\+\+Products/\+\+Product\+List.jsx}
+\hypertarget{_product_list_8jsx}{}\label{_product_list_8jsx}\index{sklep\_internetowy.client/src/pages/Products/ProductList.jsx@{sklep\_internetowy.client/src/pages/Products/ProductList.jsx}}
+\doxysubsubsection*{Zmienne}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{_product_list_8jsx_a953be46b94f595d839e88a6d3d270309}{import}} \doxymbox{\hyperlink{_product_list_8jsx_a8e6a862a904cf8b07c69fae7c44a1a04}{React}}
+\item 
+import \doxymbox{\hyperlink{_product_list_8jsx_a953be46b94f595d839e88a6d3d270309}{import}} \{ Plus \} from \textquotesingle{}lucide-\/\doxymbox{\hyperlink{_admin_dashboard_8jsx_aaed10feaf2dda4314d93c83408affea1}{react}}\textquotesingle{}
+\item 
+\doxymbox{\hyperlink{_product_list_8jsx_a953be46b94f595d839e88a6d3d270309}{import}} Product\+Card from components admin product \doxymbox{\hyperlink{_product_list_8jsx_a60b5b1cf9849c03155a2ff79421b3933}{Product\+Card}}
+\item 
+\doxymbox{\hyperlink{_product_list_8jsx_a953be46b94f595d839e88a6d3d270309}{import}} Product\+Form from components admin product \doxymbox{\hyperlink{_product_list_8jsx_a0a803f124b8f9bde7e6594dd5cd598b0}{Product\+Form}}
+\item 
+\doxymbox{\hyperlink{_product_list_8jsx_a953be46b94f595d839e88a6d3d270309}{import}} bootstrap dist css bootstrap min \doxymbox{\hyperlink{_product_list_8jsx_a50bb7d17874fa6966673212d5f3dfdb0}{css}}
+\item 
+export default \doxymbox{\hyperlink{_product_list_8jsx_a36bda88b89caf5fcbc9227acede82dee}{Products\+List}}
+\end{DoxyCompactItemize}
+
+
+\label{doc-var-members}
+\Hypertarget{_product_list_8jsx_doc-var-members}
+\doxysubsection{Dokumentacja zmiennych}
+\Hypertarget{_product_list_8jsx_a50bb7d17874fa6966673212d5f3dfdb0}\index{ProductList.jsx@{ProductList.jsx}!css@{css}}
+\index{css@{css}!ProductList.jsx@{ProductList.jsx}}
+\doxysubsubsection{\texorpdfstring{css}{css}}
+{\footnotesize\ttfamily \label{_product_list_8jsx_a50bb7d17874fa6966673212d5f3dfdb0} 
+\doxymbox{\hyperlink{_product_list_8jsx_a953be46b94f595d839e88a6d3d270309}{import}} bootstrap dist css bootstrap min css}
+
+\Hypertarget{_product_list_8jsx_a953be46b94f595d839e88a6d3d270309}\index{ProductList.jsx@{ProductList.jsx}!import@{import}}
+\index{import@{import}!ProductList.jsx@{ProductList.jsx}}
+\doxysubsubsection{\texorpdfstring{import}{import}}
+{\footnotesize\ttfamily \label{_product_list_8jsx_a953be46b94f595d839e88a6d3d270309} 
+import import \{ Plus \} from \textquotesingle{}lucide-\/\doxymbox{\hyperlink{_admin_dashboard_8jsx_aaed10feaf2dda4314d93c83408affea1}{react}}\textquotesingle{}}
+
+\Hypertarget{_product_list_8jsx_a60b5b1cf9849c03155a2ff79421b3933}\index{ProductList.jsx@{ProductList.jsx}!ProductCard@{ProductCard}}
+\index{ProductCard@{ProductCard}!ProductList.jsx@{ProductList.jsx}}
+\doxysubsubsection{\texorpdfstring{ProductCard}{ProductCard}}
+{\footnotesize\ttfamily \label{_product_list_8jsx_a60b5b1cf9849c03155a2ff79421b3933} 
+\doxymbox{\hyperlink{_product_list_8jsx_a953be46b94f595d839e88a6d3d270309}{import}} Product\+Card from components admin product Product\+Card}
+
+
+\begin{DoxyItemize}
+\item Flaga okreslajaca, czy produkt posiada obecnie aktywna znizke.
+\end{DoxyItemize}
+
+Wyswietla systemowe okno potwierdzenia. Jesli uzytkownik zatwierdzi, wywoluje funkcje on\+Delete przekazana w parametrach.\Hypertarget{_product_list_8jsx_a0a803f124b8f9bde7e6594dd5cd598b0}\index{ProductList.jsx@{ProductList.jsx}!ProductForm@{ProductForm}}
+\index{ProductForm@{ProductForm}!ProductList.jsx@{ProductList.jsx}}
+\doxysubsubsection{\texorpdfstring{ProductForm}{ProductForm}}
+{\footnotesize\ttfamily \label{_product_list_8jsx_a0a803f124b8f9bde7e6594dd5cd598b0} 
+\doxymbox{\hyperlink{_product_list_8jsx_a953be46b94f595d839e88a6d3d270309}{import}} Product\+Form from components admin product Product\+Form}
+
+\Hypertarget{_product_list_8jsx_a36bda88b89caf5fcbc9227acede82dee}\index{ProductList.jsx@{ProductList.jsx}!ProductsList@{ProductsList}}
+\index{ProductsList@{ProductsList}!ProductList.jsx@{ProductList.jsx}}
+\doxysubsubsection{\texorpdfstring{ProductsList}{ProductsList}}
+{\footnotesize\ttfamily \label{_product_list_8jsx_a36bda88b89caf5fcbc9227acede82dee} 
+export default Products\+List}
+
+Tablica przechowujaca produkty pobrane z bazy danych.
+
+Flaga okreslajaca, czy trwa proces pobierania danych z serwera.
+
+Przechowuje tresc komunikatow o bledach operacji API.
+
+Flaga kontrolujaca widocznosc formularza \doxylink{class_product_form}{Product\+Form}.
+
+Obiekt produktu wybranego do edycji (null w trybie dodawania nowego).
+
+Bazowy adres URL dla punktu koncowego API produktow.
+
+\begin{DoxyNote}{Nota}
+React use\+Effect:\+ Inicjalizacja komponentu.
+\end{DoxyNote}
+Pobiera liste produktow przy pierwszym renderowaniu strony.
+
+\begin{DoxyNote}{Nota}
+Funkcja asynchroniczna
+\end{DoxyNote}
+Pobiera aktualna liste wszystkich produktow z serwera.\Hypertarget{_product_list_8jsx_a8e6a862a904cf8b07c69fae7c44a1a04}\index{ProductList.jsx@{ProductList.jsx}!React@{React}}
+\index{React@{React}!ProductList.jsx@{ProductList.jsx}}
+\doxysubsubsection{\texorpdfstring{React}{React}}
+{\footnotesize\ttfamily \label{_product_list_8jsx_a8e6a862a904cf8b07c69fae7c44a1a04} 
+\doxymbox{\hyperlink{_product_list_8jsx_a953be46b94f595d839e88a6d3d270309}{import}} React}
+

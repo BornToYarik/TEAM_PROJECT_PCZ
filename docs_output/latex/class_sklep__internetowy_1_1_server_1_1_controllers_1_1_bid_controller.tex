@@ -1,0 +1,132 @@
+\doxysection{Dokumentacja klasy Sklep\+\_\+internetowy.\+Server.\+Controllers.\+Bid\+Controller}
+\hypertarget{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_bid_controller}{}\label{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_bid_controller}\index{Sklep\_internetowy.Server.Controllers.BidController@{Sklep\_internetowy.Server.Controllers.BidController}}
+
+
+Kontroler API odpowiedzialny za obsluge systemu aukcyjnego oraz licytacji. Umozliwia przegladanie aktywnych aukcji, skladanie ofert oraz wystawianie nowych przedmiotow na licytacje.  
+
+
+
+
+Diagram współpracy dla Sklep\+\_\+internetowy.\+Server.\+Controllers.\+Bid\+Controller:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_bid_controller__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Metody publiczne}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_bid_controller_a8d9b4c5e37ee624f6aa861b41187a511}{Bid\+Controller}} (\doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_services_1_1_bidding_1_1_auction_service}{Auction\+Service}} auction\+Service)
+\begin{DoxyCompactList}\small\item\em Inicjalizuje nowa instancje klasy \doxylink{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_bid_controller}{Bid\+Controller}. \end{DoxyCompactList}\item 
+async Task$<$ IAction\+Result $>$ \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_bid_controller_a8efb7873be4bb9fe5bff74f59750ead4}{Get\+Auction}} (int id)
+\begin{DoxyCompactList}\small\item\em Pobiera szczegolowe informacje o konkretnej aukcji na podstawie jej identyfikatora. \end{DoxyCompactList}\item 
+async Task$<$ IAction\+Result $>$ \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_bid_controller_a3af7c813eaedd11705f6071cab7e795e}{Get\+Active\+Auctions}} ()
+\begin{DoxyCompactList}\small\item\em Pobiera liste wszystkich obecnie trwajacych (aktywnych) aukcji. \end{DoxyCompactList}\item 
+async Task$<$ IAction\+Result $>$ \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_bid_controller_a6581717bde1939b10a0725ebc0705954}{Place\+Bid}} (int id, \+[From\+Body]\+ \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_place_bid_dto}{Place\+Bid\+Dto}} dto)
+\begin{DoxyCompactList}\small\item\em Pozwala zalogowanemu uzytkownikowi na zlozenie oferty (podbicie ceny) w wybranej aukcji. \end{DoxyCompactList}\item 
+async Task$<$ IAction\+Result $>$ \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_bid_controller_a87ad711f4fa931b3117c5ee9dd47b637}{Create\+Auction}} (\+[From\+Body]\+ \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_create_auction_dto}{Create\+Auction\+Dto}} dto)
+\begin{DoxyCompactList}\small\item\em Tworzy nowa aukcje dla wskazanego produktu z okreslona cena wywolawcza. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Opis szczegółowy}
+Kontroler API odpowiedzialny za obsluge systemu aukcyjnego oraz licytacji. Umozliwia przegladanie aktywnych aukcji, skladanie ofert oraz wystawianie nowych przedmiotow na licytacje. 
+
+\label{doc-constructors}
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_bid_controller_doc-constructors}
+\doxysubsection{Dokumentacja konstruktora i destruktora}
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_bid_controller_a8d9b4c5e37ee624f6aa861b41187a511}\index{Sklep\_internetowy.Server.Controllers.BidController@{Sklep\_internetowy.Server.Controllers.BidController}!BidController@{BidController}}
+\index{BidController@{BidController}!Sklep\_internetowy.Server.Controllers.BidController@{Sklep\_internetowy.Server.Controllers.BidController}}
+\doxysubsubsection{\texorpdfstring{BidController()}{BidController()}}
+{\footnotesize\ttfamily \label{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_bid_controller_a8d9b4c5e37ee624f6aa861b41187a511} 
+Sklep\+\_\+internetowy.\+Server.\+Controllers.\+Bid\+Controller.\+Bid\+Controller (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_services_1_1_bidding_1_1_auction_service}{Auction\+Service}}}]{auction\+Service}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Inicjalizuje nowa instancje klasy \doxylink{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_bid_controller}{Bid\+Controller}. 
+
+
+\begin{DoxyParams}{Parametry}
+{\em auction\+Service} & Serwis obslugujacy logike biznesowa aukcji i licytacji.\\
+\hline
+\end{DoxyParams}
+
+
+\label{doc-func-members}
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_bid_controller_doc-func-members}
+\doxysubsection{Dokumentacja funkcji składowych}
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_bid_controller_a87ad711f4fa931b3117c5ee9dd47b637}\index{Sklep\_internetowy.Server.Controllers.BidController@{Sklep\_internetowy.Server.Controllers.BidController}!CreateAuction@{CreateAuction}}
+\index{CreateAuction@{CreateAuction}!Sklep\_internetowy.Server.Controllers.BidController@{Sklep\_internetowy.Server.Controllers.BidController}}
+\doxysubsubsection{\texorpdfstring{CreateAuction()}{CreateAuction()}}
+{\footnotesize\ttfamily \label{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_bid_controller_a87ad711f4fa931b3117c5ee9dd47b637} 
+async Task$<$ IAction\+Result $>$ Sklep\+\_\+internetowy.\+Server.\+Controllers.\+Bid\+Controller.\+Create\+Auction (\begin{DoxyParamCaption}\item[{\+[\+From\+Body]\+ \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_create_auction_dto}{Create\+Auction\+Dto}}}]{dto}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Tworzy nowa aukcje dla wskazanego produktu z okreslona cena wywolawcza. 
+
+
+\begin{DoxyParams}{Parametry}
+{\em dto} & Dane niezbedne do utworzenia aukcji (ID produktu, cena startowa).\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Zwraca}
+Dane nowo utworzonej aukcji.
+\end{DoxyReturn}
+$<$response code="{}200"{}$>$Aukcja zostala pomyslnie utworzona.$<$/\+response$>$ \Hypertarget{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_bid_controller_a3af7c813eaedd11705f6071cab7e795e}\index{Sklep\_internetowy.Server.Controllers.BidController@{Sklep\_internetowy.Server.Controllers.BidController}!GetActiveAuctions@{GetActiveAuctions}}
+\index{GetActiveAuctions@{GetActiveAuctions}!Sklep\_internetowy.Server.Controllers.BidController@{Sklep\_internetowy.Server.Controllers.BidController}}
+\doxysubsubsection{\texorpdfstring{GetActiveAuctions()}{GetActiveAuctions()}}
+{\footnotesize\ttfamily \label{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_bid_controller_a3af7c813eaedd11705f6071cab7e795e} 
+async Task$<$ IAction\+Result $>$ Sklep\+\_\+internetowy.\+Server.\+Controllers.\+Bid\+Controller.\+Get\+Active\+Auctions (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Pobiera liste wszystkich obecnie trwajacych (aktywnych) aukcji. 
+
+\begin{DoxyReturn}{Zwraca}
+Kolekcja aktywnych aukcji.
+\end{DoxyReturn}
+$<$response code="{}200"{}$>$Zwraca liste aktywnych licytacji.$<$/\+response$>$ \Hypertarget{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_bid_controller_a8efb7873be4bb9fe5bff74f59750ead4}\index{Sklep\_internetowy.Server.Controllers.BidController@{Sklep\_internetowy.Server.Controllers.BidController}!GetAuction@{GetAuction}}
+\index{GetAuction@{GetAuction}!Sklep\_internetowy.Server.Controllers.BidController@{Sklep\_internetowy.Server.Controllers.BidController}}
+\doxysubsubsection{\texorpdfstring{GetAuction()}{GetAuction()}}
+{\footnotesize\ttfamily \label{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_bid_controller_a8efb7873be4bb9fe5bff74f59750ead4} 
+async Task$<$ IAction\+Result $>$ Sklep\+\_\+internetowy.\+Server.\+Controllers.\+Bid\+Controller.\+Get\+Auction (\begin{DoxyParamCaption}\item[{int}]{id}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Pobiera szczegolowe informacje o konkretnej aukcji na podstawie jej identyfikatora. 
+
+
+\begin{DoxyParams}{Parametry}
+{\em id} & Unikalny identyfikator aukcji.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Zwraca}
+Obiekt aukcji lub blad 404 w przypadku braku znalezienia.
+\end{DoxyReturn}
+$<$response code="{}200"{}$>$Zwraca dane wybranej aukcji.$<$/\+response$>$ $<$response code="{}404"{}$>$Gdy aukcja o podanym ID nie istnieje.$<$/\+response$>$ \Hypertarget{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_bid_controller_a6581717bde1939b10a0725ebc0705954}\index{Sklep\_internetowy.Server.Controllers.BidController@{Sklep\_internetowy.Server.Controllers.BidController}!PlaceBid@{PlaceBid}}
+\index{PlaceBid@{PlaceBid}!Sklep\_internetowy.Server.Controllers.BidController@{Sklep\_internetowy.Server.Controllers.BidController}}
+\doxysubsubsection{\texorpdfstring{PlaceBid()}{PlaceBid()}}
+{\footnotesize\ttfamily \label{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_bid_controller_a6581717bde1939b10a0725ebc0705954} 
+async Task$<$ IAction\+Result $>$ Sklep\+\_\+internetowy.\+Server.\+Controllers.\+Bid\+Controller.\+Place\+Bid (\begin{DoxyParamCaption}\item[{int}]{id}{, }\item[{\+[\+From\+Body]\+ \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_place_bid_dto}{Place\+Bid\+Dto}}}]{dto}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Pozwala zalogowanemu uzytkownikowi na zlozenie oferty (podbicie ceny) w wybranej aukcji. 
+
+
+\begin{DoxyParams}{Parametry}
+{\em id} & ID aukcji, w ktorej skladana jest oferta.\\
+\hline
+{\em dto} & Obiekt DTO zawierajacy deklarowana kwote licytacji.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Zwraca}
+Informacja o powodzeniu operacji lub blad walidacji licytacji.
+\end{DoxyReturn}
+$<$response code="{}200"{}$>$Oferta zostala pomyslnie przyjeta.$<$/\+response$>$ $<$response code="{}400"{}$>$Gdy oferta jest zbyt niska, aukcja sie zakonczyla lub wystapil blad autoryzacji.$<$/\+response$>$ 
+
+Dokumentacja dla tej klasy została wygenerowana z pliku:\+\begin{DoxyCompactItemize}
+\item 
+Sklep\+\_\+internetowy.\+Server/\+\+Controllers/\+\+Bidding/\+Bid\+Controller.\+cs\end{DoxyCompactItemize}

@@ -1,0 +1,7 @@
+<map id="Sklep_internetowy.Server.Services.Auth.AccountService" name="Sklep_internetowy.Server.Services.Auth.AccountService">
+<area shape="rect" id="Node000001" title="Serwis odpowiedzialny za obsługę kont użytkowników." alt="" coords="86,333,274,568"/>
+<area shape="rect" id="Node000002" href="$class_sklep__internetowy_1_1_server_1_1_data_1_1_store_db_context.html" title="Glowny kontekst bazy danych aplikacji TechStore. Klasa dziedziczy po IdentityDbContext,..." alt="" coords="5,5,168,261"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="125,259,144,317,138,317,124,264"/>
+<area shape="rect" id="Node000003" href="$class_sklep__internetowy_1_1_server_1_1_services_1_1_auth_1_1_jwt_service.html" title="Serwis odpowiedzialny za generowanie tokenów JWT dla użytkowników." alt="" coords="192,91,355,176"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="263,174,222,318,217,316,260,178"/>
+</map>

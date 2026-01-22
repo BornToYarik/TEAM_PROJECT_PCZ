@@ -1,0 +1,58 @@
+\doxysection{Dokumentacja klasy Sklep\+\_\+internetowy.\+Server.\+DTOs.\+Create\+Product\+With\+Files\+Dto}
+\hypertarget{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_create_product_with_files_dto}{}\label{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_create_product_with_files_dto}\index{Sklep\_internetowy.Server.DTOs.CreateProductWithFilesDto@{Sklep\_internetowy.Server.DTOs.CreateProductWithFilesDto}}
+
+
+Obiekt transferu danych (DTO) wykorzystywany podczas procesu dodawania nowego produktu wraz z załącznikami multimedialnymi. Klasa obsługuje dane przesyłane w formacie multipart/\+form-\/data, umożliwiając jednoczesną definicję parametrów handlowych oraz przesyłanie plików graficznych do serwera.  
+
+
+
+
+Diagram współpracy dla Sklep\+\_\+internetowy.\+Server.\+DTOs.\+Create\+Product\+With\+Files\+Dto:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=237pt]{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_create_product_with_files_dto__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Właściwości}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_create_product_with_files_dto_acf0fe41a498c0078affc986ac063c3b4}\label{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_create_product_with_files_dto_acf0fe41a498c0078affc986ac063c3b4} 
+string {\bfseries Name} = null!\hspace{0.3cm}{\ttfamily  \+[get, set]\+}
+\begin{DoxyCompactList}\small\item\em Nazwa handlowa produktu. \end{DoxyCompactList}\item 
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_create_product_with_files_dto_a2a7da8ca90d0b37b49aa9887dc6c484a}\label{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_create_product_with_files_dto_a2a7da8ca90d0b37b49aa9887dc6c484a} 
+decimal {\bfseries Price}\hspace{0.3cm}{\ttfamily  \+[get, set]\+}
+\begin{DoxyCompactList}\small\item\em Podstawowa cena jednostkowa towaru brutto. \end{DoxyCompactList}\item 
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_create_product_with_files_dto_ad38328123ade8deac0cdadbe10b4a455}\label{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_create_product_with_files_dto_ad38328123ade8deac0cdadbe10b4a455} 
+int {\bfseries Quantity}\hspace{0.3cm}{\ttfamily  \+[get, set]\+}
+\begin{DoxyCompactList}\small\item\em Początkowa liczba sztuk wprowadzana na stan magazynowy. \end{DoxyCompactList}\item 
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_create_product_with_files_dto_a9e72d0106fa4ddc69f638b15fa0022bf}\label{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_create_product_with_files_dto_a9e72d0106fa4ddc69f638b15fa0022bf} 
+string? {\bfseries Description}\hspace{0.3cm}{\ttfamily  \+[get, set]\+}
+\begin{DoxyCompactList}\small\item\em Szczegółowy opis charakterystyki, specyfikacji lub przeznaczenia produktu. \end{DoxyCompactList}\item 
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_create_product_with_files_dto_a1d60e24f8d8a6c5d2429f343016fb501}\label{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_create_product_with_files_dto_a1d60e24f8d8a6c5d2429f343016fb501} 
+int {\bfseries Product\+Category\+Id}\hspace{0.3cm}{\ttfamily  \+[get, set]\+}
+\begin{DoxyCompactList}\small\item\em Identyfikator kategorii nadrzędnej, do której zostanie przypisany produkt w katalogu. \end{DoxyCompactList}\item 
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_create_product_with_files_dto_ad6c6475aa018825ffb7642ef31d6a68f}\label{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_create_product_with_files_dto_ad6c6475aa018825ffb7642ef31d6a68f} 
+decimal? {\bfseries Discount\+Percentage}\hspace{0.3cm}{\ttfamily  \+[get, set]\+}
+\begin{DoxyCompactList}\small\item\em Wartość procentowa rabatu (np. 10.\+50 dla 10.\+5\% zniżki). \end{DoxyCompactList}\item 
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_create_product_with_files_dto_aaadd102edfb6b73e1e2b9964a56b6c45}\label{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_create_product_with_files_dto_aaadd102edfb6b73e1e2b9964a56b6c45} 
+Date\+Time? {\bfseries Discount\+Start\+Date}\hspace{0.3cm}{\ttfamily  \+[get, set]\+}
+\begin{DoxyCompactList}\small\item\em \doxylink{namespace_sklep__internetowy_1_1_server_1_1_data}{Data} i godzina rozpoczęcia okresu obowiązywania ceny promocyjnej (UTC). \end{DoxyCompactList}\item 
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_create_product_with_files_dto_a3b2e8a0132014f297283927d85784444}\label{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_create_product_with_files_dto_a3b2e8a0132014f297283927d85784444} 
+Date\+Time? {\bfseries Discount\+End\+Date}\hspace{0.3cm}{\ttfamily  \+[get, set]\+}
+\begin{DoxyCompactList}\small\item\em \doxylink{namespace_sklep__internetowy_1_1_server_1_1_data}{Data} i godzina zakończenia okresu obowiązywania ceny promocyjnej (UTC). \end{DoxyCompactList}\item 
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_create_product_with_files_dto_ab99b427d2f8cf55d020d2bcb6ffa89b8}\label{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_create_product_with_files_dto_ab99b427d2f8cf55d020d2bcb6ffa89b8} 
+string {\bfseries Brand} = null!\hspace{0.3cm}{\ttfamily  \+[get, set]\+}
+\begin{DoxyCompactList}\small\item\em Marka, producent lub linia produktowa, do której należy towar. \end{DoxyCompactList}\item 
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_create_product_with_files_dto_a59d5f004769ee47d0b058804e61db7e3}\label{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_create_product_with_files_dto_a59d5f004769ee47d0b058804e61db7e3} 
+List$<$ IForm\+File $>$? {\bfseries Images}\hspace{0.3cm}{\ttfamily  \+[get, set]\+}
+\begin{DoxyCompactList}\small\item\em Kolekcja plików graficznych (zdjęć) przesyłanych w ramach żądania HTTP. Mapowana z formularza binarnego typu IForm\+File. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Opis szczegółowy}
+Obiekt transferu danych (DTO) wykorzystywany podczas procesu dodawania nowego produktu wraz z załącznikami multimedialnymi. Klasa obsługuje dane przesyłane w formacie multipart/\+form-\/data, umożliwiając jednoczesną definicję parametrów handlowych oraz przesyłanie plików graficznych do serwera. 
+
+Dokumentacja dla tej klasy została wygenerowana z pliku:\+\begin{DoxyCompactItemize}
+\item 
+Sklep\+\_\+internetowy.\+Server/\+\+DTOs/\+Create\+Product\+With\+Files\+Dto.\+cs\end{DoxyCompactItemize}

@@ -6,14 +6,38 @@ import { useNavigate } from "react-router-dom";
 import { pdf } from '@react-pdf/renderer';
 import InvoiceDocument from '../../components/admin/InvoiceGenerator/InvoiceDocument';
 
+/**
+ * @file PaymentPage.jsx
+ * @brief Komponent obslugujacy proces platnosci elektronicznych Stripe oraz finalizacje zamowienia.
+ * @details Modul integruje sie z bramka platnosci Stripe, zarzadza tworzeniem PaymentIntent 
+ * na serwerze, potwierdzaniem transakcji oraz automatycznym generowaniem faktury PDF po sukcesie.
+ */
+
+/** @brief Inicjalizacja obiektu Stripe przy uzyciu klucza publicznego ze zmiennych srodowiskowych. */
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY);
 
+/**
+ * @component CheckoutForm
+ * @description Podkomponent renderujacy formularz platnosci (PaymentElement).
+ * Zarzadza komunikacja z API Stripe w celu potwierdzenia srodkow.
+ * @param {Object} props - Wlasciwosci komponentu.
+ * @param {Function} props.onSuccess - Callback wywolywany po pomyslnej autoryzacji platnosci.
+ * @param {number} props.amount - Calkowita kwota do zaplaty.
+ */
 const CheckoutForm = ({ onSuccess, amount }) => {
     const stripe = useStripe();
     const elements = useElements();
+    /** @brief Przechowuje komunikaty o bledach platnosci. */
     const [message, setMessage] = useState(null);
+    /** @brief Flaga blokujaca interfejs podczas przetwarzania transakcji. */
     const [isProcessing, setIsProcessing] = useState(false);
 
+    /**
+     * @function handleSubmit
+     * @async
+     * @description Obsluguje zdarzenie wyslania formularza platnosci do Stripe.
+     * @param {Event} e - Obiekt zdarzenia submit.
+     */
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (!stripe || !elements) return;
@@ -51,15 +75,26 @@ const CheckoutForm = ({ onSuccess, amount }) => {
     );
 };
 
+/**
+ * @component PaymentPage
+ * @description Glowny komponent strony platnosci. Pobiera clientSecret z backendu, 
+ * wyswietla podsumowanie koszyka i zarzadza procesem zapisu zamowienia w bazie danych.
+ */
 export default function PaymentPage() {
+    /** @brief Dane pobrane z kontekstu koszyka zakupowego. */
     const { cartItems, cartTotal, clearCart } = useCart();
+    /** @brief Klucz sesji platnosci otrzymany z serwera. */
     const [clientSecret, setClientSecret] = useState("");
     const navigate = useNavigate();
 
+    /** @effect Przekierowanie do koszyka, jesli jest on pusty. */
     useEffect(() => {
         if (cartItems.length === 0) navigate("/cart");
     }, [cartItems, navigate]);
 
+    /** * @effect Pobieranie PaymentIntent.
+     * @description Tworzy zamiar platnosci na serwerze na podstawie wartosci koszyka.
+     */
     useEffect(() => {
         if (cartTotal > 0) {
             fetch("/api/payment/create-payment-intent", {
@@ -73,6 +108,13 @@ export default function PaymentPage() {
         }
     }, [cartTotal]);
 
+    /**
+     * @function handleOrderSuccess
+     * @async
+     * @description Finalizuje proces zakupowy: zapisuje zamowienie w bazie danych, 
+     * generuje plik PDF z faktura i czysci koszyk.
+     * @param {string} paymentId - Identyfikator pomyslnej platnosci Stripe.
+     */
     const handleOrderSuccess = async (paymentId) => {
         const user = JSON.parse(localStorage.getItem("user"));
         const orderDto = {
@@ -93,6 +135,7 @@ export default function PaymentPage() {
             if (!response.ok) throw new Error("Order failed");
             const data = await response.json();
 
+            // Generowanie i pobieranie faktury PDF
             try {
                 const blob = await pdf(<InvoiceDocument order={data} />).toBlob();
                 const url = URL.createObjectURL(blob);

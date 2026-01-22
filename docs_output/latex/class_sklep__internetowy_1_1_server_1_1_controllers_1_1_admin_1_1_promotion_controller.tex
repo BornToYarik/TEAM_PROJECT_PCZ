@@ -1,0 +1,114 @@
+\doxysection{Dokumentacja klasy Sklep\+\_\+internetowy.\+Server.\+Controllers.\+Admin.\+Promotion\+Controller}
+\hypertarget{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_admin_1_1_promotion_controller}{}\label{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_admin_1_1_promotion_controller}\index{Sklep\_internetowy.Server.Controllers.Admin.PromotionController@{Sklep\_internetowy.Server.Controllers.Admin.PromotionController}}
+
+
+Kontroler administracyjny odpowiedzialny za zarzadzanie kampaniami promocyjnymi. Umozliwia identyfikacje produktow kwalifikujacych sie do obnizek oraz masowe nakladanie rabatow.  
+
+
+
+
+Diagram współpracy dla Sklep\+\_\+internetowy.\+Server.\+Controllers.\+Admin.\+Promotion\+Controller:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_admin_1_1_promotion_controller__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Metody publiczne}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_admin_1_1_promotion_controller_a5a00d7b065e2698e3b87043add278319}{Promotion\+Controller}} (\doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_services_1_1_promotion_1_1_promotion_service}{Promotion\+Service}} promotion\+Service)
+\begin{DoxyCompactList}\small\item\em Inicjalizuje nowa instancje klasy \doxylink{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_admin_1_1_promotion_controller}{Promotion\+Controller}. \end{DoxyCompactList}\item 
+async Task$<$ Action\+Result $>$ \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_admin_1_1_promotion_controller_ad285ba08cd66b7d4a72b1067201cbdd1}{Get\+Candidates}} (\+[From\+Query]\+ int? category\+Id, \+[From\+Query]\+ int min\+Stock=10, \+[From\+Query]\+ int days\+Inactive=60)
+\begin{DoxyCompactList}\small\item\em Pobiera liste produktow spelniajacych kryteria do objecia nowa promocja. \end{DoxyCompactList}\item 
+async Task$<$ Action\+Result $>$ \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_admin_1_1_promotion_controller_a814962554f95d13079385e2844605951}{Apply\+To\+Selected}} (\+[From\+Body]\+ \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_admin_1_1_apply_bulk_discount_request}{Apply\+Bulk\+Discount\+Request}} request)
+\begin{DoxyCompactList}\small\item\em Naklada rabat procentowy na wybrana grupe produktow na okreslony czas. \end{DoxyCompactList}\item 
+async Task$<$ Action\+Result $>$ \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_admin_1_1_promotion_controller_a77ef3ec57a99ce3e2d7509141973b5ac}{Remove\+Expired\+Discounts}} ()
+\begin{DoxyCompactList}\small\item\em Usuwa dane o znizkach dla wszystkich produktow, ktorych czas trwania promocji juz uplynal. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Opis szczegółowy}
+Kontroler administracyjny odpowiedzialny za zarzadzanie kampaniami promocyjnymi. Umozliwia identyfikacje produktow kwalifikujacych sie do obnizek oraz masowe nakladanie rabatow. 
+
+\label{doc-constructors}
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_admin_1_1_promotion_controller_doc-constructors}
+\doxysubsection{Dokumentacja konstruktora i destruktora}
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_admin_1_1_promotion_controller_a5a00d7b065e2698e3b87043add278319}\index{Sklep\_internetowy.Server.Controllers.Admin.PromotionController@{Sklep\_internetowy.Server.Controllers.Admin.PromotionController}!PromotionController@{PromotionController}}
+\index{PromotionController@{PromotionController}!Sklep\_internetowy.Server.Controllers.Admin.PromotionController@{Sklep\_internetowy.Server.Controllers.Admin.PromotionController}}
+\doxysubsubsection{\texorpdfstring{PromotionController()}{PromotionController()}}
+{\footnotesize\ttfamily \label{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_admin_1_1_promotion_controller_a5a00d7b065e2698e3b87043add278319} 
+Sklep\+\_\+internetowy.\+Server.\+Controllers.\+Admin.\+Promotion\+Controller.\+Promotion\+Controller (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_services_1_1_promotion_1_1_promotion_service}{Promotion\+Service}}}]{promotion\+Service}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Inicjalizuje nowa instancje klasy \doxylink{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_admin_1_1_promotion_controller}{Promotion\+Controller}. 
+
+
+\begin{DoxyParams}{Parametry}
+{\em promotion\+Service} & Serwis obslugujacy logike biznesowa promocji.\\
+\hline
+\end{DoxyParams}
+
+
+\label{doc-func-members}
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_admin_1_1_promotion_controller_doc-func-members}
+\doxysubsection{Dokumentacja funkcji składowych}
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_admin_1_1_promotion_controller_a814962554f95d13079385e2844605951}\index{Sklep\_internetowy.Server.Controllers.Admin.PromotionController@{Sklep\_internetowy.Server.Controllers.Admin.PromotionController}!ApplyToSelected@{ApplyToSelected}}
+\index{ApplyToSelected@{ApplyToSelected}!Sklep\_internetowy.Server.Controllers.Admin.PromotionController@{Sklep\_internetowy.Server.Controllers.Admin.PromotionController}}
+\doxysubsubsection{\texorpdfstring{ApplyToSelected()}{ApplyToSelected()}}
+{\footnotesize\ttfamily \label{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_admin_1_1_promotion_controller_a814962554f95d13079385e2844605951} 
+async Task$<$ Action\+Result $>$ Sklep\+\_\+internetowy.\+Server.\+Controllers.\+Admin.\+Promotion\+Controller.\+Apply\+To\+Selected (\begin{DoxyParamCaption}\item[{\+[\+From\+Body]\+ \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_admin_1_1_apply_bulk_discount_request}{Apply\+Bulk\+Discount\+Request}}}]{request}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Naklada rabat procentowy na wybrana grupe produktow na okreslony czas. 
+
+
+\begin{DoxyParams}{Parametry}
+{\em request} & Obiekt zawierajacy liste ID produktow, procent rabatu oraz czas trwania promocji w dniach.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Zwraca}
+Informacja o liczbie pomyslnie zaktualizowanych produktow.
+\end{DoxyReturn}
+$<$response code="{}200"{}$>$Promocja zostala pomyslnie nalozona.$<$/\+response$>$ $<$response code="{}400"{}$>$Gdy nie wybrano zadnych produktow w zadaniu.$<$/\+response$>$ \Hypertarget{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_admin_1_1_promotion_controller_ad285ba08cd66b7d4a72b1067201cbdd1}\index{Sklep\_internetowy.Server.Controllers.Admin.PromotionController@{Sklep\_internetowy.Server.Controllers.Admin.PromotionController}!GetCandidates@{GetCandidates}}
+\index{GetCandidates@{GetCandidates}!Sklep\_internetowy.Server.Controllers.Admin.PromotionController@{Sklep\_internetowy.Server.Controllers.Admin.PromotionController}}
+\doxysubsubsection{\texorpdfstring{GetCandidates()}{GetCandidates()}}
+{\footnotesize\ttfamily \label{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_admin_1_1_promotion_controller_ad285ba08cd66b7d4a72b1067201cbdd1} 
+async Task$<$ Action\+Result $>$ Sklep\+\_\+internetowy.\+Server.\+Controllers.\+Admin.\+Promotion\+Controller.\+Get\+Candidates (\begin{DoxyParamCaption}\item[{\+[\+From\+Query]\+ int?}]{category\+Id}{, }\item[{\+[\+From\+Query]\+ int}]{min\+Stock}{ = {\ttfamily 10}, }\item[{\+[\+From\+Query]\+ int}]{days\+Inactive}{ = {\ttfamily 60}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Pobiera liste produktow spelniajacych kryteria do objecia nowa promocja. 
+
+
+\begin{DoxyParams}{Parametry}
+{\em category\+Id} & Opcjonalny identyfikator kategorii do filtrowania.\\
+\hline
+{\em min\+Stock} & Minimalny stan magazynowy wymagany do wyswietlenia produktu (domyslnie 10).\\
+\hline
+{\em days\+Inactive} & Liczba dni bez aktywnosci sprzedazowej (domyslnie 60).\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Zwraca}
+Kolekcja obiektow DTO reprezentujacych kandydatow do promocji.
+\end{DoxyReturn}
+$<$response code="{}200"{}$>$Zwraca liste kandydatow.$<$/\+response$>$ $<$response code="{}500"{}$>$W przypadku bledu serwera podczas pobierania danych.$<$/\+response$>$ \Hypertarget{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_admin_1_1_promotion_controller_a77ef3ec57a99ce3e2d7509141973b5ac}\index{Sklep\_internetowy.Server.Controllers.Admin.PromotionController@{Sklep\_internetowy.Server.Controllers.Admin.PromotionController}!RemoveExpiredDiscounts@{RemoveExpiredDiscounts}}
+\index{RemoveExpiredDiscounts@{RemoveExpiredDiscounts}!Sklep\_internetowy.Server.Controllers.Admin.PromotionController@{Sklep\_internetowy.Server.Controllers.Admin.PromotionController}}
+\doxysubsubsection{\texorpdfstring{RemoveExpiredDiscounts()}{RemoveExpiredDiscounts()}}
+{\footnotesize\ttfamily \label{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_admin_1_1_promotion_controller_a77ef3ec57a99ce3e2d7509141973b5ac} 
+async Task$<$ Action\+Result $>$ Sklep\+\_\+internetowy.\+Server.\+Controllers.\+Admin.\+Promotion\+Controller.\+Remove\+Expired\+Discounts (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Usuwa dane o znizkach dla wszystkich produktow, ktorych czas trwania promocji juz uplynal. 
+
+\begin{DoxyReturn}{Zwraca}
+Komunikat o liczbie produktow, z ktorych usunieto wygasle rabaty.
+\end{DoxyReturn}
+$<$response code="{}200"{}$>$Wygasle promocje zostaly pomyslnie usuniete z bazy danych.$<$/\+response$>$ 
+
+Dokumentacja dla tej klasy została wygenerowana z pliku:\+\begin{DoxyCompactItemize}
+\item 
+Sklep\+\_\+internetowy.\+Server/\+\+Controllers/\+\+Admin/\+Promotion\+Controller.\+cs\end{DoxyCompactItemize}

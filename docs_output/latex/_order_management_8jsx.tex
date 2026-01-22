@@ -1,0 +1,52 @@
+\doxysection{Dokumentacja pliku sklep\+\_\+internetowy.\+client/\+src/\+pages/\+\+Admin\+Dashboard/\+\+Order/\+\+Order\+Management.jsx}
+\hypertarget{_order_management_8jsx}{}\label{_order_management_8jsx}\index{sklep\_internetowy.client/src/pages/AdminDashboard/Order/OrderManagement.jsx@{sklep\_internetowy.client/src/pages/AdminDashboard/Order/OrderManagement.jsx}}
+
+
+Komponent panelu administracyjnego do kompleksowego zarzadzania zamowieniami.  
+
+
+\doxysubsubsection*{Zmienne}
+\begin{DoxyCompactItemize}
+\item 
+export default \doxymbox{\hyperlink{_order_management_8jsx_ab59b41c3f483e28eb48d06e1b7e1821b}{Order\+Management}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Opis szczegółowy}
+Komponent panelu administracyjnego do kompleksowego zarzadzania zamowieniami. 
+
+Obsluguje pelny cykl zycia zamowienia (CRUD), w tym dynamiczna edycje listy produktow, automatyczna korekte stanow magazynowych oraz generowanie faktur PDF. 
+
+\label{doc-var-members}
+\Hypertarget{_order_management_8jsx_doc-var-members}
+\doxysubsection{Dokumentacja zmiennych}
+\Hypertarget{_order_management_8jsx_ab59b41c3f483e28eb48d06e1b7e1821b}\index{OrderManagement.jsx@{OrderManagement.jsx}!OrderManagement@{OrderManagement}}
+\index{OrderManagement@{OrderManagement}!OrderManagement.jsx@{OrderManagement.jsx}}
+\doxysubsubsection{\texorpdfstring{OrderManagement}{OrderManagement}}
+{\footnotesize\ttfamily \label{_order_management_8jsx_ab59b41c3f483e28eb48d06e1b7e1821b} 
+export default Order\+Management}
+
+Lista wszystkich zamowien pobrana z API.
+
+Katalog produktow uzywany do walidacji i dodawania pozycji.
+
+Lista uzytkownikow do przypisania przy tworzeniu recznym zamowienia.
+
+Flaga okreslajaca stan ladowania danych.
+
+Przechowuje komunikaty o bledach operacji asynchronicznych.
+
+Stany widocznosci okien modalnych.
+
+Dane zamowienia bedacego w procesie edycji (gleboka kopia).
+
+Stan inicjalny dla nowego zamowienia.
+
+\begin{DoxyNote}{Nota}
+React use\+Effect:\+ Pobiera dane startowe (zamowienia, produkty, uzytkownicy) przy montowaniu komponentu.
+\end{DoxyNote}
+
+
+\begin{DoxyNote}{Nota}
+Funkcja asynchroniczna @description Odswieza liste zamowien z serwera.
+\end{DoxyNote}

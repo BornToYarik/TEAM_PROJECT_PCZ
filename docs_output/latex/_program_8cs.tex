@@ -1,0 +1,101 @@
+\doxysection{Dokumentacja pliku Sklep\+\_\+internetowy.\+Server/\+\+Program.cs}
+\hypertarget{_program_8cs}{}\label{_program_8cs}\index{Sklep\_internetowy.Server/Program.cs@{Sklep\_internetowy.Server/Program.cs}}
+
+
+Główny punkt wejścia aplikacji Tech\+Store, odpowiedzialny za konfigurację usług i potoku HTTP.  
+
+
+\doxysubsubsection*{Funkcje}
+\begin{DoxyCompactItemize}
+\item 
+builder.\+Services. \doxymbox{\hyperlink{_program_8cs_a4c11a59284d085b2e0a73d619402385c}{Add\+Cors}} (options=$>$ \{ options.\+Add\+Policy("{}Allow\+React\+App"{}, policy=$>$ \{ policy .With\+Origins("{}http:\+/\+/\+localhost:\+5173"{}, "{}https:\+/\+/\+localhost:\+5173"{}, "{}http:\+/\+/\+localhost:\+5174"{}, "{}https:\+/\+/\+localhost:\+5174"{}, "{}http:\+/\+/\+localhost:\+5084"{}, "{}https:\+/\+/\+localhost:\+5084"{}) .Allow\+Any\+Method() .Allow\+Any\+Header() .Allow\+Credentials();\});\})
+\item 
+builder.\+Services. \doxymbox{\hyperlink{_program_8cs_a960fbbba8351a357733e5d9ee8a25301}{Add\+Scoped$<$ Auction\+Service $>$}} ()
+\item 
+builder.\+Services. \doxymbox{\hyperlink{_program_8cs_af1ac677ad5b0b73dc97062c292e88d5e}{Add\+Controllers}} () .Add\+Json\+Options(options
+\item 
+builder.\+Services. \doxymbox{\hyperlink{_program_8cs_aa1f1dea7bcdfa0f0bd85565da0472a8e}{Add\+Identity$<$ User, Identity\+Role $>$}} (options=$>$ \{ options.\+Password.\+Require\+Digit=false;options.\+Password.\+Require\+Lowercase=false;options.\+Password.\+Require\+Uppercase=false;options.\+Password.\+Require\+Non\+Alphanumeric=false;options.\+Password.\+Required\+Length=6;options.\+User.\+Require\+Unique\+Email=true;\}) .Add\+Entity\+Framework\+Stores$<$ \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_data_1_1_store_db_context}{Store\+Db\+Context}} $>$() .Add\+Default\+Token\+Providers() .Add\+Roles$<$ Identity\+Role $>$()
+\item 
+builder.\+Services. \doxymbox{\hyperlink{_program_8cs_aed3db05c3ef9045e32b8d9c848121f73}{Add\+SignalR}} () .Add\+Hub\+Options$<$ \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_services_1_1_bidding_1_1_auction_hub}{Auction\+Hub}} $>$(options
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Zmienne}
+\begin{DoxyCompactItemize}
+\item 
+var \doxymbox{\hyperlink{_program_8cs_a067cdd5f0fed6b2598fae7de8607e7da}{connection\+String}} = builder.\+Configuration.\+Get\+Connection\+String("{}Default\+Connection"{})
+\item 
+var \doxymbox{\hyperlink{_program_8cs_af5e732acac75f2de122dfedaba997c46}{secret\+Key}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Opis szczegółowy}
+Główny punkt wejścia aplikacji Tech\+Store, odpowiedzialny za konfigurację usług i potoku HTTP. 
+
+Plik ten zawiera definicję kontenera wstrzykiwania zależności (Dependency Injection), konfigurację systemów bezpieczeństwa (CORS, Identity, JWT), rejestrację usług biznesowych oraz ustawienia middleware sterującego przepływem żądań. 
+
+\label{doc-func-members}
+\Hypertarget{_program_8cs_doc-func-members}
+\doxysubsection{Dokumentacja funkcji}
+\Hypertarget{_program_8cs_af1ac677ad5b0b73dc97062c292e88d5e}\index{Program.cs@{Program.cs}!AddControllers@{AddControllers}}
+\index{AddControllers@{AddControllers}!Program.cs@{Program.cs}}
+\doxysubsubsection{\texorpdfstring{AddControllers()}{AddControllers()}}
+{\footnotesize\ttfamily \label{_program_8cs_af1ac677ad5b0b73dc97062c292e88d5e} 
+builder.\+Services. Add\+Controllers (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\hypertarget{_program_8cs_Controllers}{}\doxysubsection{\texorpdfstring{Controllers}{Controllers}}\label{_program_8cs_Controllers}
+Konfiguracja kontrolerów API z obsługą cykli w serializacji JSON. \Hypertarget{_program_8cs_a4c11a59284d085b2e0a73d619402385c}\index{Program.cs@{Program.cs}!AddCors@{AddCors}}
+\index{AddCors@{AddCors}!Program.cs@{Program.cs}}
+\doxysubsubsection{\texorpdfstring{AddCors()}{AddCors()}}
+{\footnotesize\ttfamily \label{_program_8cs_a4c11a59284d085b2e0a73d619402385c} 
+builder.\+Services. Add\+Cors (\begin{DoxyParamCaption}\item[{options}]{}{, }\item[{\{ options.\+Add\+Policy("{}Allow\+React\+App"{}, policy=$>$ \{ policy .With\+Origins("{}http:\+/\+/\+localhost:\+5173"{}, "{}https:\+/\+/\+localhost:\+5173"{}, "{}http:\+/\+/\+localhost:\+5174"{}, "{}https:\+/\+/\+localhost:\+5174"{}, "{}http:\+/\+/\+localhost:\+5084"{}, "{}https:\+/\+/\+localhost:\+5084"{}) .Allow\+Any\+Method() .Allow\+Any\+Header() .Allow\+Credentials();\});\}}]{}{}\end{DoxyParamCaption})}
+
+\hypertarget{_program_8cs_CORS}{}\doxysubsection{\texorpdfstring{CORS}{CORS}}\label{_program_8cs_CORS}
+Konfiguracja polityki Cross-\/\+Origin Resource Sharing (CORS). \begin{DoxyNote}{Nota}
+MUSI być zarejestrowana przed innymi usługami, aby umożliwić komunikację z frontendem React. 
+\end{DoxyNote}
+\Hypertarget{_program_8cs_aa1f1dea7bcdfa0f0bd85565da0472a8e}\index{Program.cs@{Program.cs}!AddIdentity$<$ User, IdentityRole $>$@{AddIdentity$<$ User, IdentityRole $>$}}
+\index{AddIdentity$<$ User, IdentityRole $>$@{AddIdentity$<$ User, IdentityRole $>$}!Program.cs@{Program.cs}}
+\doxysubsubsection{\texorpdfstring{AddIdentity$<$ User, IdentityRole $>$()}{AddIdentity< User, IdentityRole >()}}
+{\footnotesize\ttfamily \label{_program_8cs_aa1f1dea7bcdfa0f0bd85565da0472a8e} 
+builder.\+Services. Add\+Identity$<$ \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_models_1_1_user}{User}}, Identity\+Role $>$ (\begin{DoxyParamCaption}\item[{options}]{}{, }\item[{\{ options.\+Password.\+Require\+Digit=false;options.\+Password.\+Require\+Lowercase=false;options.\+Password.\+Require\+Uppercase=false;options.\+Password.\+Require\+Non\+Alphanumeric=false;options.\+Password.\+Required\+Length=6;options.\+User.\+Require\+Unique\+Email=true;\}}]{}{}\end{DoxyParamCaption})}
+
+\hypertarget{_program_8cs_Identity}{}\doxysubsection{\texorpdfstring{Identity}{Identity}}\label{_program_8cs_Identity}
+Konfiguracja systemu ASP.\+NET Core Identity dla autoryzacji opartej na użytkownikach i rolach. \Hypertarget{_program_8cs_a960fbbba8351a357733e5d9ee8a25301}\index{Program.cs@{Program.cs}!AddScoped$<$ AuctionService $>$@{AddScoped$<$ AuctionService $>$}}
+\index{AddScoped$<$ AuctionService $>$@{AddScoped$<$ AuctionService $>$}!Program.cs@{Program.cs}}
+\doxysubsubsection{\texorpdfstring{AddScoped$<$ AuctionService $>$()}{AddScoped< AuctionService >()}}
+{\footnotesize\ttfamily \label{_program_8cs_a960fbbba8351a357733e5d9ee8a25301} 
+builder.\+Services. Add\+Scoped$<$ \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_services_1_1_bidding_1_1_auction_service}{Auction\+Service}} $>$ (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+\hypertarget{_program_8cs_BusinessServices}{}\doxysubsection{\texorpdfstring{Business\+Services}{Business\+Services}}\label{_program_8cs_BusinessServices}
+Rejestracja usług logicznych i pomocniczych aplikacji. \Hypertarget{_program_8cs_aed3db05c3ef9045e32b8d9c848121f73}\index{Program.cs@{Program.cs}!AddSignalR@{AddSignalR}}
+\index{AddSignalR@{AddSignalR}!Program.cs@{Program.cs}}
+\doxysubsubsection{\texorpdfstring{AddSignalR()}{AddSignalR()}}
+{\footnotesize\ttfamily \label{_program_8cs_aed3db05c3ef9045e32b8d9c848121f73} 
+builder.\+Services. Add\+SignalR (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\hypertarget{_program_8cs_SignalR}{}\doxysubsection{\texorpdfstring{SignalR}{SignalR}}\label{_program_8cs_SignalR}
+Rejestracja usług czasu rzeczywistego (Web\+Sockets). 
+
+\label{doc-var-members}
+\Hypertarget{_program_8cs_doc-var-members}
+\doxysubsection{Dokumentacja zmiennych}
+\Hypertarget{_program_8cs_a067cdd5f0fed6b2598fae7de8607e7da}\index{Program.cs@{Program.cs}!connectionString@{connectionString}}
+\index{connectionString@{connectionString}!Program.cs@{Program.cs}}
+\doxysubsubsection{\texorpdfstring{connectionString}{connectionString}}
+{\footnotesize\ttfamily \label{_program_8cs_a067cdd5f0fed6b2598fae7de8607e7da} 
+var connection\+String = builder.\+Configuration.\+Get\+Connection\+String("{}Default\+Connection"{})}
+
+\hypertarget{_program_8cs_Database}{}\doxysubsection{\texorpdfstring{Database}{Database}}\label{_program_8cs_Database}
+Rejestracja kontekstu bazy danych Postgre\+SQL (Entity Framework Core). \Hypertarget{_program_8cs_af5e732acac75f2de122dfedaba997c46}\index{Program.cs@{Program.cs}!secretKey@{secretKey}}
+\index{secretKey@{secretKey}!Program.cs@{Program.cs}}
+\doxysubsubsection{\texorpdfstring{secretKey}{secretKey}}
+{\footnotesize\ttfamily \label{_program_8cs_af5e732acac75f2de122dfedaba997c46} 
+var secret\+Key}
+
+{\bfseries Wartość początkowa:\+}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{=\ builder.Configuration.GetValue<\textcolor{keywordtype}{string}>(\textcolor{stringliteral}{"{}AuthSettings:Key"{}})\ ??}
+\DoxyCodeLine{\ \ builder.Configuration.GetValue<\textcolor{keywordtype}{string}>(\textcolor{stringliteral}{"{}AuthSettings:SecretKey"{}})}
+
+\end{DoxyCode}
+\hypertarget{_program_8cs_Authentication}{}\doxysubsection{\texorpdfstring{Authentication}{Authentication}}\label{_program_8cs_Authentication}
+Konfiguracja uwierzytelniania opartego na tokenach JWT oraz obsługa protokołu SignalR. 

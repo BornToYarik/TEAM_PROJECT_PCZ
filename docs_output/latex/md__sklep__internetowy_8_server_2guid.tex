@@ -1,0 +1,64 @@
+\chapter{Instrukcja Konfiguracji Projektu (Docker \& Migracje) }
+\hypertarget{md__sklep__internetowy_8_server_2guid}{}\label{md__sklep__internetowy_8_server_2guid}\index{Instrukcja Konfiguracji Projektu (Docker \& Migracje)@{Instrukcja Konfiguracji Projektu (Docker \& Migracje)}}
+\label{md__sklep__internetowy_8_server_2guid_autotoc_md0}%
+\Hypertarget{md__sklep__internetowy_8_server_2guid_autotoc_md0}%
+
+
+Ten dokument opisuje standardowe procedury pracy z projektem, w tym tworzenie nowych migracji bazy danych oraz codzienne uruchamianie środowiska deweloperskiego.
+
+\DoxyHorRuler{0}
+\hypertarget{md__sklep__internetowy_8_server_2guid_autotoc_md2}{}\doxysection{\texorpdfstring{\#\# Jak Dodać Nową Migrację (np. dodać kolumnę do tabeli)}{\#\# Jak Dodać Nową Migrację (np. dodać kolumnę do tabeli)}}\label{md__sklep__internetowy_8_server_2guid_autotoc_md2}
+To jest proces, który wykonujesz {\bfseries{TY}}, gdy zmieniasz strukturę bazy danych (np. dodajesz nową tabelę lub kolumnę).
+
+
+\begin{DoxyEnumerate}
+\item {\bfseries{Zmień Modele C\#:\+}} Zanim zaczniesz, dokonaj zmian w swoich modelach C\# (np. dodaj {\ttfamily public string New\+Property \{ get; set; \}} do klasy {\ttfamily Product.\+cs}).
+\item {\bfseries{Uruchom Kontenery:\+}} W Visual Studio, upewnij się, że jako "{}\+Startup Project"{} wybrany jest {\ttfamily docker-\/compose}. Naciśnij {\bfseries{{\ttfamily Ctrl + F5}}} (Start Without Debugging), aby uruchomić kontenery (backend i bazę danych).
+\item {\bfseries{Zmień Connection String (Tymczasowo):\+}} Otwórz plik {\ttfamily appsettings.\+json} (w projekcie {\ttfamily .Server}). Zmień {\ttfamily Server=db} na {\ttfamily Server=localhost}.
+\begin{DoxyItemize}
+\item {\itshape (To jest "{}most"{}, aby Visual Studio mogło zobaczyć bazę danych, która działa w Dockerze).}
+\end{DoxyItemize}
+\item {\bfseries{Zmień Ustawienia Projektu:\+}}
+\begin{DoxyItemize}
+\item W Visual Studio, zmień "{}\+Startup Project"{} (na górnym pasku obok "{}\+Play"{}) na {\ttfamily \doxylink{namespace_sklep__internetowy_1_1_server}{Sklep\+\_\+internetowy.\+Server}}.
+\item W konsoli {\ttfamily Package Manager Console} (na dole), w polu {\ttfamily Default project}, również wybierz {\ttfamily \doxylink{namespace_sklep__internetowy_1_1_server}{Sklep\+\_\+internetowy.\+Server}}.
+\end{DoxyItemize}
+\item {\bfseries{Dodaj Migrację:\+}} W {\ttfamily Package Manager Console} wpisz:\+ {\ttfamily powershell Add-\/\+Migration Twoja\+Nazwa\+Migracji (np. Add\+Is\+Admin\+To\+User) }
+\item {\bfseries{Zaktualizuj Bazę Danych:\+}} W {\ttfamily Package Manager Console} wpisz:\+ {\ttfamily powershell Update-\/\+Database } {\itshape (Poczekaj na komunikat {\ttfamily Done.})}
+\item \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} PRZYWRÓĆ USTAWIENIA! (Najważniejsze):\+\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}
+\begin{DoxyItemize}
+\item Wróć do {\ttfamily appsettings.\+json} i zmień {\ttfamily Server=localhost} z powrotem na {\ttfamily Server=db}.
+\item Wróć do "{}\+Startup Project"{} (na górnym pasku) i zmień go z powrotem na {\ttfamily docker-\/compose}.
+\end{DoxyItemize}
+\item {\bfseries{Zrób Commit:\+}} Teraz zrób {\ttfamily git commit} i {\ttfamily git push}. Twoi koledzy z zespołu otrzymają nowy plik migracji, który będą musieli tylko u siebie zastosować (patrz następna sekcja).
+\end{DoxyEnumerate}
+
+\DoxyHorRuler{0}
+\hypertarget{md__sklep__internetowy_8_server_2guid_autotoc_md4}{}\doxysection{\texorpdfstring{\#\# Jak Zastosować Nową Migrację (dla reszty zespołu)}{\#\# Jak Zastosować Nową Migrację (dla reszty zespołu)}}\label{md__sklep__internetowy_8_server_2guid_autotoc_md4}
+To jest proces, który wykonuje {\bfseries{KAŻ\+DY}} członek zespołu, gdy pobierze z Git\+Huba nową migrację (stworzoną przez kogoś innego).
+
+
+\begin{DoxyEnumerate}
+\item {\bfseries{Zrób {\ttfamily git pull}}}, aby pobrać najnowsze zmiany (w tym nowy plik migracji).
+\item Wykonaj kroki {\bfseries{2, 3, 4}} oraz {\bfseries{6}} z instrukcji "{}\+Jak Dodać Nową Migrację"{}.
+\item {\bfseries{Nie musisz}} uruchamiać {\ttfamily Add-\/\+Migration}. Musisz tylko uruchomić {\ttfamily Update-\/\+Database}.
+\item Pamiętaj, aby na końcu {\bfseries{przywrócić ustawienia}} (krok 7).
+\end{DoxyEnumerate}
+
+\DoxyHorRuler{0}
+\hypertarget{md__sklep__internetowy_8_server_2guid_autotoc_md6}{}\doxysection{\texorpdfstring{\#\# Jak Uruchomić Cały Projekt (Backend + Baza + Frontend)}{\#\# Jak Uruchomić Cały Projekt (Backend + Baza + Frontend)}}\label{md__sklep__internetowy_8_server_2guid_autotoc_md6}
+To jest proces, który wykonujesz {\bfseries{codziennie}}, aby uruchomić projekt do pracy.\hypertarget{md__sklep__internetowy_8_server_2guid_autotoc_md7}{}\doxysubsubsection{\texorpdfstring{1. Uruchom Backend i Bazę Danych:\+}{1. Uruchom Backend i Bazę Danych:\+}}\label{md__sklep__internetowy_8_server_2guid_autotoc_md7}
+
+\begin{DoxyEnumerate}
+\item W Visual Studio upewnij się, że "{}\+Startup Project"{} (na górze) to {\ttfamily docker-\/compose}.
+\item Naciśnij {\bfseries{{\ttfamily Ctrl + F5}}} (Start Without Debugging).
+\item Otworzy się przeglądarka ze Swaggerem (np. {\ttfamily localhost:\+8080}). {\bfseries{Zostaw to włączone.}}
+\end{DoxyEnumerate}\hypertarget{md__sklep__internetowy_8_server_2guid_autotoc_md8}{}\doxysubsubsection{\texorpdfstring{2. Uruchom Frontend:\+}{2. Uruchom Frontend:\+}}\label{md__sklep__internetowy_8_server_2guid_autotoc_md8}
+
+\begin{DoxyEnumerate}
+\item Otwórz {\bfseries{nowy, osobny}} terminal (np. {\ttfamily View -\/\texorpdfstring{$>$}{>} Terminal} w Visual Studio).
+\item Jeśli używasz {\bfseries{Power\+Shell}}, wpisz tę komendę, aby zezwolić na skrypty (musisz to robić za każdym razem, gdy otwierasz nowy terminal):\+ {\ttfamily powershell Set-\/\+Execution\+Policy -\/Scope Process -\/Execution\+Policy Bypass }
+\item Upewnij się, że jesteś w głównym folderze projektu (np. {\ttfamily D:\+\textbackslash{}Project\+Zespolowy\textbackslash{}\doxylink{namespace_sklep__internetowy}{Sklep\+\_\+internetowy}}, tam gdzie jest {\ttfamily package.\+json}).
+\item Wpisz komendę:\+ {\ttfamily bash npm run dev }
+\item Otwórz w przeglądarce adres, który poda Ci Vite (np. {\ttfamily \href{http://localhost:5173}{\texttt{http:\+/\+/\+localhost:\+5173}}}). 
+\end{DoxyEnumerate}

@@ -1,0 +1,80 @@
+\doxysection{Dokumentacja klasy Sklep\+\_\+internetowy.\+Server.\+Services.\+Email\+Service}
+\hypertarget{class_sklep__internetowy_1_1_server_1_1_services_1_1_email_service}{}\label{class_sklep__internetowy_1_1_server_1_1_services_1_1_email_service}\index{Sklep\_internetowy.Server.Services.EmailService@{Sklep\_internetowy.Server.Services.EmailService}}
+
+
+Serwis odpowiedzialny za wysyłanie wiadomości e-\/mail.  
+
+
+
+
+Diagram współpracy dla Sklep\+\_\+internetowy.\+Server.\+Services.\+Email\+Service:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=234pt]{class_sklep__internetowy_1_1_server_1_1_services_1_1_email_service__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Metody publiczne}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_services_1_1_email_service_a655e513541d26311be0126c21100d186}{Email\+Service}} (IOptions$<$ \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_models_1_1_mail_settings}{Mail\+Settings}} $>$ mail\+Settings)
+\begin{DoxyCompactList}\small\item\em Konstruktor serwisu \doxylink{class_sklep__internetowy_1_1_server_1_1_services_1_1_email_service}{Email\+Service}. \end{DoxyCompactList}\item 
+async Task \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_services_1_1_email_service_ac5eedc4e0936408f939d007505d9cf26}{Send\+Order\+Confirmation\+Async}} (string to\+Email, int order\+Id, decimal total\+Amount, string order\+Date)
+\begin{DoxyCompactList}\small\item\em Wysyła e-\/mail z potwierdzeniem złożenia zamówienia. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Opis szczegółowy}
+Serwis odpowiedzialny za wysyłanie wiadomości e-\/mail. 
+
+Wykorzystywany głównie do wysyłania potwierdzeń zamówień oraz komunikacji systemowej z użytkownikiem. 
+
+\label{doc-constructors}
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_services_1_1_email_service_doc-constructors}
+\doxysubsection{Dokumentacja konstruktora i destruktora}
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_services_1_1_email_service_a655e513541d26311be0126c21100d186}\index{Sklep\_internetowy.Server.Services.EmailService@{Sklep\_internetowy.Server.Services.EmailService}!EmailService@{EmailService}}
+\index{EmailService@{EmailService}!Sklep\_internetowy.Server.Services.EmailService@{Sklep\_internetowy.Server.Services.EmailService}}
+\doxysubsubsection{\texorpdfstring{EmailService()}{EmailService()}}
+{\footnotesize\ttfamily \label{class_sklep__internetowy_1_1_server_1_1_services_1_1_email_service_a655e513541d26311be0126c21100d186} 
+Sklep\+\_\+internetowy.\+Server.\+Services.\+Email\+Service.\+Email\+Service (\begin{DoxyParamCaption}\item[{IOptions$<$ \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_models_1_1_mail_settings}{Mail\+Settings}} $>$}]{mail\+Settings}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Konstruktor serwisu \doxylink{class_sklep__internetowy_1_1_server_1_1_services_1_1_email_service}{Email\+Service}. 
+
+
+\begin{DoxyParams}{Parametry}
+{\em mail\+Settings} & Ustawienia serwera pocztowego wczytane z konfiguracji aplikacji. \\
+\hline
+\end{DoxyParams}
+
+
+\label{doc-func-members}
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_services_1_1_email_service_doc-func-members}
+\doxysubsection{Dokumentacja funkcji składowych}
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_services_1_1_email_service_ac5eedc4e0936408f939d007505d9cf26}\index{Sklep\_internetowy.Server.Services.EmailService@{Sklep\_internetowy.Server.Services.EmailService}!SendOrderConfirmationAsync@{SendOrderConfirmationAsync}}
+\index{SendOrderConfirmationAsync@{SendOrderConfirmationAsync}!Sklep\_internetowy.Server.Services.EmailService@{Sklep\_internetowy.Server.Services.EmailService}}
+\doxysubsubsection{\texorpdfstring{SendOrderConfirmationAsync()}{SendOrderConfirmationAsync()}}
+{\footnotesize\ttfamily \label{class_sklep__internetowy_1_1_server_1_1_services_1_1_email_service_ac5eedc4e0936408f939d007505d9cf26} 
+async Task Sklep\+\_\+internetowy.\+Server.\+Services.\+Email\+Service.\+Send\+Order\+Confirmation\+Async (\begin{DoxyParamCaption}\item[{string}]{to\+Email}{, }\item[{int}]{order\+Id}{, }\item[{decimal}]{total\+Amount}{, }\item[{string}]{order\+Date}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Wysyła e-\/mail z potwierdzeniem złożenia zamówienia. 
+
+Generuje wiadomość HTML zawierającą szczegóły zamówienia i wysyła ją do klienta. 
+\begin{DoxyParams}{Parametry}
+{\em to\+Email} & Adres e-\/mail odbiorcy. \\
+\hline
+{\em order\+Id} & Identyfikator zamówienia. \\
+\hline
+{\em total\+Amount} & Łączna kwota do zapłaty. \\
+\hline
+{\em order\+Date} & \doxylink{namespace_sklep__internetowy_1_1_server_1_1_data}{Data} złożenia zamówienia. \\
+\hline
+\end{DoxyParams}
+
+
+Dokumentacja dla tej klasy została wygenerowana z pliku:\+\begin{DoxyCompactItemize}
+\item 
+Sklep\+\_\+internetowy.\+Server/\+\+Services/\+\+Email/\+Email\+Service.\+cs\end{DoxyCompactItemize}

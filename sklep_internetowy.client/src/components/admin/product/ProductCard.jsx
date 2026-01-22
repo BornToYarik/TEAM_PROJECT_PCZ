@@ -1,11 +1,29 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Trash2, Edit } from 'lucide-react';
+/**
+ * @file ProductCard.jsx
+ * @brief Komponent karty produktu dedykowany dla panelu administracyjnego.
+ */
 
+/**
+ * @component ProductCard
+ * @description Wyswietla skrocone informacje o produkcie w formie karty. 
+ * Zawiera funkcje zarzadzania produktem, takie jak edycja i usuwanie, oraz wizualna informacje o promocjach.
+ * @param {Object} props - Wlasciwosci komponentu.
+ * @param {Object} props.product - Obiekt danych produktu (ID, nazwa, cena, stan, rabaty).
+ * @param {Function} props.onEdit - Funkcja wywolywana przy kliknieciu przycisku edycji, przyjmuje obiekt produktu.
+ * @param {Function} props.onDelete - Funkcja wywolywana po potwierdzeniu usuniecia, przyjmuje ID produktu.
+ */
 function ProductCard({ product, onEdit, onDelete }) {
-
+    /** * @brief Flaga okreslajaca, czy produkt posiada obecnie aktywna znizke.
+     */
     const isDiscount = product.hasActiveDiscount && product.finalPrice < product.price;
-
+      /**
+      * @function handleDelete
+      * @description Wyswietla systemowe okno potwierdzenia. Jesli uzytkownik zatwierdzi,
+      * wywoluje funkcje onDelete przekazana w parametrach.
+      */
     const handleDelete = () => {
         if (window.confirm(`Are you sure you want to delete "${product.name}"?`)) {
             onDelete(product.id);

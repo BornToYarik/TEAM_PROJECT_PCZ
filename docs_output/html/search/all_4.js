@@ -1,0 +1,15 @@
+var searchData=
+[
+  ['backend_20baza_20frontend_0',['## Jak Uruchomić Cały Projekt (Backend + Baza + Frontend)',['../md__sklep__internetowy_8_server_2guid.html#autotoc_md6',1,'']]],
+  ['backend_20i_20bazę_20danych_3a_1',['1. Uruchom Backend i Bazę Danych:',['../md__sklep__internetowy_8_server_2guid.html#autotoc_md7',1,'']]],
+  ['bazę_20danych_3a_2',['1. Uruchom Backend i Bazę Danych:',['../md__sklep__internetowy_8_server_2guid.html#autotoc_md7',1,'']]],
+  ['baza_20frontend_3',['## Jak Uruchomić Cały Projekt (Backend + Baza + Frontend)',['../md__sklep__internetowy_8_server_2guid.html#autotoc_md6',1,'']]],
+  ['bid_4',['Bid',['../class_sklep__internetowy_1_1_server_1_1_models_1_1_bid.html',1,'Sklep_internetowy::Server::Models']]],
+  ['bidcontroller_5',['BidController',['../class_sklep__internetowy_1_1_server_1_1_controllers_1_1_bid_controller.html',1,'Sklep_internetowy.Server.Controllers.BidController'],['../class_sklep__internetowy_1_1_server_1_1_controllers_1_1_bid_controller.html#a8d9b4c5e37ee624f6aa861b41187a511',1,'Sklep_internetowy.Server.Controllers.BidController.BidController()']]],
+  ['bidder_6',['Bidder',['../class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_bid_request.html#accfe68578633081199a38166287b69f5',1,'Sklep_internetowy.Server.DTOs.BidRequest.Bidder'],['../class_sklep__internetowy_1_1_server_1_1_models_1_1_bid.html#a30119a9c71a07ec5fdcedced7f9864c9',1,'Sklep_internetowy.Server.Models.Bid.Bidder']]],
+  ['bidderid_7',['BidderId',['../class_sklep__internetowy_1_1_server_1_1_models_1_1_bid.html#a4ec902f7d866be9f1244238a92ab5f5e',1,'Sklep_internetowy::Server::Models::Bid']]],
+  ['bidrequest_8',['BidRequest',['../class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_bid_request.html',1,'Sklep_internetowy::Server::DTOs']]],
+  ['bids_9',['Bids',['../class_sklep__internetowy_1_1_server_1_1_data_1_1_store_db_context.html#a4a33a9769bdfb0a39767ca3a322207dd',1,'Sklep_internetowy.Server.Data.StoreDbContext.Bids'],['../class_sklep__internetowy_1_1_server_1_1_models_1_1_auction.html#a2ea53a6f042dbece610e541067e92ce7',1,'Sklep_internetowy.Server.Models.Auction.Bids']]],
+  ['brand_10',['Brand',['../class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_create_product_with_files_dto.html#ab99b427d2f8cf55d020d2bcb6ffa89b8',1,'Sklep_internetowy.Server.DTOs.CreateProductWithFilesDto.Brand'],['../class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_product_dto.html#a5bf27cecae388057b7fec77a12c133f7',1,'Sklep_internetowy.Server.DTOs.ProductDto.Brand'],['../class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_update_product_dto.html#adb720b066c2eeff8e63715c5346827df',1,'Sklep_internetowy.Server.DTOs.UpdateProductDto.Brand'],['../class_sklep__internetowy_1_1_server_1_1_models_1_1_product.html#a73ca8a7f997400eb42bb3289dc1ce480',1,'Sklep_internetowy.Server.Models.Product.Brand']]],
+  ['buildtargetmodel_11',['BuildTargetModel',['../class_sklep__internetowy_1_1_server_1_1_migrations_1_1_initial_create.html#a1246fedcd828f01830bf3723d35078ca',1,'Sklep_internetowy::Server::Migrations::InitialCreate']]]
+];

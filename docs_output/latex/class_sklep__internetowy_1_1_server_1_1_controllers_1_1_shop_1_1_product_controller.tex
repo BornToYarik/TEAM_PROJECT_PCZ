@@ -1,0 +1,90 @@
+\doxysection{Dokumentacja klasy Sklep\+\_\+internetowy.\+Server.\+Controllers.\+Shop.\+Product\+Controller}
+\hypertarget{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_shop_1_1_product_controller}{}\label{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_shop_1_1_product_controller}\index{Sklep\_internetowy.Server.Controllers.Shop.ProductController@{Sklep\_internetowy.Server.Controllers.Shop.ProductController}}
+
+
+Kontroler API odpowiedzialny za dostarczanie danych o produktach dla czesci sklepowej (ogolnodostepnej). Obsluguje operacje przegladania katalogu produktow oraz wyswietlania szczegolowych informacji o konkretnym towarze.  
+
+
+
+
+Diagram współpracy dla Sklep\+\_\+internetowy.\+Server.\+Controllers.\+Shop.\+Product\+Controller:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=240pt]{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_shop_1_1_product_controller__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Metody publiczne}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_shop_1_1_product_controller_a153bff8fb8aa2488fb10152c441d6c22}{Product\+Controller}} (\doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_data_1_1_store_db_context}{Store\+Db\+Context}} context)
+\begin{DoxyCompactList}\small\item\em Inicjalizuje nowa instancje klasy \doxylink{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_shop_1_1_product_controller}{Product\+Controller}. \end{DoxyCompactList}\item 
+async Task$<$ Action\+Result$<$ IEnumerable$<$ \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_product_dto}{Product\+Dto}} $>$ $>$ $>$ \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_shop_1_1_product_controller_a5f23ef21adac05be2a7cb0b37fb8c43e}{Get\+Products}} ()
+\begin{DoxyCompactList}\small\item\em Pobiera liste wszystkich produktow zarejestrowanych w systemie wraz z ich kategoriami i powiazanymi zdjeciami. \end{DoxyCompactList}\item 
+async Task$<$ Action\+Result$<$ \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_product_dto}{Product\+Dto}} $>$ $>$ \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_shop_1_1_product_controller_ae492ab0ee13dae0e1babde18a5dde52d}{Get\+Product}} (int id)
+\begin{DoxyCompactList}\small\item\em Pobiera szczegolowe dane o pojedynczym produkcie na podstawie jego unikalnego identyfikatora ID. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Opis szczegółowy}
+Kontroler API odpowiedzialny za dostarczanie danych o produktach dla czesci sklepowej (ogolnodostepnej). Obsluguje operacje przegladania katalogu produktow oraz wyswietlania szczegolowych informacji o konkretnym towarze. 
+
+\label{doc-constructors}
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_shop_1_1_product_controller_doc-constructors}
+\doxysubsection{Dokumentacja konstruktora i destruktora}
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_shop_1_1_product_controller_a153bff8fb8aa2488fb10152c441d6c22}\index{Sklep\_internetowy.Server.Controllers.Shop.ProductController@{Sklep\_internetowy.Server.Controllers.Shop.ProductController}!ProductController@{ProductController}}
+\index{ProductController@{ProductController}!Sklep\_internetowy.Server.Controllers.Shop.ProductController@{Sklep\_internetowy.Server.Controllers.Shop.ProductController}}
+\doxysubsubsection{\texorpdfstring{ProductController()}{ProductController()}}
+{\footnotesize\ttfamily \label{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_shop_1_1_product_controller_a153bff8fb8aa2488fb10152c441d6c22} 
+Sklep\+\_\+internetowy.\+Server.\+Controllers.\+Shop.\+Product\+Controller.\+Product\+Controller (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_data_1_1_store_db_context}{Store\+Db\+Context}}}]{context}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Inicjalizuje nowa instancje klasy \doxylink{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_shop_1_1_product_controller}{Product\+Controller}. 
+
+
+\begin{DoxyParams}{Parametry}
+{\em context} & Kontekst bazy danych \doxylink{class_sklep__internetowy_1_1_server_1_1_data_1_1_store_db_context}{Store\+Db\+Context} do obslugi zapytan.\\
+\hline
+\end{DoxyParams}
+
+
+\label{doc-func-members}
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_shop_1_1_product_controller_doc-func-members}
+\doxysubsection{Dokumentacja funkcji składowych}
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_shop_1_1_product_controller_ae492ab0ee13dae0e1babde18a5dde52d}\index{Sklep\_internetowy.Server.Controllers.Shop.ProductController@{Sklep\_internetowy.Server.Controllers.Shop.ProductController}!GetProduct@{GetProduct}}
+\index{GetProduct@{GetProduct}!Sklep\_internetowy.Server.Controllers.Shop.ProductController@{Sklep\_internetowy.Server.Controllers.Shop.ProductController}}
+\doxysubsubsection{\texorpdfstring{GetProduct()}{GetProduct()}}
+{\footnotesize\ttfamily \label{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_shop_1_1_product_controller_ae492ab0ee13dae0e1babde18a5dde52d} 
+async Task$<$ Action\+Result$<$ \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_product_dto}{Product\+Dto}} $>$ $>$ Sklep\+\_\+internetowy.\+Server.\+Controllers.\+Shop.\+Product\+Controller.\+Get\+Product (\begin{DoxyParamCaption}\item[{int}]{id}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Pobiera szczegolowe dane o pojedynczym produkcie na podstawie jego unikalnego identyfikatora ID. 
+
+
+\begin{DoxyParams}{Parametry}
+{\em id} & Identyfikator techniczny produktu.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Zwraca}
+Obiekt \doxylink{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_product_dto}{Product\+Dto} reprezentujacy szczegoly towaru lub Not\+Found w przypadku braku rekordu.
+\end{DoxyReturn}
+$<$response code="{}200"{}$>$Zwraca dane wybranego produktu.$<$/\+response$>$ $<$response code="{}404"{}$>$Gdy produkt o podanym ID nie istnieje w bazie danych.$<$/\+response$>$ \Hypertarget{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_shop_1_1_product_controller_a5f23ef21adac05be2a7cb0b37fb8c43e}\index{Sklep\_internetowy.Server.Controllers.Shop.ProductController@{Sklep\_internetowy.Server.Controllers.Shop.ProductController}!GetProducts@{GetProducts}}
+\index{GetProducts@{GetProducts}!Sklep\_internetowy.Server.Controllers.Shop.ProductController@{Sklep\_internetowy.Server.Controllers.Shop.ProductController}}
+\doxysubsubsection{\texorpdfstring{GetProducts()}{GetProducts()}}
+{\footnotesize\ttfamily \label{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_shop_1_1_product_controller_a5f23ef21adac05be2a7cb0b37fb8c43e} 
+async Task$<$ Action\+Result$<$ IEnumerable$<$ \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_product_dto}{Product\+Dto}} $>$ $>$ $>$ Sklep\+\_\+internetowy.\+Server.\+Controllers.\+Shop.\+Product\+Controller.\+Get\+Products (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Pobiera liste wszystkich produktow zarejestrowanych w systemie wraz z ich kategoriami i powiazanymi zdjeciami. 
+
+\begin{DoxyReturn}{Zwraca}
+Kolekcja obiektow \doxylink{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_product_dto}{Product\+Dto} zawierajaca kompletne dane o cenach, znizkach i mediach.
+\end{DoxyReturn}
+$<$response code="{}200"{}$>$Zwraca liste produktow dostepnych w sklepie.$<$/\+response$>$ 
+
+Dokumentacja dla tej klasy została wygenerowana z pliku:\+\begin{DoxyCompactItemize}
+\item 
+Sklep\+\_\+internetowy.\+Server/\+\+Controllers/\+\+Shop/\+Product\+Controller.\+cs\end{DoxyCompactItemize}

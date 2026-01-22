@@ -1,0 +1,317 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="pl">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.16.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>TechStore System: Dokumentacja pliku sklep_internetowy.client/src/api/auctionApi.js</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<script type="text/javascript" src="clipboard.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">TechStore System<span id="projectnumber">&#160;1.0</span>
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Wygenerowano za pomocą Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+$(function() {
+  initMenu('',true,false,'search.php','Szukaj',true);
+  $(function() { init_search(); });
+});
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('auction_api_8js.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Wczytywanie...</div>
+<div class="SRStatus" id="Searching">Szukanie...</div>
+<div class="SRStatus" id="NoMatches">Brak dopasowań</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">Dokumentacja pliku auctionApi.js</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>Serwis kliencki do obslugi zapytan API zwiazanych z systemem aukcyjnym.  
+<a href="#details">Więcej...</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-var-members" class="groupheader"><a id="var-members" name="var-members"></a>
+Zmienne</h2></td></tr>
+<tr class="memitem:a9f106c4661b1449092a237da75b6f89a" id="r_a9f106c4661b1449092a237da75b6f89a"><td class="memItemLeft">const&#160;</td><td class="memItemRight"><a class="el" href="#a9f106c4661b1449092a237da75b6f89a">getHeaders</a></td></tr>
+<tr class="memitem:acb4c24e6f63baa20b984805d45aa17f9" id="r_acb4c24e6f63baa20b984805d45aa17f9"><td class="memItemLeft">export const&#160;</td><td class="memItemRight"><a class="el" href="#acb4c24e6f63baa20b984805d45aa17f9">getActiveAuctions</a></td></tr>
+<tr class="memitem:ae6d73a675298856c75238ae9d4839109" id="r_ae6d73a675298856c75238ae9d4839109"><td class="memItemLeft">export const&#160;</td><td class="memItemRight"><a class="el" href="#ae6d73a675298856c75238ae9d4839109">getAuction</a></td></tr>
+<tr class="memitem:aad867f41fea275810500c59885908462" id="r_aad867f41fea275810500c59885908462"><td class="memItemLeft">export const&#160;</td><td class="memItemRight"><a class="el" href="#aad867f41fea275810500c59885908462">placeBid</a></td></tr>
+<tr class="memitem:a9e0ec2897b98ecedffbaeb2a35c0a7aa" id="r_a9e0ec2897b98ecedffbaeb2a35c0a7aa"><td class="memItemLeft">export const&#160;</td><td class="memItemRight"><a class="el" href="#a9e0ec2897b98ecedffbaeb2a35c0a7aa">createAuction</a></td></tr>
+</table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Opis szczegółowy</h2>
+<div class="textblock"><p>Serwis kliencki do obslugi zapytan API zwiazanych z systemem aukcyjnym. </p>
+<p>Zawiera zestaw funkcji asynchronicznych do komunikacji z kontrolerem BidController, obslugujac pobieranie danych aukcji, licytowanie oraz tworzenie nowych licytacji. </p>
+</div><a name="doc-var-members" id="doc-var-members"></a><h2 id="header-doc-var-members" class="groupheader">Dokumentacja zmiennych</h2>
+<a id="a9e0ec2897b98ecedffbaeb2a35c0a7aa" name="a9e0ec2897b98ecedffbaeb2a35c0a7aa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9e0ec2897b98ecedffbaeb2a35c0a7aa">&#9670;&#160;</a></span>createAuction</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">export const createAuction</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Wartość początkowa:</b><div class="fragment"><div class="line">                           = async (data) =&gt; {</div>
+<div class="line">    <span class="keyword">const</span> response = await fetch(<span class="stringliteral">&quot;/api/bid/create&quot;</span>, {</div>
+<div class="line">        method: <span class="stringliteral">&quot;POST&quot;</span>,</div>
+<div class="line">        headers: <a class="code hl_variable" href="#a9f106c4661b1449092a237da75b6f89a">getHeaders</a>({ <span class="stringliteral">&quot;Content-Type&quot;</span>: <span class="stringliteral">&quot;application/json&quot;</span> }),</div>
+<div class="line">        body: JSON.stringify({</div>
+<div class="line">            productId: data.productId,</div>
+<div class="line">            startingPrice: data.startingPrice</div>
+<div class="line">        })</div>
+<div class="line">    });</div>
+<div class="line">    <span class="keywordflow">if</span> (!response.ok) <span class="keywordflow">throw</span> <span class="keyword">new</span> Error(<span class="stringliteral">&quot;Failed to create auction&quot;</span>);</div>
+<div class="line">    <span class="keywordflow">try</span> {</div>
+<div class="line">        <span class="keywordflow">return</span> await response.json();</div>
+<div class="line">    } <span class="keywordflow">catch</span> {</div>
+<div class="line">        <span class="keywordflow">return</span> <span class="keyword">null</span>;</div>
+<div class="line">    }</div>
+<div class="line">}</div>
+<div class="ttc" id="aauction_api_8js_html_a9f106c4661b1449092a237da75b6f89a"><div class="ttname"><a href="#a9f106c4661b1449092a237da75b6f89a">getHeaders</a></div><div class="ttdeci">const getHeaders</div><div class="ttdef"><b>Definicja</b> auctionApi.js:14</div></div>
+</div><!-- fragment --><dl class="section note"><dt>Nota</dt><dd>Funkcja asynchroniczna @description Tworzy nowa aukcje dla wskazanego produktu. </dd></dl>
+<dl class="params"><dt>Parametry</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">{Object}</td><td>data - Obiekt z danymi aukcji. </td></tr>
+    <tr><td class="paramname">{number}</td><td>data.productId - ID produktu do wystawienia. </td></tr>
+    <tr><td class="paramname">{number}</td><td>data.startingPrice - Cena wywolawcza. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Zwraca</dt><dd>{Promise&lt;Object|null&gt;} Dane utworzonej aukcji lub null w przypadku bledu parsowania. </dd></dl>
+<dl class="exception"><dt>Wyjątki</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">{Error}</td><td>Gdy wystapi blad podczas tworzenia licytacji. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="acb4c24e6f63baa20b984805d45aa17f9" name="acb4c24e6f63baa20b984805d45aa17f9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acb4c24e6f63baa20b984805d45aa17f9">&#9670;&#160;</a></span>getActiveAuctions</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">export const getActiveAuctions</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Wartość początkowa:</b><div class="fragment"><div class="line">                               = async () =&gt; {</div>
+<div class="line">    <span class="keyword">const</span> response = await fetch(<span class="stringliteral">&quot;/api/bid/active&quot;</span>, {</div>
+<div class="line">        method: <span class="stringliteral">&quot;GET&quot;</span>,</div>
+<div class="line">        headers: <a class="code hl_variable" href="#a9f106c4661b1449092a237da75b6f89a">getHeaders</a>()</div>
+<div class="line">    });</div>
+<div class="line">    <span class="keywordflow">if</span> (!response.ok) <span class="keywordflow">throw</span> <span class="keyword">new</span> Error(<span class="stringliteral">&quot;Failed to fetch active auctions&quot;</span>);</div>
+<div class="line">    <span class="keywordflow">try</span> {</div>
+<div class="line">        <span class="keywordflow">return</span> await response.json();</div>
+<div class="line">    } <span class="keywordflow">catch</span> {</div>
+<div class="line">        <span class="keywordflow">return</span> [];</div>
+<div class="line">    }</div>
+<div class="line">}</div>
+</div><!-- fragment --><dl class="section note"><dt>Nota</dt><dd>Funkcja asynchroniczna @description Pobiera liste wszystkich obecnie aktywnych (trwajacych) aukcji. </dd></dl>
+<dl class="section return"><dt>Zwraca</dt><dd>{Promise&lt;Array&gt;} Obietnica zwracajaca tablice obiektow AuctionDto. </dd></dl>
+<dl class="exception"><dt>Wyjątki</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">{Error}</td><td>Gdy serwer zwroci blad podczas pobierania. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ae6d73a675298856c75238ae9d4839109" name="ae6d73a675298856c75238ae9d4839109"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae6d73a675298856c75238ae9d4839109">&#9670;&#160;</a></span>getAuction</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">export const getAuction</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Wartość początkowa:</b><div class="fragment"><div class="line">                        = async (<span class="keywordtype">id</span>) =&gt; {</div>
+<div class="line">    <span class="keyword">const</span> response = await fetch(`/api/bid/${<span class="keywordtype">id</span>}`, {</div>
+<div class="line">        method: <span class="stringliteral">&quot;GET&quot;</span>,</div>
+<div class="line">        headers: <a class="code hl_variable" href="#a9f106c4661b1449092a237da75b6f89a">getHeaders</a>()</div>
+<div class="line">    });</div>
+<div class="line">    <span class="keywordflow">if</span> (!response.ok) <span class="keywordflow">throw</span> <span class="keyword">new</span> Error(`Failed to fetch auction with <span class="keywordtype">id</span> ${<span class="keywordtype">id</span>}`);</div>
+<div class="line">    <span class="keywordflow">try</span> {</div>
+<div class="line">        <span class="keyword">const</span> data = await response.json();</div>
+<div class="line">        <span class="keywordflow">return</span> { data };</div>
+<div class="line">    } <span class="keywordflow">catch</span> {</div>
+<div class="line">        <span class="keywordflow">return</span> { data: <span class="keyword">null</span> };</div>
+<div class="line">    }</div>
+<div class="line">}</div>
+</div><!-- fragment --><dl class="section note"><dt>Nota</dt><dd>Funkcja asynchroniczna @description Pobiera szczegolowe dane konkretnej aukcji na podstawie jej identyfikatora. </dd></dl>
+<dl class="params"><dt>Parametry</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">{number|string}</td><td>id - Unikalny identyfikator aukcji. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Zwraca</dt><dd>{Promise&lt;Object&gt;} Obiekt zawierajacy dane aukcji w polu 'data'. </dd></dl>
+<dl class="exception"><dt>Wyjątki</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">{Error}</td><td>Gdy aukcja nie zostanie znaleziona lub wystapi blad sieci. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a9f106c4661b1449092a237da75b6f89a" name="a9f106c4661b1449092a237da75b6f89a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9f106c4661b1449092a237da75b6f89a">&#9670;&#160;</a></span>getHeaders</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const getHeaders</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Wartość początkowa:</b><div class="fragment"><div class="line">                 = (customHeaders = {}) =&gt; {</div>
+<div class="line">    <span class="keyword">const</span> token = localStorage.getItem(<span class="stringliteral">&quot;token&quot;</span>);</div>
+<div class="line">    <span class="keyword">const</span> headers = { ...customHeaders };</div>
+<div class="line">    <span class="keywordflow">if</span> (token) {</div>
+<div class="line">        headers[<span class="stringliteral">&quot;Authorization&quot;</span>] = `Bearer ${token}`;</div>
+<div class="line">    }</div>
+<div class="line">    <span class="keywordflow">return</span> headers;</div>
+<div class="line">}</div>
+</div><!-- fragment --><p>@description Funkcja pomocnicza generujaca naglowki zapytan HTTP, w tym token autoryzacyjny Bearer. </p><dl class="params"><dt>Parametry</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">{Object}</td><td>customHeaders - Dodatkowe specyficzne naglowki (np. Content-Type). </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Zwraca</dt><dd>{Object} Zestaw naglowkow z dolaczonym tokenem JWT z localStorage. </dd></dl>
+
+</div>
+</div>
+<a id="aad867f41fea275810500c59885908462" name="aad867f41fea275810500c59885908462"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aad867f41fea275810500c59885908462">&#9670;&#160;</a></span>placeBid</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">export const placeBid</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Wartość początkowa:</b><div class="fragment"><div class="line">                      = async (<span class="keywordtype">id</span>, amount) =&gt; {</div>
+<div class="line">    <span class="keyword">const</span> response = await fetch(`/api/bid/${<span class="keywordtype">id</span>}/bid`, {</div>
+<div class="line">        method: <span class="stringliteral">&quot;POST&quot;</span>,</div>
+<div class="line">        headers: <a class="code hl_variable" href="#a9f106c4661b1449092a237da75b6f89a">getHeaders</a>({ <span class="stringliteral">&quot;Content-Type&quot;</span>: <span class="stringliteral">&quot;application/json&quot;</span> }),</div>
+<div class="line">        body: JSON.stringify({ amount })</div>
+<div class="line">    });</div>
+<div class="line">    <span class="keywordflow">if</span> (!response.ok) <span class="keywordflow">throw</span> <span class="keyword">new</span> Error(`Failed to place bid on auction ${<span class="keywordtype">id</span>}`);</div>
+<div class="line">    <span class="keywordflow">return</span> response.json();</div>
+<div class="line">}</div>
+</div><!-- fragment --><dl class="section note"><dt>Nota</dt><dd>Funkcja asynchroniczna @description Przesyla nowa oferte licytacji dla wybranej aukcji. </dd></dl>
+<dl class="params"><dt>Parametry</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">{number|string}</td><td>id - ID aukcji, w ktorej skladana jest oferta. </td></tr>
+    <tr><td class="paramname">{number}</td><td>amount - Kwota nowej oferty (podbicie). </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Zwraca</dt><dd>{Promise&lt;Object&gt;} Wynik operacji zwrocony przez serwer. </dd></dl>
+<dl class="exception"><dt>Wyjątki</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">{Error}</td><td>Gdy oferta jest zbyt niska, aukcja wygasla lub wystapil blad autoryzacji. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><b>sklep_internetowy.client</b></li><li class="navelem"><b>src</b></li><li class="navelem"><b>api</b></li><li class="navelem"><a href="auction_api_8js.html">auctionApi.js</a></li>
+    <li class="footer">Wygenerowano za pomocą <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
+  </ul>
+</div>
+</body>
+</html>

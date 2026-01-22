@@ -1,0 +1,5 @@
+<map id="Sklep_internetowy.Server.Controllers.UsersController" name="Sklep_internetowy.Server.Controllers.UsersController">
+<area shape="rect" id="Node000001" title="Kontroler API odpowiedzialny za udostepnianie informacji o uzytkownikach systemu. Umozliwia bezpieczn..." alt="" coords="5,333,174,440"/>
+<area shape="rect" id="Node000002" href="$class_sklep__internetowy_1_1_server_1_1_data_1_1_store_db_context.html" title="Glowny kontekst bazy danych aplikacji TechStore. Klasa dziedziczy po IdentityDbContext,..." alt="" coords="8,5,171,261"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="91,259,92,317,87,316,89,264"/>
+</map>

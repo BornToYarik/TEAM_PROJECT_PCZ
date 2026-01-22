@@ -4,17 +4,36 @@ import { useNavigate } from "react-router-dom";
 import { pdf } from '@react-pdf/renderer';
 import InvoiceDocument from '../../components/admin/InvoiceGenerator/InvoiceDocument';
 
+/**
+ * @file UserProfile.jsx
+ * @brief Komponent widoku profilu uzytkownika wraz z historia zamowien.
+ * @details Modul umozliwia zalogowanemu uzytkownikowi edycje danych profilowych (nazwa, email) 
+ * oraz przegladanie zestawienia archiwalnych zamowien z mozliwoscia pobrania faktur PDF.
+ */
+
+/**
+ * @component UserProfile
+ * @description Glowny komponent zarzadzajacy danymi zalogowanego uzytkownika. 
+ * Obsluguje pobieranie profilu, aktualizacje danych oraz ladowanie historii zakupow z API.
+ */
 function UserProfile() {
-    // --- STATE: PROFILE ---
+    /** @brief Stan przechowujacy podstawowe dane profilowe uzytkownika. */
     const [userData, setUserData] = useState({ userName: "", email: "" });
+    /** @brief Obiekt stanu do obslugi komunikatow o statusie aktualizacji profilu. */
     const [profileMsg, setProfileMsg] = useState({ type: '', text: '' });
 
-    // --- STATE: ORDERS ---
+    /** @brief Lista zamowien przypisanych do zalogowanego uzytkownika. */
     const [orders, setOrders] = useState([]);
+    /** @brief Flaga kontrolujaca wyswietlanie spinnera ladowania dla sekcji zamowien. */
     const [loadingOrders, setLoadingOrders] = useState(true);
 
     const navigate = useNavigate();
 
+    /**
+     * @effect Inicjalizacja danych profilu i zamowien.
+     * @description Sprawdza obecnosc tokenu JWT. Jesli uzytkownik jest zalogowany, 
+     * pobiera dane profilu z /api/Account/me oraz historie zamowien.
+     */
     useEffect(() => {
         const token = localStorage.getItem("token");
         const storedUser = localStorage.getItem("user");
@@ -26,6 +45,10 @@ function UserProfile() {
 
         const userObj = JSON.parse(storedUser);
 
+        /** @function fetchProfile
+         * @async
+         * @description Pobiera aktualne dane uzytkownika z API Account.
+         */
         const fetchProfile = async () => {
             try {
                 const response = await fetch("/api/Account/me", {
@@ -40,6 +63,10 @@ function UserProfile() {
             }
         };
 
+        /** @function fetchOrders
+         * @async
+         * @description Pobiera historie zamowien uzytkownika na podstawie identyfikatora.
+         */
         const fetchOrders = async () => {
             try {
                 const response = await fetch(`/api/Orders/user/${userObj.id}`, {
@@ -60,11 +87,21 @@ function UserProfile() {
         fetchOrders();
     }, [navigate]);
 
-    // --- HANDLERS: PROFILE ---
+    /**
+     * @function handleChange
+     * @description Handler aktualizujacy lokalny stan formularza edycji profilu.
+     * @param {Event} e - Zdarzenie zmiany pola input.
+     */
     const handleChange = (e) => {
         setUserData({ ...userData, [e.target.name]: e.target.value });
     };
 
+    /**
+     * @function handleUpdateProfile
+     * @async
+     * @description Wysyla zadanie aktualizacji danych uzytkownika do serwera.
+     * @param {Event} e - Zdarzenie submit formularza.
+     */
     const handleUpdateProfile = async (e) => {
         e.preventDefault();
         setProfileMsg({ type: '', text: '' });
@@ -91,7 +128,12 @@ function UserProfile() {
         }
     };
 
-    // --- HANDLERS: INVOICE ---
+    /**
+     * @function downloadInvoice
+     * @async
+     * @description Generuje i inicjuje pobieranie faktury PDF dla wskazanego zamowienia.
+     * @param {Object} order - Obiekt danych zamowienia.
+     */
     const downloadInvoice = async (order) => {
         try {
             const blob = await pdf(<InvoiceDocument order={order} />).toBlob();
@@ -107,10 +149,22 @@ function UserProfile() {
         }
     };
 
+    /**
+     * @function calculateTotal
+     * @description Oblicza calkowita wartosc zamowienia na podstawie listy produktow.
+     * @param {Object[]} products - Tablica produktow w zamowieniu.
+     * @returns {string} Sformatowana suma zamowienia.
+     */
     const calculateTotal = (products) => {
         return products.reduce((sum, p) => sum + (p.price * p.quantityInOrder), 0).toFixed(2);
     };
 
+    /**
+     * @function getStatusBadge
+     * @description Zwraca odpowiedni kolor t?a dla badge'a statusu zamowienia.
+     * @param {string} status - Nazwa statusu.
+     * @returns {string} Nazwa wariantu stylu Bootstrap.
+     */
     const getStatusBadge = (status) => {
         switch (status) {
             case 'Pending': return 'warning';
@@ -125,7 +179,7 @@ function UserProfile() {
             <h2 className="mb-4">My Account</h2>
 
             <Row>
-                {/* profile reduct column */}
+                {/* KOLUMNA LEWA: Ustawienia profilu */}
                 <Col lg={4} className="mb-4">
                     <Card className="shadow-sm">
                         <Card.Header className="bg-primary text-white">
@@ -165,7 +219,7 @@ function UserProfile() {
                     </Card>
                 </Col>
 
-                {/* order hitory column */}
+                {/* KOLUMNA PRAWA: Historia zamowien */}
                 <Col lg={8}>
                     <Card className="shadow-sm border-0">
                         <Card.Header className="bg-white border-bottom">

@@ -1,7 +1,17 @@
 import React from 'react';
 import { Page, Text, View, Document, StyleSheet, Font } from '@react-pdf/renderer';
 
+/**
+ * @file InvoiceTemplates.jsx
+ * @brief Szablony dokumentow PDF (faktury i paragony) generowane przy uzyciu biblioteki @react-pdf/renderer.
+ * @details Plik zawiera definicje stylow CSS-in-JS oraz komponenty React odpowiedzialne za renderowanie
+ * profesjonalnych dokumentow sprzedazy gotowych do druku lub zapisu.
+ */
 
+/**
+ * @section Styles
+ * @brief Konfiguracja stylow graficznych dla dokumentu faktury.
+ */
 const styles = StyleSheet.create({
     page: { padding: 40, fontFamily: 'Helvetica', fontSize: 10, color: '#333' },
 
@@ -50,6 +60,10 @@ const styles = StyleSheet.create({
     grandTotalText: { fontSize: 12, fontWeight: 'bold' }
 });
 
+/**
+ * @section SimpleStyles
+ * @brief Minimalistyczne style dla uproszczonego paragonu.
+ */
 const simpleStyles = StyleSheet.create({
     page: { flexDirection: 'column', backgroundColor: '#FFFFFF', padding: 30 },
     section: { margin: 10, padding: 10, flexGrow: 1 },
@@ -60,10 +74,16 @@ const simpleStyles = StyleSheet.create({
     total: { marginTop: 20, fontSize: 14, textAlign: 'right', fontWeight: 'bold' }
 });
 
-
+/**
+ * @component InvoiceDocument
+ * @brief Komponent renderujacy pelny dokument faktury VAT.
+ * @param {Object} props Wlasciwosci komponentu.
+ * @param {Object} props.order Obiekt zamowienia zawierajacy dane klienta, status oraz liste produktow.
+ * @returns {JSX.Element} Obiekt dokumentu PDF.
+ */
 export const InvoiceDocument = ({ order }) => {
     const subtotal = order.products.reduce((sum, p) => sum + (p.price * p.quantityInOrder), 0);
-    const taxRate = 0.23; // 23% VAT (пример)
+    const taxRate = 0.23; // 23% VAT
     const taxAmount = subtotal * taxRate;
     const total = subtotal + taxAmount;
 
@@ -162,7 +182,13 @@ export const InvoiceDocument = ({ order }) => {
     );
 };
 
-
+/**
+ * @component SimpleReceipt
+ * @brief Komponent renderujacy uproszczony paragon fiskalny.
+ * @param {Object} props Wlasciwosci komponentu.
+ * @param {Object} props.order Obiekt zamowienia zawierajacy liste produktow.
+ * @returns {JSX.Element} Obiekt dokumentu PDF.
+ */
 export const SimpleReceipt = ({ order }) => {
     const total = order.products.reduce((sum, p) => sum + (p.price * p.quantityInOrder), 0);
 

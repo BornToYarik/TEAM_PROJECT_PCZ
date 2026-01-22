@@ -1,0 +1,46 @@
+\doxysection{Dokumentacja klasy Product\+Card}
+\hypertarget{class_product_card}{}\label{class_product_card}\index{ProductCard@{ProductCard}}
+
+
+Komponent pojedynczej karty produktu.  
+
+
+
+
+Diagram współpracy dla Product\+Card:\+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=143pt]{class_product_card__coll__graph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Opis szczegółowy}
+Komponent pojedynczej karty produktu. 
+
+@description Wyswietla skrocone informacje o produkcie w formie karty. Zawiera funkcje zarzadzania produktem, takie jak edycja i usuwanie, oraz wizualna informacje o promocjach. 
+\begin{DoxyParams}{Parametry}
+{\em \{\+Object\}} & props -\/ Wlasciwosci komponentu. \\
+\hline
+{\em \{\+Object\}} & props.\+product -\/ Obiekt danych produktu (ID, nazwa, cena, stan, rabaty). \\
+\hline
+{\em \{\+Function\}} & props.\+on\+Edit -\/ Funkcja wywolywana przy kliknieciu przycisku edycji, przyjmuje obiekt produktu. \\
+\hline
+{\em \{\+Function\}} & props.\+on\+Delete -\/ Funkcja wywolywana po potwierdzeniu usuniecia, przyjmuje ID produktu.\\
+\hline
+{\em \{\+Object\}} & product Obiekt produktu do wyswietlenia. \\
+\hline
+{\em \{\+Function\}} & add\+To\+Cart Funkcja dodajaca produkt do koszyka. \\
+\hline
+{\em \{\+Function\}} & on\+Click Funkcja wywolywana po kliknieciu w karte produktu. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Zwraca}
+JSX.\+Element Element karty produktu. 
+\end{DoxyReturn}
+
+
+Dokumentacja dla tej klasy została wygenerowana z pliku:\+\begin{DoxyCompactItemize}
+\item 
+sklep\+\_\+internetowy.\+client/\+src/\+components/\+admin/\+product/\+\doxymbox{\hyperlink{admin_2product_2_product_card_8jsx}{Product\+Card.\+jsx}}\end{DoxyCompactItemize}

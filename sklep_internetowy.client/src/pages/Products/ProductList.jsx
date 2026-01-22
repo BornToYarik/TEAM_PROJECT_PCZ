@@ -4,19 +4,46 @@ import ProductCard from '../../components/admin/product/ProductCard';
 import ProductForm from '../../components/admin/product/ProductForm';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
+/**
+ * @file ProductsList.jsx
+ * @brief Komponent zarzadzajacy wyswietlaniem i operacjami na liscie produktow w panelu administratora.
+ * @details Modul odpowiada za pobieranie danych z API, ladowanie listy produktow, 
+ * przelaczanie widoku formularza (tworzenie/edycja) oraz obsluge usuwania rekordow.
+ */
+
+/**
+ * @component ProductsList
+ * @description Glowny komponent widoku listy produktow. Zarzadza stanem kolekcji, 
+ * ladowaniem danych oraz komunikatami o bledach.
+ */
 function ProductsList() {
+    /** @brief Tablica przechowujaca produkty pobrane z bazy danych. */
     const [products, setProducts] = useState([]);
+    /** @brief Flaga okreslajaca, czy trwa proces pobierania danych z serwera. */
     const [loading, setLoading] = useState(false);
+    /** @brief Przechowuje tresc komunikatow o bledach operacji API. */
     const [error, setError] = useState('');
+    /** @brief Flaga kontrolujaca widocznosc formularza ProductForm. */
     const [showForm, setShowForm] = useState(false);
+    /** @brief Obiekt produktu wybranego do edycji (null w trybie dodawania nowego). */
     const [editingProduct, setEditingProduct] = useState(null);
 
+    /** @brief Bazowy adres URL dla punktu koncowego API produktow. */
     const API_URL = '/api/panel/Product';
 
+    /**
+     * @effect Inicjalizacja komponentu.
+     * @description Pobiera liste produktow przy pierwszym renderowaniu strony.
+     */
     useEffect(() => {
         fetchProducts();
     }, []);
 
+    /**
+     * @function fetchProducts
+     * @async
+     * @description Pobiera aktualna liste wszystkich produktow z serwera.
+     */
     const fetchProducts = async () => {
         setLoading(true);
         setError('');
@@ -35,11 +62,21 @@ function ProductsList() {
         }
     };
 
+    /**
+     * @function handleFormSubmit
+     * @async
+     * @description Obsluguje wysylanie danych z formularza (tworzenie lub aktualizacja).
+     * @details Jesli editingProduct istnieje, wykonuje PUT (JSON). W przeciwnym razie 
+     * wykonuje POST przy uzyciu FormData (obsluga plikow).
+     * @param {Object} formData - Dane tekstowe produktu.
+     * @param {Array} files - Opcjonalna lista plikow graficznych.
+     */
     const handleFormSubmit = async (formData, files) => {
         setError('');
 
         try {
             if (editingProduct) {
+                // --- TRYB EDYCJI ---
                 const payload = {
                     name: formData.name,
                     brand: formData.brand,
@@ -67,10 +104,11 @@ function ProductsList() {
                 }
 
             } else {
+                // --- TRYB TWORZENIA ---
                 const data = new FormData();
 
                 data.append('Name', formData.name);
-                data.append('Brand', formData.brand); 
+                data.append('Brand', formData.brand);
                 data.append('Price', formData.price);
                 data.append('Quantity', formData.quantity);
                 data.append('Description', formData.description || '');
@@ -104,11 +142,22 @@ function ProductsList() {
         }
     };
 
+    /**
+     * @function handleEdit
+     * @description Przelacza komponent w tryb edycji wskazanego produktu.
+     * @param {Object} product - Obiekt produktu do edycji.
+     */
     const handleEdit = (product) => {
         setEditingProduct(product);
         setShowForm(true);
     };
 
+    /**
+     * @function handleDelete
+     * @async
+     * @description Usuwa produkt z bazy danych po potwierdzeniu przez uzytkownika.
+     * @param {number|string} id - Identyfikator produktu.
+     */
     const handleDelete = async (id) => {
         setError('');
         if (!window.confirm('Are you sure you want to delete this product?')) {
@@ -131,6 +180,10 @@ function ProductsList() {
         }
     };
 
+    /**
+     * @function handleCloseForm
+     * @description Zamyka formularz i resetuje stan edycji.
+     */
     const handleCloseForm = () => {
         setShowForm(false);
         setEditingProduct(null);
@@ -149,6 +202,7 @@ function ProductsList() {
                 </button>
             </div>
 
+            {/* Powiadomienia o bledach */}
             {error && (
                 <div className="alert alert-danger alert-dismissible fade show" role="alert">
                     {error}
@@ -160,6 +214,7 @@ function ProductsList() {
                 </div>
             )}
 
+            {/* Formularz produktu */}
             {showForm && (
                 <div className="mb-4">
                     <ProductForm
@@ -171,6 +226,7 @@ function ProductsList() {
                 </div>
             )}
 
+            {/* Lista produktow / Spinner */}
             {loading ? (
                 <div className="text-center">
                     <div className="spinner-border" role="status">

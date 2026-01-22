@@ -4,8 +4,12 @@ using Sklep_internetowy.Server.DTOs;
 using Sklep_internetowy.Server.Services.Auth;
 using System.Security.Claims;
 
-namespace Sklep_internetowy.Server.Controllers.Account 
+namespace Sklep_internetowy.Server.Controllers.Account
 {
+    /// <summary>
+    /// Kontroler API odpowiedzialny za zarzadzanie danymi konta zalogowanego uzytkownika.
+    /// Wymaga autoryzacji przy uzyciu schematu Bearer (token JWT).
+    /// </summary>
     [Authorize(AuthenticationSchemes = "Bearer")]
     [ApiController]
     [Route("api/[controller]")]
@@ -13,11 +17,22 @@ namespace Sklep_internetowy.Server.Controllers.Account
     {
         private readonly AccountService _accountService;
 
+        /// <summary>
+        /// Inicjalizuje nowa instancje klasy AccountController.
+        /// </summary>
+        /// <param name="accountService">Serwis obslugujacy logike biznesowa kont uzytkownikow.</param>
         public AccountController(AccountService accountService)
         {
             _accountService = accountService;
         }
 
+        /// <summary>
+        /// Pobiera szczegolowe dane profilowe aktualnie uwierzytelnionego uzytkownika.
+        /// </summary>
+        /// <returns>Obiekt zawierajacy nazwe uzytkownika oraz adres e-mail.</returns>
+        /// <response code="200">Zwraca dane profilowe uzytkownika.</response>
+        /// <response code="401">Gdy struktura tokenu jest nieprawidlowa lub uzytkownik nie jest zalogowany.</response>
+        /// <response code="404">Gdy uzytkownik nie figuruje w bazie danych.</response>
         [HttpGet("me")]
         public async Task<IActionResult> GetCurrentUser()
         {
@@ -38,6 +53,14 @@ namespace Sklep_internetowy.Server.Controllers.Account
             });
         }
 
+        /// <summary>
+        /// Aktualizuje informacje o profilu zalogowanego uzytkownika (np. zmiana adresu e-mail).
+        /// </summary>
+        /// <param name="request">Obiekt DTO zawierajacy nowe dane do zapisu.</param>
+        /// <returns>Komunikat o powodzeniu operacji lub opis bledu.</returns>
+        /// <response code="200">Profil zostal pomyslnie zaktualizowany.</response>
+        /// <response code="400">Gdy format zadania jest bledny lub wystapil blad podczas zapisu danych.</response>
+        /// <response code="401">Gdy uzytkownik nie posiada uprawnien do wykonania akcji.</response>
         [HttpPut("update")]
         public async Task<IActionResult> UpdateUser([FromBody] UpdateUserRequest request)
         {

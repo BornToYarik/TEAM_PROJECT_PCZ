@@ -1,0 +1,46 @@
+\doxysection{Dokumentacja klasy Sklep\+\_\+internetowy.\+Server.\+Models.\+Order}
+\hypertarget{class_sklep__internetowy_1_1_server_1_1_models_1_1_order}{}\label{class_sklep__internetowy_1_1_server_1_1_models_1_1_order}\index{Sklep\_internetowy.Server.Models.Order@{Sklep\_internetowy.Server.Models.Order}}
+
+
+Klasa reprezentująca zamówienie klienta w systemie Tech\+Store. Przechowuje informacje o dacie zakupu, statusie oraz powiązaniach z użytkownikiem i produktami.  
+
+
+
+
+Diagram współpracy dla Sklep\+\_\+internetowy.\+Server.\+Models.\+Order:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=202pt]{class_sklep__internetowy_1_1_server_1_1_models_1_1_order__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Właściwości}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_models_1_1_order_a3b536d8e12cbac91f20f135657fe03d3}\label{class_sklep__internetowy_1_1_server_1_1_models_1_1_order_a3b536d8e12cbac91f20f135657fe03d3} 
+int {\bfseries Id}\hspace{0.3cm}{\ttfamily  \+[get, set]\+}
+\begin{DoxyCompactList}\small\item\em Unikalny identyfikator zamówienia w bazie danych. \end{DoxyCompactList}\item 
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_models_1_1_order_ac8fb78dee49ed6e2c58892d7f65d478d}\label{class_sklep__internetowy_1_1_server_1_1_models_1_1_order_ac8fb78dee49ed6e2c58892d7f65d478d} 
+string {\bfseries User\+Id} = null!\hspace{0.3cm}{\ttfamily  \+[get, set]\+}
+\begin{DoxyCompactList}\small\item\em Identyfikator użytkownika (GUID), który dokonał zakupu. \end{DoxyCompactList}\item 
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_models_1_1_order_a83006b47d943cc6bd005a17bd3c90506}\label{class_sklep__internetowy_1_1_server_1_1_models_1_1_order_a83006b47d943cc6bd005a17bd3c90506} 
+User {\bfseries User} = null!\hspace{0.3cm}{\ttfamily  \+[get, set]\+}
+\begin{DoxyCompactList}\small\item\em Obiekt nawigacyjny do szczegółowych danych użytkownika składającego zamówienie. \end{DoxyCompactList}\item 
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_models_1_1_order_a174ee78fca16131db8d9f0f9b31f1364}\label{class_sklep__internetowy_1_1_server_1_1_models_1_1_order_a174ee78fca16131db8d9f0f9b31f1364} 
+Date\+Time {\bfseries Order\+Date} = Date\+Time.\+Utc\+Now\hspace{0.3cm}{\ttfamily  \+[get, set]\+}
+\begin{DoxyCompactList}\small\item\em \doxylink{namespace_sklep__internetowy_1_1_server_1_1_data}{Data} i godzina zarejestrowania zamówienia (domyślnie czas UTC). \end{DoxyCompactList}\item 
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_models_1_1_order_ac596f41c6408c0291f40f0d1b97f0737}\label{class_sklep__internetowy_1_1_server_1_1_models_1_1_order_ac596f41c6408c0291f40f0d1b97f0737} 
+string {\bfseries Status} = "{}pending"{}\hspace{0.3cm}{\ttfamily  \+[get, set]\+}
+\begin{DoxyCompactList}\small\item\em Aktualny etap realizacji zamówienia (domyślnie "{}pending"{}). \end{DoxyCompactList}\item 
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_models_1_1_order_aaf8accd957c9ec30757f0798b15b183f}\label{class_sklep__internetowy_1_1_server_1_1_models_1_1_order_aaf8accd957c9ec30757f0798b15b183f} 
+ICollection$<$ \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_models_1_1_order_product}{Order\+Product}} $>$ {\bfseries Order\+Products} = new List$<$\doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_models_1_1_order_product}{Order\+Product}}$>$()\hspace{0.3cm}{\ttfamily  \+[get, set]\+}
+\begin{DoxyCompactList}\small\item\em Kolekcja pozycji wchodzących w skład zamówienia (tabela łącząca z produktami). \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Opis szczegółowy}
+Klasa reprezentująca zamówienie klienta w systemie Tech\+Store. Przechowuje informacje o dacie zakupu, statusie oraz powiązaniach z użytkownikiem i produktami. 
+
+Dokumentacja dla tej klasy została wygenerowana z pliku:\+\begin{DoxyCompactItemize}
+\item 
+Sklep\+\_\+internetowy.\+Server/\+\+Models/\+Order.\+cs\end{DoxyCompactItemize}

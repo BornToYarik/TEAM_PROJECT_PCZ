@@ -1,0 +1,90 @@
+\doxysection{Dokumentacja klasy Sklep\+\_\+internetowy.\+Server.\+Controllers.\+Message.\+Message\+Controller}
+\hypertarget{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_message_1_1_message_controller}{}\label{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_message_1_1_message_controller}\index{Sklep\_internetowy.Server.Controllers.Message.MessageController@{Sklep\_internetowy.Server.Controllers.Message.MessageController}}
+
+
+Kontroler API odpowiedzialny za obsluge wiadomosci kontaktowych przesylanych przez uzytkownikow. Modul umozliwia zapisywanie nowych zgloszen oraz ich odczyt w panelu administracyjnym.  
+
+
+
+
+Diagram współpracy dla Sklep\+\_\+internetowy.\+Server.\+Controllers.\+Message.\+Message\+Controller:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=263pt]{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_message_1_1_message_controller__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Metody publiczne}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_message_1_1_message_controller_a9a9997fd8c1222961ec6cef4e8008d7d}{Message\+Controller}} (\doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_data_1_1_store_db_context}{Store\+Db\+Context}} context)
+\begin{DoxyCompactList}\small\item\em Inicjalizuje nowa instancje klasy \doxylink{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_message_1_1_message_controller}{Message\+Controller}. \end{DoxyCompactList}\item 
+async Task$<$ IAction\+Result $>$ \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_message_1_1_message_controller_a989697bc574b01ce3a8c5bc84466703a}{Post\+Message}} (\+[From\+Body]\+ \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_models_1_1_user_message}{User\+Message}} message)
+\begin{DoxyCompactList}\small\item\em Przyjmuje nowa wiadomosc uzytkownika i zapisuje ja w bazie danych. \end{DoxyCompactList}\item 
+async Task$<$ Action\+Result$<$ IEnumerable$<$ \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_models_1_1_user_message}{User\+Message}} $>$ $>$ $>$ \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_message_1_1_message_controller_a41ae23fd4ca1b5253b25ae6a45cc9402}{Get\+Messages}} ()
+\begin{DoxyCompactList}\small\item\em Pobiera pelna liste wiadomosci uzytkownikow zapisanych w systemie. Wyniki sa sortowane malejaco wedlug daty utworzenia. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Opis szczegółowy}
+Kontroler API odpowiedzialny za obsluge wiadomosci kontaktowych przesylanych przez uzytkownikow. Modul umozliwia zapisywanie nowych zgloszen oraz ich odczyt w panelu administracyjnym. 
+
+\label{doc-constructors}
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_message_1_1_message_controller_doc-constructors}
+\doxysubsection{Dokumentacja konstruktora i destruktora}
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_message_1_1_message_controller_a9a9997fd8c1222961ec6cef4e8008d7d}\index{Sklep\_internetowy.Server.Controllers.Message.MessageController@{Sklep\_internetowy.Server.Controllers.Message.MessageController}!MessageController@{MessageController}}
+\index{MessageController@{MessageController}!Sklep\_internetowy.Server.Controllers.Message.MessageController@{Sklep\_internetowy.Server.Controllers.Message.MessageController}}
+\doxysubsubsection{\texorpdfstring{MessageController()}{MessageController()}}
+{\footnotesize\ttfamily \label{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_message_1_1_message_controller_a9a9997fd8c1222961ec6cef4e8008d7d} 
+Sklep\+\_\+internetowy.\+Server.\+Controllers.\+Message.\+Message\+Controller.\+Message\+Controller (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_data_1_1_store_db_context}{Store\+Db\+Context}}}]{context}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Inicjalizuje nowa instancje klasy \doxylink{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_message_1_1_message_controller}{Message\+Controller}. 
+
+
+\begin{DoxyParams}{Parametry}
+{\em context} & Kontekst bazy danych \doxylink{class_sklep__internetowy_1_1_server_1_1_data_1_1_store_db_context}{Store\+Db\+Context} do obslugi operacji na wiadomosciach.\\
+\hline
+\end{DoxyParams}
+
+
+\label{doc-func-members}
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_message_1_1_message_controller_doc-func-members}
+\doxysubsection{Dokumentacja funkcji składowych}
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_message_1_1_message_controller_a41ae23fd4ca1b5253b25ae6a45cc9402}\index{Sklep\_internetowy.Server.Controllers.Message.MessageController@{Sklep\_internetowy.Server.Controllers.Message.MessageController}!GetMessages@{GetMessages}}
+\index{GetMessages@{GetMessages}!Sklep\_internetowy.Server.Controllers.Message.MessageController@{Sklep\_internetowy.Server.Controllers.Message.MessageController}}
+\doxysubsubsection{\texorpdfstring{GetMessages()}{GetMessages()}}
+{\footnotesize\ttfamily \label{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_message_1_1_message_controller_a41ae23fd4ca1b5253b25ae6a45cc9402} 
+async Task$<$ Action\+Result$<$ IEnumerable$<$ \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_models_1_1_user_message}{User\+Message}} $>$ $>$ $>$ Sklep\+\_\+internetowy.\+Server.\+Controllers.\+Message.\+Message\+Controller.\+Get\+Messages (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Pobiera pelna liste wiadomosci uzytkownikow zapisanych w systemie. Wyniki sa sortowane malejaco wedlug daty utworzenia. 
+
+\begin{DoxyReturn}{Zwraca}
+Kolekcja obiektow \doxylink{class_sklep__internetowy_1_1_server_1_1_models_1_1_user_message}{User\+Message} reprezentujacych zgloszenia.
+\end{DoxyReturn}
+$<$response code="{}200"{}$>$Zwraca liste wiadomosci.$<$/\+response$>$ \Hypertarget{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_message_1_1_message_controller_a989697bc574b01ce3a8c5bc84466703a}\index{Sklep\_internetowy.Server.Controllers.Message.MessageController@{Sklep\_internetowy.Server.Controllers.Message.MessageController}!PostMessage@{PostMessage}}
+\index{PostMessage@{PostMessage}!Sklep\_internetowy.Server.Controllers.Message.MessageController@{Sklep\_internetowy.Server.Controllers.Message.MessageController}}
+\doxysubsubsection{\texorpdfstring{PostMessage()}{PostMessage()}}
+{\footnotesize\ttfamily \label{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_message_1_1_message_controller_a989697bc574b01ce3a8c5bc84466703a} 
+async Task$<$ IAction\+Result $>$ Sklep\+\_\+internetowy.\+Server.\+Controllers.\+Message.\+Message\+Controller.\+Post\+Message (\begin{DoxyParamCaption}\item[{\+[\+From\+Body]\+ \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_models_1_1_user_message}{User\+Message}}}]{message}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Przyjmuje nowa wiadomosc uzytkownika i zapisuje ja w bazie danych. 
+
+
+\begin{DoxyParams}{Parametry}
+{\em message} & Obiekt \doxylink{class_sklep__internetowy_1_1_server_1_1_models_1_1_user_message}{User\+Message} przekazany w korpusie zadania.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Zwraca}
+Status powodzenia operacji wraz z komunikatem potwierdzajacym.
+\end{DoxyReturn}
+$<$response code="{}200"{}$>$Wiadomosc zostala pomyslnie zapisana.$<$/\+response$>$ $<$response code="{}400"{}$>$Gdy przeslany model danych jest nieprawidlowy.$<$/\+response$>$ 
+
+Dokumentacja dla tej klasy została wygenerowana z pliku:\+\begin{DoxyCompactItemize}
+\item 
+Sklep\+\_\+internetowy.\+Server/\+\+Controllers/\+\+Message/\+Message\+Controller.\+cs\end{DoxyCompactItemize}

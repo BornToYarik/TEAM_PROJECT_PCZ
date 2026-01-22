@@ -5,20 +5,50 @@ import { useNavigate } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useCart } from "../../context/CartContext";
 
+/**
+ * @file SearchPage.jsx
+ * @brief Komponent wyswietlajacy produkty przypisane do konkretnej kategorii (slug).
+ * @details Modul odpowiada za pobieranie metadanych kategorii oraz powiazanych z nia produktow, 
+ * umozliwiajac ich przegladanie w formie listy oraz dodawanie do koszyka.
+ */
+
+/**
+ * @component CategoryProducts
+ * @description Renderuje widok kategorii produktow. Zarzadza stanem ladowania, 
+ * bledami polaczenia oraz logika wyswietlania produktow w ukladzie wierszowym.
+ */
 function CategoryProducts() {
+    /** @brief Pobranie unikalnego identyfikatora kategorii (slug) z adresu URL. */
     const { slug } = useParams();
+    /** @brief Stan przechowujacy liste produktow danej kategorii. */
     const [products, setProducts] = useState([]);
+    /** @brief Dane o aktualnie przegladanej kategorii. */
     const [category, setCategory] = useState(null);
+    /** @brief Flaga okreslajaca status ladowania danych z API. */
     const [loading, setLoading] = useState(true);
+    /** @brief Komunikat bledu w przypadku niepowodzenia pobierania danych. */
     const [error, setError] = useState('');
+
     const { addToCart } = useCart();
     const navigate = useNavigate();
 
+    /** @brief Bazowy adres URL dla punktu koncowego kategorii produktow. */
     const API_URL = '/api/ProductCategory';
+    /** @brief Adres domyslnego obrazka uzywanego w przypadku braku grafik produktu. */
     const DEFAULT_IMAGE = "https://cdn.pixabay.com/photo/2017/11/10/04/47/image-2935360_1280.png";
 
+    /**
+     * @function isDiscountActive
+     * @description Sprawdza, czy dany produkt posiada aktywna promocje cenowa.
+     * @param {Object} p - Obiekt produktu.
+     * @returns {Boolean} True, jesli produkt ma aktywny rabat.
+     */
     const isDiscountActive = (p) => p.hasActiveDiscount && p.finalPrice < p.price;
 
+    /**
+     * @effect Inicjalizacja komponentu.
+     * @description Wywoluje pobieranie danych kategorii i produktow przy kazdej zmianie sluga w URL.
+     */
     useEffect(() => {
         if (slug) {
             fetchCategoryAndProducts();
@@ -28,6 +58,11 @@ function CategoryProducts() {
         }
     }, [slug]);
 
+    /**
+     * @function fetchCategoryAndProducts
+     * @async
+     * @description Pobiera dane o kategorii oraz liste przypisanych do niej produktow z serwera.
+     */
     const fetchCategoryAndProducts = async () => {
         setLoading(true);
         setError('');
@@ -62,6 +97,11 @@ function CategoryProducts() {
         }
     };
 
+    /**
+     * @function handleProductClick
+     * @description Przekierowuje uzytkownika do strony szczegolow wybranego produktu.
+     * @param {number|string} id - Identyfikator produktu.
+     */
     const handleProductClick = (id) => {
         navigate(`/product/${id}`);
     };
@@ -96,6 +136,9 @@ function CategoryProducts() {
                 <div className="alert alert-danger">{error}</div>
             )}
 
+            {/* @section Styles
+                Lokalne style dla elementow listy produktow.
+            */}
             <style>
                 {`
                 .product-list-item {
@@ -133,7 +176,7 @@ function CategoryProducts() {
             {products.length > 0 && (
                 <div className="row g-3">
                     {products.map((p) => (
-                        
+
                         <div key={p.id} className="col-12"
                             onClick={() => handleProductClick(p.id)}>
                             <div className="product-list-item d-flex align-items-center bg-white rounded-lg cursor-pointer"

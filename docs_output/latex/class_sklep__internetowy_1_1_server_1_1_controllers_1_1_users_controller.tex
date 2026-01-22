@@ -1,0 +1,72 @@
+\doxysection{Dokumentacja klasy Sklep\+\_\+internetowy.\+Server.\+Controllers.\+Users\+Controller}
+\hypertarget{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_users_controller}{}\label{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_users_controller}\index{Sklep\_internetowy.Server.Controllers.UsersController@{Sklep\_internetowy.Server.Controllers.UsersController}}
+
+
+Kontroler API odpowiedzialny za udostepnianie informacji o uzytkownikach systemu. Umozliwia bezpieczne pobieranie danych profilowych przeksztalconych do formatu obiektow transferu danych (DTO).  
+
+
+
+
+Diagram współpracy dla Sklep\+\_\+internetowy.\+Server.\+Controllers.\+Users\+Controller:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=207pt]{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_users_controller__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Metody publiczne}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_users_controller_a5a13d3978d9064509a45d6415f6a4e8a}{Users\+Controller}} (\doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_data_1_1_store_db_context}{Store\+Db\+Context}} context)
+\begin{DoxyCompactList}\small\item\em Inicjalizuje nowa instancje klasy \doxylink{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_users_controller}{Users\+Controller}. \end{DoxyCompactList}\item 
+async Task$<$ Action\+Result$<$ IEnumerable$<$ \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_user_dto}{User\+Dto}} $>$ $>$ $>$ \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_users_controller_a6e4f2ffcbc9c9ffb57bf5d109e7f99b9}{Get\+Users}} ()
+\begin{DoxyCompactList}\small\item\em Pobiera pelna liste uzytkownikow zarejestrowanych w systemie. Metoda mapuje encje bazodanowe na bezpieczne obiekty \doxylink{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_user_dto}{User\+Dto}, aby uniknac przesylania wrazliwych danych (np. hasel) do klienta. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Opis szczegółowy}
+Kontroler API odpowiedzialny za udostepnianie informacji o uzytkownikach systemu. Umozliwia bezpieczne pobieranie danych profilowych przeksztalconych do formatu obiektow transferu danych (DTO). 
+
+\label{doc-constructors}
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_users_controller_doc-constructors}
+\doxysubsection{Dokumentacja konstruktora i destruktora}
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_users_controller_a5a13d3978d9064509a45d6415f6a4e8a}\index{Sklep\_internetowy.Server.Controllers.UsersController@{Sklep\_internetowy.Server.Controllers.UsersController}!UsersController@{UsersController}}
+\index{UsersController@{UsersController}!Sklep\_internetowy.Server.Controllers.UsersController@{Sklep\_internetowy.Server.Controllers.UsersController}}
+\doxysubsubsection{\texorpdfstring{UsersController()}{UsersController()}}
+{\footnotesize\ttfamily \label{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_users_controller_a5a13d3978d9064509a45d6415f6a4e8a} 
+Sklep\+\_\+internetowy.\+Server.\+Controllers.\+Users\+Controller.\+Users\+Controller (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_data_1_1_store_db_context}{Store\+Db\+Context}}}]{context}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Inicjalizuje nowa instancje klasy \doxylink{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_users_controller}{Users\+Controller}. 
+
+
+\begin{DoxyParams}{Parametry}
+{\em context} & Kontekst bazy danych \doxylink{class_sklep__internetowy_1_1_server_1_1_data_1_1_store_db_context}{Store\+Db\+Context} wykorzystywany do dostepu do danych uzytkownikow.\\
+\hline
+\end{DoxyParams}
+
+
+\label{doc-func-members}
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_users_controller_doc-func-members}
+\doxysubsection{Dokumentacja funkcji składowych}
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_users_controller_a6e4f2ffcbc9c9ffb57bf5d109e7f99b9}\index{Sklep\_internetowy.Server.Controllers.UsersController@{Sklep\_internetowy.Server.Controllers.UsersController}!GetUsers@{GetUsers}}
+\index{GetUsers@{GetUsers}!Sklep\_internetowy.Server.Controllers.UsersController@{Sklep\_internetowy.Server.Controllers.UsersController}}
+\doxysubsubsection{\texorpdfstring{GetUsers()}{GetUsers()}}
+{\footnotesize\ttfamily \label{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_users_controller_a6e4f2ffcbc9c9ffb57bf5d109e7f99b9} 
+async Task$<$ Action\+Result$<$ IEnumerable$<$ \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_user_dto}{User\+Dto}} $>$ $>$ $>$ Sklep\+\_\+internetowy.\+Server.\+Controllers.\+Users\+Controller.\+Get\+Users (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Pobiera pelna liste uzytkownikow zarejestrowanych w systemie. Metoda mapuje encje bazodanowe na bezpieczne obiekty \doxylink{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_user_dto}{User\+Dto}, aby uniknac przesylania wrazliwych danych (np. hasel) do klienta. 
+
+\begin{DoxyReturn}{Zwraca}
+Kolekcja obiektow \doxylink{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_user_dto}{User\+Dto} zawierajaca podstawowe informacje o uzytkownikach.
+\end{DoxyReturn}
+$<$response code="{}200"{}$>$Zwraca liste uzytkownikow.$<$/\+response$>$ 
+
+Zapytanie wykorzystuje metode As\+No\+Tracking() w celu zwiekszenia wydajnosci operacji tylko do odczytu. 
+
+Dokumentacja dla tej klasy została wygenerowana z pliku:\+\begin{DoxyCompactItemize}
+\item 
+Sklep\+\_\+internetowy.\+Server/\+\+Controllers/\+\+Shop/\+Users\+Controller.\+cs\end{DoxyCompactItemize}

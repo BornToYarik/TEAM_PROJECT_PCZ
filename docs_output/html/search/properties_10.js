@@ -1,0 +1,8 @@
+var searchData=
+[
+  ['user_0',['User',['../class_sklep__internetowy_1_1_server_1_1_models_1_1_order.html#a83006b47d943cc6bd005a17bd3c90506',1,'Sklep_internetowy::Server::Models::Order']]],
+  ['useremail_1',['UserEmail',['../class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_order_details_dto.html#aaf2b4a7c0b05c3e5a7c57ea120e64a50',1,'Sklep_internetowy::Server::DTOs::OrderDetailsDto']]],
+  ['userid_2',['UserId',['../class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_create_order_request_dto.html#a2c23e6f3dcb0ce63f58cba5615ca0843',1,'Sklep_internetowy.Server.DTOs.CreateOrderRequestDto.UserId'],['../class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_order_details_dto.html#a4164dd583cefa6a07c2dfa6e82217630',1,'Sklep_internetowy.Server.DTOs.OrderDetailsDto.UserId'],['../class_sklep__internetowy_1_1_server_1_1_models_1_1_order.html#ac8fb78dee49ed6e2c58892d7f65d478d',1,'Sklep_internetowy.Server.Models.Order.UserId']]],
+  ['username_3',['UserName',['../class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_login_request.html#acabde89c4707cbe630290b8a94df8da1',1,'Sklep_internetowy.Server.DTOs.LoginRequest.UserName'],['../class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_register_user_request.html#ad50eccd49bf55fec8e307e0112714e25',1,'Sklep_internetowy.Server.DTOs.RegisterUserRequest.UserName'],['../class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_update_user_request.html#a6b8e5fd2d80794a7e69a3a7b8da87387',1,'Sklep_internetowy.Server.DTOs.UpdateUserRequest.UserName']]],
+  ['username_4',['Username',['../class_sklep__internetowy_1_1_server_1_1_models_1_1_mail_settings.html#af45135cfb1dc266806172ef6a41c3adc',1,'Sklep_internetowy::Server::Models::MailSettings']]]
+];

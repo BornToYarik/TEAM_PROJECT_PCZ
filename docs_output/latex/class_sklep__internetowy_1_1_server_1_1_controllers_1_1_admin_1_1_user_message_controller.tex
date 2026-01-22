@@ -1,0 +1,152 @@
+\doxysection{Dokumentacja klasy Sklep\+\_\+internetowy.\+Server.\+Controllers.\+Admin.\+User\+Message\+Controller}
+\hypertarget{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_admin_1_1_user_message_controller}{}\label{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_admin_1_1_user_message_controller}\index{Sklep\_internetowy.Server.Controllers.Admin.UserMessageController@{Sklep\_internetowy.Server.Controllers.Admin.UserMessageController}}
+
+
+Kontroler API odpowiedzialny za zarzadzanie wiadomosciami kontaktowymi uzytkownikow. Umozliwia przegladanie, wyszukiwanie, tworzenie oraz edycje zgloszen w panelu administracyjnym.  
+
+
+
+
+Diagram współpracy dla Sklep\+\_\+internetowy.\+Server.\+Controllers.\+Admin.\+User\+Message\+Controller:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=272pt]{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_admin_1_1_user_message_controller__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Metody publiczne}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_admin_1_1_user_message_controller_a3580d3688ee7be8c003e1152002c470f}{User\+Message\+Controller}} (\doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_data_1_1_store_db_context}{Store\+Db\+Context}} context)
+\begin{DoxyCompactList}\small\item\em Inicjalizuje nowa instancje klasy \doxylink{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_admin_1_1_user_message_controller}{User\+Message\+Controller}. \end{DoxyCompactList}\item 
+async Task$<$ Action\+Result$<$ IEnumerable$<$ \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_models_1_1_user_message}{User\+Message}} $>$ $>$ $>$ \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_admin_1_1_user_message_controller_a6b05592ed8a86c3bad7530b48a807aca}{Get\+All}} ()
+\begin{DoxyCompactList}\small\item\em Pobiera pelna liste wiadomosci zapisanych w systemie. Wiadomosci sa sortowane malejaco wedlug daty ich utworzenia. \end{DoxyCompactList}\item 
+async Task$<$ Action\+Result$<$ \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_models_1_1_user_message}{User\+Message}} $>$ $>$ \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_admin_1_1_user_message_controller_ad706b91108b02a889beb557df08ff296}{Get\+By\+Id}} (int id)
+\begin{DoxyCompactList}\small\item\em Pobiera szczegolowe dane konkretnej wiadomosci na podstawie jej identyfikatora. \end{DoxyCompactList}\item 
+async Task$<$ Action\+Result$<$ \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_models_1_1_user_message}{User\+Message}} $>$ $>$ \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_admin_1_1_user_message_controller_a7363a29b180b196d760093d41b19e0e8}{Create}} (\doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_models_1_1_user_message}{User\+Message}} message)
+\begin{DoxyCompactList}\small\item\em Tworzy i zapisuje nowa wiadomosc w bazie danych. Automatycznie przypisuje aktualna date UTC do pola Created\+At. \end{DoxyCompactList}\item 
+async Task$<$ IAction\+Result $>$ \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_admin_1_1_user_message_controller_afbb12d0bd699cafaed7611201cd8c755}{Update}} (int id, \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_models_1_1_user_message}{User\+Message}} updated)
+\begin{DoxyCompactList}\small\item\em Aktualizuje dane istniejacej wiadomosci kontaktowej. \end{DoxyCompactList}\item 
+async Task$<$ IAction\+Result $>$ \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_admin_1_1_user_message_controller_a776d8bd97eea582cdb57d1de08fdfe46}{Delete}} (int id)
+\begin{DoxyCompactList}\small\item\em Trwale usuwa wiadomosc z systemu. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Opis szczegółowy}
+Kontroler API odpowiedzialny za zarzadzanie wiadomosciami kontaktowymi uzytkownikow. Umozliwia przegladanie, wyszukiwanie, tworzenie oraz edycje zgloszen w panelu administracyjnym. 
+
+\label{doc-constructors}
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_admin_1_1_user_message_controller_doc-constructors}
+\doxysubsection{Dokumentacja konstruktora i destruktora}
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_admin_1_1_user_message_controller_a3580d3688ee7be8c003e1152002c470f}\index{Sklep\_internetowy.Server.Controllers.Admin.UserMessageController@{Sklep\_internetowy.Server.Controllers.Admin.UserMessageController}!UserMessageController@{UserMessageController}}
+\index{UserMessageController@{UserMessageController}!Sklep\_internetowy.Server.Controllers.Admin.UserMessageController@{Sklep\_internetowy.Server.Controllers.Admin.UserMessageController}}
+\doxysubsubsection{\texorpdfstring{UserMessageController()}{UserMessageController()}}
+{\footnotesize\ttfamily \label{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_admin_1_1_user_message_controller_a3580d3688ee7be8c003e1152002c470f} 
+Sklep\+\_\+internetowy.\+Server.\+Controllers.\+Admin.\+User\+Message\+Controller.\+User\+Message\+Controller (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_data_1_1_store_db_context}{Store\+Db\+Context}}}]{context}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Inicjalizuje nowa instancje klasy \doxylink{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_admin_1_1_user_message_controller}{User\+Message\+Controller}. 
+
+
+\begin{DoxyParams}{Parametry}
+{\em context} & Kontekst bazy danych \doxylink{class_sklep__internetowy_1_1_server_1_1_data_1_1_store_db_context}{Store\+Db\+Context}.\\
+\hline
+\end{DoxyParams}
+
+
+\label{doc-func-members}
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_admin_1_1_user_message_controller_doc-func-members}
+\doxysubsection{Dokumentacja funkcji składowych}
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_admin_1_1_user_message_controller_a7363a29b180b196d760093d41b19e0e8}\index{Sklep\_internetowy.Server.Controllers.Admin.UserMessageController@{Sklep\_internetowy.Server.Controllers.Admin.UserMessageController}!Create@{Create}}
+\index{Create@{Create}!Sklep\_internetowy.Server.Controllers.Admin.UserMessageController@{Sklep\_internetowy.Server.Controllers.Admin.UserMessageController}}
+\doxysubsubsection{\texorpdfstring{Create()}{Create()}}
+{\footnotesize\ttfamily \label{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_admin_1_1_user_message_controller_a7363a29b180b196d760093d41b19e0e8} 
+async Task$<$ Action\+Result$<$ \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_models_1_1_user_message}{User\+Message}} $>$ $>$ Sklep\+\_\+internetowy.\+Server.\+Controllers.\+Admin.\+User\+Message\+Controller.\+Create (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_models_1_1_user_message}{User\+Message}}}]{message}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Tworzy i zapisuje nowa wiadomosc w bazie danych. Automatycznie przypisuje aktualna date UTC do pola Created\+At. 
+
+
+\begin{DoxyParams}{Parametry}
+{\em message} & Obiekt wiadomosci przeslany w korpusie zadania.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Zwraca}
+Obiekt nowo utworzonej wiadomosci wraz z linkiem do jej pobrania.
+\end{DoxyReturn}
+$<$response code="{}201"{}$>$Wiadomosc zostala pomyslnie utworzona.$<$/\+response$>$ $<$response code="{}400"{}$>$Gdy model danych jest nieprawidlowy.$<$/\+response$>$ \Hypertarget{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_admin_1_1_user_message_controller_a776d8bd97eea582cdb57d1de08fdfe46}\index{Sklep\_internetowy.Server.Controllers.Admin.UserMessageController@{Sklep\_internetowy.Server.Controllers.Admin.UserMessageController}!Delete@{Delete}}
+\index{Delete@{Delete}!Sklep\_internetowy.Server.Controllers.Admin.UserMessageController@{Sklep\_internetowy.Server.Controllers.Admin.UserMessageController}}
+\doxysubsubsection{\texorpdfstring{Delete()}{Delete()}}
+{\footnotesize\ttfamily \label{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_admin_1_1_user_message_controller_a776d8bd97eea582cdb57d1de08fdfe46} 
+async Task$<$ IAction\+Result $>$ Sklep\+\_\+internetowy.\+Server.\+Controllers.\+Admin.\+User\+Message\+Controller.\+Delete (\begin{DoxyParamCaption}\item[{int}]{id}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Trwale usuwa wiadomosc z systemu. 
+
+
+\begin{DoxyParams}{Parametry}
+{\em id} & ID wiadomosci przeznaczonej do usuniecia.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Zwraca}
+Brak zawartosci (204) po pomyslnym usunieciu.
+\end{DoxyReturn}
+$<$response code="{}204"{}$>$Wiadomosc zostala usunieta.$<$/\+response$>$ $<$response code="{}404"{}$>$Gdy wiadomosc nie istnieje.$<$/\+response$>$ \Hypertarget{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_admin_1_1_user_message_controller_a6b05592ed8a86c3bad7530b48a807aca}\index{Sklep\_internetowy.Server.Controllers.Admin.UserMessageController@{Sklep\_internetowy.Server.Controllers.Admin.UserMessageController}!GetAll@{GetAll}}
+\index{GetAll@{GetAll}!Sklep\_internetowy.Server.Controllers.Admin.UserMessageController@{Sklep\_internetowy.Server.Controllers.Admin.UserMessageController}}
+\doxysubsubsection{\texorpdfstring{GetAll()}{GetAll()}}
+{\footnotesize\ttfamily \label{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_admin_1_1_user_message_controller_a6b05592ed8a86c3bad7530b48a807aca} 
+async Task$<$ Action\+Result$<$ IEnumerable$<$ \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_models_1_1_user_message}{User\+Message}} $>$ $>$ $>$ Sklep\+\_\+internetowy.\+Server.\+Controllers.\+Admin.\+User\+Message\+Controller.\+Get\+All (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Pobiera pelna liste wiadomosci zapisanych w systemie. Wiadomosci sa sortowane malejaco wedlug daty ich utworzenia. 
+
+\begin{DoxyReturn}{Zwraca}
+Kolekcja obiektow \doxylink{class_sklep__internetowy_1_1_server_1_1_models_1_1_user_message}{User\+Message}.
+\end{DoxyReturn}
+$<$response code="{}200"{}$>$Zwraca liste wiadomosci.$<$/\+response$>$ \Hypertarget{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_admin_1_1_user_message_controller_ad706b91108b02a889beb557df08ff296}\index{Sklep\_internetowy.Server.Controllers.Admin.UserMessageController@{Sklep\_internetowy.Server.Controllers.Admin.UserMessageController}!GetById@{GetById}}
+\index{GetById@{GetById}!Sklep\_internetowy.Server.Controllers.Admin.UserMessageController@{Sklep\_internetowy.Server.Controllers.Admin.UserMessageController}}
+\doxysubsubsection{\texorpdfstring{GetById()}{GetById()}}
+{\footnotesize\ttfamily \label{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_admin_1_1_user_message_controller_ad706b91108b02a889beb557df08ff296} 
+async Task$<$ Action\+Result$<$ \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_models_1_1_user_message}{User\+Message}} $>$ $>$ Sklep\+\_\+internetowy.\+Server.\+Controllers.\+Admin.\+User\+Message\+Controller.\+Get\+By\+Id (\begin{DoxyParamCaption}\item[{int}]{id}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Pobiera szczegolowe dane konkretnej wiadomosci na podstawie jej identyfikatora. 
+
+
+\begin{DoxyParams}{Parametry}
+{\em id} & Unikalny identyfikator wiadomosci (ID).\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Zwraca}
+Obiekt \doxylink{class_sklep__internetowy_1_1_server_1_1_models_1_1_user_message}{User\+Message} lub blad 404, jesli wiadomosc nie istnieje.
+\end{DoxyReturn}
+$<$response code="{}200"{}$>$Zwraca znaleziona wiadomosc.$<$/\+response$>$ $<$response code="{}404"{}$>$Gdy wiadomosc o podanym ID nie zostala znaleziona.$<$/\+response$>$ \Hypertarget{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_admin_1_1_user_message_controller_afbb12d0bd699cafaed7611201cd8c755}\index{Sklep\_internetowy.Server.Controllers.Admin.UserMessageController@{Sklep\_internetowy.Server.Controllers.Admin.UserMessageController}!Update@{Update}}
+\index{Update@{Update}!Sklep\_internetowy.Server.Controllers.Admin.UserMessageController@{Sklep\_internetowy.Server.Controllers.Admin.UserMessageController}}
+\doxysubsubsection{\texorpdfstring{Update()}{Update()}}
+{\footnotesize\ttfamily \label{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_admin_1_1_user_message_controller_afbb12d0bd699cafaed7611201cd8c755} 
+async Task$<$ IAction\+Result $>$ Sklep\+\_\+internetowy.\+Server.\+Controllers.\+Admin.\+User\+Message\+Controller.\+Update (\begin{DoxyParamCaption}\item[{int}]{id}{, }\item[{\doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_models_1_1_user_message}{User\+Message}}}]{updated}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Aktualizuje dane istniejacej wiadomosci kontaktowej. 
+
+
+\begin{DoxyParams}{Parametry}
+{\em id} & ID wiadomosci do aktualizacji.\\
+\hline
+{\em updated} & Zaktualizowany obiekt wiadomosci.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Zwraca}
+Brak zawartosci (204) w przypadku sukcesu lub blad walidacji.
+\end{DoxyReturn}
+$<$response code="{}204"{}$>$Dane zostaly pomyslnie zaktualizowane.$<$/\+response$>$ $<$response code="{}400"{}$>$Gdy ID w sciezce nie zgadza sie z ID w obiekcie.$<$/\+response$>$ $<$response code="{}404"{}$>$Gdy wiadomosc o podanym ID nie istnieje.$<$/\+response$>$ 
+
+Dokumentacja dla tej klasy została wygenerowana z pliku:\+\begin{DoxyCompactItemize}
+\item 
+Sklep\+\_\+internetowy.\+Server/\+\+Controllers/\+\+Admin/\+User\+Message\+Controller.\+cs\end{DoxyCompactItemize}

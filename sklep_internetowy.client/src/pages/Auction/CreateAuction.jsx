@@ -3,18 +3,42 @@ import { createAuction } from "../../api/auctionApi";
 import axios from "axios";
 import { isAdmin } from "../../utils/authUtils";
 
+/**
+ * @file CreateAuction.jsx
+ * @brief Komponent umozliwiajacy administratorowi tworzenie nowych aukcji.
+ * @details Modul pobiera liste produktow z katalogu i pozwala na wystawienie ich na licytacje z okreslona cena startowa.
+ */
+
+/**
+ * @component CreateAuction
+ * @description Renderuje formularz do zakladania aukcji. Zawiera walidacje uprawnien oraz pol wejsciowych.
+ */
 export default function CreateAuction() {
+    /** @brief Stan przechowujacy tablice produktow pobranych z serwera. */
     const [products, setProducts] = useState([]);
+    /** @brief Wybrany identyfikator produktu, ktory ma zostac wystawiony. */
     const [productId, setProductId] = useState("");
+    /** @brief Cena wywolawcza dla nowej aukcji. */
     const [price, setPrice] = useState("");
+    /** @brief Flaga blokujaca przycisk podczas trwania operacji asynchronicznej. */
     const [loading, setLoading] = useState(false);
 
+    /**
+     * @effect Inicjalizacja komponentu.
+     * @description Pobiera liste produktow z endpointu domowego w celu wypelnienia listy wyboru.
+     */
     useEffect(() => {
         axios.get("/api/home/Product")
             .then(res => setProducts(res.data || []))
             .catch(err => console.error("Products error:", err));
     }, []);
 
+    /**
+     * @function handleSubmit
+     * @async
+     * @description Obsluguje zdarzenie wyslania formularza, waliduje dane i wywoluje API aukcji.
+     * @param {Event} e - Obiekt zdarzenia submit.
+     */
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -41,6 +65,7 @@ export default function CreateAuction() {
         }
     };
 
+    // Weryfikacja uprawnien administratora przed renderowaniem formularza
     if (!isAdmin()) {
         return <p>Access denied</p>;
     }

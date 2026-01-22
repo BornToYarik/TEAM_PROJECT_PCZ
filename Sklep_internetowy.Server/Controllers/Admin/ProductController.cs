@@ -12,6 +12,10 @@ using System.Threading.Tasks;
 
 namespace Sklep_internetowy.Server.Controllers.Admin
 {
+    /// <summary>
+    /// Kontroler administracyjny odpowiedzialny za pelne zarzadzanie asortymentem produktow.
+    /// Obsluguje operacje CRUD, przesyłanie plikow graficznych, wyszukiwanie oraz system sugestii.
+    /// </summary>
     [Route("api/panel/[controller]")]
     [ApiController]
     public class ProductController : ControllerBase
@@ -19,17 +23,33 @@ namespace Sklep_internetowy.Server.Controllers.Admin
         private readonly StoreDbContext _context;
         private readonly IWebHostEnvironment _environment;
 
+        /// <summary>
+        /// Inicjalizuje nowa instancje klasy ProductController.
+        /// </summary>
+        /// <param name="context">Kontekst bazy danych StoreDbContext.</param>
+        /// <param name="environment">Srodowisko serwerowe do obslugi systemu plikow (przesyłanie zdjec).</param>
         public ProductController(StoreDbContext context, IWebHostEnvironment environment)
         {
             _context = context;
             _environment = environment;
         }
 
+        /// <summary>
+        /// Metoda pomocnicza ustawiajaca rodzaj daty na UTC, wymagana dla kompatybilnosci z baza danych.
+        /// </summary>
+        /// <param name="date">Data do przetworzenia.</param>
+        /// <returns>Data z rodzajem DateTimeKind.Utc lub null.</returns>
         private DateTime? SetUtcKind(DateTime? date)
         {
             return date.HasValue ? DateTime.SpecifyKind(date.Value, DateTimeKind.Utc) : null;
         }
 
+        /// <summary>
+        /// Pobiera pelna liste wszystkich produktow wraz z ich kategoriami i zdjeciami.
+        /// </summary>
+        /// <returns>Kolekcja obiektow ProductDto zawierajaca kompletne dane o produktach.</returns>
+        /// <response code="200">Zwraca liste produktow.</response>
+        /// <response code="500">Gdy wystapi blad serwera podczas pobierania danych.</response>
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ProductDto>>> GetProducts()
         {
@@ -65,6 +85,12 @@ namespace Sklep_internetowy.Server.Controllers.Admin
                 return StatusCode(500, new { message = "Error loading products", error = ex.Message });
             }
         }
+
+        /// <summary>
+        /// Pobiera liste wszystkich unikalnych marek produktow dostepnych w bazie danych.
+        /// Metoda dostepna publicznie (AllowAnonymous) dla potrzeb filtrowania na froncie.
+        /// </summary>
+        /// <returns>Lista ciagow znakow reprezentujacych nazwy marek.</returns>
         [AllowAnonymous]
         [HttpGet("all-brands")]
         public async Task<ActionResult<IEnumerable<string>>> GetAllBrands()
@@ -86,6 +112,11 @@ namespace Sklep_internetowy.Server.Controllers.Admin
             }
         }
 
+        /// <summary>
+        /// Wyszukuje produkty na podstawie frazy tekstowej dopasowanej do nazwy, marki lub opisu.
+        /// </summary>
+        /// <param name="q">Zapytanie wyszukiwania wpisane przez uzytkownika.</param>
+        /// <returns>Kolekcja produktow spelniajacych kryteria wyszukiwania.</returns>
         [HttpGet("search")]
         public async Task<ActionResult<IEnumerable<ProductDto>>> SearchProducts([FromQuery] string q)
         {
@@ -127,6 +158,11 @@ namespace Sklep_internetowy.Server.Controllers.Admin
             }
         }
 
+        /// <summary>
+        /// Tworzy nowy produkt w systemie wraz z obsluga przesyłania wielu plikow graficznych.
+        /// </summary>
+        /// <param name="formDto">Dane produktu przekazane w formacie multipart/form-data.</param>
+        /// <returns>Status 200 OK po pomyslnym utworzeniu i zapisaniu plikow.</returns>
         [HttpPost]
         public async Task<ActionResult> CreateProduct([FromForm] CreateProductWithFilesDto formDto)
         {
@@ -175,6 +211,10 @@ namespace Sklep_internetowy.Server.Controllers.Admin
             return Ok();
         }
 
+        /// <summary>
+        /// Usuwa wybrany produkt z bazy danych na podstawie identyfikatora.
+        /// </summary>
+        /// <param name="removeProductDto">DTO zawierajace identyfikator ID produktu do usuniecia.</param>
         [HttpPost("remove")]
         public async Task<ActionResult> RemoveProduct(RemoveProductDto removeProductDto)
         {
@@ -188,6 +228,12 @@ namespace Sklep_internetowy.Server.Controllers.Admin
             return NoContent();
         }
 
+        /// <summary>
+        /// Aktualizuje dane techniczne i cenowe istniejacego produktu.
+        /// </summary>
+        /// <param name="updateProductDto">Obiekt zawierajacy zaktualizowane pola produktu.</param>
+        /// <response code="204">Gdy aktualizacja przebiegla pomyslnie.</response>
+        /// <response code="404">Gdy produkt nie figuruje w bazie danych.</response>
         [HttpPut("update")]
         public async Task<ActionResult> UpdateProduct(UpdateProductDto updateProductDto)
         {
@@ -209,6 +255,7 @@ namespace Sklep_internetowy.Server.Controllers.Admin
                 product.DiscountStartDate = SetUtcKind(updateProductDto.DiscountStartDate);
                 product.DiscountEndDate = SetUtcKind(updateProductDto.DiscountEndDate);
                 product.Brand = updateProductDto.Brand;
+
                 _context.Products.Update(product);
                 await _context.SaveChangesAsync();
 
@@ -220,6 +267,10 @@ namespace Sklep_internetowy.Server.Controllers.Admin
             }
         }
 
+        /// <summary>
+        /// Pobiera szczegolowe dane pojedynczego produktu.
+        /// </summary>
+        /// <param name="id">ID produktu.</param>
         [HttpGet("{id}")]
         public async Task<ActionResult<ProductDto>> GetProductById(int id)
         {
@@ -252,6 +303,10 @@ namespace Sklep_internetowy.Server.Controllers.Admin
             return Ok(productDto);
         }
 
+        /// <summary>
+        /// Pobiera liste dwoch unikalnych produktow do porownania na podstawie przekazanych identyfikatorow.
+        /// </summary>
+        /// <param name="productIds">Lista identyfikatorow ID (maksymalnie 2 unikalne zostana przetworzone).</param>
         [AllowAnonymous]
         [HttpPost("compare-list")]
         public async Task<ActionResult<IEnumerable<ProductDto>>> GetProductsForComparison([FromBody] List<int> productIds)
@@ -284,7 +339,6 @@ namespace Sklep_internetowy.Server.Controllers.Admin
                         ProductCategoryId = p.ProductCategoryId,
                         ProductCategoryName = p.ProductCategory.Name,
                         ProductCategorySlug = p.ProductCategory.Slug,
-
                         ImageUrls = p.Images.Select(img => img.ImageUrl).ToList()
                     })
                     .ToListAsync();
@@ -297,6 +351,11 @@ namespace Sklep_internetowy.Server.Controllers.Admin
             }
         }
 
+        /// <summary>
+        /// Generuje dynamiczne sugestie wyszukiwania (kategorie i produkty) w czasie rzeczywistym.
+        /// </summary>
+        /// <param name="q">Fragment nazwy wpisany przez uzytkownika.</param>
+        /// <returns>Obiekt zawierajacy liste nazw kategorii oraz liste dopasowanych obiektow ProductDto.</returns>
         [AllowAnonymous]
         [HttpGet("suggestions")]
         public async Task<ActionResult> GetSuggestions([FromQuery] string q)
@@ -329,12 +388,10 @@ namespace Sklep_internetowy.Server.Controllers.Admin
                         HasActiveDiscount = p.HasActiveDiscount,
                         ProductCategoryName = p.ProductCategory?.Name,
                         Description = p.Description,
-
                         ImageUrls = p.Images.Select(img => img.ImageUrl).ToList()
                     })
                     .ToList();
 
-                
                 var categories = allProducts
                     .Where(p => p.ProductCategory != null)
                     .Select(p => p.ProductCategory.Name)

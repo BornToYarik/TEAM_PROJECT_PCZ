@@ -1,0 +1,334 @@
+\doxysection{Dokumentacja pliku sklep\+\_\+internetowy.\+client/\+src/\+\+App.jsx}
+\hypertarget{_app_8jsx}{}\label{_app_8jsx}\index{sklep\_internetowy.client/src/App.jsx@{sklep\_internetowy.client/src/App.jsx}}
+
+
+Glowny komponent konfiguracyjny aplikacji Tech\+Store.  
+
+
+\doxysubsubsection*{Zmienne}
+\begin{DoxyCompactItemize}
+\item 
+import Login\+Page from pages Login\+Page \doxymbox{\hyperlink{_app_8jsx_ae93e9ee69c2f197e88f358e7122c89af}{Login\+Page}}
+\item 
+import Registration from pages Registration \doxymbox{\hyperlink{_app_8jsx_a8e5ea782b38d606a911a3c997712acf6}{Registration}}
+\item 
+import Footer from components footer \doxymbox{\hyperlink{_app_8jsx_aaec6cb7af824ab88912feb10b166a77f}{Footer}}
+\item 
+import User\+Profile from pages User\+Profile \doxymbox{\hyperlink{_app_8jsx_a9527eab3735d472846d6db43696647e8}{User\+Profile}}
+\item 
+import User\+Message\+Management from pages \doxymbox{\hyperlink{class_admin_dashboard}{Admin\+Dashboard}} messages \doxymbox{\hyperlink{_app_8jsx_a84831ae1e55aad24037b8861bf18f028}{User\+Message\+Management}}
+\item 
+import Product\+Details\+Shop from pages Products Shop \doxymbox{\hyperlink{_app_8jsx_a0ccd658ae6751f7666bfca898afa0a9e}{Product\+Details\+Shop}}
+\item 
+import Compare\+Page from pages Products \doxymbox{\hyperlink{_app_8jsx_a3281c23b95d8d45cdeaf25580bb4ff35}{Compare\+Page}}
+\item 
+import Auction\+List from pages Auction \doxymbox{\hyperlink{_app_8jsx_a55040c470259ff7e42f2737722e9c639}{Auction\+List}}
+\item 
+import Auction\+Details from pages Auction \doxymbox{\hyperlink{_app_8jsx_a81ddaa4cedcfbb84fbf22bff8182ece1}{Auction\+Details}}
+\item 
+import Create\+Auction from pages Auction \doxymbox{\hyperlink{_app_8jsx_a4c4ff0a20d8508ffdbf9d034abe279cb}{Create\+Auction}}
+\item 
+import Wishlist\+Page from pages Wish\+List \doxymbox{\hyperlink{_app_8jsx_a84bb67292b12bc67b0b3cbebaa2abc80}{Wishlist\+Page}}
+\item 
+import Payment\+Page from pages Payment \doxymbox{\hyperlink{_app_8jsx_a5d23e9ad4be416c5bb23c0b0c66cf94a}{Payment\+Page}}
+\item 
+export default \doxymbox{\hyperlink{_app_8jsx_ae0d191b66cbd429e8c16cc4a4b87a81c}{App}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Opis szczegółowy}
+Glowny komponent konfiguracyjny aplikacji Tech\+Store. 
+
+Modul ten definiuje strukture routingu, zarzadza globalnymi dostawcami kontekstu (Theme) oraz integruje kluczowe elementy interfejsu takie jak pasek nawigacji i stopka. 
+
+\label{doc-var-members}
+\Hypertarget{_app_8jsx_doc-var-members}
+\doxysubsection{Dokumentacja zmiennych}
+\Hypertarget{_app_8jsx_ae0d191b66cbd429e8c16cc4a4b87a81c}\index{App.jsx@{App.jsx}!App@{App}}
+\index{App@{App}!App.jsx@{App.jsx}}
+\doxysubsubsection{\texorpdfstring{App}{App}}
+{\footnotesize\ttfamily \label{_app_8jsx_ae0d191b66cbd429e8c16cc4a4b87a81c} 
+function App}
+
+Inicjalizacja hooka zarzadzajacego stanem porownywarki produktow.\Hypertarget{_app_8jsx_a81ddaa4cedcfbb84fbf22bff8182ece1}\index{App.jsx@{App.jsx}!AuctionDetails@{AuctionDetails}}
+\index{AuctionDetails@{AuctionDetails}!App.jsx@{App.jsx}}
+\doxysubsubsection{\texorpdfstring{AuctionDetails}{AuctionDetails}}
+{\footnotesize\ttfamily \label{_app_8jsx_a81ddaa4cedcfbb84fbf22bff8182ece1} 
+import Auction\+Details from pages Auction Auction\+Details}
+
+Pobranie identyfikatora aukcji z parametrow sciezki URL.
+
+Status autoryzacji uzytkownika pobrany z dedykowanego hooka.
+
+Stan przechowujacy szczegolowe informacje o aukcji (produkt, cena, czas).
+
+Wartosc nowej oferty licytacyjnej wpisana w formularzu.
+
+Flaga kontrolujaca blokowanie interfejsu podczas wysylania oferty.
+
+Referencja do obiektu polaczenia SignalR zachowujaca stan miedzy renderami.
+
+\begin{DoxyNote}{Nota}
+React use\+Effect:\+ Inicjalizacja komponentu i konfiguracja SignalR.
+\end{DoxyNote}
+Pobiera dane poczatkowe aukcji i ustanawia polaczenie z Hubem aukcyjnym. Rejestruje handlery dla zdarzen "{}\+Bid\+Placed"{} oraz "{}\+Auction\+Finished"{}.
+
+@callback Bid\+Placed @description Reaguje na powiadomienie o nowej najwyzszej ofercie od innego uzytkownika.
+
+@callback Auction\+Finished @description Wyswietla powiadomienie o zakonczeniu licytacji i odswieza dane.
+
+@description Pobiera aktualny stan aukcji z serwera za pomoca API REST.\Hypertarget{_app_8jsx_a55040c470259ff7e42f2737722e9c639}\index{App.jsx@{App.jsx}!AuctionList@{AuctionList}}
+\index{AuctionList@{AuctionList}!App.jsx@{App.jsx}}
+\doxysubsubsection{\texorpdfstring{AuctionList}{AuctionList}}
+{\footnotesize\ttfamily \label{_app_8jsx_a55040c470259ff7e42f2737722e9c639} 
+import Auction\+List from pages Auction Auction\+List}
+
+Stan przechowujacy tablice aktywnych aukcji pobranych z serwera.
+
+Flaga logiczna okreslajaca, czy trwa proces pobierania danych.
+
+Przechowuje informacie o bledzie w przypadku niepowodzenia komunikacji z API.
+
+\begin{DoxyNote}{Nota}
+React use\+Effect:\+ Inicjalizacja komponentu:\+ asynchroniczne pobieranie listy aukcji.
+\end{DoxyNote}
+Wywoluje funkcje get\+Active\+Auctions i aktualizuje stany komponentu.
+
+@description Funkcja nawigacyjna przekierowujaca administratora do formularza tworzenia aukcji.\Hypertarget{_app_8jsx_a3281c23b95d8d45cdeaf25580bb4ff35}\index{App.jsx@{App.jsx}!ComparePage@{ComparePage}}
+\index{ComparePage@{ComparePage}!App.jsx@{App.jsx}}
+\doxysubsubsection{\texorpdfstring{ComparePage}{ComparePage}}
+{\footnotesize\ttfamily \label{_app_8jsx_a3281c23b95d8d45cdeaf25580bb4ff35} 
+import Compare\+Page from pages Products Compare\+Page}
+
+Stan przechowujacy szczegolowe dane produktow pobrane z serwera.
+
+Flaga okreslajaca stan ladowania danych asynchronicznych.
+
+Tresc komunikatu o bledzie.
+
+Adres domyslnego obrazu w przypadku braku grafik produktu.
+
+\begin{DoxyNote}{Nota}
+React use\+Effect:\+ Pobieranie danych do porownania. @description Uruchamia sie przy kazdej zmianie listy compare\+Items. Wysyla zapytanie POST z tablica ID do punktu koncowego API.
+\end{DoxyNote}
+
+
+@description Pomocnicza funkcja do renderowania bloku ceny.
+
+Obsluguje wyswietlanie ceny promocyjnej (z przekresleniem) oraz standardowej. 
+\begin{DoxyParams}{Parametry}
+{\em \{\+Object\}} & product -\/ Obiekt danych produktu. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Zwraca}
+\{JSX.\+Element\} Sformatowany widok ceny.
+\end{DoxyReturn}
+\Hypertarget{_app_8jsx_a4c4ff0a20d8508ffdbf9d034abe279cb}\index{App.jsx@{App.jsx}!CreateAuction@{CreateAuction}}
+\index{CreateAuction@{CreateAuction}!App.jsx@{App.jsx}}
+\doxysubsubsection{\texorpdfstring{CreateAuction}{CreateAuction}}
+{\footnotesize\ttfamily \label{_app_8jsx_a4c4ff0a20d8508ffdbf9d034abe279cb} 
+import Create\+Auction from pages Auction Create\+Auction}
+
+Stan przechowujacy tablice produktow pobranych z serwera.
+
+Wybrany identyfikator produktu, ktory ma zostac wystawiony.
+
+Cena wywolawcza dla nowej aukcji.
+
+Flaga blokujaca przycisk podczas trwania operacji asynchronicznej.
+
+\begin{DoxyNote}{Nota}
+React use\+Effect:\+ Inicjalizacja komponentu. @description Pobiera liste produktow z endpointu domowego w celu wypelnienia listy wyboru.
+\end{DoxyNote}
+
+
+\begin{DoxyNote}{Nota}
+Funkcja asynchroniczna @description Obsluguje zdarzenie wyslania formularza, waliduje dane i wywoluje API aukcji. 
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parametry}
+{\em \{\+Event\}} & e -\/ Obiekt zdarzenia submit.\\
+\hline
+\end{DoxyParams}
+\Hypertarget{_app_8jsx_aaec6cb7af824ab88912feb10b166a77f}\index{App.jsx@{App.jsx}!Footer@{Footer}}
+\index{Footer@{Footer}!App.jsx@{App.jsx}}
+\doxysubsubsection{\texorpdfstring{Footer}{Footer}}
+{\footnotesize\ttfamily \label{_app_8jsx_aaec6cb7af824ab88912feb10b166a77f} 
+function Footer}
+
+Funkcja tlumaczen z biblioteki i18next.
+
+Stan formularza kontaktowego.
+
+Przechowuje dane wprowadzone przez uzytkownika do formularza.
+
+Obsluga zmiany wartosci w polach formularza. 
+\begin{DoxyParams}{Parametry}
+{\em \{\+Event\}} & e Zdarzenie zmiany pola formularza.\\
+\hline
+\end{DoxyParams}
+Obsluga wyslania formularza kontaktowego.
+
+Wysyla dane formularza do API przy uzyciu metody POST. 
+\begin{DoxyParams}{Parametry}
+{\em \{\+Event\}} & e Zdarzenie wyslania formularza.\\
+\hline
+\end{DoxyParams}
+\Hypertarget{_app_8jsx_ae93e9ee69c2f197e88f358e7122c89af}\index{App.jsx@{App.jsx}!LoginPage@{LoginPage}}
+\index{LoginPage@{LoginPage}!App.jsx@{App.jsx}}
+\doxysubsubsection{\texorpdfstring{LoginPage}{LoginPage}}
+{\footnotesize\ttfamily \label{_app_8jsx_ae93e9ee69c2f197e88f358e7122c89af} 
+import Login\+Page from pages Login\+Page Login\+Page}
+
+Stan przechowujacy dane logowania (login i haslo).
+
+Komunikat o sukcesie operacji.
+
+Przechowuje komunikaty o bledach autoryzacji lub sieci.
+
+@description Aktualizuje lokalny stan formularza przy kazdej zmianie w polach tekstowych. 
+\begin{DoxyParams}{Parametry}
+{\em \{\+Event\}} & e -\/ Obiekt zdarzenia zmiany pola wejsciowego.\\
+\hline
+\end{DoxyParams}
+\Hypertarget{_app_8jsx_a5d23e9ad4be416c5bb23c0b0c66cf94a}\index{App.jsx@{App.jsx}!PaymentPage@{PaymentPage}}
+\index{PaymentPage@{PaymentPage}!App.jsx@{App.jsx}}
+\doxysubsubsection{\texorpdfstring{PaymentPage}{PaymentPage}}
+{\footnotesize\ttfamily \label{_app_8jsx_a5d23e9ad4be416c5bb23c0b0c66cf94a} 
+import Payment\+Page from pages Payment Payment\+Page}
+
+Dane pobrane z kontekstu koszyka zakupowego.
+
+Klucz sesji platnosci otrzymany z serwera.
+
+\begin{DoxyNote}{Nota}
+React use\+Effect:\+ Przekierowanie do koszyka, jesli jest on pusty.
+\end{DoxyNote}
+
+\begin{DoxyItemize}
+\item \begin{DoxyNote}{Nota}
+React use\+Effect:\+ Pobieranie Payment\+Intent. @description Tworzy zamiar platnosci na serwerze na podstawie wartosci koszyka.
+\end{DoxyNote}
+
+\end{DoxyItemize}
+
+\begin{DoxyNote}{Nota}
+Funkcja asynchroniczna @description Finalizuje proces zakupowy:\+ zapisuje zamowienie w bazie danych, generuje plik PDF z faktura i czysci koszyk. 
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parametry}
+{\em \{string\}} & payment\+Id -\/ Identyfikator pomyslnej platnosci Stripe.\\
+\hline
+\end{DoxyParams}
+\Hypertarget{_app_8jsx_a0ccd658ae6751f7666bfca898afa0a9e}\index{App.jsx@{App.jsx}!ProductDetailsShop@{ProductDetailsShop}}
+\index{ProductDetailsShop@{ProductDetailsShop}!App.jsx@{App.jsx}}
+\doxysubsubsection{\texorpdfstring{ProductDetailsShop}{ProductDetailsShop}}
+{\footnotesize\ttfamily \label{_app_8jsx_a0ccd658ae6751f7666bfca898afa0a9e} 
+import Product\+Details\+Shop from pages Products Shop Product\+Details\+Shop}
+
+Pobranie identyfikatora produktu z parametrow sciezki URL.
+
+Stan przechowujacy dane pobranego produktu.
+
+Flaga kontrolujaca wyswietlanie stanu ladowania danych.
+
+Hook zapewniajacy dostep do funkcji dodawania do koszyka.
+
+Hook umozliwiajacy nawigacje wsteczna lub przekierowania.
+
+Indeks aktualnie wyswietlanego zdjecia w galerii produktu.
+
+Adres domyslnego obrazu uzywanego w przypadku braku grafik produktu.
+
+\begin{DoxyNote}{Nota}
+React use\+Effect:\+ Pobieranie szczegolow produktu. @description Inicjuje zapytanie API po zamontowaniu komponentu lub zmianie ID produktu.
+\end{DoxyNote}
+Sprawdzenie czy produkt znajduje sie juz w porownywarce.
+
+Sprawdzenie czy osiagnieto limit produktow w porownywarce (blokada przycisku).
+
+Tablica zdjec produktu lub zestaw z obrazem domyslnym.
+
+@description Przelacza wyswietlane zdjecie na nastepne w kolejnosci.\Hypertarget{_app_8jsx_a8e5ea782b38d606a911a3c997712acf6}\index{App.jsx@{App.jsx}!Registration@{Registration}}
+\index{Registration@{Registration}!App.jsx@{App.jsx}}
+\doxysubsubsection{\texorpdfstring{Registration}{Registration}}
+{\footnotesize\ttfamily \label{_app_8jsx_a8e5ea782b38d606a911a3c997712acf6} 
+import Registration from pages Registration Registration}
+
+Stan przechowujacy dane wejsciowe formularza (login, email, hasla).
+
+Tresc komunikatu o sukcesie operacji.
+
+Tresc komunikatu o bledzie (walidacja lub odpowiedz serwera).
+
+@description Handler aktualizujacy stan formularza na podstawie zmian w polach input. 
+\begin{DoxyParams}{Parametry}
+{\em \{\+Event\}} & e -\/ Obiekt zdarzenia zmiany.\\
+\hline
+\end{DoxyParams}
+\Hypertarget{_app_8jsx_a84831ae1e55aad24037b8861bf18f028}\index{App.jsx@{App.jsx}!UserMessageManagement@{UserMessageManagement}}
+\index{UserMessageManagement@{UserMessageManagement}!App.jsx@{App.jsx}}
+\doxysubsubsection{\texorpdfstring{UserMessageManagement}{UserMessageManagement}}
+{\footnotesize\ttfamily \label{_app_8jsx_a84831ae1e55aad24037b8861bf18f028} 
+import User\+Message\+Management from pages \doxymbox{\hyperlink{class_admin_dashboard}{Admin\+Dashboard}} messages User\+Message\+Management}
+
+Stan przechowujacy liste wiadomosci pobranych z bazy danych.
+
+Flaga okreslajaca stan ladowania danych.
+
+Przechowuje komunikaty o bledach operacji asynchronicznych.
+
+Status widocznosci modala edycji.
+
+Status widocznosci modala usuwania.
+
+Status widocznosci modala tworzenia nowej wiadomosci.
+
+Obiekt aktualnie edytowanej lub usuwanej wiadomosci.
+
+Dane poczatkowe dla formularza nowej wiadomosci.
+
+\begin{DoxyNote}{Nota}
+Funkcja asynchroniczna @description Pobiera wszystkie wiadomosci z punktu koncowego API.
+\end{DoxyNote}
+\Hypertarget{_app_8jsx_a9527eab3735d472846d6db43696647e8}\index{App.jsx@{App.jsx}!UserProfile@{UserProfile}}
+\index{UserProfile@{UserProfile}!App.jsx@{App.jsx}}
+\doxysubsubsection{\texorpdfstring{UserProfile}{UserProfile}}
+{\footnotesize\ttfamily \label{_app_8jsx_a9527eab3735d472846d6db43696647e8} 
+import User\+Profile from pages User\+Profile User\+Profile}
+
+Stan przechowujacy podstawowe dane profilowe uzytkownika.
+
+Obiekt stanu do obslugi komunikatow o statusie aktualizacji profilu.
+
+Lista zamowien przypisanych do zalogowanego uzytkownika.
+
+Flaga kontrolujaca wyswietlanie spinnera ladowania dla sekcji zamowien.
+
+\begin{DoxyNote}{Nota}
+React use\+Effect:\+ Inicjalizacja danych profilu i zamowien. @description Sprawdza obecnosc tokenu JWT. Jesli uzytkownik jest zalogowany, pobiera dane profilu z /\+api/\+\+Account/\+me oraz historie zamowien.
+\end{DoxyNote}
+
+
+\begin{DoxyNote}{Nota}
+Funkcja asynchroniczna @description Pobiera aktualne dane uzytkownika z API Account.
+\end{DoxyNote}
+\Hypertarget{_app_8jsx_a84bb67292b12bc67b0b3cbebaa2abc80}\index{App.jsx@{App.jsx}!WishlistPage@{WishlistPage}}
+\index{WishlistPage@{WishlistPage}!App.jsx@{App.jsx}}
+\doxysubsubsection{\texorpdfstring{WishlistPage}{WishlistPage}}
+{\footnotesize\ttfamily \label{_app_8jsx_a84bb67292b12bc67b0b3cbebaa2abc80} 
+function Wishlist\+Page}
+
+Pobranie danych i funkcji sterujacych z kontekstu listy zyczen.
+
+Funkcja dodawania produktu do koszyka pobrana z Cart\+Context.
+
+Adres URL domyslnego obrazu uzywanego w przypadku braku zdjec produktu.
+
+
+\begin{DoxyItemize}
+\item 
+\end{DoxyItemize}\hypertarget{_wishlist_page_8jsx_EmptyState}{}\doxysubsection{\texorpdfstring{Empty\+State}{Empty\+State}}\label{_wishlist_page_8jsx_EmptyState}
+Obsluga wyswietlania komunikatu w przypadku braku produktow na liscie.
+
+Logika wyboru glownego zdjecia produktu.

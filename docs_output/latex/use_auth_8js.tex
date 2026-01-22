@@ -1,0 +1,46 @@
+\doxysection{Dokumentacja pliku sklep\+\_\+internetowy.\+client/\+src/\+auth/\+use\+Auth.js}
+\hypertarget{use_auth_8js}{}\label{use_auth_8js}\index{sklep\_internetowy.client/src/auth/useAuth.js@{sklep\_internetowy.client/src/auth/useAuth.js}}
+
+
+Hook Reactowy do zarzadzania stanem uwierzytelniania uzytkownika.  
+
+
+\doxysubsubsection*{Zmienne}
+\begin{DoxyCompactItemize}
+\item 
+export const \doxymbox{\hyperlink{use_auth_8js_a08276290a55215e58d2ce1803ffae8bf}{use\+Auth}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Opis szczegółowy}
+Hook Reactowy do zarzadzania stanem uwierzytelniania uzytkownika. 
+
+
+
+\label{doc-var-members}
+\Hypertarget{use_auth_8js_doc-var-members}
+\doxysubsection{Dokumentacja zmiennych}
+\Hypertarget{use_auth_8js_a08276290a55215e58d2ce1803ffae8bf}\index{useAuth.js@{useAuth.js}!useAuth@{useAuth}}
+\index{useAuth@{useAuth}!useAuth.js@{useAuth.js}}
+\doxysubsubsection{\texorpdfstring{useAuth}{useAuth}}
+{\footnotesize\ttfamily \label{use_auth_8js_a08276290a55215e58d2ce1803ffae8bf} 
+export const use\+Auth}
+
+{\bfseries Wartość początkowa:\+}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ ()\ =>\ \{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{const}\ token\ =\ localStorage.getItem(\textcolor{stringliteral}{"{}token"{}});}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{const}\ role\ =\ localStorage.getItem(\textcolor{stringliteral}{"{}role"{}});}
+\DoxyCodeLine{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{return}\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ isAuthenticated:\ !!token,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ isAdmin:\ role\ ===\ \textcolor{stringliteral}{"{}Admin"{}}}
+\DoxyCodeLine{\ \ \ \ \};}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+@description Funkcja pomocnicza (helper) do sprawdzania stanu autoryzacji uzytkownika.
+
+Pobiera token oraz role z magazynu lokalnego (local\+Storage) w celu weryfikacji uprawnien. \begin{DoxyReturn}{Zwraca}
+\{Object\} Obiekt zawierajacy flagi logiczne:\+ is\+Authenticated (czy zalogowany) oraz is\+Admin (czy posiada uprawnienia administratora). 
+\end{DoxyReturn}

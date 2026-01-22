@@ -1,0 +1,163 @@
+\doxysection{Dokumentacja klasy Sklep\+\_\+internetowy.\+Server.\+Services.\+Bidding.\+Auction\+Hub}
+\hypertarget{class_sklep__internetowy_1_1_server_1_1_services_1_1_bidding_1_1_auction_hub}{}\label{class_sklep__internetowy_1_1_server_1_1_services_1_1_bidding_1_1_auction_hub}\index{Sklep\_internetowy.Server.Services.Bidding.AuctionHub@{Sklep\_internetowy.Server.Services.Bidding.AuctionHub}}
+
+
+Hub SignalR odpowiedzialny za komunikację w czasie rzeczywistym dla aukcji.  
+
+
+
+
+Diagram współpracy dla Sklep\+\_\+internetowy.\+Server.\+Services.\+Bidding.\+Auction\+Hub:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{class_sklep__internetowy_1_1_server_1_1_services_1_1_bidding_1_1_auction_hub__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Metody publiczne}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_services_1_1_bidding_1_1_auction_hub_ab0367d42881c5f77e3d8cf00213957d5}{Auction\+Hub}} (\doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_services_1_1_bidding_1_1_auction_service}{Auction\+Service}} auction\+Service)
+\begin{DoxyCompactList}\small\item\em Konstruktor huba \doxylink{class_sklep__internetowy_1_1_server_1_1_services_1_1_bidding_1_1_auction_hub}{Auction\+Hub}. \end{DoxyCompactList}\item 
+override async Task \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_services_1_1_bidding_1_1_auction_hub_a2c2523342bdc6cf34f2cb6d5f528d8ad}{On\+Connected\+Async}} ()
+\begin{DoxyCompactList}\small\item\em Metoda wywoływana po połączeniu klienta z hubem. \end{DoxyCompactList}\item 
+async Task \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_services_1_1_bidding_1_1_auction_hub_a99fd162a1c4941b26633405477cc96e6}{Join\+Auction}} (int auction\+Id)
+\begin{DoxyCompactList}\small\item\em Dodaje użytkownika do grupy SignalR powiązanej z daną aukcją. \end{DoxyCompactList}\item 
+async Task \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_services_1_1_bidding_1_1_auction_hub_ac3a8a2f59a00be3fcf6fbd7e0e8072c4}{Place\+Bid}} (int auction\+Id, decimal amount)
+\begin{DoxyCompactList}\small\item\em Składa ofertę w wybranej aukcji. \end{DoxyCompactList}\item 
+async Task \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_services_1_1_bidding_1_1_auction_hub_a17c5f9b8978f49480d896488ada32c7b}{Finish\+Auction}} (int auction\+Id)
+\begin{DoxyCompactList}\small\item\em Wysyła do klientów informację o zakończeniu aukcji. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Metody prywatne}
+\begin{DoxyCompactItemize}
+\item 
+string \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_services_1_1_bidding_1_1_auction_hub_a94a2af892f6b40d11188327fa4907380}{Get\+Group\+Name}} (int auction\+Id)
+\begin{DoxyCompactList}\small\item\em Generuje nazwę grupy SignalR dla danej aukcji. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Atrybuty prywatne}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_services_1_1_bidding_1_1_auction_hub_af18dce56e5f7ad11949b048997999902}\label{class_sklep__internetowy_1_1_server_1_1_services_1_1_bidding_1_1_auction_hub_af18dce56e5f7ad11949b048997999902} 
+readonly \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_services_1_1_bidding_1_1_auction_service}{Auction\+Service}} {\bfseries \+\_\+auction\+Service}
+\begin{DoxyCompactList}\small\item\em Serwis obsługujący logikę aukcji. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Opis szczegółowy}
+Hub SignalR odpowiedzialny za komunikację w czasie rzeczywistym dla aukcji. 
+
+Umożliwia dołączanie użytkowników do aukcji, składanie ofert oraz przesyłanie aktualizacji ceny i czasu zakończenia aukcji do wszystkich uczestników. 
+
+\label{doc-constructors}
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_services_1_1_bidding_1_1_auction_hub_doc-constructors}
+\doxysubsection{Dokumentacja konstruktora i destruktora}
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_services_1_1_bidding_1_1_auction_hub_ab0367d42881c5f77e3d8cf00213957d5}\index{Sklep\_internetowy.Server.Services.Bidding.AuctionHub@{Sklep\_internetowy.Server.Services.Bidding.AuctionHub}!AuctionHub@{AuctionHub}}
+\index{AuctionHub@{AuctionHub}!Sklep\_internetowy.Server.Services.Bidding.AuctionHub@{Sklep\_internetowy.Server.Services.Bidding.AuctionHub}}
+\doxysubsubsection{\texorpdfstring{AuctionHub()}{AuctionHub()}}
+{\footnotesize\ttfamily \label{class_sklep__internetowy_1_1_server_1_1_services_1_1_bidding_1_1_auction_hub_ab0367d42881c5f77e3d8cf00213957d5} 
+Sklep\+\_\+internetowy.\+Server.\+Services.\+Bidding.\+Auction\+Hub.\+Auction\+Hub (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_services_1_1_bidding_1_1_auction_service}{Auction\+Service}}}]{auction\+Service}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Konstruktor huba \doxylink{class_sklep__internetowy_1_1_server_1_1_services_1_1_bidding_1_1_auction_hub}{Auction\+Hub}. 
+
+
+\begin{DoxyParams}{Parametry}
+{\em auction\+Service} & Serwis odpowiedzialny za obsługę aukcji. \\
+\hline
+\end{DoxyParams}
+
+
+\label{doc-func-members}
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_services_1_1_bidding_1_1_auction_hub_doc-func-members}
+\doxysubsection{Dokumentacja funkcji składowych}
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_services_1_1_bidding_1_1_auction_hub_a17c5f9b8978f49480d896488ada32c7b}\index{Sklep\_internetowy.Server.Services.Bidding.AuctionHub@{Sklep\_internetowy.Server.Services.Bidding.AuctionHub}!FinishAuction@{FinishAuction}}
+\index{FinishAuction@{FinishAuction}!Sklep\_internetowy.Server.Services.Bidding.AuctionHub@{Sklep\_internetowy.Server.Services.Bidding.AuctionHub}}
+\doxysubsubsection{\texorpdfstring{FinishAuction()}{FinishAuction()}}
+{\footnotesize\ttfamily \label{class_sklep__internetowy_1_1_server_1_1_services_1_1_bidding_1_1_auction_hub_a17c5f9b8978f49480d896488ada32c7b} 
+async Task Sklep\+\_\+internetowy.\+Server.\+Services.\+Bidding.\+Auction\+Hub.\+Finish\+Auction (\begin{DoxyParamCaption}\item[{int}]{auction\+Id}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Wysyła do klientów informację o zakończeniu aukcji. 
+
+
+\begin{DoxyParams}{Parametry}
+{\em auction\+Id} & Identyfikator aukcji. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Zwraca}
+Zadanie asynchroniczne. 
+\end{DoxyReturn}
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_services_1_1_bidding_1_1_auction_hub_a94a2af892f6b40d11188327fa4907380}\index{Sklep\_internetowy.Server.Services.Bidding.AuctionHub@{Sklep\_internetowy.Server.Services.Bidding.AuctionHub}!GetGroupName@{GetGroupName}}
+\index{GetGroupName@{GetGroupName}!Sklep\_internetowy.Server.Services.Bidding.AuctionHub@{Sklep\_internetowy.Server.Services.Bidding.AuctionHub}}
+\doxysubsubsection{\texorpdfstring{GetGroupName()}{GetGroupName()}}
+{\footnotesize\ttfamily \label{class_sklep__internetowy_1_1_server_1_1_services_1_1_bidding_1_1_auction_hub_a94a2af892f6b40d11188327fa4907380} 
+string Sklep\+\_\+internetowy.\+Server.\+Services.\+Bidding.\+Auction\+Hub.\+Get\+Group\+Name (\begin{DoxyParamCaption}\item[{int}]{auction\+Id}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+
+
+Generuje nazwę grupy SignalR dla danej aukcji. 
+
+
+\begin{DoxyParams}{Parametry}
+{\em auction\+Id} & Identyfikator aukcji. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Zwraca}
+Nazwa grupy SignalR. 
+\end{DoxyReturn}
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_services_1_1_bidding_1_1_auction_hub_a99fd162a1c4941b26633405477cc96e6}\index{Sklep\_internetowy.Server.Services.Bidding.AuctionHub@{Sklep\_internetowy.Server.Services.Bidding.AuctionHub}!JoinAuction@{JoinAuction}}
+\index{JoinAuction@{JoinAuction}!Sklep\_internetowy.Server.Services.Bidding.AuctionHub@{Sklep\_internetowy.Server.Services.Bidding.AuctionHub}}
+\doxysubsubsection{\texorpdfstring{JoinAuction()}{JoinAuction()}}
+{\footnotesize\ttfamily \label{class_sklep__internetowy_1_1_server_1_1_services_1_1_bidding_1_1_auction_hub_a99fd162a1c4941b26633405477cc96e6} 
+async Task Sklep\+\_\+internetowy.\+Server.\+Services.\+Bidding.\+Auction\+Hub.\+Join\+Auction (\begin{DoxyParamCaption}\item[{int}]{auction\+Id}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Dodaje użytkownika do grupy SignalR powiązanej z daną aukcją. 
+
+
+\begin{DoxyParams}{Parametry}
+{\em auction\+Id} & Identyfikator aukcji. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Zwraca}
+Zadanie asynchroniczne. 
+\end{DoxyReturn}
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_services_1_1_bidding_1_1_auction_hub_a2c2523342bdc6cf34f2cb6d5f528d8ad}\index{Sklep\_internetowy.Server.Services.Bidding.AuctionHub@{Sklep\_internetowy.Server.Services.Bidding.AuctionHub}!OnConnectedAsync@{OnConnectedAsync}}
+\index{OnConnectedAsync@{OnConnectedAsync}!Sklep\_internetowy.Server.Services.Bidding.AuctionHub@{Sklep\_internetowy.Server.Services.Bidding.AuctionHub}}
+\doxysubsubsection{\texorpdfstring{OnConnectedAsync()}{OnConnectedAsync()}}
+{\footnotesize\ttfamily \label{class_sklep__internetowy_1_1_server_1_1_services_1_1_bidding_1_1_auction_hub_a2c2523342bdc6cf34f2cb6d5f528d8ad} 
+override async Task Sklep\+\_\+internetowy.\+Server.\+Services.\+Bidding.\+Auction\+Hub.\+On\+Connected\+Async (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Metoda wywoływana po połączeniu klienta z hubem. 
+
+Służy do logowania informacji o nowym połączeniu użytkownika. \begin{DoxyReturn}{Zwraca}
+Zadanie asynchroniczne. 
+\end{DoxyReturn}
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_services_1_1_bidding_1_1_auction_hub_ac3a8a2f59a00be3fcf6fbd7e0e8072c4}\index{Sklep\_internetowy.Server.Services.Bidding.AuctionHub@{Sklep\_internetowy.Server.Services.Bidding.AuctionHub}!PlaceBid@{PlaceBid}}
+\index{PlaceBid@{PlaceBid}!Sklep\_internetowy.Server.Services.Bidding.AuctionHub@{Sklep\_internetowy.Server.Services.Bidding.AuctionHub}}
+\doxysubsubsection{\texorpdfstring{PlaceBid()}{PlaceBid()}}
+{\footnotesize\ttfamily \label{class_sklep__internetowy_1_1_server_1_1_services_1_1_bidding_1_1_auction_hub_ac3a8a2f59a00be3fcf6fbd7e0e8072c4} 
+async Task Sklep\+\_\+internetowy.\+Server.\+Services.\+Bidding.\+Auction\+Hub.\+Place\+Bid (\begin{DoxyParamCaption}\item[{int}]{auction\+Id}{, }\item[{decimal}]{amount}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Składa ofertę w wybranej aukcji. 
+
+Metoda weryfikuje użytkownika, a następnie próbuje zapisać ofertę w systemie. W przypadku sukcesu informuje wszystkich uczestników aukcji o nowej cenie. 
+\begin{DoxyParams}{Parametry}
+{\em auction\+Id} & Identyfikator aukcji. \\
+\hline
+{\em amount} & Kwota oferty. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Zwraca}
+Zadanie asynchroniczne. 
+\end{DoxyReturn}
+
+
+Dokumentacja dla tej klasy została wygenerowana z pliku:\+\begin{DoxyCompactItemize}
+\item 
+Sklep\+\_\+internetowy.\+Server/\+\+Services/\+\+Bidding/\+Auction\+Hub .\+cs\end{DoxyCompactItemize}

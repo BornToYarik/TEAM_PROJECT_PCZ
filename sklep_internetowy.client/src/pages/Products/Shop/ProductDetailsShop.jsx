@@ -1,17 +1,41 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { useCart } from "../../../context/CartContext"; 
+import { useCart } from "../../../context/CartContext";
 
+/**
+ * @file ProductDetailsShop.jsx
+ * @brief Komponent wyswietlajacy szczegolowe informacje o produkcie w interfejsie sklepu.
+ * @details Zarzadza pobieraniem danych o konkretnym towarze, interaktywna galeria zdjec 
+ * oraz integracja z systemem koszyka i porownywarki produktow.
+ */
+
+/**
+ * @component ProductDetailsShop
+ * @description Renderuje widok szczegolowy produktu, umozliwiajac jego zakup lub dodanie do porownania.
+ * @param {Object} props - Wlasciwosci komponentu.
+ * @param {Object} props.comparison - Obiekt stanu i funkcji porownywarki przekazywany z komponentu nadrzednego.
+ */
 function ProductDetailsShop({ comparison }) {
+    /** @brief Pobranie identyfikatora produktu z parametrow sciezki URL. */
     const { id } = useParams();
+    /** @brief Stan przechowujacy dane pobranego produktu. */
     const [product, setProduct] = useState(null);
+    /** @brief Flaga kontrolujaca wyswietlanie stanu ladowania danych. */
     const [loading, setLoading] = useState(true);
+    /** @brief Hook zapewniajacy dostep do funkcji dodawania do koszyka. */
     const { addToCart } = useCart();
+    /** @brief Hook umozliwiajacy nawigacje wsteczna lub przekierowania. */
     const navigate = useNavigate();
+    /** @brief Indeks aktualnie wyswietlanego zdjecia w galerii produktu. */
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
+    /** @brief Adres domyslnego obrazu uzywanego w przypadku braku grafik produktu. */
     const DEFAULT_IMAGE = "https://cdn.pixabay.com/photo/2017/11/10/04/47/image-2935360_1280.png";
 
+    /**
+     * @effect Pobieranie szczegolow produktu.
+     * @description Inicjuje zapytanie API po zamontowaniu komponentu lub zmianie ID produktu.
+     */
     useEffect(() => {
         fetch(`/api/home/Product/${id}`)
             .then((res) => {
@@ -31,22 +55,36 @@ function ProductDetailsShop({ comparison }) {
     if (loading) return <div className="container my-5">Loading...</div>;
     if (!product) return <div className="container my-5">Product not found.</div>;
 
-
+    /** @brief Sprawdzenie czy produkt znajduje sie juz w porownywarce. */
     const isCompared = (comparison) ? comparison.isCompared(product.id) : false;
+    /** @brief Sprawdzenie czy osiagnieto limit produktow w porownywarce (blokada przycisku). */
     const maxReached = (comparison) ? comparison.maxReached && !isCompared : false;
 
+    /** @brief Tablica zdjec produktu lub zestaw z obrazem domyslnym. */
     const images = (product.imageUrls && product.imageUrls.length > 0)
         ? product.imageUrls
         : [DEFAULT_IMAGE];
 
+    /**
+     * @function nextImage
+     * @description Przelacza wyswietlane zdjecie na nastepne w kolejnosci.
+     */
     const nextImage = () => {
         setCurrentImageIndex((prev) => (prev + 1) % images.length);
     };
 
+    /**
+     * @function prevImage
+     * @description Przelacza wyswietlane zdjecie na poprzednie.
+     */
     const prevImage = () => {
         setCurrentImageIndex((prev) => (prev - 1 + images.length) % images.length);
     };
 
+    /**
+     * @function handleCompareToggle
+     * @description Przelacza obecnosc produktu na liscie do porownania.
+     */
     const handleCompareToggle = () => {
         if (!comparison) {
             console.warn("Brak propsa comparison.");
@@ -59,6 +97,7 @@ function ProductDetailsShop({ comparison }) {
         }
     };
 
+    /** @brief Flaga informujaca o aktywnym rabacie na produkt. */
     const isDiscountActive = product.hasActiveDiscount || product.discountPercentage > 0;
 
     return (
@@ -109,7 +148,7 @@ function ProductDetailsShop({ comparison }) {
                                                 cursor: "pointer"
                                             }}
                                             onClick={() => setCurrentImageIndex(idx)}
-                                            onError={(e) => { e.target.style.display = 'none'; }} 
+                                            onError={(e) => { e.target.style.display = 'none'; }}
                                         />
                                     ))}
                                 </div>

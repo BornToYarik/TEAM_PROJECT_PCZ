@@ -1,0 +1,46 @@
+\doxysection{Dokumentacja klasy Sklep\+\_\+internetowy.\+Server.\+DTOs.\+User\+Dto}
+\hypertarget{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_user_dto}{}\label{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_user_dto}\index{Sklep\_internetowy.Server.DTOs.UserDto@{Sklep\_internetowy.Server.DTOs.UserDto}}
+
+
+Obiekt transferu danych (DTO) reprezentujący szczegółowe informacje o profilu użytkownika. Klasa agreguje dane identyfikacyjne, personalne oraz przypisane role systemowe, służąc do bezpiecznego przesyłania informacji o koncie z warstwy serwerowej do interfejsu klienta.  
+
+
+
+
+Diagram współpracy dla Sklep\+\_\+internetowy.\+Server.\+DTOs.\+User\+Dto:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=202pt]{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_user_dto__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Właściwości}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_user_dto_ab4ae920f232765d8a9ac9f5f1f0d2493}\label{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_user_dto_ab4ae920f232765d8a9ac9f5f1f0d2493} 
+string {\bfseries Id}\hspace{0.3cm}{\ttfamily  \+[get, set]\+}
+\begin{DoxyCompactList}\small\item\em Unikalny identyfikator użytkownika (GUID) w bazie danych systemu. \end{DoxyCompactList}\item 
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_user_dto_a3100f59f63ad08703f95c5cd837f44f7}\label{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_user_dto_a3100f59f63ad08703f95c5cd837f44f7} 
+string? {\bfseries Email}\hspace{0.3cm}{\ttfamily  \+[get, set]\+}
+\begin{DoxyCompactList}\small\item\em Adres e-\/mail przypisany do konta, wykorzystywany do autoryzacji i komunikacji. \end{DoxyCompactList}\item 
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_user_dto_ab1bdfe84a3faca458fc9cb9c726f230b}\label{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_user_dto_ab1bdfe84a3faca458fc9cb9c726f230b} 
+string? {\bfseries First\+Name}\hspace{0.3cm}{\ttfamily  \+[get, set]\+}
+\begin{DoxyCompactList}\small\item\em Imię użytkownika zapisane w profilu personalnym. \end{DoxyCompactList}\item 
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_user_dto_af914a29daa7a82eae5e02db83c6ca61d}\label{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_user_dto_af914a29daa7a82eae5e02db83c6ca61d} 
+string? {\bfseries Last\+Name}\hspace{0.3cm}{\ttfamily  \+[get, set]\+}
+\begin{DoxyCompactList}\small\item\em Nazwisko użytkownika zapisane w profilu personalnym. \end{DoxyCompactList}\item 
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_user_dto_a8f3a98d55dea806f27a00ad107b803d0}\label{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_user_dto_a8f3a98d55dea806f27a00ad107b803d0} 
+IList$<$ string $>$ {\bfseries Roles} = new List$<$string$>$()\hspace{0.3cm}{\ttfamily  \+[get, set]\+}
+\begin{DoxyCompactList}\small\item\em Kolekcja ról systemowych przypisanych do konta (np. "{}\+Admin"{}, "{}\+User"{}), definiująca zakres uprawnień. \end{DoxyCompactList}\item 
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_user_dto_accbc2aede37d06f75e0d17503fab80a7}\label{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_user_dto_accbc2aede37d06f75e0d17503fab80a7} 
+Date\+Time {\bfseries Created\+At}\hspace{0.3cm}{\ttfamily  \+[get, set]\+}
+\begin{DoxyCompactList}\small\item\em \doxylink{namespace_sklep__internetowy_1_1_server_1_1_data}{Data} i godzina zarejestrowania konta w systemie (zapisana w formacie UTC). \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Opis szczegółowy}
+Obiekt transferu danych (DTO) reprezentujący szczegółowe informacje o profilu użytkownika. Klasa agreguje dane identyfikacyjne, personalne oraz przypisane role systemowe, służąc do bezpiecznego przesyłania informacji o koncie z warstwy serwerowej do interfejsu klienta. 
+
+Dokumentacja dla tej klasy została wygenerowana z pliku:\+\begin{DoxyCompactItemize}
+\item 
+Sklep\+\_\+internetowy.\+Server/\+\+DTOs/\+User\+Dto.\+cs\end{DoxyCompactItemize}

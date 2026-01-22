@@ -1,0 +1,66 @@
+\doxysection{Dokumentacja pliku sklep\+\_\+internetowy.\+client/\+src/\+components/\+product\+Grid/\+\+Product\+Grid.jsx}
+\hypertarget{_product_grid_8jsx}{}\label{_product_grid_8jsx}\index{sklep\_internetowy.client/src/components/productGrid/ProductGrid.jsx@{sklep\_internetowy.client/src/components/productGrid/ProductGrid.jsx}}
+
+
+Komponent wyswietlajacy siatke produktow na stronie glownej.  
+
+
+\doxysubsubsection*{Zmienne}
+\begin{DoxyCompactItemize}
+\item 
+export default \doxymbox{\hyperlink{_product_grid_8jsx_a9590c1dce0956a00d4de4770f5f20b71}{Product\+Grid}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Opis szczegółowy}
+Komponent wyswietlajacy siatke produktow na stronie glownej. 
+
+Pobiera liste produktow z API, losuje jeden produkt promocyjny oraz wyswietla pozostale produkty z podzialem na strony. 
+
+\label{doc-var-members}
+\Hypertarget{_product_grid_8jsx_doc-var-members}
+\doxysubsection{Dokumentacja zmiennych}
+\Hypertarget{_product_grid_8jsx_a9590c1dce0956a00d4de4770f5f20b71}\index{ProductGrid.jsx@{ProductGrid.jsx}!ProductGrid@{ProductGrid}}
+\index{ProductGrid@{ProductGrid}!ProductGrid.jsx@{ProductGrid.jsx}}
+\doxysubsubsection{\texorpdfstring{ProductGrid}{ProductGrid}}
+{\footnotesize\ttfamily \label{_product_grid_8jsx_a9590c1dce0956a00d4de4770f5f20b71} 
+function Product\+Grid}
+
+Lista wszystkich produktow pobranych z API.
+
+Aktualnie wybrany produkt promocyjny.
+
+Numer aktualnej strony paginacji.
+
+Liczba produktow wyswietlanych na jednej stronie.
+
+Funkcja dodajaca produkt do koszyka.
+
+Hook do nawigacji pomiedzy stronami.
+
+Efekt pobierajacy produkty z API przy pierwszym renderze komponentu.
+
+Po pobraniu danych losowany jest jeden produkt z aktywna znizka.
+
+Lista produktow bez produktu promocyjnego.
+
+Zapobiega wyswietlaniu produktu promocyjnego dwa razy.
+
+Indeks ostatniego produktu na aktualnej stronie.
+
+Indeks pierwszego produktu na aktualnej stronie.
+
+Lista produktow wyswietlanych na aktualnej stronie.
+
+Calkowita liczba stron paginacji.
+
+Zmienia aktualna strone paginacji. 
+\begin{DoxyParams}{Parametry}
+{\em \{number\}} & page\+Number Numer strony do wyswietlenia.\\
+\hline
+\end{DoxyParams}
+Obsluguje klikniecie w produkt. 
+\begin{DoxyParams}{Parametry}
+{\em \{number\texorpdfstring{$\vert$}{|}string\}} & id Identyfikator produktu.\\
+\hline
+\end{DoxyParams}

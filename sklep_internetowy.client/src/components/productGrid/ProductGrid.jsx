@@ -5,17 +5,56 @@ import { useNavigate } from "react-router-dom";
 import ProductCard from "../shop/product/ProductCard";
 import FeaturedProductCard from "../featuredProductCard/FeaturedProductCard";
 
+/**
+ * @file ProductGrid.jsx
+ * @brief Komponent wyswietlajacy siatke produktow na stronie glownej.
+ * @details Pobiera liste produktow z API, losuje jeden produkt promocyjny
+ * oraz wyswietla pozostale produkty z podzialem na strony.
+ */
+
+/**
+ * @component ProductGrid
+ * @brief Glowny komponent siatki produktow.
+ * @details Odpowiada za pobieranie danych, paginacje, wybor produktu promocyjnego
+ * oraz obsluge klikniec w produkty.
+ * @return JSX.Element Element siatki produktow.
+ */
 function ProductGrid() {
 
+    /**
+     * @brief Lista wszystkich produktow pobranych z API.
+     */
     const [products, setProducts] = useState([]);
-    const [featuredProduct, setFeaturedProduct] = useState(null); 
 
+    /**
+     * @brief Aktualnie wybrany produkt promocyjny.
+     */
+    const [featuredProduct, setFeaturedProduct] = useState(null);
+
+    /**
+     * @brief Numer aktualnej strony paginacji.
+     */
     const [currentPage, setCurrentPage] = useState(1);
+
+    /**
+     * @brief Liczba produktow wyswietlanych na jednej stronie.
+     */
     const productsPerPage = 12;
 
+    /**
+     * @brief Funkcja dodajaca produkt do koszyka.
+     */
     const { addToCart } = useCart();
+
+    /**
+     * @brief Hook do nawigacji pomiedzy stronami.
+     */
     const navigate = useNavigate();
 
+    /**
+     * @brief Efekt pobierajacy produkty z API przy pierwszym renderze komponentu.
+     * @details Po pobraniu danych losowany jest jeden produkt z aktywna znizka.
+     */
     useEffect(() => {
         fetch("/api/home/Product")
             .then(res => res.json())
@@ -30,23 +69,48 @@ function ProductGrid() {
             });
     }, []);
 
+    /**
+     * @brief Lista produktow bez produktu promocyjnego.
+     * @details Zapobiega wyswietlaniu produktu promocyjnego dwa razy.
+     */
     const filteredProducts = useMemo(() => {
         if (!featuredProduct) return products;
         return products.filter(p => p.id !== featuredProduct.id);
     }, [products, featuredProduct]);
 
+    /**
+     * @brief Indeks ostatniego produktu na aktualnej stronie.
+     */
     const indexOfLastProduct = currentPage * productsPerPage;
+
+    /**
+     * @brief Indeks pierwszego produktu na aktualnej stronie.
+     */
     const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
 
+    /**
+     * @brief Lista produktow wyswietlanych na aktualnej stronie.
+     */
     const currentProducts = filteredProducts.slice(indexOfFirstProduct, indexOfLastProduct);
 
+    /**
+     * @brief Calkowita liczba stron paginacji.
+     */
     const totalPages = Math.ceil(filteredProducts.length / productsPerPage);
 
+    /**
+     * @brief Zmienia aktualna strone paginacji.
+     * @param {number} pageNumber Numer strony do wyswietlenia.
+     */
     const paginate = (pageNumber) => {
         setCurrentPage(pageNumber);
         window.scrollTo({ top: 0, behavior: 'smooth' });
     };
 
+    /**
+     * @brief Obsluguje klikniecie w produkt.
+     * @param {number|string} id Identyfikator produktu.
+     */
     const handleProductClick = (id) => navigate(`/product/${id}`);
 
     return (

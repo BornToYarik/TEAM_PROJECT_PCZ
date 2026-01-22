@@ -1,0 +1,57 @@
+\doxysection{Dokumentacja pliku sklep\+\_\+internetowy.\+client/\+src/\+pages/\+\+Products/\+\+Compare\+Page.jsx}
+\hypertarget{_compare_page_8jsx}{}\label{_compare_page_8jsx}\index{sklep\_internetowy.client/src/pages/Products/ComparePage.jsx@{sklep\_internetowy.client/src/pages/Products/ComparePage.jsx}}
+\doxysubsubsection*{Zmienne}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{_compare_page_8jsx_a59be084da8908b7d77ff34b25cd84488}{import}} \doxymbox{\hyperlink{_compare_page_8jsx_a8e6a862a904cf8b07c69fae7c44a1a04}{React}}
+\item 
+import \doxymbox{\hyperlink{_compare_page_8jsx_a59be084da8908b7d77ff34b25cd84488}{import}} \{ Container, Table, Button, Image, Alert, Spinner, Badge \} from \textquotesingle{}\doxymbox{\hyperlink{_admin_dashboard_8jsx_aaed10feaf2dda4314d93c83408affea1}{react}}-\/bootstrap\textquotesingle{}
+\item 
+export default \doxymbox{\hyperlink{_compare_page_8jsx_af2dfd78d0498e5126efe3269d5417e02}{Compare\+Page}}
+\end{DoxyCompactItemize}
+
+
+\label{doc-var-members}
+\Hypertarget{_compare_page_8jsx_doc-var-members}
+\doxysubsection{Dokumentacja zmiennych}
+\Hypertarget{_compare_page_8jsx_af2dfd78d0498e5126efe3269d5417e02}\index{ComparePage.jsx@{ComparePage.jsx}!ComparePage@{ComparePage}}
+\index{ComparePage@{ComparePage}!ComparePage.jsx@{ComparePage.jsx}}
+\doxysubsubsection{\texorpdfstring{ComparePage}{ComparePage}}
+{\footnotesize\ttfamily \label{_compare_page_8jsx_af2dfd78d0498e5126efe3269d5417e02} 
+export default Compare\+Page}
+
+Stan przechowujacy szczegolowe dane produktow pobrane z serwera.
+
+Flaga okreslajaca stan ladowania danych asynchronicznych.
+
+Tresc komunikatu o bledzie.
+
+Adres domyslnego obrazu w przypadku braku grafik produktu.
+
+\begin{DoxyNote}{Nota}
+React use\+Effect:\+ Pobieranie danych do porownania.
+\end{DoxyNote}
+Uruchamia sie przy kazdej zmianie listy compare\+Items. Wysyla zapytanie POST z tablica ID do punktu koncowego API.
+
+Pomocnicza funkcja do renderowania bloku ceny.
+
+Obsluguje wyswietlanie ceny promocyjnej (z przekresleniem) oraz standardowej. 
+\begin{DoxyParams}{Parametry}
+{\em \{\+Object\}} & product -\/ Obiekt danych produktu. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Zwraca}
+\{JSX.\+Element\} Sformatowany widok ceny.
+\end{DoxyReturn}
+\Hypertarget{_compare_page_8jsx_a59be084da8908b7d77ff34b25cd84488}\index{ComparePage.jsx@{ComparePage.jsx}!import@{import}}
+\index{import@{import}!ComparePage.jsx@{ComparePage.jsx}}
+\doxysubsubsection{\texorpdfstring{import}{import}}
+{\footnotesize\ttfamily \label{_compare_page_8jsx_a59be084da8908b7d77ff34b25cd84488} 
+import \{ Container, Table, Button, Image, Alert, Spinner, Badge \} from \textquotesingle{}\doxymbox{\hyperlink{_admin_dashboard_8jsx_aaed10feaf2dda4314d93c83408affea1}{react}}-\/bootstrap\textquotesingle{}}
+
+\Hypertarget{_compare_page_8jsx_a8e6a862a904cf8b07c69fae7c44a1a04}\index{ComparePage.jsx@{ComparePage.jsx}!React@{React}}
+\index{React@{React}!ComparePage.jsx@{ComparePage.jsx}}
+\doxysubsubsection{\texorpdfstring{React}{React}}
+{\footnotesize\ttfamily \label{_compare_page_8jsx_a8e6a862a904cf8b07c69fae7c44a1a04} 
+\doxymbox{\hyperlink{_compare_page_8jsx_a59be084da8908b7d77ff34b25cd84488}{import}} React}
+

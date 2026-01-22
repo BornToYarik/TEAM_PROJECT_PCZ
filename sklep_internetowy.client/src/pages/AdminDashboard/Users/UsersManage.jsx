@@ -1,28 +1,64 @@
 ﻿import React, { useEffect, useState } from "react";
 
+/**
+ * @file AdminPanel.jsx
+ * @brief Komponent panelu administracyjnego do zarzadzania uzytkownikami.
+ * @details Modul umozliwia pelna kontrole nad kontami uzytkownikow, w tym tworzenie nowych kont,
+ * edycje ról, usuwanie uzytkownikow oraz systemowe resetowanie zapomnianych hasel.
+ */
+
+/**
+ * @component AdminPanel
+ * @description Glowny komponent widoku administracyjnego. Zarzadza stanem listy uzytkownikow
+ * oraz koordynuje operacje CRUD wykonywane na bazie danych uzytkownikow systemu TechStore.
+ */
 export default function AdminPanel() {
+    /** @brief Stan przechowujacy tablice uzytkownikow pobrana z API. */
     const [users, setUsers] = useState([]);
+    /** @brief Obiekt uzytkownika wybranego do edycji (null, jesli nie trwa edycja). */
     const [editingUser, setEditingUser] = useState(null);
+    /** @brief Stan formularza dla nowego uzytkownika (email, haslo, rola). */
     const [newUser, setNewUser] = useState({
         email: "",
         password: "",
         roles: ["User"]
     });
+    /** @brief Przechowuje komunikaty o bledach wystepujacych podczas komunikacji z serwerem. */
     const [error, setError] = useState("");
 
- 
+    /**
+     * @function handleError
+     * @async
+     * @description Przetwarza bledna odpowiedz serwera i wyodrebnia komunikat bledu z formatu JSON.
+     * @param {Response} res - Obiekt odpowiedzi z funkcji fetch.
+     * @param {string} defaultMsg - Komunikat domyslny uzywany w przypadku braku opisu bledu z API.
+     * @throws {Error} Rzuca blad z wyodrebnionym opisem.
+     */
     const handleError = async (res, defaultMsg) => {
         const errData = await res.json().catch(() => null);
         const msg = errData?.errors?.[0]?.description || defaultMsg;
         throw new Error(msg);
     };
 
+    /**
+     * @function fetchJSON
+     * @async
+     * @description Pomocnicza metoda do wykonywania zapytan sieciowych zwracajacych dane w formacie JSON.
+     * @param {string} url - Adres docelowy endpointu API.
+     * @param {Object} options - Dodatkowe opcje zapytania (metoda, naglowki, body).
+     * @returns {Promise<Object>} Zdekodowany obiekt JSON z odpowiedzi serwera.
+     */
     const fetchJSON = async (url, options = {}) => {
         const res = await fetch(url, options);
         if (!res.ok) await handleError(res, "Request failed");
         return res.json();
     };
 
+    /**
+     * @function fetchUsers
+     * @async
+     * @description Pobiera aktualna liste wszystkich uzytkownikow zarejestrowanych w systemie.
+     */
     const fetchUsers = async () => {
         try {
             const data = await fetchJSON("/api/admin/users");
@@ -32,6 +68,11 @@ export default function AdminPanel() {
         }
     };
 
+    /**
+     * @function createUser
+     * @async
+     * @description Tworzy nowe konto uzytkownika na podstawie danych wprowadzonych do formularza "Create User".
+     */
     const createUser = async () => {
         try {
             const payload = {
@@ -54,6 +95,11 @@ export default function AdminPanel() {
         }
     };
 
+    /**
+     * @function updateUser
+     * @async
+     * @description Przesyla zaktualizowane dane edytowanego uzytkownika (email i role) do serwera.
+     */
     const updateUser = async () => {
         if (!editingUser) return;
 
@@ -74,6 +120,12 @@ export default function AdminPanel() {
         }
     };
 
+    /**
+     * @function resetPassword
+     * @async
+     * @description Inicjuje proces resetowania hasla dla wybranego uzytkownika i wyswietla nowe haslo tymczasowe.
+     * @param {number|string} id - Identyfikator uzytkownika.
+     */
     const resetPassword = async (id) => {
         if (!confirm("Reset this user's password?")) return;
 
@@ -88,6 +140,12 @@ export default function AdminPanel() {
         }
     };
 
+    /**
+     * @function deleteUser
+     * @async
+     * @description Trwale usuwa konto uzytkownika z systemu po potwierdzeniu operacji przez administratora.
+     * @param {number|string} id - Identyfikator uzytkownika.
+     */
     const deleteUser = async (id) => {
         if (!confirm("Delete this user?")) return;
 
@@ -101,6 +159,10 @@ export default function AdminPanel() {
         }
     };
 
+    /**
+     * @effect Inicjalizacja danych.
+     * @description Wywoluje pobranie listy uzytkownikow przy pierwszym wyrenderowaniu komponentu.
+     */
     useEffect(() => {
         fetchUsers();
     }, []);
@@ -111,7 +173,7 @@ export default function AdminPanel() {
 
             {error && <div className="alert alert-danger">{error}</div>}
 
-           
+
             <div className="card p-3 mb-4">
                 <h3>Create User</h3>
 
@@ -135,7 +197,7 @@ export default function AdminPanel() {
                 </button>
             </div>
 
-           
+
             <table className="table table-bordered align-middle">
                 <thead>
                     <tr>
@@ -179,7 +241,7 @@ export default function AdminPanel() {
                 </tbody>
             </table>
 
-          
+
             {editingUser && (
                 <div className="card p-3 mt-3">
                     <h3>Edit User</h3>

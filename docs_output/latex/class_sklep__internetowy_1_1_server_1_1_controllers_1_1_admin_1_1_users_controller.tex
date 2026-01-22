@@ -1,0 +1,171 @@
+\doxysection{Dokumentacja klasy Sklep\+\_\+internetowy.\+Server.\+Controllers.\+Admin.\+Users\+Controller}
+\hypertarget{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_admin_1_1_users_controller}{}\label{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_admin_1_1_users_controller}\index{Sklep\_internetowy.Server.Controllers.Admin.UsersController@{Sklep\_internetowy.Server.Controllers.Admin.UsersController}}
+
+
+Kontroler administracyjny odpowiedzialny za zarzadzanie kontami uzytkownikow i ich uprawnieniami (rolami). Umozliwia pelny cykl zycia uzytkownika, w tym tworzenie, edycje, usuwanie oraz resetowanie hasel.  
+
+
+
+
+Diagram współpracy dla Sklep\+\_\+internetowy.\+Server.\+Controllers.\+Admin.\+Users\+Controller:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=237pt]{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_admin_1_1_users_controller__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Metody publiczne}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_admin_1_1_users_controller_a363e18c5c50d6064a69d0cf8ef193dac}{Users\+Controller}} (User\+Manager$<$ \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_models_1_1_user}{User}} $>$ user\+Manager, Role\+Manager$<$ Identity\+Role $>$ role\+Manager)
+\begin{DoxyCompactList}\small\item\em Inicjalizuje nowa instancje klasy \doxylink{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_admin_1_1_users_controller}{Users\+Controller}. \end{DoxyCompactList}\item 
+async Task$<$ IAction\+Result $>$ \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_admin_1_1_users_controller_ac1d44ad0e86a7977f34a9c76f4d4765c}{Get\+All}} ()
+\begin{DoxyCompactList}\small\item\em Pobiera liste wszystkich uzytkownikow zarejestrowanych w systemie wraz z ich rolami. \end{DoxyCompactList}\item 
+async Task$<$ IAction\+Result $>$ \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_admin_1_1_users_controller_a0bf6a6ad1ef1a949cac100dbea5b3673}{Get\+By\+Id}} (string id)
+\begin{DoxyCompactList}\small\item\em Pobiera szczegolowe dane konkretnego uzytkownika na podstawie identyfikatora ID. \end{DoxyCompactList}\item 
+async Task$<$ IAction\+Result $>$ \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_admin_1_1_users_controller_a1a722cdf61ced7fba3b1bf50226c3c4f}{Create}} (\+[From\+Body]\+ \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_register_user_request}{Register\+User\+Request}} dto)
+\begin{DoxyCompactList}\small\item\em Tworzy nowe konto uzytkownika i przypisuje mu zdefiniowane role systemowe. \end{DoxyCompactList}\item 
+async Task$<$ IAction\+Result $>$ \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_admin_1_1_users_controller_a7e559dc69096a2f2483c98215b75eb82}{Update}} (string id, \+[From\+Body]\+ \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_user_update_dto}{User\+Update\+Dto}} dto)
+\begin{DoxyCompactList}\small\item\em Aktualizuje dane istniejacego uzytkownika, w tym adres email oraz zestaw rol. Proces rol polega na usunieciu dotychczasowych i nadaniu nowych z zadania. \end{DoxyCompactList}\item 
+async Task$<$ IAction\+Result $>$ \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_admin_1_1_users_controller_ac12db933209862fb81d93ab0208d200c}{Delete}} (string id)
+\begin{DoxyCompactList}\small\item\em Trwale usuwa konto uzytkownika z systemu. Zawiera blokade uniemozliwiajaca administratorowi usuniecie samego siebie. \end{DoxyCompactList}\item 
+async Task$<$ IAction\+Result $>$ \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_admin_1_1_users_controller_adbb2bd5ee4248a6d06520904dec69d39}{Reset\+Password}} (string id)
+\begin{DoxyCompactList}\small\item\em Resetuje haslo wybranego uzytkownika, generujac nowe, losowe haslo tymczasowe. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Opis szczegółowy}
+Kontroler administracyjny odpowiedzialny za zarzadzanie kontami uzytkownikow i ich uprawnieniami (rolami). Umozliwia pelny cykl zycia uzytkownika, w tym tworzenie, edycje, usuwanie oraz resetowanie hasel. 
+
+\label{doc-constructors}
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_admin_1_1_users_controller_doc-constructors}
+\doxysubsection{Dokumentacja konstruktora i destruktora}
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_admin_1_1_users_controller_a363e18c5c50d6064a69d0cf8ef193dac}\index{Sklep\_internetowy.Server.Controllers.Admin.UsersController@{Sklep\_internetowy.Server.Controllers.Admin.UsersController}!UsersController@{UsersController}}
+\index{UsersController@{UsersController}!Sklep\_internetowy.Server.Controllers.Admin.UsersController@{Sklep\_internetowy.Server.Controllers.Admin.UsersController}}
+\doxysubsubsection{\texorpdfstring{UsersController()}{UsersController()}}
+{\footnotesize\ttfamily \label{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_admin_1_1_users_controller_a363e18c5c50d6064a69d0cf8ef193dac} 
+Sklep\+\_\+internetowy.\+Server.\+Controllers.\+Admin.\+Users\+Controller.\+Users\+Controller (\begin{DoxyParamCaption}\item[{User\+Manager$<$ \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_models_1_1_user}{User}} $>$}]{user\+Manager}{, }\item[{Role\+Manager$<$ Identity\+Role $>$}]{role\+Manager}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Inicjalizuje nowa instancje klasy \doxylink{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_admin_1_1_users_controller}{Users\+Controller}. 
+
+
+\begin{DoxyParams}{Parametry}
+{\em user\+Manager} & Menedzer uzytkownikow systemu Identity.\\
+\hline
+{\em role\+Manager} & Menedzer rol systemu Identity.\\
+\hline
+\end{DoxyParams}
+
+
+\label{doc-func-members}
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_admin_1_1_users_controller_doc-func-members}
+\doxysubsection{Dokumentacja funkcji składowych}
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_admin_1_1_users_controller_a1a722cdf61ced7fba3b1bf50226c3c4f}\index{Sklep\_internetowy.Server.Controllers.Admin.UsersController@{Sklep\_internetowy.Server.Controllers.Admin.UsersController}!Create@{Create}}
+\index{Create@{Create}!Sklep\_internetowy.Server.Controllers.Admin.UsersController@{Sklep\_internetowy.Server.Controllers.Admin.UsersController}}
+\doxysubsubsection{\texorpdfstring{Create()}{Create()}}
+{\footnotesize\ttfamily \label{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_admin_1_1_users_controller_a1a722cdf61ced7fba3b1bf50226c3c4f} 
+async Task$<$ IAction\+Result $>$ Sklep\+\_\+internetowy.\+Server.\+Controllers.\+Admin.\+Users\+Controller.\+Create (\begin{DoxyParamCaption}\item[{\+[\+From\+Body]\+ \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_register_user_request}{Register\+User\+Request}}}]{dto}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Tworzy nowe konto uzytkownika i przypisuje mu zdefiniowane role systemowe. 
+
+
+\begin{DoxyParams}{Parametry}
+{\em dto} & Dane rejestracyjne uzytkownika (email, haslo, role).\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Zwraca}
+Dane nowo utworzonego uzytkownika.
+\end{DoxyReturn}
+$<$response code="{}200"{}$>$Uzytkownik zostal utworzony.$<$/\+response$>$ $<$response code="{}400"{}$>$Gdy walidacja danych lub proces tworzenia konta zakonczyl sie bledem.$<$/\+response$>$ \Hypertarget{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_admin_1_1_users_controller_ac12db933209862fb81d93ab0208d200c}\index{Sklep\_internetowy.Server.Controllers.Admin.UsersController@{Sklep\_internetowy.Server.Controllers.Admin.UsersController}!Delete@{Delete}}
+\index{Delete@{Delete}!Sklep\_internetowy.Server.Controllers.Admin.UsersController@{Sklep\_internetowy.Server.Controllers.Admin.UsersController}}
+\doxysubsubsection{\texorpdfstring{Delete()}{Delete()}}
+{\footnotesize\ttfamily \label{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_admin_1_1_users_controller_ac12db933209862fb81d93ab0208d200c} 
+async Task$<$ IAction\+Result $>$ Sklep\+\_\+internetowy.\+Server.\+Controllers.\+Admin.\+Users\+Controller.\+Delete (\begin{DoxyParamCaption}\item[{string}]{id}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Trwale usuwa konto uzytkownika z systemu. Zawiera blokade uniemozliwiajaca administratorowi usuniecie samego siebie. 
+
+
+\begin{DoxyParams}{Parametry}
+{\em id} & ID uzytkownika przeznaczonego do usuniecia.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Zwraca}
+Komunikat o statusie operacji.
+\end{DoxyReturn}
+$<$response code="{}200"{}$>$Uzytkownik usuniety.$<$/\+response$>$ $<$response code="{}400"{}$>$Gdy probowano usunac wlasne konto.$<$/\+response$>$ Pobranie identyfikatora aktualnie zalogowanego uzytkownika wykonujacego akcje.\Hypertarget{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_admin_1_1_users_controller_ac1d44ad0e86a7977f34a9c76f4d4765c}\index{Sklep\_internetowy.Server.Controllers.Admin.UsersController@{Sklep\_internetowy.Server.Controllers.Admin.UsersController}!GetAll@{GetAll}}
+\index{GetAll@{GetAll}!Sklep\_internetowy.Server.Controllers.Admin.UsersController@{Sklep\_internetowy.Server.Controllers.Admin.UsersController}}
+\doxysubsubsection{\texorpdfstring{GetAll()}{GetAll()}}
+{\footnotesize\ttfamily \label{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_admin_1_1_users_controller_ac1d44ad0e86a7977f34a9c76f4d4765c} 
+async Task$<$ IAction\+Result $>$ Sklep\+\_\+internetowy.\+Server.\+Controllers.\+Admin.\+Users\+Controller.\+Get\+All (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Pobiera liste wszystkich uzytkownikow zarejestrowanych w systemie wraz z ich rolami. 
+
+\begin{DoxyReturn}{Zwraca}
+Kolekcja obiektow \doxylink{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_user_dto}{User\+Dto} zawierajaca podstawowe dane profilowe i przypisane role.
+\end{DoxyReturn}
+$<$response code="{}200"{}$>$Zwraca liste uzytkownikow.$<$/\+response$>$ \Hypertarget{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_admin_1_1_users_controller_a0bf6a6ad1ef1a949cac100dbea5b3673}\index{Sklep\_internetowy.Server.Controllers.Admin.UsersController@{Sklep\_internetowy.Server.Controllers.Admin.UsersController}!GetById@{GetById}}
+\index{GetById@{GetById}!Sklep\_internetowy.Server.Controllers.Admin.UsersController@{Sklep\_internetowy.Server.Controllers.Admin.UsersController}}
+\doxysubsubsection{\texorpdfstring{GetById()}{GetById()}}
+{\footnotesize\ttfamily \label{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_admin_1_1_users_controller_a0bf6a6ad1ef1a949cac100dbea5b3673} 
+async Task$<$ IAction\+Result $>$ Sklep\+\_\+internetowy.\+Server.\+Controllers.\+Admin.\+Users\+Controller.\+Get\+By\+Id (\begin{DoxyParamCaption}\item[{string}]{id}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Pobiera szczegolowe dane konkretnego uzytkownika na podstawie identyfikatora ID. 
+
+
+\begin{DoxyParams}{Parametry}
+{\em id} & Unikalny identyfikator uzytkownika (GUID).\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Zwraca}
+Obiekt \doxylink{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_user_dto}{User\+Dto} lub blad 404, jesli uzytkownik nie istnieje.
+\end{DoxyReturn}
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_admin_1_1_users_controller_adbb2bd5ee4248a6d06520904dec69d39}\index{Sklep\_internetowy.Server.Controllers.Admin.UsersController@{Sklep\_internetowy.Server.Controllers.Admin.UsersController}!ResetPassword@{ResetPassword}}
+\index{ResetPassword@{ResetPassword}!Sklep\_internetowy.Server.Controllers.Admin.UsersController@{Sklep\_internetowy.Server.Controllers.Admin.UsersController}}
+\doxysubsubsection{\texorpdfstring{ResetPassword()}{ResetPassword()}}
+{\footnotesize\ttfamily \label{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_admin_1_1_users_controller_adbb2bd5ee4248a6d06520904dec69d39} 
+async Task$<$ IAction\+Result $>$ Sklep\+\_\+internetowy.\+Server.\+Controllers.\+Admin.\+Users\+Controller.\+Reset\+Password (\begin{DoxyParamCaption}\item[{string}]{id}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Resetuje haslo wybranego uzytkownika, generujac nowe, losowe haslo tymczasowe. 
+
+
+\begin{DoxyParams}{Parametry}
+{\em id} & ID uzytkownika, ktorego haslo ma zostac zresetowane.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Zwraca}
+Obiekt zawierajacy nowe haslo tymczasowe.
+\end{DoxyReturn}
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_admin_1_1_users_controller_a7e559dc69096a2f2483c98215b75eb82}\index{Sklep\_internetowy.Server.Controllers.Admin.UsersController@{Sklep\_internetowy.Server.Controllers.Admin.UsersController}!Update@{Update}}
+\index{Update@{Update}!Sklep\_internetowy.Server.Controllers.Admin.UsersController@{Sklep\_internetowy.Server.Controllers.Admin.UsersController}}
+\doxysubsubsection{\texorpdfstring{Update()}{Update()}}
+{\footnotesize\ttfamily \label{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_admin_1_1_users_controller_a7e559dc69096a2f2483c98215b75eb82} 
+async Task$<$ IAction\+Result $>$ Sklep\+\_\+internetowy.\+Server.\+Controllers.\+Admin.\+Users\+Controller.\+Update (\begin{DoxyParamCaption}\item[{string}]{id}{, }\item[{\+[\+From\+Body]\+ \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_user_update_dto}{User\+Update\+Dto}}}]{dto}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Aktualizuje dane istniejacego uzytkownika, w tym adres email oraz zestaw rol. Proces rol polega na usunieciu dotychczasowych i nadaniu nowych z zadania. 
+
+
+\begin{DoxyParams}{Parametry}
+{\em id} & ID uzytkownika do edycji.\\
+\hline
+{\em dto} & Obiekt zawierajacy zaktualizowany email oraz liste rol.\\
+\hline
+\end{DoxyParams}
+
+
+Dokumentacja dla tej klasy została wygenerowana z pliku:\+\begin{DoxyCompactItemize}
+\item 
+Sklep\+\_\+internetowy.\+Server/\+\+Controllers/\+\+Admin/\+Users\+Controller.\+cs\end{DoxyCompactItemize}

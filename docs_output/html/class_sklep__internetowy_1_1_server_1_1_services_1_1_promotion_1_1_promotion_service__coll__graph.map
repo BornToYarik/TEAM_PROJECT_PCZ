@@ -1,0 +1,5 @@
+<map id="Sklep_internetowy.Server.Services.Promotion.PromotionService" name="Sklep_internetowy.Server.Services.Promotion.PromotionService">
+<area shape="rect" id="Node000001" title="Serwis biznesowy odpowiedzialny za zaawansowane zarządzanie akcjami promocyjnymi w systemie TechStore..." alt="" coords="5,333,237,483"/>
+<area shape="rect" id="Node000002" href="$class_sklep__internetowy_1_1_server_1_1_data_1_1_store_db_context.html" title="Glowny kontekst bazy danych aplikacji TechStore. Klasa dziedziczy po IdentityDbContext,..." alt="" coords="40,5,202,261"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="122,259,124,317,119,316,120,264"/>
+</map>

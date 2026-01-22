@@ -1,0 +1,9 @@
+<map id="OrdersController" name="OrdersController">
+<area shape="rect" id="Node000001" title="Kontroler API odpowiedzialny za zarzadzanie zamowieniami w systemie. Obsluguje procesy przegladania z..." alt="" coords="70,597,197,773"/>
+<area shape="rect" id="Node000002" href="$class_sklep__internetowy_1_1_server_1_1_data_1_1_store_db_context.html" title="Glowny kontekst bazy danych aplikacji TechStore. Klasa dziedziczy po IdentityDbContext,..." alt="" coords="5,269,168,525"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="108,522,119,581,114,580,107,528"/>
+<area shape="rect" id="Node000003" href="$class_sklep__internetowy_1_1_server_1_1_services_1_1_email_service.html" title="Serwis odpowiedzialny za wysyłanie wiadomości e&#45;mail." alt="" coords="192,344,397,451"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="267,448,193,584,188,581,264,452"/>
+<area shape="rect" id="Node000004" href="$class_sklep__internetowy_1_1_server_1_1_models_1_1_mail_settings.html" title="Klasa konfiguracyjna przechowująca parametry serwera poczty elektronicznej (SMTP)...." alt="" coords="213,5,376,197"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="296,195,297,328,292,327,294,200"/>
+</map>

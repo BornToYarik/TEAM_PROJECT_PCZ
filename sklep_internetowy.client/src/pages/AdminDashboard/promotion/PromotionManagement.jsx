@@ -1,7 +1,20 @@
 ﻿import React, { useState, useEffect } from 'react';
 import { RefreshCw, Search, Trash2, Package } from 'lucide-react';
 
+/**
+ * @file PromotionManagement.jsx
+ * @brief Komponent panelu administratora do zarzadzania kampaniami promocyjnymi.
+ * @details Umozliwia filtrowanie produktow spelniajacych kryteria promocji (np. stan magazynowy, brak aktywnosci) 
+ * oraz masowe nakladanie znizek procentowych na wybrane towary.
+ */
+
+/**
+ * @component PromotionManagement
+ * @description Glowny widok administracyjny do konfiguracji i aktywacji promocji. 
+ * Zarzadza procesem wyszukiwania kandydatow, ich selekcji oraz komunikacji z API promocji.
+ */
 const PromotionManagement = () => {
+    /** @brief Obiekt przechowujacy filtry wyszukiwania oraz parametry nowej kampanii promocyjnej. */
     const [settings, setSettings] = useState({
         categoryId: '',
         minStock: 5,
@@ -10,14 +23,23 @@ const PromotionManagement = () => {
         durationDays: 7
     });
 
+    /** @brief Lista kategorii produktow pobrana z serwera dla pola wyboru. */
     const [categories, setCategories] = useState([]);
+    /** @brief Lista produktow (kandydatow) spelniajacych kryteria wyszukiwania. */
     const [productList, setProductList] = useState([]);
+    /** @brief Flaga informujaca o trwajacym procesie pobierania danych z serwera. */
     const [isLoading, setIsLoading] = useState(false);
+    /** @brief Flaga informujaca o trwajacym procesie zapisu promocji lub czyszczenia danych. */
     const [isSaving, setIsSaving] = useState(false);
+    /** @brief Obiekt stanu przechowujacy wiadomosc zwrotna i jej typ dla uzytkownika. */
     const [status, setStatus] = useState({ text: '', type: '' });
 
+    /** @brief Podstawowy adres URL do punktu koncowego API promocji. */
     const API_BASE = '/api/panel/Promotion';
 
+    /** * @effect Inicjalizacja komponentu.
+     * @description Pobiera liste kategorii przy montowaniu komponentu w celu wypelnienia selecta.
+     */
     useEffect(() => {
         fetch('/api/ProductCategory')
             .then(res => res.json())
@@ -25,6 +47,11 @@ const PromotionManagement = () => {
             .catch(err => console.error("Error loading categories", err));
     }, []);
 
+    /**
+     * @function findProducts
+     * @async
+     * @description Pobiera z serwera liste produktow kwalifikujacych sie do promocji na podstawie ustawionych filtrow.
+     */
     const findProducts = async () => {
         setIsLoading(true);
         setStatus({ text: '', type: '' });
@@ -53,10 +80,20 @@ const PromotionManagement = () => {
         }
     };
 
+    /**
+     * @function excludeProduct
+     * @description Usuwa wskazany produkt z lokalnej listy kandydatow przed nalozeniem promocji.
+     * @param {number|string} id - Identyfikator produktu do usuniecia z listy.
+     */
     const excludeProduct = (id) => {
         setProductList(productList.filter(item => item.id !== id));
     };
 
+    /**
+     * @function launchPromotion
+     * @async
+     * @description Przesyla liste identyfikatorow produktow oraz parametry znizki do API w celu uruchomienia promocji.
+     */
     const launchPromotion = async () => {
         if (productList.length === 0) return;
 
@@ -86,6 +123,11 @@ const PromotionManagement = () => {
         }
     };
 
+    /**
+     * @function runCleanup
+     * @async
+     * @description Wywoluje na serwerze akcje czyszczenia wygaslych promocji.
+     */
     const runCleanup = async () => {
         setIsSaving(true);
         try {

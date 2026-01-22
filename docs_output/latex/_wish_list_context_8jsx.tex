@@ -1,0 +1,38 @@
+\doxysection{Dokumentacja pliku sklep\+\_\+internetowy.\+client/\+src/\+context/\+\+Wish\+List\+Context.jsx}
+\hypertarget{_wish_list_context_8jsx}{}\label{_wish_list_context_8jsx}\index{sklep\_internetowy.client/src/context/WishListContext.jsx@{sklep\_internetowy.client/src/context/WishListContext.jsx}}
+
+
+Kontekst React do zarzadzania lista zyczen (ulubionymi produktami).  
+
+
+\doxysubsubsection*{Zmienne}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{_wish_list_context_8jsx_afad83394e68267645f9abe8187b8bd4d}\label{_wish_list_context_8jsx_afad83394e68267645f9abe8187b8bd4d} 
+const {\bfseries Wishlist\+Context} = create\+Context()
+\begin{DoxyCompactList}\small\item\em Obiekt kontekstu dla listy zyczen. \end{DoxyCompactList}\item 
+export const \doxymbox{\hyperlink{_wish_list_context_8jsx_a8876bdc7d6ee41cc59a2b656ba787a04}{use\+Wishlist}} = () =$>$ use\+Context(\doxymbox{\hyperlink{_wish_list_context_8jsx_afad83394e68267645f9abe8187b8bd4d}{Wishlist\+Context}})
+\begin{DoxyCompactList}\small\item\em Hook zapewniajacy dostep do danych i metod listy zyczen. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Opis szczegółowy}
+Kontekst React do zarzadzania lista zyczen (ulubionymi produktami). 
+
+Umozliwia dodawanie i usuwanie produktow z listy oraz ich trwale przechowywanie w pamieci lokalnej przegladarki (local\+Storage). 
+
+\label{doc-var-members}
+\Hypertarget{_wish_list_context_8jsx_doc-var-members}
+\doxysubsection{Dokumentacja zmiennych}
+\Hypertarget{_wish_list_context_8jsx_a8876bdc7d6ee41cc59a2b656ba787a04}\index{WishListContext.jsx@{WishListContext.jsx}!useWishlist@{useWishlist}}
+\index{useWishlist@{useWishlist}!WishListContext.jsx@{WishListContext.jsx}}
+\doxysubsubsection{\texorpdfstring{useWishlist}{useWishlist}}
+{\footnotesize\ttfamily \label{_wish_list_context_8jsx_a8876bdc7d6ee41cc59a2b656ba787a04} 
+export const use\+Wishlist = () =$>$ use\+Context(\doxymbox{\hyperlink{_wish_list_context_8jsx_afad83394e68267645f9abe8187b8bd4d}{Wishlist\+Context}})}
+
+
+
+Hook zapewniajacy dostep do danych i metod listy zyczen. 
+
+\begin{DoxyReturn}{Zwraca}
+\{Object\} Zawiera tablice wishlist, funkcje toggle\+Wishlist oraz is\+In\+Wishlist. 
+\end{DoxyReturn}

@@ -1,0 +1,19 @@
+\doxysection{Dokumentacja pliku sklep\+\_\+internetowy.\+client/\+src/\+pages/\+\+Payment/\+\+Payment\+Page.jsx}
+\hypertarget{_payment_page_8jsx}{}\label{_payment_page_8jsx}\index{sklep\_internetowy.client/src/pages/Payment/PaymentPage.jsx@{sklep\_internetowy.client/src/pages/Payment/PaymentPage.jsx}}
+
+
+Komponent obslugujacy proces platnosci elektronicznych Stripe oraz finalizacje zamowienia.  
+
+
+\doxysubsubsection*{Zmienne}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{_payment_page_8jsx_ade13c79dfc76ed9aa84db15e98df0095}\label{_payment_page_8jsx_ade13c79dfc76ed9aa84db15e98df0095} 
+const {\bfseries stripe\+Promise} = load\+Stripe(import.\+meta.\+env.\+VITE\+\_\+\+STRIPE\+\_\+\+PUBLIC\+\_\+\+KEY)
+\begin{DoxyCompactList}\small\item\em Inicjalizacja obiektu Stripe przy uzyciu klucza publicznego ze zmiennych srodowiskowych. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Opis szczegółowy}
+Komponent obslugujacy proces platnosci elektronicznych Stripe oraz finalizacje zamowienia. 
+
+Modul integruje sie z bramka platnosci Stripe, zarzadza tworzeniem Payment\+Intent na serwerze, potwierdzaniem transakcji oraz automatycznym generowaniem faktury PDF po sukcesie. 

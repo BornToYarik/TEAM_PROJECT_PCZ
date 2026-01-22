@@ -1,0 +1,46 @@
+\doxysection{Dokumentacja klasy Sklep\+\_\+internetowy.\+Server.\+Models.\+User\+Message}
+\hypertarget{class_sklep__internetowy_1_1_server_1_1_models_1_1_user_message}{}\label{class_sklep__internetowy_1_1_server_1_1_models_1_1_user_message}\index{Sklep\_internetowy.Server.Models.UserMessage@{Sklep\_internetowy.Server.Models.UserMessage}}
+
+
+Klasa reprezentująca wiadomość przesłaną przez użytkownika poprzez formularz kontaktowy. Przechowuje dane teleadresowe nadawcy oraz treść zapytania, umożliwiając obsługę zgłoszeń klientów.  
+
+
+
+
+Diagram współpracy dla Sklep\+\_\+internetowy.\+Server.\+Models.\+User\+Message:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=202pt]{class_sklep__internetowy_1_1_server_1_1_models_1_1_user_message__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Właściwości}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_models_1_1_user_message_a2ed8b8e5092f449fc8cb52a7b4e55d35}\label{class_sklep__internetowy_1_1_server_1_1_models_1_1_user_message_a2ed8b8e5092f449fc8cb52a7b4e55d35} 
+int {\bfseries Id}\hspace{0.3cm}{\ttfamily  \+[get, set]\+}
+\begin{DoxyCompactList}\small\item\em Unikalny identyfikator wiadomości w bazie danych. \end{DoxyCompactList}\item 
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_models_1_1_user_message_a5dab6558c5517ed16055f1388e33fe75}\label{class_sklep__internetowy_1_1_server_1_1_models_1_1_user_message_a5dab6558c5517ed16055f1388e33fe75} 
+string {\bfseries Email} = string.\+Empty\hspace{0.3cm}{\ttfamily  \+[get, set]\+}
+\begin{DoxyCompactList}\small\item\em Adres e-\/mail nadawcy wiadomości (wymagany, walidacja formatu e-\/mail). \end{DoxyCompactList}\item 
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_models_1_1_user_message_a61742aed7b62a5267f053e07b49ae054}\label{class_sklep__internetowy_1_1_server_1_1_models_1_1_user_message_a61742aed7b62a5267f053e07b49ae054} 
+string {\bfseries Name} = string.\+Empty\hspace{0.3cm}{\ttfamily  \+[get, set]\+}
+\begin{DoxyCompactList}\small\item\em Imię i nazwisko lub nazwa wyświetlana nadawcy (maksymalnie 100 znaków). \end{DoxyCompactList}\item 
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_models_1_1_user_message_ae1d4294c095a73ee7635fae0969023d1}\label{class_sklep__internetowy_1_1_server_1_1_models_1_1_user_message_ae1d4294c095a73ee7635fae0969023d1} 
+string? {\bfseries Phone}\hspace{0.3cm}{\ttfamily  \+[get, set]\+}
+\begin{DoxyCompactList}\small\item\em Opcjonalny numer telefonu kontaktowego nadawcy. \end{DoxyCompactList}\item 
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_models_1_1_user_message_af7f37c6f1084045f0f721eab7e0bf8ec}\label{class_sklep__internetowy_1_1_server_1_1_models_1_1_user_message_af7f37c6f1084045f0f721eab7e0bf8ec} 
+string {\bfseries Content} = string.\+Empty\hspace{0.3cm}{\ttfamily  \+[get, set]\+}
+\begin{DoxyCompactList}\small\item\em Treść wiadomości lub zapytania przesłanego przez użytkownika (maksymalnie 1000 znaków). \end{DoxyCompactList}\item 
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_models_1_1_user_message_a89785b18bfcfd12abd9c67d105954af0}\label{class_sklep__internetowy_1_1_server_1_1_models_1_1_user_message_a89785b18bfcfd12abd9c67d105954af0} 
+Date\+Time {\bfseries Created\+At} = Date\+Time.\+Utc\+Now\hspace{0.3cm}{\ttfamily  \+[get, set]\+}
+\begin{DoxyCompactList}\small\item\em \doxylink{namespace_sklep__internetowy_1_1_server_1_1_data}{Data} i godzina zarejestrowania wiadomości w systemie (domyślnie czas UTC). \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Opis szczegółowy}
+Klasa reprezentująca wiadomość przesłaną przez użytkownika poprzez formularz kontaktowy. Przechowuje dane teleadresowe nadawcy oraz treść zapytania, umożliwiając obsługę zgłoszeń klientów. 
+
+Dokumentacja dla tej klasy została wygenerowana z pliku:\+\begin{DoxyCompactItemize}
+\item 
+Sklep\+\_\+internetowy.\+Server/\+\+Models/\+User\+Message.\+cs\end{DoxyCompactItemize}

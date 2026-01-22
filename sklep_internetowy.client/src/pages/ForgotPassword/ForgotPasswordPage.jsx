@@ -1,13 +1,31 @@
-﻿// ForgotPasswordPage.jsx
-import { useState } from "react";
+﻿import { useState } from "react";
 
+/**
+ * @file ForgotPasswordPage.jsx
+ * @brief Komponent strony odzyskiwania zapomnianego hasla.
+ * @details Pozwala uzytkownikowi na wprowadzenie adresu e-mail, na ktory zostanie wyslany link resetujacy dostep do konta.
+ */
+
+/**
+ * @component ForgotPasswordPage
+ * @description Renderuje minimalistyczny formularz zapytania o reset hasla. 
+ * Zarzadza lokalnym stanem adresu e-mail i obsluguje logike wysylania danych.
+ */
 export default function ForgotPasswordPage() {
+    /** @brief Stan przechowujacy wprowadzony przez uzytkownika adres e-mail. */
     const [email, setEmail] = useState("");
 
+    /**
+     * @function handleSubmit
+     * @description Obsluguje zdarzenie przeslania formularza.
+     * @details Obecnie funkcja loguje adres e-mail w konsoli i wyswietla systemowy komunikat alert. 
+     * Jest to miejsce przeznaczone na integracje z API (fetch/axios).
+     * @param {Event} e - Obiekt zdarzenia formularza.
+     */
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        // TODO: podłącz do backendu — fetch/axios
+        // TODO: podlacz do backendu — fetch/axios
         console.log("Forgot password request sent for:", email);
 
         alert(

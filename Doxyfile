@@ -1,0 +1,61 @@
+# --- KONFIGURACJA DOXYGEN: TECHSTORE (FULLSTACK) ---
+
+PROJECT_NAME           = "TechStore System"
+PROJECT_NUMBER         = "1.0"
+OUTPUT_DIRECTORY       = ./docs_output
+OUTPUT_LANGUAGE        = Polish
+INPUT_ENCODING         = UTF-8
+
+# --- ?CIE?KI WEJ?CIOWE (Backend + Frontend) ---
+# Dodano folder Server oraz uproszczono ?cie?k? Client do ca?ego /src
+INPUT                  = ./sklep_internetowy.client/src \
+                         ./Sklep_internetowy.Server \
+                         ./README.md
+
+FILE_PATTERNS          = *.cs *.md *.jsx *.js
+RECURSIVE              = YES
+
+# --- ELIMINACJA IMPORT?W I ?MIECI ---
+# Ta linia sprawi, ?e "import React" nie trafi do sekcji Zmienne
+EXCLUDE_SYMBOLS        = import* \
+                         node_modules \
+                         __webpack*
+
+# --- ZAKRES GENEROWANIA (Kluczowe dla czysto?ci) ---
+# Zmieniamy na NO, aby dokumentowa? tylko to, co ma komentarz /** */
+# Dzi?ki temu unikniesz dokumentowania bibliotek i standardowych import?w
+EXTRACT_ALL            = NO
+EXTRACT_PRIVATE        = YES
+EXTRACT_STATIC         = YES
+HIDE_UNDOC_MEMBERS     = YES
+HIDE_UNDOC_CLASSES     = YES
+
+# --- WYKLUCZENIA KATALOG?W ---
+EXCLUDE_PATTERNS       = */node_modules/* \
+                         */bin/* \
+                         */obj/* \
+                         */dist/* \
+                         */.vs/* \
+                         */docs_output/*
+
+# --- DIAGRAMY (Graphviz) ---
+HAVE_DOT               = YES
+CLASS_GRAPH            = YES
+COLLABORATION_GRAPH    = YES
+UML_LOOK               = YES
+DOT_IMAGE_FORMAT       = svg
+MAX_DOT_GRAPH_DEPTH    = 3
+
+# --- USTAWIENIA J?ZYKOWE ---
+# Dla C# Doxygen radzi sobie sam, dla JS zostawiamy mapowanie
+OPTIMIZE_OUTPUT_JAVA   = NO
+EXTENSION_MAPPING      = jsx=Javascript js=Javascript
+
+# --- ALIASY DLA REACTA ---
+ALIASES                = "component=\class"
+ALIASES               += "function=\fn"
+ALIASES               += "async=\note Funkcja asynchroniczna"
+ALIASES               += "effect=\note React useEffect:"
+
+# --- LOGOWANIE B??D?W ---
+WARN_LOGFILE           = doxygen_warnings.log

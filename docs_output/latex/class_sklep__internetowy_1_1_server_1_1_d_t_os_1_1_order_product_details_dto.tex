@@ -1,0 +1,43 @@
+\doxysection{Dokumentacja klasy Sklep\+\_\+internetowy.\+Server.\+DTOs.\+Order\+Product\+Details\+Dto}
+\hypertarget{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_order_product_details_dto}{}\label{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_order_product_details_dto}\index{Sklep\_internetowy.Server.DTOs.OrderProductDetailsDto@{Sklep\_internetowy.Server.DTOs.OrderProductDetailsDto}}
+
+
+Obiekt transferu danych (DTO) zawierający szczegółowe informacje o konkretnym produkcie przypisanym do zamówienia. Przechowuje dane o wolumenie zakupu, stanach magazynowych oraz historycznej cenie sprzedaży.  
+
+
+
+
+Diagram współpracy dla Sklep\+\_\+internetowy.\+Server.\+DTOs.\+Order\+Product\+Details\+Dto:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=222pt]{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_order_product_details_dto__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Właściwości}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_order_product_details_dto_aea1b8bdb337840b3eb58c9a3660447ff}\label{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_order_product_details_dto_aea1b8bdb337840b3eb58c9a3660447ff} 
+int {\bfseries Product\+Id}\hspace{0.3cm}{\ttfamily  \+[get, set]\+}
+\begin{DoxyCompactList}\small\item\em Unikalny identyfikator techniczny produktu. \end{DoxyCompactList}\item 
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_order_product_details_dto_a64ecc159863111acf0c5b6f294b1977d}\label{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_order_product_details_dto_a64ecc159863111acf0c5b6f294b1977d} 
+string {\bfseries Name} = null!\hspace{0.3cm}{\ttfamily  \+[get, set]\+}
+\begin{DoxyCompactList}\small\item\em Nazwa handlowa produktu wyświetlana w podsumowaniu zamówienia. \end{DoxyCompactList}\item 
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_order_product_details_dto_a3ae4f94be22f0bd29985450ea2c84bb5}\label{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_order_product_details_dto_a3ae4f94be22f0bd29985450ea2c84bb5} 
+int {\bfseries Quantity\+In\+Order}\hspace{0.3cm}{\ttfamily  \+[get, set]\+}
+\begin{DoxyCompactList}\small\item\em Liczba sztuk danego produktu zakupiona w ramach tego zamówienia. \end{DoxyCompactList}\item 
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_order_product_details_dto_a88c209c2a8d607e57da0d69bbb3c147b}\label{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_order_product_details_dto_a88c209c2a8d607e57da0d69bbb3c147b} 
+int {\bfseries Quantity\+In\+Stock}\hspace{0.3cm}{\ttfamily  \+[get, set]\+}
+\begin{DoxyCompactList}\small\item\em Aktualny stan magazynowy produktu (ułatwia weryfikację dostępności przy edycji). \end{DoxyCompactList}\item 
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_order_product_details_dto_a858a998e3e334269040bd53c40bc6ac9}\label{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_order_product_details_dto_a858a998e3e334269040bd53c40bc6ac9} 
+decimal {\bfseries Price}\hspace{0.3cm}{\ttfamily  \+[get, set]\+}
+\begin{DoxyCompactList}\small\item\em Cena jednostkowa produktu obowiązująca w momencie składania zamówienia. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Opis szczegółowy}
+Obiekt transferu danych (DTO) zawierający szczegółowe informacje o konkretnym produkcie przypisanym do zamówienia. Przechowuje dane o wolumenie zakupu, stanach magazynowych oraz historycznej cenie sprzedaży. 
+
+Dokumentacja dla tej klasy została wygenerowana z pliku:\+\begin{DoxyCompactItemize}
+\item 
+Sklep\+\_\+internetowy.\+Server/\+\+DTOs/\+Order\+Product\+Details\+Dto.\+cs\end{DoxyCompactItemize}

@@ -1,0 +1,25 @@
+\doxysection{Dokumentacja przestrzeni nazw Sklep\+\_\+internetowy.\+Server.\+Models}
+\hypertarget{namespace_sklep__internetowy_1_1_server_1_1_models}{}\label{namespace_sklep__internetowy_1_1_server_1_1_models}\index{Sklep\_internetowy.Server.Models@{Sklep\_internetowy.Server.Models}}
+\doxysubsubsection*{Komponenty}
+\begin{DoxyCompactItemize}
+\item 
+class \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_models_1_1_auction}{Auction}}
+\begin{DoxyCompactList}\small\item\em Klasa reprezentująca aukcję (licytację) konkretnego produktu w systemie. Przechowuje informacje o cenach, czasie trwania oraz uczestnikach biorących udział w licytacji. \end{DoxyCompactList}\item 
+class \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_models_1_1_bid}{Bid}}
+\begin{DoxyCompactList}\small\item\em Klasa reprezentująca pojedynczą ofertę licytacji (postąpienie) złożoną przez użytkownika. Przechowuje informacje o kwocie, czasie złożenia oraz powiązaniach z konkretną aukcją i licytantem. \end{DoxyCompactList}\item 
+class \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_models_1_1_mail_settings}{Mail\+Settings}}
+\begin{DoxyCompactList}\small\item\em Klasa konfiguracyjna przechowująca parametry serwera poczty elektronicznej (SMTP). Wykorzystywana przez serwis e-\/mail do autoryzacji i wysyłania powiadomień systemowych. \end{DoxyCompactList}\item 
+class \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_models_1_1_order}{Order}}
+\begin{DoxyCompactList}\small\item\em Klasa reprezentująca zamówienie klienta w systemie Tech\+Store. Przechowuje informacje o dacie zakupu, statusie oraz powiązaniach z użytkownikiem i produktami. \end{DoxyCompactList}\item 
+class \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_models_1_1_order_product}{Order\+Product}}
+\begin{DoxyCompactList}\small\item\em Klasa pośrednicząca (tabela łącząca) reprezentująca relację wiele-\/do-\/wielu pomiędzy zamówieniami a produktami. Przechowuje informacje o tym, jakie produkty i w jakiej ilości wchodzą w skład danego zamówienia. \end{DoxyCompactList}\item 
+class \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_models_1_1_product}{Product}}
+\begin{DoxyCompactList}\small\item\em Klasa reprezentująca produkt w systemie sklepu internetowego. Zawiera szczegółowe informacje o towarze, stanach magazynowych oraz logikę zarządzania cenami promocyjnymi i powiązaniami z kategoriami. \end{DoxyCompactList}\item 
+class \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_models_1_1_product_category}{Product\+Category}}
+\begin{DoxyCompactList}\small\item\em Klasa reprezentująca kategorię produktów w systemie Tech\+Store. Służy do logicznego grupowania towarów, co ułatwia zarządzanie asortymentem oraz nawigację użytkownika w części frontendowej sklepu. \end{DoxyCompactList}\item 
+class \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_models_1_1_product_image}{Product\+Image}}
+\begin{DoxyCompactList}\small\item\em Klasa reprezentująca zdjęcie przypisane do konkretnego produktu w systemie Tech\+Store. Przechowuje informacje o lokalizacji pliku graficznego oraz relację z produktem, co umożliwia renderowanie galerii zdjęć w części frontendowej sklepu. \end{DoxyCompactList}\item 
+class \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_models_1_1_user}{User}}
+\begin{DoxyCompactList}\small\item\em Rozszerzona klasa użytkownika systemu, dziedzicząca po Identity\+User. Przechowuje dodatkowe dane profilowe, takie jak imię i nazwisko, oraz zarządza relacją z historią zamówień klienta. \end{DoxyCompactList}\item 
+class \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_models_1_1_user_message}{User\+Message}}
+\begin{DoxyCompactList}\small\item\em Klasa reprezentująca wiadomość przesłaną przez użytkownika poprzez formularz kontaktowy. Przechowuje dane teleadresowe nadawcy oraz treść zapytania, umożliwiając obsługę zgłoszeń klientów. \end{DoxyCompactList}\end{DoxyCompactItemize}

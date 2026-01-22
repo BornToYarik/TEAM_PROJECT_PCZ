@@ -1,0 +1,59 @@
+\doxysection{Dokumentacja klasy Sklep\+\_\+internetowy.\+Server.\+Services.\+Auth.\+Auth\+Settings}
+\hypertarget{class_sklep__internetowy_1_1_server_1_1_services_1_1_auth_1_1_auth_settings}{}\label{class_sklep__internetowy_1_1_server_1_1_services_1_1_auth_1_1_auth_settings}\index{Sklep\_internetowy.Server.Services.Auth.AuthSettings@{Sklep\_internetowy.Server.Services.Auth.AuthSettings}}
+
+
+Klasa przechowująca ustawienia uwierzytelniania JWT.  
+
+
+
+
+Diagram współpracy dla Sklep\+\_\+internetowy.\+Server.\+Services.\+Auth.\+Auth\+Settings:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=209pt]{class_sklep__internetowy_1_1_server_1_1_services_1_1_auth_1_1_auth_settings__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Właściwości}
+\begin{DoxyCompactItemize}
+\item 
+Time\+Span \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_services_1_1_auth_1_1_auth_settings_a3f68aaec435013c9c1de6d35cabfeb53}{Expires}}\hspace{0.3cm}{\ttfamily  \+[get, set]\+}
+\begin{DoxyCompactList}\small\item\em Czas ważności tokena JWT. \end{DoxyCompactList}\item 
+string \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_services_1_1_auth_1_1_auth_settings_afe84b8e386dac29727dfc1197cbde15e}{Secret\+Key}}\hspace{0.3cm}{\ttfamily  \+[get, set]\+}
+\begin{DoxyCompactList}\small\item\em Tajny klucz używany do podpisywania tokenów JWT. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Opis szczegółowy}
+Klasa przechowująca ustawienia uwierzytelniania JWT. 
+
+Obiekt tej klasy jest mapowany z konfiguracji aplikacji (np. appsettings.\+json) i zawiera parametry potrzebne do generowania oraz weryfikacji tokenów JWT. 
+
+\label{doc-property-members}
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_services_1_1_auth_1_1_auth_settings_doc-property-members}
+\doxysubsection{Dokumentacja właściwości}
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_services_1_1_auth_1_1_auth_settings_a3f68aaec435013c9c1de6d35cabfeb53}\index{Sklep\_internetowy.Server.Services.Auth.AuthSettings@{Sklep\_internetowy.Server.Services.Auth.AuthSettings}!Expires@{Expires}}
+\index{Expires@{Expires}!Sklep\_internetowy.Server.Services.Auth.AuthSettings@{Sklep\_internetowy.Server.Services.Auth.AuthSettings}}
+\doxysubsubsection{\texorpdfstring{Expires}{Expires}}
+{\footnotesize\ttfamily \label{class_sklep__internetowy_1_1_server_1_1_services_1_1_auth_1_1_auth_settings_a3f68aaec435013c9c1de6d35cabfeb53} 
+Time\+Span Sklep\+\_\+internetowy.\+Server.\+Services.\+Auth.\+Auth\+Settings.\+Expires\hspace{0.3cm}{\ttfamily [get]}, {\ttfamily [set]}}
+
+
+
+Czas ważności tokena JWT. 
+
+Określa jak długo token pozostaje aktywny od momentu jego wygenerowania. \Hypertarget{class_sklep__internetowy_1_1_server_1_1_services_1_1_auth_1_1_auth_settings_afe84b8e386dac29727dfc1197cbde15e}\index{Sklep\_internetowy.Server.Services.Auth.AuthSettings@{Sklep\_internetowy.Server.Services.Auth.AuthSettings}!SecretKey@{SecretKey}}
+\index{SecretKey@{SecretKey}!Sklep\_internetowy.Server.Services.Auth.AuthSettings@{Sklep\_internetowy.Server.Services.Auth.AuthSettings}}
+\doxysubsubsection{\texorpdfstring{SecretKey}{SecretKey}}
+{\footnotesize\ttfamily \label{class_sklep__internetowy_1_1_server_1_1_services_1_1_auth_1_1_auth_settings_afe84b8e386dac29727dfc1197cbde15e} 
+string Sklep\+\_\+internetowy.\+Server.\+Services.\+Auth.\+Auth\+Settings.\+Secret\+Key\hspace{0.3cm}{\ttfamily [get]}, {\ttfamily [set]}}
+
+
+
+Tajny klucz używany do podpisywania tokenów JWT. 
+
+Klucz ten musi być odpowiednio długi i przechowywany w bezpiecznym miejscu. 
+
+Dokumentacja dla tej klasy została wygenerowana z pliku:\+\begin{DoxyCompactItemize}
+\item 
+Sklep\+\_\+internetowy.\+Server/\+\+Services/\+\+Auth/\+Auth\+Settings.\+cs\end{DoxyCompactItemize}

@@ -1,8 +1,20 @@
 ﻿import React, { useState, useEffect } from 'react';
 import { Container, Table, Button, Modal, Form, Alert, Spinner, ListGroup, InputGroup, FormControl } from 'react-bootstrap';
-import { PDFDownloadLink } from '@react-pdf/renderer'; 
+import { PDFDownloadLink } from '@react-pdf/renderer';
 import InvoiceDocument from '../../../components/admin/InvoiceGenerator/InvoiceDocument';
-// --- (R)ead:
+
+/**
+ * @file OrderManagement.jsx
+ * @brief Komponent panelu administracyjnego do kompleksowego zarzadzania zamowieniami.
+ * @details Obsluguje pelny cykl zycia zamowienia (CRUD), w tym dynamiczna edycje listy produktow,
+ * automatyczna korekte stanow magazynowych oraz generowanie faktur PDF.
+ */
+
+/**
+ * @function OrderProductList
+ * @description Komponent pomocniczy renderujacy uproszczona liste produktow w wierszu tabeli zamowien.
+ * @param {Object[]} products - Tablica produktow wchodzacych w sklad zamowienia.
+ */
 function OrderProductList({ products }) {
     if (!products || products.length === 0) {
         return <small className="text-muted">No products</small>;
@@ -18,9 +30,21 @@ function OrderProductList({ products }) {
     );
 }
 
-// --- (U)pdate & (C)reate
+/**
+ * @function EditOrderProducts
+ * @description Komponent interfejsu do dynamicznej edycji zawartosci produktow wewnatrz zamowienia.
+ * @param {Object[]} products - Aktualna lista produktow w edytowanym zamowieniu.
+ * @param {Function} setProducts - Funkcja aktualizujaca stan listy produktow.
+ * @param {Object[]} allProducts - Pelna lista dostepnych produktow z bazy danych (do wyboru).
+ */
 function EditOrderProducts({ products, setProducts, allProducts }) {
 
+    /**
+     * @function handleQuantityChange
+     * @description Aktualizuje ilosc konkretnego produktu w zamowieniu.
+     * @param {number} productId - ID produktu.
+     * @param {string|number} newQuantity - Nowa wartosc ilosci.
+     */
     const handleQuantityChange = (productId, newQuantity) => {
         newQuantity = parseInt(newQuantity) || 0;
         setProducts(currentProducts =>
@@ -30,6 +54,11 @@ function EditOrderProducts({ products, setProducts, allProducts }) {
         );
     };
 
+    /**
+     * @function handleAddProduct
+     * @description Dodaje nowy produkt do zamowienia na podstawie wyboru z listy.
+     * @param {string|number} productId - Wybrane ID produktu.
+     */
     const handleAddProduct = (productId) => {
         if (!productId || productId === "0") return;
         productId = parseInt(productId);
@@ -50,6 +79,11 @@ function EditOrderProducts({ products, setProducts, allProducts }) {
         ]);
     };
 
+    /**
+     * @function handleRemoveProduct
+     * @description Usuwa produkt z aktualnie edytowanej listy zamowienia.
+     * @param {number} productId - ID produktu do usuniecia.
+     */
     const handleRemoveProduct = (productId) => {
         setProducts(currentProducts =>
             currentProducts.filter(p => p.productId !== productId)
@@ -76,7 +110,7 @@ function EditOrderProducts({ products, setProducts, allProducts }) {
                             value={p.quantityInOrder}
                             onChange={(e) => handleQuantityChange(p.productId, e.target.value)}
                             min="0"
-                            max={p.quantityInStock + p.quantityInOrder} 
+                            max={p.quantityInStock + p.quantityInOrder}
                         />
                     </InputGroup>
                     {(p.quantityInOrder > p.quantityInStock + p.quantityInOrder) &&
@@ -98,28 +132,42 @@ function EditOrderProducts({ products, setProducts, allProducts }) {
     );
 }
 
+/**
+ * @component OrderManagement
+ * @description Glowny widok administracyjny zarzadzania zamowieniami.
+ * @details Integruje operacje pobierania danych, walidacji stanow magazynowych oraz obslugi procesow CRUD.
+ */
 function OrderManagement() {
+    /** @brief Lista wszystkich zamowien pobrana z API. */
     const [orders, setOrders] = useState([]);
+    /** @brief Katalog produktow uzywany do walidacji i dodawania pozycji. */
     const [allProducts, setAllProducts] = useState([]);
-    const [allUsers, setAllUsers] = useState([]); 
+    /** @brief Lista uzytkownikow do przypisania przy tworzeniu recznym zamowienia. */
+    const [allUsers, setAllUsers] = useState([]);
 
+    /** @brief Flaga okreslajaca stan ladowania danych. */
     const [loading, setLoading] = useState(true);
+    /** @brief Przechowuje komunikaty o bledach operacji asynchronicznych. */
     const [error, setError] = useState(null);
 
+    /** @brief Stany widocznosci okien modalnych. */
     const [showEditModal, setShowEditModal] = useState(false);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [showCreateModal, setShowCreateModal] = useState(false);
 
+    /** @brief Dane zamowienia bedacego w procesie edycji (gleboka kopia). */
     const [editingOrder, setEditingOrder] = useState(null);
-    const [newOrder, setNewOrder] = useState({ userId: '', products: [] }); 
+    /** @brief Stan inicjalny dla nowego zamowienia. */
+    const [newOrder, setNewOrder] = useState({ userId: '', products: [] });
 
+    /** @effect Pobiera dane startowe (zamowienia, produkty, uzytkownicy) przy montowaniu komponentu. */
     useEffect(() => {
         const fetchData = async () => {
             try {
                 const [ordersRes, productsRes, usersRes] = await Promise.all([
-                    fetch('/api/Orders'),  
+                    fetch('/api/Orders'),
                     fetch('/api/panel/Product'),
-                    fetch('/api/Users')    
+                    fetch('/api/Users')
                 ]);
 
                 if (!ordersRes.ok || !productsRes.ok || !usersRes.ok) {
@@ -138,12 +186,23 @@ function OrderManagement() {
         fetchData();
     }, []);
 
+    /**
+     * @function refreshOrders
+     * @async
+     * @description Odswieza liste zamowien z serwera.
+     */
     const refreshOrders = async () => {
         try {
             const ordersRes = await fetch('/api/Orders');
             setOrders(await ordersRes.json());
         } catch (err) { setError(err.message); }
     }
+
+    /**
+     * @function refreshProducts
+     * @async
+     * @description Odswieza stany magazynowe produktow w lokalnym katalogu.
+     */
     const refreshProducts = async () => {
         try {
             const productsRes = await fetch('/api/panel/Product');
@@ -152,31 +211,54 @@ function OrderManagement() {
             }
         } catch (err) { console.error("Failed to refresh products", err); }
     }
-    // --- (U)pdate ---
+
+    /**
+     * @function handleEdit
+     * @description Inicjuje tryb edycji zamowienia, tworzac kopie obiektu w celu unikniecia bezposredniej mutacji.
+     * @param {Object} order - Obiekt zamowienia do edycji.
+     */
     const handleEdit = (order) => {
         const orderCopy = JSON.parse(JSON.stringify(order));
         setEditingOrder(orderCopy);
         setShowEditModal(true);
     };
+
+    /**
+     * @function handleEditFieldChange
+     * @description Aktualizuje proste pola tekstowe (np. status) w edytowanym zamowieniu.
+     */
     const handleEditFieldChange = (field, value) => {
         setEditingOrder(current => ({ ...current, [field]: value }));
     };
+
+    /**
+     * @function handleEditProductsChange
+     * @description Uniwersalny handler zmian w liscie produktow dla edytowanego zamowienia.
+     */
     const handleEditProductsChange = (updater) => {
         setEditingOrder(currentOrder => {
             const newProductList = typeof updater === 'function'
-                ? updater(currentOrder.products) 
-                : updater; 
+                ? updater(currentOrder.products)
+                : updater;
 
             return { ...currentOrder, products: newProductList };
         });
     };
 
-    // --- (C)reate ---
-    const handleShowCreateModal = () => { 
+    /**
+     * @function handleShowCreateModal
+     * @description Otwiera formularz tworzenia nowego zamowienia z domyslnym uzytkownikiem.
+     */
+    const handleShowCreateModal = () => {
         setNewOrder({ userId: allUsers[0]?.id || '', products: [] });
         setShowCreateModal(true);
     };
 
+    /**
+     * @function handleCreateOrder
+     * @async
+     * @description Wysyla zadanie utworzenia nowego zamowienia do API i odswieza dane.
+     */
     const handleCreateOrder = async () => {
         const createDto = {
             userId: newOrder.userId,
@@ -190,7 +272,7 @@ function OrderManagement() {
         if (createDto.products.length === 0) { setError("Order cannot be empty"); return; }
 
         try {
-            const response = await fetch('/api/Orders', { 
+            const response = await fetch('/api/Orders', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(createDto)
@@ -207,8 +289,12 @@ function OrderManagement() {
         }
     };
 
-    // --- (U)pdate (Save) ---
-    const saveChanges = async () => { 
+    /**
+     * @function saveChanges
+     * @async
+     * @description Zapisuje zmiany w istniejacym zamowieniu (status, produkty) po walidacji stanu.
+     */
+    const saveChanges = async () => {
         if (!editingOrder) return;
         const updateDto = {
             status: editingOrder.status,
@@ -218,6 +304,7 @@ function OrderManagement() {
             }))
         };
 
+        // Walidacja stanow magazynowych przed wysylka (uwzgledniajac obecna rezerwacje)
         const stockError = editingOrder.products.find(p => p.quantityInOrder > p.quantityInStock + (orders.find(o => o.id === editingOrder.id)?.products.find(op => op.productId === p.productId)?.quantityInOrder || 0));
         if (stockError) {
             setError(`Not enough stock for ${stockError.name}!`);
@@ -225,7 +312,7 @@ function OrderManagement() {
         }
 
         try {
-            const response = await fetch(`/api/Orders/${editingOrder.id}`, { 
+            const response = await fetch(`/api/Orders/${editingOrder.id}`, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(updateDto)
@@ -242,11 +329,15 @@ function OrderManagement() {
         }
     };
 
-    // --- (D)elete ---
-    const confirmDelete = async () => { 
+    /**
+     * @function confirmDelete
+     * @async
+     * @description Usuwa zamowienie i wywoluje proces przywrocenia stanow magazynowych na serwerze.
+     */
+    const confirmDelete = async () => {
         if (!editingOrder) return;
         try {
-            const response = await fetch(`/api/Orders/${editingOrder.id}`, { 
+            const response = await fetch(`/api/Orders/${editingOrder.id}`, {
                 method: 'DELETE',
             });
             if (!response.ok) {
@@ -260,7 +351,12 @@ function OrderManagement() {
             setError(err.message);
         }
     };
-    const handleCloseModal = () => { 
+
+    /**
+     * @function handleCloseModal
+     * @description Zamyka wszystkie otwarte okna modalne i resetuje stany robocze.
+     */
+    const handleCloseModal = () => {
         setShowEditModal(false);
         setShowDeleteModal(false);
         setShowCreateModal(false);
@@ -302,18 +398,17 @@ function OrderManagement() {
                             <td>{order.status}</td>
                             <td>
                                 <div className="d-flex gap-2">
-                                <Button variant="warning" size="sm" onClick={() => handleEdit(order)}>
-                                    <i className="bi bi-pencil-fill"></i> edit
-                                </Button>{' '}
-                                <Button variant="danger" size="sm" onClick={() => { setEditingOrder(order); setShowDeleteModal(true); }}>
-                                    <i className="bi bi-trash-fill"></i> del.
-                                </Button>
+                                    <Button variant="warning" size="sm" onClick={() => handleEdit(order)}>
+                                        <i className="bi bi-pencil-fill"></i> edit
+                                    </Button>{' '}
+                                    <Button variant="danger" size="sm" onClick={() => { setEditingOrder(order); setShowDeleteModal(true); }}>
+                                        <i className="bi bi-trash-fill"></i> del.
+                                    </Button>
                                     <PDFDownloadLink
                                         document={<InvoiceDocument order={order} />}
                                         fileName={`faktura_${order.id}.pdf`}
                                         className="btn btn-sm btn-info text-white"
                                     >
-                                        {/* loading) */}
                                         {({ loading }) =>
                                             loading ? '...' : <i className="bi bi-file-earmark-pdf-fill"></i>
                                         }
@@ -325,7 +420,7 @@ function OrderManagement() {
                 </tbody>
             </Table>
 
-            {/* --- (C)REATE --- */}
+            {/* --- (C)REATE MODAL --- */}
             <Modal show={showCreateModal} onHide={handleCloseModal} size="lg">
                 <Modal.Header closeButton>
                     <Modal.Title>Create New Order</Modal.Title>
@@ -351,7 +446,7 @@ function OrderManagement() {
                             setProducts={(updater) => {
                                 setNewOrder(currentOrder => {
                                     const newProductList = typeof updater === 'function'
-                                        ? updater(currentOrder.products) 
+                                        ? updater(currentOrder.products)
                                         : updater;
 
                                     return { ...currentOrder, products: newProductList };
@@ -367,7 +462,7 @@ function OrderManagement() {
                 </Modal.Footer>
             </Modal>
 
-            {/* ---  (U)pdate --- */}
+            {/* --- (U)PDATE MODAL --- */}
             {editingOrder && (
                 <Modal show={showEditModal} onHide={handleCloseModal} size="lg">
                     <Modal.Header closeButton>
@@ -408,7 +503,7 @@ function OrderManagement() {
                 </Modal>
             )}
 
-            {/* ---  (D)elete --- */}
+            {/* --- (D)ELETE MODAL --- */}
             <Modal show={showDeleteModal} onHide={handleCloseModal}>
                 <Modal.Header closeButton>
                     <Modal.Title>Confirm Delete</Modal.Title>

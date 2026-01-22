@@ -1,20 +1,48 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { Container, Row, Col, Form, Button, Card, Alert } from "react-bootstrap";
 
 import { useNavigate } from "react-router-dom";
 
+/**
+ * @file LoginPage.jsx
+ * @brief Komponent strony logowania uzytkownika.
+ * @details Modul obsluguje interfejs logowania, walidacje po stronie klienta oraz komunikacje 
+ * z serwerem w celu uzyskania tokenu autoryzacyjnego JWT.
+ */
+
+/**
+ * @component LoginPage
+ * @description Renderuje formularz logowania i zarzadza stanem uwierzytelniania.
+ * Po pomyslnym logowaniu zapisuje dane sesji w localStorage i przekierowuje uzytkownika.
+ */
 function LoginPage() {
+    /** @brief Stan przechowujacy dane logowania (login i haslo). */
     const [form, setForm] = useState({ userName: "", password: "" });
+    /** @brief Komunikat o sukcesie operacji. */
     const [message, setMessage] = useState("");
+    /** @brief Przechowuje komunikaty o bledach autoryzacji lub sieci. */
     const [error, setError] = useState("");
 
 
     const navigate = useNavigate();
 
+    /**
+     * @function handleChange
+     * @description Aktualizuje lokalny stan formularza przy kazdej zmianie w polach tekstowych.
+     * @param {Event} e - Obiekt zdarzenia zmiany pola wejsciowego.
+     */
     const handleChange = (e) => {
         setForm({ ...form, [e.target.name]: e.target.value });
     };
 
+    /**
+     * @function handleSubmit
+     * @async
+     * @description Obsluguje proces wysylania danych logowania do API.
+     * @details Wykonuje zadanie POST do /api/Auth/login. W przypadku sukcesu ustawia 
+     * token i dane uzytkownika w pamieci przegladarki.
+     * @param {Event} e - Obiekt zdarzenia wyslania formularza.
+     */
     const handleSubmit = async (e) => {
         e.preventDefault();
         setMessage("");
@@ -37,7 +65,7 @@ function LoginPage() {
             if (!response.ok) {
                 setError(data.message || "Login failed");
             } else {
-                
+
                 setMessage(data.message || "Login successful!");
 
                 if (data.token) {
@@ -48,9 +76,9 @@ function LoginPage() {
                         userName: form.userName
                     };
                     localStorage.setItem("user", JSON.stringify(userData));
-                    
+
                     setTimeout(() => {
-                        
+
                         navigate("/");
                     }, 1500);
                 }

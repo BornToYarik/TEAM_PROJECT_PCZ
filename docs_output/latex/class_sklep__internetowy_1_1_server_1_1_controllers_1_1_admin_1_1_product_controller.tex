@@ -1,0 +1,238 @@
+\doxysection{Dokumentacja klasy Sklep\+\_\+internetowy.\+Server.\+Controllers.\+Admin.\+Product\+Controller}
+\hypertarget{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_admin_1_1_product_controller}{}\label{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_admin_1_1_product_controller}\index{Sklep\_internetowy.Server.Controllers.Admin.ProductController@{Sklep\_internetowy.Server.Controllers.Admin.ProductController}}
+
+
+Kontroler administracyjny odpowiedzialny za pelne zarzadzanie asortymentem produktow. Obsluguje operacje CRUD, przesyłanie plikow graficznych, wyszukiwanie oraz system sugestii.  
+
+
+
+
+Diagram współpracy dla Sklep\+\_\+internetowy.\+Server.\+Controllers.\+Admin.\+Product\+Controller:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=245pt]{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_admin_1_1_product_controller__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Metody publiczne}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_admin_1_1_product_controller_a6e055cb46564391ce871a4145dbf2098}{Product\+Controller}} (\doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_data_1_1_store_db_context}{Store\+Db\+Context}} context, IWeb\+Host\+Environment environment)
+\begin{DoxyCompactList}\small\item\em Inicjalizuje nowa instancje klasy \doxylink{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_admin_1_1_product_controller}{Product\+Controller}. \end{DoxyCompactList}\item 
+async Task$<$ Action\+Result$<$ IEnumerable$<$ \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_product_dto}{Product\+Dto}} $>$ $>$ $>$ \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_admin_1_1_product_controller_ae0d0aa27790cda436eaacd31436f20f5}{Get\+Products}} ()
+\begin{DoxyCompactList}\small\item\em Pobiera pelna liste wszystkich produktow wraz z ich kategoriami i zdjeciami. \end{DoxyCompactList}\item 
+async Task$<$ Action\+Result$<$ IEnumerable$<$ string $>$ $>$ $>$ \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_admin_1_1_product_controller_a59f5fc614bc28df2234d6583ab9af198}{Get\+All\+Brands}} ()
+\begin{DoxyCompactList}\small\item\em Pobiera liste wszystkich unikalnych marek produktow dostepnych w bazie danych. Metoda dostepna publicznie (Allow\+Anonymous) dla potrzeb filtrowania na froncie. \end{DoxyCompactList}\item 
+async Task$<$ Action\+Result$<$ IEnumerable$<$ \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_product_dto}{Product\+Dto}} $>$ $>$ $>$ \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_admin_1_1_product_controller_a8c05bbd61cd02e21a50061d018126adf}{Search\+Products}} (\+[From\+Query]\+ string q)
+\begin{DoxyCompactList}\small\item\em Wyszukuje produkty na podstawie frazy tekstowej dopasowanej do nazwy, marki lub opisu. \end{DoxyCompactList}\item 
+async Task$<$ Action\+Result $>$ \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_admin_1_1_product_controller_a19df1842938334a025893d6d0e660264}{Create\+Product}} (\+[From\+Form]\+ \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_create_product_with_files_dto}{Create\+Product\+With\+Files\+Dto}} form\+Dto)
+\begin{DoxyCompactList}\small\item\em Tworzy nowy produkt w systemie wraz z obsluga przesyłania wielu plikow graficznych. \end{DoxyCompactList}\item 
+async Task$<$ Action\+Result $>$ \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_admin_1_1_product_controller_a2d1df4349ecf0dd4b5901551bae6c37c}{Remove\+Product}} (\doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_remove_product_dto}{Remove\+Product\+Dto}} remove\+Product\+Dto)
+\begin{DoxyCompactList}\small\item\em Usuwa wybrany produkt z bazy danych na podstawie identyfikatora. \end{DoxyCompactList}\item 
+async Task$<$ Action\+Result $>$ \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_admin_1_1_product_controller_a779afd9c710e109b6d23373e1689ec73}{Update\+Product}} (\doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_update_product_dto}{Update\+Product\+Dto}} update\+Product\+Dto)
+\begin{DoxyCompactList}\small\item\em Aktualizuje dane techniczne i cenowe istniejacego produktu. \end{DoxyCompactList}\item 
+async Task$<$ Action\+Result$<$ \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_product_dto}{Product\+Dto}} $>$ $>$ \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_admin_1_1_product_controller_a1e9eaf27a91200854040451e6c86806a}{Get\+Product\+By\+Id}} (int id)
+\begin{DoxyCompactList}\small\item\em Pobiera szczegolowe dane pojedynczego produktu. \end{DoxyCompactList}\item 
+async Task$<$ Action\+Result$<$ IEnumerable$<$ \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_product_dto}{Product\+Dto}} $>$ $>$ $>$ \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_admin_1_1_product_controller_ad55d39067536e4ba5413e134f214dbbc}{Get\+Products\+For\+Comparison}} (\+[From\+Body]\+ List$<$ int $>$ product\+Ids)
+\begin{DoxyCompactList}\small\item\em Pobiera liste dwoch unikalnych produktow do porownania na podstawie przekazanych identyfikatorow. \end{DoxyCompactList}\item 
+async Task$<$ Action\+Result $>$ \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_admin_1_1_product_controller_a37f583a1fa10dc6b4d914c4537f9831d}{Get\+Suggestions}} (\+[From\+Query]\+ string q)
+\begin{DoxyCompactList}\small\item\em Generuje dynamiczne sugestie wyszukiwania (kategorie i produkty) w czasie rzeczywistym. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Metody prywatne}
+\begin{DoxyCompactItemize}
+\item 
+Date\+Time? \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_admin_1_1_product_controller_af2ab41e14e8e0e237ae9d6c6dad6da1c}{Set\+Utc\+Kind}} (Date\+Time? date)
+\begin{DoxyCompactList}\small\item\em Metoda pomocnicza ustawiajaca rodzaj daty na UTC, wymagana dla kompatybilnosci z baza danych. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Opis szczegółowy}
+Kontroler administracyjny odpowiedzialny za pelne zarzadzanie asortymentem produktow. Obsluguje operacje CRUD, przesyłanie plikow graficznych, wyszukiwanie oraz system sugestii. 
+
+\label{doc-constructors}
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_admin_1_1_product_controller_doc-constructors}
+\doxysubsection{Dokumentacja konstruktora i destruktora}
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_admin_1_1_product_controller_a6e055cb46564391ce871a4145dbf2098}\index{Sklep\_internetowy.Server.Controllers.Admin.ProductController@{Sklep\_internetowy.Server.Controllers.Admin.ProductController}!ProductController@{ProductController}}
+\index{ProductController@{ProductController}!Sklep\_internetowy.Server.Controllers.Admin.ProductController@{Sklep\_internetowy.Server.Controllers.Admin.ProductController}}
+\doxysubsubsection{\texorpdfstring{ProductController()}{ProductController()}}
+{\footnotesize\ttfamily \label{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_admin_1_1_product_controller_a6e055cb46564391ce871a4145dbf2098} 
+Sklep\+\_\+internetowy.\+Server.\+Controllers.\+Admin.\+Product\+Controller.\+Product\+Controller (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_data_1_1_store_db_context}{Store\+Db\+Context}}}]{context}{, }\item[{IWeb\+Host\+Environment}]{environment}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Inicjalizuje nowa instancje klasy \doxylink{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_admin_1_1_product_controller}{Product\+Controller}. 
+
+
+\begin{DoxyParams}{Parametry}
+{\em context} & Kontekst bazy danych \doxylink{class_sklep__internetowy_1_1_server_1_1_data_1_1_store_db_context}{Store\+Db\+Context}.\\
+\hline
+{\em environment} & Srodowisko serwerowe do obslugi systemu plikow (przesyłanie zdjec).\\
+\hline
+\end{DoxyParams}
+
+
+\label{doc-func-members}
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_admin_1_1_product_controller_doc-func-members}
+\doxysubsection{Dokumentacja funkcji składowych}
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_admin_1_1_product_controller_a19df1842938334a025893d6d0e660264}\index{Sklep\_internetowy.Server.Controllers.Admin.ProductController@{Sklep\_internetowy.Server.Controllers.Admin.ProductController}!CreateProduct@{CreateProduct}}
+\index{CreateProduct@{CreateProduct}!Sklep\_internetowy.Server.Controllers.Admin.ProductController@{Sklep\_internetowy.Server.Controllers.Admin.ProductController}}
+\doxysubsubsection{\texorpdfstring{CreateProduct()}{CreateProduct()}}
+{\footnotesize\ttfamily \label{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_admin_1_1_product_controller_a19df1842938334a025893d6d0e660264} 
+async Task$<$ Action\+Result $>$ Sklep\+\_\+internetowy.\+Server.\+Controllers.\+Admin.\+Product\+Controller.\+Create\+Product (\begin{DoxyParamCaption}\item[{\+[\+From\+Form]\+ \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_create_product_with_files_dto}{Create\+Product\+With\+Files\+Dto}}}]{form\+Dto}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Tworzy nowy produkt w systemie wraz z obsluga przesyłania wielu plikow graficznych. 
+
+
+\begin{DoxyParams}{Parametry}
+{\em form\+Dto} & Dane produktu przekazane w formacie multipart/\+form-\/data.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Zwraca}
+Status 200 OK po pomyslnym utworzeniu i zapisaniu plikow.
+\end{DoxyReturn}
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_admin_1_1_product_controller_a59f5fc614bc28df2234d6583ab9af198}\index{Sklep\_internetowy.Server.Controllers.Admin.ProductController@{Sklep\_internetowy.Server.Controllers.Admin.ProductController}!GetAllBrands@{GetAllBrands}}
+\index{GetAllBrands@{GetAllBrands}!Sklep\_internetowy.Server.Controllers.Admin.ProductController@{Sklep\_internetowy.Server.Controllers.Admin.ProductController}}
+\doxysubsubsection{\texorpdfstring{GetAllBrands()}{GetAllBrands()}}
+{\footnotesize\ttfamily \label{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_admin_1_1_product_controller_a59f5fc614bc28df2234d6583ab9af198} 
+async Task$<$ Action\+Result$<$ IEnumerable$<$ string $>$ $>$ $>$ Sklep\+\_\+internetowy.\+Server.\+Controllers.\+Admin.\+Product\+Controller.\+Get\+All\+Brands (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Pobiera liste wszystkich unikalnych marek produktow dostepnych w bazie danych. Metoda dostepna publicznie (Allow\+Anonymous) dla potrzeb filtrowania na froncie. 
+
+\begin{DoxyReturn}{Zwraca}
+Lista ciagow znakow reprezentujacych nazwy marek.
+\end{DoxyReturn}
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_admin_1_1_product_controller_a1e9eaf27a91200854040451e6c86806a}\index{Sklep\_internetowy.Server.Controllers.Admin.ProductController@{Sklep\_internetowy.Server.Controllers.Admin.ProductController}!GetProductById@{GetProductById}}
+\index{GetProductById@{GetProductById}!Sklep\_internetowy.Server.Controllers.Admin.ProductController@{Sklep\_internetowy.Server.Controllers.Admin.ProductController}}
+\doxysubsubsection{\texorpdfstring{GetProductById()}{GetProductById()}}
+{\footnotesize\ttfamily \label{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_admin_1_1_product_controller_a1e9eaf27a91200854040451e6c86806a} 
+async Task$<$ Action\+Result$<$ \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_product_dto}{Product\+Dto}} $>$ $>$ Sklep\+\_\+internetowy.\+Server.\+Controllers.\+Admin.\+Product\+Controller.\+Get\+Product\+By\+Id (\begin{DoxyParamCaption}\item[{int}]{id}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Pobiera szczegolowe dane pojedynczego produktu. 
+
+
+\begin{DoxyParams}{Parametry}
+{\em id} & ID produktu.\\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_admin_1_1_product_controller_ae0d0aa27790cda436eaacd31436f20f5}\index{Sklep\_internetowy.Server.Controllers.Admin.ProductController@{Sklep\_internetowy.Server.Controllers.Admin.ProductController}!GetProducts@{GetProducts}}
+\index{GetProducts@{GetProducts}!Sklep\_internetowy.Server.Controllers.Admin.ProductController@{Sklep\_internetowy.Server.Controllers.Admin.ProductController}}
+\doxysubsubsection{\texorpdfstring{GetProducts()}{GetProducts()}}
+{\footnotesize\ttfamily \label{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_admin_1_1_product_controller_ae0d0aa27790cda436eaacd31436f20f5} 
+async Task$<$ Action\+Result$<$ IEnumerable$<$ \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_product_dto}{Product\+Dto}} $>$ $>$ $>$ Sklep\+\_\+internetowy.\+Server.\+Controllers.\+Admin.\+Product\+Controller.\+Get\+Products (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Pobiera pelna liste wszystkich produktow wraz z ich kategoriami i zdjeciami. 
+
+\begin{DoxyReturn}{Zwraca}
+Kolekcja obiektow \doxylink{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_product_dto}{Product\+Dto} zawierajaca kompletne dane o produktach.
+\end{DoxyReturn}
+$<$response code="{}200"{}$>$Zwraca liste produktow.$<$/\+response$>$ $<$response code="{}500"{}$>$Gdy wystapi blad serwera podczas pobierania danych.$<$/\+response$>$ \Hypertarget{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_admin_1_1_product_controller_ad55d39067536e4ba5413e134f214dbbc}\index{Sklep\_internetowy.Server.Controllers.Admin.ProductController@{Sklep\_internetowy.Server.Controllers.Admin.ProductController}!GetProductsForComparison@{GetProductsForComparison}}
+\index{GetProductsForComparison@{GetProductsForComparison}!Sklep\_internetowy.Server.Controllers.Admin.ProductController@{Sklep\_internetowy.Server.Controllers.Admin.ProductController}}
+\doxysubsubsection{\texorpdfstring{GetProductsForComparison()}{GetProductsForComparison()}}
+{\footnotesize\ttfamily \label{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_admin_1_1_product_controller_ad55d39067536e4ba5413e134f214dbbc} 
+async Task$<$ Action\+Result$<$ IEnumerable$<$ \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_product_dto}{Product\+Dto}} $>$ $>$ $>$ Sklep\+\_\+internetowy.\+Server.\+Controllers.\+Admin.\+Product\+Controller.\+Get\+Products\+For\+Comparison (\begin{DoxyParamCaption}\item[{\+[\+From\+Body]\+ List$<$ int $>$}]{product\+Ids}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Pobiera liste dwoch unikalnych produktow do porownania na podstawie przekazanych identyfikatorow. 
+
+
+\begin{DoxyParams}{Parametry}
+{\em product\+Ids} & Lista identyfikatorow ID (maksymalnie 2 unikalne zostana przetworzone).\\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_admin_1_1_product_controller_a37f583a1fa10dc6b4d914c4537f9831d}\index{Sklep\_internetowy.Server.Controllers.Admin.ProductController@{Sklep\_internetowy.Server.Controllers.Admin.ProductController}!GetSuggestions@{GetSuggestions}}
+\index{GetSuggestions@{GetSuggestions}!Sklep\_internetowy.Server.Controllers.Admin.ProductController@{Sklep\_internetowy.Server.Controllers.Admin.ProductController}}
+\doxysubsubsection{\texorpdfstring{GetSuggestions()}{GetSuggestions()}}
+{\footnotesize\ttfamily \label{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_admin_1_1_product_controller_a37f583a1fa10dc6b4d914c4537f9831d} 
+async Task$<$ Action\+Result $>$ Sklep\+\_\+internetowy.\+Server.\+Controllers.\+Admin.\+Product\+Controller.\+Get\+Suggestions (\begin{DoxyParamCaption}\item[{\+[\+From\+Query]\+ string}]{q}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Generuje dynamiczne sugestie wyszukiwania (kategorie i produkty) w czasie rzeczywistym. 
+
+
+\begin{DoxyParams}{Parametry}
+{\em q} & Fragment nazwy wpisany przez uzytkownika.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Zwraca}
+Obiekt zawierajacy liste nazw kategorii oraz liste dopasowanych obiektow \doxylink{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_product_dto}{Product\+Dto}.
+\end{DoxyReturn}
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_admin_1_1_product_controller_a2d1df4349ecf0dd4b5901551bae6c37c}\index{Sklep\_internetowy.Server.Controllers.Admin.ProductController@{Sklep\_internetowy.Server.Controllers.Admin.ProductController}!RemoveProduct@{RemoveProduct}}
+\index{RemoveProduct@{RemoveProduct}!Sklep\_internetowy.Server.Controllers.Admin.ProductController@{Sklep\_internetowy.Server.Controllers.Admin.ProductController}}
+\doxysubsubsection{\texorpdfstring{RemoveProduct()}{RemoveProduct()}}
+{\footnotesize\ttfamily \label{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_admin_1_1_product_controller_a2d1df4349ecf0dd4b5901551bae6c37c} 
+async Task$<$ Action\+Result $>$ Sklep\+\_\+internetowy.\+Server.\+Controllers.\+Admin.\+Product\+Controller.\+Remove\+Product (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_remove_product_dto}{Remove\+Product\+Dto}}}]{remove\+Product\+Dto}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Usuwa wybrany produkt z bazy danych na podstawie identyfikatora. 
+
+
+\begin{DoxyParams}{Parametry}
+{\em remove\+Product\+Dto} & DTO zawierajace identyfikator ID produktu do usuniecia.\\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_admin_1_1_product_controller_a8c05bbd61cd02e21a50061d018126adf}\index{Sklep\_internetowy.Server.Controllers.Admin.ProductController@{Sklep\_internetowy.Server.Controllers.Admin.ProductController}!SearchProducts@{SearchProducts}}
+\index{SearchProducts@{SearchProducts}!Sklep\_internetowy.Server.Controllers.Admin.ProductController@{Sklep\_internetowy.Server.Controllers.Admin.ProductController}}
+\doxysubsubsection{\texorpdfstring{SearchProducts()}{SearchProducts()}}
+{\footnotesize\ttfamily \label{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_admin_1_1_product_controller_a8c05bbd61cd02e21a50061d018126adf} 
+async Task$<$ Action\+Result$<$ IEnumerable$<$ \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_product_dto}{Product\+Dto}} $>$ $>$ $>$ Sklep\+\_\+internetowy.\+Server.\+Controllers.\+Admin.\+Product\+Controller.\+Search\+Products (\begin{DoxyParamCaption}\item[{\+[\+From\+Query]\+ string}]{q}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Wyszukuje produkty na podstawie frazy tekstowej dopasowanej do nazwy, marki lub opisu. 
+
+
+\begin{DoxyParams}{Parametry}
+{\em q} & Zapytanie wyszukiwania wpisane przez uzytkownika.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Zwraca}
+Kolekcja produktow spelniajacych kryteria wyszukiwania.
+\end{DoxyReturn}
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_admin_1_1_product_controller_af2ab41e14e8e0e237ae9d6c6dad6da1c}\index{Sklep\_internetowy.Server.Controllers.Admin.ProductController@{Sklep\_internetowy.Server.Controllers.Admin.ProductController}!SetUtcKind@{SetUtcKind}}
+\index{SetUtcKind@{SetUtcKind}!Sklep\_internetowy.Server.Controllers.Admin.ProductController@{Sklep\_internetowy.Server.Controllers.Admin.ProductController}}
+\doxysubsubsection{\texorpdfstring{SetUtcKind()}{SetUtcKind()}}
+{\footnotesize\ttfamily \label{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_admin_1_1_product_controller_af2ab41e14e8e0e237ae9d6c6dad6da1c} 
+Date\+Time? Sklep\+\_\+internetowy.\+Server.\+Controllers.\+Admin.\+Product\+Controller.\+Set\+Utc\+Kind (\begin{DoxyParamCaption}\item[{Date\+Time?}]{date}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}
+
+
+
+Metoda pomocnicza ustawiajaca rodzaj daty na UTC, wymagana dla kompatybilnosci z baza danych. 
+
+
+\begin{DoxyParams}{Parametry}
+{\em date} & \doxylink{namespace_sklep__internetowy_1_1_server_1_1_data}{Data} do przetworzenia.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Zwraca}
+\doxylink{namespace_sklep__internetowy_1_1_server_1_1_data}{Data} z rodzajem Date\+Time\+Kind.\+Utc lub null.
+\end{DoxyReturn}
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_admin_1_1_product_controller_a779afd9c710e109b6d23373e1689ec73}\index{Sklep\_internetowy.Server.Controllers.Admin.ProductController@{Sklep\_internetowy.Server.Controllers.Admin.ProductController}!UpdateProduct@{UpdateProduct}}
+\index{UpdateProduct@{UpdateProduct}!Sklep\_internetowy.Server.Controllers.Admin.ProductController@{Sklep\_internetowy.Server.Controllers.Admin.ProductController}}
+\doxysubsubsection{\texorpdfstring{UpdateProduct()}{UpdateProduct()}}
+{\footnotesize\ttfamily \label{class_sklep__internetowy_1_1_server_1_1_controllers_1_1_admin_1_1_product_controller_a779afd9c710e109b6d23373e1689ec73} 
+async Task$<$ Action\+Result $>$ Sklep\+\_\+internetowy.\+Server.\+Controllers.\+Admin.\+Product\+Controller.\+Update\+Product (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_update_product_dto}{Update\+Product\+Dto}}}]{update\+Product\+Dto}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Aktualizuje dane techniczne i cenowe istniejacego produktu. 
+
+
+\begin{DoxyParams}{Parametry}
+{\em update\+Product\+Dto} & Obiekt zawierajacy zaktualizowane pola produktu.\\
+\hline
+\end{DoxyParams}
+$<$response code="{}204"{}$>$Gdy aktualizacja przebiegla pomyslnie.$<$/\+response$>$ $<$response code="{}404"{}$>$Gdy produkt nie figuruje w bazie danych.$<$/\+response$>$ 
+
+Dokumentacja dla tej klasy została wygenerowana z pliku:\+\begin{DoxyCompactItemize}
+\item 
+Sklep\+\_\+internetowy.\+Server/\+\+Controllers/\+\+Admin/\+Product\+Controller.\+cs\end{DoxyCompactItemize}

@@ -1,0 +1,154 @@
+\doxysection{Dokumentacja klasy Orders\+Controller}
+\hypertarget{class_orders_controller}{}\label{class_orders_controller}\index{OrdersController@{OrdersController}}
+
+
+Kontroler API odpowiedzialny za zarzadzanie zamowieniami w systemie. Obsluguje procesy przegladania zamowien, ich tworzenia, aktualizacji statusow oraz usuwania, uwzgledniajac przy tym automatyczna synchronizacje stanow magazynowych.  
+
+
+
+
+Diagram współpracy dla Orders\+Controller:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{class_orders_controller__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Metody publiczne}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{class_orders_controller_a7e26fd17cfd4c1f6631cd48b4a35b695}{Orders\+Controller}} (\doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_data_1_1_store_db_context}{Store\+Db\+Context}} context, \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_services_1_1_email_service}{Email\+Service}} email\+Service)
+\begin{DoxyCompactList}\small\item\em Inicjalizuje nowa instancje klasy \doxylink{class_orders_controller}{Orders\+Controller}. \end{DoxyCompactList}\item 
+async Task$<$ Action\+Result$<$ IEnumerable$<$ \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_order_details_dto}{Order\+Details\+Dto}} $>$ $>$ $>$ \doxymbox{\hyperlink{class_orders_controller_ac3528b46ff6376215a377542f7cf5b0e}{Get\+Orders}} ()
+\begin{DoxyCompactList}\small\item\em Pobiera liste wszystkich zamowien zarejestrowanych w systemie. Zawiera szczegolowe informacje o uzytkownikach oraz przypisanych produktach. \end{DoxyCompactList}\item 
+async Task$<$ Action\+Result$<$ IEnumerable$<$ \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_order_details_dto}{Order\+Details\+Dto}} $>$ $>$ $>$ \doxymbox{\hyperlink{class_orders_controller_aee5a4ffbcf4a5cecab129f5128317ad6}{Get\+User\+Orders}} (string user\+Id)
+\begin{DoxyCompactList}\small\item\em Pobiera historie zamowien konkretnego uzytkownika na podstawie jego identyfikatora. \end{DoxyCompactList}\item 
+async Task$<$ IAction\+Result $>$ \doxymbox{\hyperlink{class_orders_controller_a4d9477879d44892478101bf4d485d0bc}{Update\+Order}} (int id, \+[From\+Body]\+ \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_order_update_dto}{Order\+Update\+Dto}} dto)
+\begin{DoxyCompactList}\small\item\em Aktualizuje istniejace zamowienie (status oraz liste produktow). Metoda zarzadza stanem magazynowym, przywracajac produkty ze starego zamowienia i odejmujac nowe ilosci. Operacja wykonywana jest w ramach transakcji. \end{DoxyCompactList}\item 
+async Task$<$ IAction\+Result $>$ \doxymbox{\hyperlink{class_orders_controller_a50d2376f1dea4a2bc43d24b3d3c1e66a}{Delete\+Order}} (int id)
+\begin{DoxyCompactList}\small\item\em Usuwa zamowienie z systemu i przywraca ilosci zarezerwowanych produktow do magazynu. Wykorzystuje transakcje w celu zapewnienia spojnosci danych. \end{DoxyCompactList}\item 
+async Task$<$ Action\+Result$<$ \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_order_details_dto}{Order\+Details\+Dto}} $>$ $>$ \doxymbox{\hyperlink{class_orders_controller_ac3dc328a65a55e451d01f8e6bf28e690}{Create\+Order}} (\+[From\+Body]\+ \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_create_order_request_dto}{Create\+Order\+Request\+Dto}} dto)
+\begin{DoxyCompactList}\small\item\em Tworzy nowe zamowienie w systemie. Weryfikuje dostepnosc produktow, aktualizuje stan magazynowy i wysyla e-\/mail potwierdzajacy. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Opis szczegółowy}
+Kontroler API odpowiedzialny za zarzadzanie zamowieniami w systemie. Obsluguje procesy przegladania zamowien, ich tworzenia, aktualizacji statusow oraz usuwania, uwzgledniajac przy tym automatyczna synchronizacje stanow magazynowych. 
+
+\label{doc-constructors}
+\Hypertarget{class_orders_controller_doc-constructors}
+\doxysubsection{Dokumentacja konstruktora i destruktora}
+\Hypertarget{class_orders_controller_a7e26fd17cfd4c1f6631cd48b4a35b695}\index{OrdersController@{OrdersController}!OrdersController@{OrdersController}}
+\index{OrdersController@{OrdersController}!OrdersController@{OrdersController}}
+\doxysubsubsection{\texorpdfstring{OrdersController()}{OrdersController()}}
+{\footnotesize\ttfamily \label{class_orders_controller_a7e26fd17cfd4c1f6631cd48b4a35b695} 
+Orders\+Controller.\+Orders\+Controller (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_data_1_1_store_db_context}{Store\+Db\+Context}}}]{context}{, }\item[{\doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_services_1_1_email_service}{Email\+Service}}}]{email\+Service}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Inicjalizuje nowa instancje klasy \doxylink{class_orders_controller}{Orders\+Controller}. 
+
+
+\begin{DoxyParams}{Parametry}
+{\em context} & Kontekst bazy danych do operacji na zamowieniach i produktach.\\
+\hline
+{\em email\+Service} & Serwis uzywany do wysylania powiadomien e-\/mail do klientow.\\
+\hline
+\end{DoxyParams}
+
+
+\label{doc-func-members}
+\Hypertarget{class_orders_controller_doc-func-members}
+\doxysubsection{Dokumentacja funkcji składowych}
+\Hypertarget{class_orders_controller_ac3dc328a65a55e451d01f8e6bf28e690}\index{OrdersController@{OrdersController}!CreateOrder@{CreateOrder}}
+\index{CreateOrder@{CreateOrder}!OrdersController@{OrdersController}}
+\doxysubsubsection{\texorpdfstring{CreateOrder()}{CreateOrder()}}
+{\footnotesize\ttfamily \label{class_orders_controller_ac3dc328a65a55e451d01f8e6bf28e690} 
+async Task$<$ Action\+Result$<$ \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_order_details_dto}{Order\+Details\+Dto}} $>$ $>$ Orders\+Controller.\+Create\+Order (\begin{DoxyParamCaption}\item[{\+[\+From\+Body]\+ \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_create_order_request_dto}{Create\+Order\+Request\+Dto}}}]{dto}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Tworzy nowe zamowienie w systemie. Weryfikuje dostepnosc produktow, aktualizuje stan magazynowy i wysyla e-\/mail potwierdzajacy. 
+
+
+\begin{DoxyParams}{Parametry}
+{\em dto} & Dane niezbedne do utworzenia nowego zamowienia.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Zwraca}
+Szczegoly nowo utworzonego zamowienia (\doxylink{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_order_details_dto}{Order\+Details\+Dto}).
+\end{DoxyReturn}
+\Hypertarget{class_orders_controller_a50d2376f1dea4a2bc43d24b3d3c1e66a}\index{OrdersController@{OrdersController}!DeleteOrder@{DeleteOrder}}
+\index{DeleteOrder@{DeleteOrder}!OrdersController@{OrdersController}}
+\doxysubsubsection{\texorpdfstring{DeleteOrder()}{DeleteOrder()}}
+{\footnotesize\ttfamily \label{class_orders_controller_a50d2376f1dea4a2bc43d24b3d3c1e66a} 
+async Task$<$ IAction\+Result $>$ Orders\+Controller.\+Delete\+Order (\begin{DoxyParamCaption}\item[{int}]{id}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Usuwa zamowienie z systemu i przywraca ilosci zarezerwowanych produktow do magazynu. Wykorzystuje transakcje w celu zapewnienia spojnosci danych. 
+
+
+\begin{DoxyParams}{Parametry}
+{\em id} & Identyfikator zamowienia przeznaczonego do usuniecia.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Zwraca}
+Status 204 No Content po pomyslnym usunieciu.
+\end{DoxyReturn}
+\Hypertarget{class_orders_controller_ac3528b46ff6376215a377542f7cf5b0e}\index{OrdersController@{OrdersController}!GetOrders@{GetOrders}}
+\index{GetOrders@{GetOrders}!OrdersController@{OrdersController}}
+\doxysubsubsection{\texorpdfstring{GetOrders()}{GetOrders()}}
+{\footnotesize\ttfamily \label{class_orders_controller_ac3528b46ff6376215a377542f7cf5b0e} 
+async Task$<$ Action\+Result$<$ IEnumerable$<$ \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_order_details_dto}{Order\+Details\+Dto}} $>$ $>$ $>$ Orders\+Controller.\+Get\+Orders (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Pobiera liste wszystkich zamowien zarejestrowanych w systemie. Zawiera szczegolowe informacje o uzytkownikach oraz przypisanych produktach. 
+
+\begin{DoxyReturn}{Zwraca}
+Kolekcja obiektow \doxylink{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_order_details_dto}{Order\+Details\+Dto} reprezentujacych zamowienia.
+\end{DoxyReturn}
+\Hypertarget{class_orders_controller_aee5a4ffbcf4a5cecab129f5128317ad6}\index{OrdersController@{OrdersController}!GetUserOrders@{GetUserOrders}}
+\index{GetUserOrders@{GetUserOrders}!OrdersController@{OrdersController}}
+\doxysubsubsection{\texorpdfstring{GetUserOrders()}{GetUserOrders()}}
+{\footnotesize\ttfamily \label{class_orders_controller_aee5a4ffbcf4a5cecab129f5128317ad6} 
+async Task$<$ Action\+Result$<$ IEnumerable$<$ \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_order_details_dto}{Order\+Details\+Dto}} $>$ $>$ $>$ Orders\+Controller.\+Get\+User\+Orders (\begin{DoxyParamCaption}\item[{string}]{user\+Id}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Pobiera historie zamowien konkretnego uzytkownika na podstawie jego identyfikatora. 
+
+
+\begin{DoxyParams}{Parametry}
+{\em user\+Id} & Unikalny identyfikator uzytkownika.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Zwraca}
+Lista zamowien przypisanych do danego uzytkownika, posortowana od najnowszych.
+\end{DoxyReturn}
+\Hypertarget{class_orders_controller_a4d9477879d44892478101bf4d485d0bc}\index{OrdersController@{OrdersController}!UpdateOrder@{UpdateOrder}}
+\index{UpdateOrder@{UpdateOrder}!OrdersController@{OrdersController}}
+\doxysubsubsection{\texorpdfstring{UpdateOrder()}{UpdateOrder()}}
+{\footnotesize\ttfamily \label{class_orders_controller_a4d9477879d44892478101bf4d485d0bc} 
+async Task$<$ IAction\+Result $>$ Orders\+Controller.\+Update\+Order (\begin{DoxyParamCaption}\item[{int}]{id}{, }\item[{\+[\+From\+Body]\+ \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_order_update_dto}{Order\+Update\+Dto}}}]{dto}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Aktualizuje istniejace zamowienie (status oraz liste produktow). Metoda zarzadza stanem magazynowym, przywracajac produkty ze starego zamowienia i odejmujac nowe ilosci. Operacja wykonywana jest w ramach transakcji. 
+
+
+\begin{DoxyParams}{Parametry}
+{\em id} & Identyfikator zamowienia do edycji.\\
+\hline
+{\em dto} & Obiekt DTO zawierajacy zaktualizowane dane zamowienia.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Zwraca}
+Status 204 No Content w przypadku sukcesu lub opis bledu walidacji.
+\end{DoxyReturn}
+
+
+Dokumentacja dla tej klasy została wygenerowana z pliku:\+\begin{DoxyCompactItemize}
+\item 
+Sklep\+\_\+internetowy.\+Server/\+\+Controllers/\+\+Shop/\+Orders\+Controller.\+cs\end{DoxyCompactItemize}

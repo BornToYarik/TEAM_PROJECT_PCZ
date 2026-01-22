@@ -1,0 +1,49 @@
+\doxysection{Dokumentacja klasy Sklep\+\_\+internetowy.\+Server.\+Models.\+Bid}
+\hypertarget{class_sklep__internetowy_1_1_server_1_1_models_1_1_bid}{}\label{class_sklep__internetowy_1_1_server_1_1_models_1_1_bid}\index{Sklep\_internetowy.Server.Models.Bid@{Sklep\_internetowy.Server.Models.Bid}}
+
+
+Klasa reprezentująca pojedynczą ofertę licytacji (postąpienie) złożoną przez użytkownika. Przechowuje informacje o kwocie, czasie złożenia oraz powiązaniach z konkretną aukcją i licytantem.  
+
+
+
+
+Diagram współpracy dla Sklep\+\_\+internetowy.\+Server.\+Models.\+Bid:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=202pt]{class_sklep__internetowy_1_1_server_1_1_models_1_1_bid__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Właściwości}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_models_1_1_bid_a978035f75ce472a4419ec8a8c550b9a3}\label{class_sklep__internetowy_1_1_server_1_1_models_1_1_bid_a978035f75ce472a4419ec8a8c550b9a3} 
+int {\bfseries Id}\hspace{0.3cm}{\ttfamily  \+[get, set]\+}
+\begin{DoxyCompactList}\small\item\em Unikalny identyfikator rekordu oferty. \end{DoxyCompactList}\item 
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_models_1_1_bid_acf63d47ef67b5b424e78eb4aa178eb80}\label{class_sklep__internetowy_1_1_server_1_1_models_1_1_bid_acf63d47ef67b5b424e78eb4aa178eb80} 
+decimal {\bfseries Amount}\hspace{0.3cm}{\ttfamily  \+[get, set]\+}
+\begin{DoxyCompactList}\small\item\em Kwota zaoferowana przez licytanta w ramach tego postąpienia. \end{DoxyCompactList}\item 
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_models_1_1_bid_a4ec902f7d866be9f1244238a92ab5f5e}\label{class_sklep__internetowy_1_1_server_1_1_models_1_1_bid_a4ec902f7d866be9f1244238a92ab5f5e} 
+string {\bfseries Bidder\+Id} = null!\hspace{0.3cm}{\ttfamily  \+[get, set]\+}
+\begin{DoxyCompactList}\small\item\em Identyfikator użytkownika (GUID), który jest autorem oferty. \end{DoxyCompactList}\item 
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_models_1_1_bid_a30119a9c71a07ec5fdcedced7f9864c9}\label{class_sklep__internetowy_1_1_server_1_1_models_1_1_bid_a30119a9c71a07ec5fdcedced7f9864c9} 
+\doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_models_1_1_user}{User}} {\bfseries Bidder} = null!\hspace{0.3cm}{\ttfamily  \+[get, set]\+}
+\begin{DoxyCompactList}\small\item\em Obiekt użytkownika składającego ofertę, umożliwiający dostęp do jego danych profilowych. \end{DoxyCompactList}\item 
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_models_1_1_bid_a7acdbc049d9fc3665821b552edaca51f}\label{class_sklep__internetowy_1_1_server_1_1_models_1_1_bid_a7acdbc049d9fc3665821b552edaca51f} 
+Date\+Time {\bfseries Created\+At} = Date\+Time.\+Utc\+Now\hspace{0.3cm}{\ttfamily  \+[get, set]\+}
+\begin{DoxyCompactList}\small\item\em \doxylink{namespace_sklep__internetowy_1_1_server_1_1_data}{Data} i godzina zarejestrowania oferty w systemie (domyślnie czas UTC). \end{DoxyCompactList}\item 
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_models_1_1_bid_a7eaddbe79fbc09d88b0f5c891beb4947}\label{class_sklep__internetowy_1_1_server_1_1_models_1_1_bid_a7eaddbe79fbc09d88b0f5c891beb4947} 
+int {\bfseries Auction\+Id}\hspace{0.3cm}{\ttfamily  \+[get, set]\+}
+\begin{DoxyCompactList}\small\item\em Identyfikator aukcji, której dotyczy dana oferta cenowa. \end{DoxyCompactList}\item 
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_models_1_1_bid_ad9724598c00aa0faaba05b0e1e6bf7fe}\label{class_sklep__internetowy_1_1_server_1_1_models_1_1_bid_ad9724598c00aa0faaba05b0e1e6bf7fe} 
+Auction {\bfseries Auction} = null!\hspace{0.3cm}{\ttfamily  \+[get, set]\+}
+\begin{DoxyCompactList}\small\item\em Obiekt aukcji powiązanej z tą ofertą, umożliwiający nawigację do szczegółów licytacji. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Opis szczegółowy}
+Klasa reprezentująca pojedynczą ofertę licytacji (postąpienie) złożoną przez użytkownika. Przechowuje informacje o kwocie, czasie złożenia oraz powiązaniach z konkretną aukcją i licytantem. 
+
+Dokumentacja dla tej klasy została wygenerowana z pliku:\+\begin{DoxyCompactItemize}
+\item 
+Sklep\+\_\+internetowy.\+Server/\+\+Models/\+Bid.\+cs\end{DoxyCompactItemize}

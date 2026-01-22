@@ -6,6 +6,11 @@ using Sklep_internetowy.Server.DTOs;
 using System.Linq;
 using Sklep_internetowy.Server.Services;
 
+/// <summary>
+/// Kontroler API odpowiedzialny za zarzadzanie zamowieniami w systemie.
+/// Obsluguje procesy przegladania zamowien, ich tworzenia, aktualizacji statusow oraz usuwania,
+/// uwzgledniajac przy tym automatyczna synchronizacje stanow magazynowych.
+/// </summary>
 [ApiController]
 [Route("api/[controller]")]
 public class OrdersController : ControllerBase
@@ -13,12 +18,22 @@ public class OrdersController : ControllerBase
     private readonly StoreDbContext _context;
     private readonly EmailService _emailService;
 
+    /// <summary>
+    /// Inicjalizuje nowa instancje klasy OrdersController.
+    /// </summary>
+    /// <param name="context">Kontekst bazy danych do operacji na zamowieniach i produktach.</param>
+    /// <param name="emailService">Serwis uzywany do wysylania powiadomien e-mail do klientow.</param>
     public OrdersController(StoreDbContext context, EmailService emailService)
     {
         _context = context;
         _emailService = emailService;
     }
 
+    /// <summary>
+    /// Pobiera liste wszystkich zamowien zarejestrowanych w systemie.
+    /// Zawiera szczegolowe informacje o uzytkownikach oraz przypisanych produktach.
+    /// </summary>
+    /// <returns>Kolekcja obiektow OrderDetailsDto reprezentujacych zamowienia.</returns>
     [HttpGet]
     public async Task<ActionResult<IEnumerable<OrderDetailsDto>>> GetOrders()
     {
@@ -47,6 +62,11 @@ public class OrdersController : ControllerBase
         return Ok(orders);
     }
 
+    /// <summary>
+    /// Pobiera historie zamowien konkretnego uzytkownika na podstawie jego identyfikatora.
+    /// </summary>
+    /// <param name="userId">Unikalny identyfikator uzytkownika.</param>
+    /// <returns>Lista zamowien przypisanych do danego uzytkownika, posortowana od najnowszych.</returns>
     [HttpGet("user/{userId}")]
     public async Task<ActionResult<IEnumerable<OrderDetailsDto>>> GetUserOrders(string userId)
     {
@@ -76,6 +96,14 @@ public class OrdersController : ControllerBase
         return Ok(orders);
     }
 
+    /// <summary>
+    /// Aktualizuje istniejace zamowienie (status oraz liste produktow).
+    /// Metoda zarzadza stanem magazynowym, przywracajac produkty ze starego zamowienia i odejmujac nowe ilosci.
+    /// Operacja wykonywana jest w ramach transakcji.
+    /// </summary>
+    /// <param name="id">Identyfikator zamowienia do edycji.</param>
+    /// <param name="dto">Obiekt DTO zawierajacy zaktualizowane dane zamowienia.</param>
+    /// <returns>Status 204 No Content w przypadku sukcesu lub opis bledu walidacji.</returns>
     [HttpPut("{id}")]
     public async Task<IActionResult> UpdateOrder(int id, [FromBody] OrderUpdateDto dto)
     {
@@ -144,6 +172,12 @@ public class OrdersController : ControllerBase
         }
     }
 
+    /// <summary>
+    /// Usuwa zamowienie z systemu i przywraca ilosci zarezerwowanych produktow do magazynu.
+    /// Wykorzystuje transakcje w celu zapewnienia spojnosci danych.
+    /// </summary>
+    /// <param name="id">Identyfikator zamowienia przeznaczonego do usuniecia.</param>
+    /// <returns>Status 204 No Content po pomyslnym usunieciu.</returns>
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteOrder(int id)
     {
@@ -185,6 +219,12 @@ public class OrdersController : ControllerBase
         }
     }
 
+    /// <summary>
+    /// Tworzy nowe zamowienie w systemie.
+    /// Weryfikuje dostepnosc produktow, aktualizuje stan magazynowy i wysyla e-mail potwierdzajacy.
+    /// </summary>
+    /// <param name="dto">Dane niezbedne do utworzenia nowego zamowienia.</param>
+    /// <returns>Szczegoly nowo utworzonego zamowienia (OrderDetailsDto).</returns>
     [HttpPost]
     public async Task<ActionResult<OrderDetailsDto>> CreateOrder([FromBody] CreateOrderRequestDto dto)
     {
@@ -260,7 +300,7 @@ public class OrdersController : ControllerBase
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine($"Błąd wysyłania maila: {ex.Message}");
+                    Console.WriteLine($"Blad wysylania maila: {ex.Message}");
                 }
 
                 var resultDto = new OrderDetailsDto

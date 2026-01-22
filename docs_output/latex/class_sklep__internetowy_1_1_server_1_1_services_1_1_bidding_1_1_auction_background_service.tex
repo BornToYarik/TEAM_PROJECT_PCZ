@@ -1,0 +1,92 @@
+\doxysection{Dokumentacja klasy Sklep\+\_\+internetowy.\+Server.\+Services.\+Bidding.\+Auction\+Background\+Service}
+\hypertarget{class_sklep__internetowy_1_1_server_1_1_services_1_1_bidding_1_1_auction_background_service}{}\label{class_sklep__internetowy_1_1_server_1_1_services_1_1_bidding_1_1_auction_background_service}\index{Sklep\_internetowy.Server.Services.Bidding.AuctionBackgroundService@{Sklep\_internetowy.Server.Services.Bidding.AuctionBackgroundService}}
+
+
+Usługa działająca w tle odpowiedzialna za automatyczne kończenie aukcji.  
+
+
+
+
+Diagram współpracy dla Sklep\+\_\+internetowy.\+Server.\+Services.\+Bidding.\+Auction\+Background\+Service:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=249pt]{class_sklep__internetowy_1_1_server_1_1_services_1_1_bidding_1_1_auction_background_service__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Metody publiczne}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_services_1_1_bidding_1_1_auction_background_service_a4515759774a03579fd103bd0fb48b80e}{Auction\+Background\+Service}} (IService\+Scope\+Factory scope\+Factory)
+\begin{DoxyCompactList}\small\item\em Konstruktor usługi \doxylink{class_sklep__internetowy_1_1_server_1_1_services_1_1_bidding_1_1_auction_background_service}{Auction\+Background\+Service}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Metody chronione}
+\begin{DoxyCompactItemize}
+\item 
+override async Task \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_services_1_1_bidding_1_1_auction_background_service_a7f34234e62e8d5479aad01efc3c7279e}{Execute\+Async}} (Cancellation\+Token ct)
+\begin{DoxyCompactList}\small\item\em Główna pętla wykonywana w tle przez usługę. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Atrybuty prywatne}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_services_1_1_bidding_1_1_auction_background_service_a4168b27d75a4012d14fd5250080809d4}\label{class_sklep__internetowy_1_1_server_1_1_services_1_1_bidding_1_1_auction_background_service_a4168b27d75a4012d14fd5250080809d4} 
+readonly IService\+Scope\+Factory {\bfseries \+\_\+scope\+Factory}
+\begin{DoxyCompactList}\small\item\em Fabryka zakresów usług do tworzenia scope dla zależności. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Opis szczegółowy}
+Usługa działająca w tle odpowiedzialna za automatyczne kończenie aukcji. 
+
+Serwis cyklicznie sprawdza, czy istnieją aukcje, których czas zakończenia już minął i automatycznie je finalizuje przy użyciu \doxylink{class_sklep__internetowy_1_1_server_1_1_services_1_1_bidding_1_1_auction_service}{Auction\+Service}. 
+
+\label{doc-constructors}
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_services_1_1_bidding_1_1_auction_background_service_doc-constructors}
+\doxysubsection{Dokumentacja konstruktora i destruktora}
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_services_1_1_bidding_1_1_auction_background_service_a4515759774a03579fd103bd0fb48b80e}\index{Sklep\_internetowy.Server.Services.Bidding.AuctionBackgroundService@{Sklep\_internetowy.Server.Services.Bidding.AuctionBackgroundService}!AuctionBackgroundService@{AuctionBackgroundService}}
+\index{AuctionBackgroundService@{AuctionBackgroundService}!Sklep\_internetowy.Server.Services.Bidding.AuctionBackgroundService@{Sklep\_internetowy.Server.Services.Bidding.AuctionBackgroundService}}
+\doxysubsubsection{\texorpdfstring{AuctionBackgroundService()}{AuctionBackgroundService()}}
+{\footnotesize\ttfamily \label{class_sklep__internetowy_1_1_server_1_1_services_1_1_bidding_1_1_auction_background_service_a4515759774a03579fd103bd0fb48b80e} 
+Sklep\+\_\+internetowy.\+Server.\+Services.\+Bidding.\+Auction\+Background\+Service.\+Auction\+Background\+Service (\begin{DoxyParamCaption}\item[{IService\+Scope\+Factory}]{scope\+Factory}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Konstruktor usługi \doxylink{class_sklep__internetowy_1_1_server_1_1_services_1_1_bidding_1_1_auction_background_service}{Auction\+Background\+Service}. 
+
+
+\begin{DoxyParams}{Parametry}
+{\em scope\+Factory} & Fabryka zakresów serwisów do tworzenia kontekstu zależności. \\
+\hline
+\end{DoxyParams}
+
+
+\label{doc-func-members}
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_services_1_1_bidding_1_1_auction_background_service_doc-func-members}
+\doxysubsection{Dokumentacja funkcji składowych}
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_services_1_1_bidding_1_1_auction_background_service_a7f34234e62e8d5479aad01efc3c7279e}\index{Sklep\_internetowy.Server.Services.Bidding.AuctionBackgroundService@{Sklep\_internetowy.Server.Services.Bidding.AuctionBackgroundService}!ExecuteAsync@{ExecuteAsync}}
+\index{ExecuteAsync@{ExecuteAsync}!Sklep\_internetowy.Server.Services.Bidding.AuctionBackgroundService@{Sklep\_internetowy.Server.Services.Bidding.AuctionBackgroundService}}
+\doxysubsubsection{\texorpdfstring{ExecuteAsync()}{ExecuteAsync()}}
+{\footnotesize\ttfamily \label{class_sklep__internetowy_1_1_server_1_1_services_1_1_bidding_1_1_auction_background_service_a7f34234e62e8d5479aad01efc3c7279e} 
+override async Task Sklep\+\_\+internetowy.\+Server.\+Services.\+Bidding.\+Auction\+Background\+Service.\+Execute\+Async (\begin{DoxyParamCaption}\item[{Cancellation\+Token}]{ct}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}}
+
+
+
+Główna pętla wykonywana w tle przez usługę. 
+
+
+\begin{DoxyParams}{Parametry}
+{\em ct} & Token anulowania umożliwiający bezpieczne zatrzymanie usługi. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Zwraca}
+Zadanie asynchroniczne. 
+\end{DoxyReturn}
+Pobranie listy aukcji, które powinny zostać zakończone.
+
+Wybierane są aukcje, które nie są jeszcze zakończone i których czas dobiegł końca.
+
+Finalizacja każdej wygasłej aukcji.
+
+Opóźnienie pomiędzy kolejnymi sprawdzeniami (30 sekund).
+
+Dokumentacja dla tej klasy została wygenerowana z pliku:\+\begin{DoxyCompactItemize}
+\item 
+Sklep\+\_\+internetowy.\+Server/\+\+Services/\+\+Bidding/\+Auction\+Background\+Service .\+cs\end{DoxyCompactItemize}

@@ -1,0 +1,47 @@
+\doxysection{Dokumentacja przestrzeni nazw Sklep\+\_\+internetowy.\+Server.\+DTOs}
+\hypertarget{namespace_sklep__internetowy_1_1_server_1_1_d_t_os}{}\label{namespace_sklep__internetowy_1_1_server_1_1_d_t_os}\index{Sklep\_internetowy.Server.DTOs@{Sklep\_internetowy.Server.DTOs}}
+\doxysubsubsection*{Komponenty}
+\begin{DoxyCompactItemize}
+\item 
+class \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_auction_dto}{Auction\+Dto}}
+\begin{DoxyCompactList}\small\item\em Obiekt transferu danych (DTO) reprezentujący podstawowe informacje o aukcji. Klasa służy do przesyłania kluczowych parametrów licytacji pomiędzy warstwą serwerową a interfejsem użytkownika, minimalizując narzut sieciowy poprzez ograniczenie przesyłanych danych. \end{DoxyCompactList}\item 
+class \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_bid_request}{Bid\+Request}}
+\begin{DoxyCompactList}\small\item\em Obiekt transferu danych (DTO) reprezentujący żądanie złożenia nowej oferty licytacyjnej. Przechowuje informacje o deklarowanej kwocie oraz tożsamości licytanta niezbędne do przetworzenia postąpienia przez silnik aukcyjny. \end{DoxyCompactList}\item 
+class \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_create_auction_dto}{Create\+Auction\+Dto}}
+\begin{DoxyCompactList}\small\item\em Obiekt transferu danych (DTO) wykorzystywany do zainicjowania nowej aukcji w systemie. Zawiera niezbędne informacje o produkcie przeznaczonym do sprzedaży licytacyjnej oraz ustalonej dla niego cenie wywoławczej. \end{DoxyCompactList}\item 
+class \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_create_order_item_dto}{Create\+Order\+Item\+Dto}}
+\begin{DoxyCompactList}\small\item\em Obiekt transferu danych (DTO) reprezentujący pojedynczą pozycję w żądaniu utworzenia zamówienia. Zawiera informacje niezbędne do zidentyfikowania produktu oraz określenia zamawianej ilości sztuk. \end{DoxyCompactList}\item 
+class \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_create_order_request_dto}{Create\+Order\+Request\+Dto}}
+\begin{DoxyCompactList}\small\item\em Obiekt transferu danych (DTO) reprezentujący kompletne żądanie utworzenia nowego zamówienia. Przesyłany z warstwy frontendu podczas finalizacji koszyka zakupowego w celu zainicjowania transakcji po stronie serwerowej. \end{DoxyCompactList}\item 
+class \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_create_product_dto}{Create\+Product\+Dto}}
+\begin{DoxyCompactList}\small\item\em Obiekt transferu danych (DTO) wykorzystywany podczas procesu dodawania nowego produktu do katalogu sklepu. Zawiera kompletny zestaw informacji o towarze, jego parametrach cenowych oraz logice promocyjnej. \end{DoxyCompactList}\item 
+class \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_create_product_with_files_dto}{Create\+Product\+With\+Files\+Dto}}
+\begin{DoxyCompactList}\small\item\em Obiekt transferu danych (DTO) wykorzystywany podczas procesu dodawania nowego produktu wraz z załącznikami multimedialnymi. Klasa obsługuje dane przesyłane w formacie multipart/\+form-\/data, umożliwiając jednoczesną definicję parametrów handlowych oraz przesyłanie plików graficznych do serwera. \end{DoxyCompactList}\item 
+class \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_login_request}{Login\+Request}}
+\begin{DoxyCompactList}\small\item\em Obiekt transferu danych (DTO) wykorzystywany podczas procesu uwierzytelniania użytkownika. Przechowuje poświadczenia (login i hasło) niezbędne do weryfikacji tożsamości i wygenerowania tokenu autoryzacyjnego w systemie Tech\+Store. \end{DoxyCompactList}\item 
+class \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_order_details_dto}{Order\+Details\+Dto}}
+\begin{DoxyCompactList}\small\item\em Obiekt transferu danych (DTO) reprezentujący szczegółowe informacje o zamówieniu klienta. Klasa agreguje dane identyfikacyjne użytkownika, aktualny status realizacji zamówienia oraz pełną listę produktów wraz z datą operacji, służąc do prezentacji danych w interfejsie użytkownika. \end{DoxyCompactList}\item 
+class \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_order_product_details_dto}{Order\+Product\+Details\+Dto}}
+\begin{DoxyCompactList}\small\item\em Obiekt transferu danych (DTO) zawierający szczegółowe informacje o konkretnym produkcie przypisanym do zamówienia. Przechowuje dane o wolumenie zakupu, stanach magazynowych oraz historycznej cenie sprzedaży. \end{DoxyCompactList}\item 
+class \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_order_update_item_dto}{Order\+Update\+Item\+Dto}}
+\begin{DoxyCompactList}\small\item\em Obiekt transferu danych (DTO) reprezentujący pojedynczą pozycję towarową w żądaniu aktualizacji zamówienia. Przechowuje informacje niezbędne do skorygowania ilości konkretnego produktu w ramach istniejącej transakcji. \end{DoxyCompactList}\item 
+class \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_order_update_dto}{Order\+Update\+Dto}}
+\begin{DoxyCompactList}\small\item\em Obiekt transferu danych (DTO) wykorzystywany do kompleksowej modyfikacji istniejącego zamówienia. Klasa umożliwia jednoczesną zmianę statusu logistycznego zamówienia oraz aktualizację zestawienia produktów wchodzących w jego skład. \end{DoxyCompactList}\item 
+class \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_place_bid_dto}{Place\+Bid\+Dto}}
+\begin{DoxyCompactList}\small\item\em Obiekt transferu danych (DTO) reprezentujący ofertę złożoną przez użytkownika w ramach aukcji. Przechowuje informację o kwocie postąpienia, która jest przesyłana do serwera w celu walidacji i aktualizacji bieżącej ceny licytowanego przedmiotu. \end{DoxyCompactList}\item 
+class \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_product_category_dto}{Product\+Category\+Dto}}
+\begin{DoxyCompactList}\small\item\em Obiekt transferu danych (DTO) reprezentujący kategorię produktów w systemie. Służy do przesyłania podstawowych informacji o grupach towarowych, wykorzystywanych w menu nawigacyjnym, filtrach oraz przy przypisywaniu produktów do katalogu. \end{DoxyCompactList}\item 
+class \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_product_dto}{Product\+Dto}}
+\begin{DoxyCompactList}\small\item\em Obiekt transferu danych (DTO) reprezentujący szczegółowe informacje o produkcie. Zawiera kompletny zestaw danych o towarze, w tym parametry cenowe, logikę promocyjną, przynależność do kategorii oraz powiązane zasoby multimedialne. \end{DoxyCompactList}\item 
+class \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_register_user_request}{Register\+User\+Request}}
+\begin{DoxyCompactList}\small\item\em Obiekt transferu danych (DTO) reprezentujący żądanie rejestracji nowego użytkownika w systemie Tech\+Store. Klasa służy do przesyłania kompletu informacji niezbędnych do zainicjowania procesu tworzenia konta użytkownika, obejmując dane identyfikacyjne, uwierzytelniające oraz definicję ról dostępu. \end{DoxyCompactList}\item 
+class \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_remove_product_dto}{Remove\+Product\+Dto}}
+\begin{DoxyCompactList}\small\item\em Obiekt transferu danych (DTO) wykorzystywany w procesie usuwania produktu z systemu. Zawiera minimalny zestaw danych niezbędny do jednoznacznej identyfikacji zasobu przeznaczonego do usunięcia z bazy danych. \end{DoxyCompactList}\item 
+class \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_update_product_dto}{Update\+Product\+Dto}}
+\begin{DoxyCompactList}\small\item\em Obiekt transferu danych (DTO) służący do aktualizacji parametrów istniejącego produktu. Klasa zawiera kompletny zestaw właściwości niezbędnych do modyfikacji danych technicznych, logiki cenowej oraz przypisań kategoryzacyjnych towaru w systemie Tech\+Store. \end{DoxyCompactList}\item 
+class \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_update_user_request}{Update\+User\+Request}}
+\begin{DoxyCompactList}\small\item\em Obiekt transferu danych (DTO) służący do aktualizacji podstawowych informacji o koncie użytkownika. Klasa ta jest wykorzystywana w procesie modyfikacji danych profilowych, umożliwiając synchronizację zmian nazwy użytkownika oraz adresu e-\/mail pomiędzy warstwą prezentacji a bazą danych. \end{DoxyCompactList}\item 
+class \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_user_dto}{User\+Dto}}
+\begin{DoxyCompactList}\small\item\em Obiekt transferu danych (DTO) reprezentujący szczegółowe informacje o profilu użytkownika. Klasa agreguje dane identyfikacyjne, personalne oraz przypisane role systemowe, służąc do bezpiecznego przesyłania informacji o koncie z warstwy serwerowej do interfejsu klienta. \end{DoxyCompactList}\item 
+class \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_d_t_os_1_1_user_update_dto}{User\+Update\+Dto}}
+\begin{DoxyCompactList}\small\item\em Obiekt transferu danych (DTO) wykorzystywany przez administratora do aktualizacji kluczowych parametrów konta użytkownika. Klasa umożliwia synchronizację zmian w adresie e-\/mail oraz modyfikację zestawu ról przypisanych do tożsamości użytkownika. \end{DoxyCompactList}\end{DoxyCompactItemize}

@@ -1,0 +1,40 @@
+\doxysection{Dokumentacja klasy Sklep\+\_\+internetowy.\+Server.\+Models.\+User}
+\hypertarget{class_sklep__internetowy_1_1_server_1_1_models_1_1_user}{}\label{class_sklep__internetowy_1_1_server_1_1_models_1_1_user}\index{Sklep\_internetowy.Server.Models.User@{Sklep\_internetowy.Server.Models.User}}
+
+
+Rozszerzona klasa użytkownika systemu, dziedzicząca po Identity\+User. Przechowuje dodatkowe dane profilowe, takie jak imię i nazwisko, oraz zarządza relacją z historią zamówień klienta.  
+
+
+
+
+Diagram współpracy dla Sklep\+\_\+internetowy.\+Server.\+Models.\+User:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=202pt]{class_sklep__internetowy_1_1_server_1_1_models_1_1_user__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Właściwości}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_models_1_1_user_a8060c912a4846118d144c85a33dddf07}\label{class_sklep__internetowy_1_1_server_1_1_models_1_1_user_a8060c912a4846118d144c85a33dddf07} 
+string? {\bfseries First\+Name}\hspace{0.3cm}{\ttfamily  \+[get, set]\+}
+\begin{DoxyCompactList}\small\item\em Imię użytkownika. \end{DoxyCompactList}\item 
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_models_1_1_user_aa9f55d10ab14cc34716585de4b3ae0aa}\label{class_sklep__internetowy_1_1_server_1_1_models_1_1_user_aa9f55d10ab14cc34716585de4b3ae0aa} 
+string? {\bfseries Last\+Name}\hspace{0.3cm}{\ttfamily  \+[get, set]\+}
+\begin{DoxyCompactList}\small\item\em Nazwisko użytkownika. \end{DoxyCompactList}\item 
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_models_1_1_user_a887a18542bd3d9d0c5b26149b1f56f7a}\label{class_sklep__internetowy_1_1_server_1_1_models_1_1_user_a887a18542bd3d9d0c5b26149b1f56f7a} 
+Date\+Time {\bfseries Created\+At} = Date\+Time.\+Utc\+Now\hspace{0.3cm}{\ttfamily  \+[get, set]\+}
+\begin{DoxyCompactList}\small\item\em \doxylink{namespace_sklep__internetowy_1_1_server_1_1_data}{Data} i godzina rejestracji konta w systemie (domyślnie czas UTC). \end{DoxyCompactList}\item 
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_models_1_1_user_ad5e2af37ef4fec96f312d52a0a248b6b}\label{class_sklep__internetowy_1_1_server_1_1_models_1_1_user_ad5e2af37ef4fec96f312d52a0a248b6b} 
+ICollection$<$ \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_models_1_1_order}{Order}} $>$ {\bfseries Orders} = new List$<$\doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_models_1_1_order}{Order}}$>$()\hspace{0.3cm}{\ttfamily  \+[get, set]\+}
+\begin{DoxyCompactList}\small\item\em Kolekcja wszystkich zamówień złożonych przez danego użytkownika (relacja jeden-\/do-\/wielu). \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Opis szczegółowy}
+Rozszerzona klasa użytkownika systemu, dziedzicząca po Identity\+User. Przechowuje dodatkowe dane profilowe, takie jak imię i nazwisko, oraz zarządza relacją z historią zamówień klienta. 
+
+Dokumentacja dla tej klasy została wygenerowana z pliku:\+\begin{DoxyCompactItemize}
+\item 
+Sklep\+\_\+internetowy.\+Server/\+\+Models/\+User.\+cs\end{DoxyCompactItemize}

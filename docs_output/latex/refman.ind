@@ -1,0 +1,751 @@
+\begin{theindex}
+
+  \item {AccountController}
+    \subitem {Sklep\_internetowy.Server.Controllers.Account.AccountController}, 
+		\hyperpage{25}
+  \item {AccountService}
+    \subitem {Sklep\_internetowy.Server.Services.Auth.AccountService}, 
+		\hyperpage{27}
+  \item {AddAuth}
+    \subitem {Sklep\_internetowy.Server.Services.Auth.AuthExtensions}, 
+		\hyperpage{45}
+  \item {AddControllers}
+    \subitem {Program.cs}, \hyperpage{150}
+  \item {AddCors}
+    \subitem {Program.cs}, \hyperpage{150}
+  \item {AddIdentity$<$ User, IdentityRole $>$}
+    \subitem {Program.cs}, \hyperpage{151}
+  \item {AddScoped$<$ AuctionService $>$}
+    \subitem {Program.cs}, \hyperpage{151}
+  \item {AddSignalR}
+    \subitem {Program.cs}, \hyperpage{151}
+  \item {AdminDashboard}, \hyperpage{29}
+  \item {AdminPanel}, \hyperpage{29}
+  \item {App}, \hyperpage{30}
+    \subitem {App.jsx}, \hyperpage{132}
+  \item {App.jsx}
+    \subitem {App}, \hyperpage{132}
+    \subitem {AuctionDetails}, \hyperpage{132}
+    \subitem {AuctionList}, \hyperpage{133}
+    \subitem {ComparePage}, \hyperpage{133}
+    \subitem {CreateAuction}, \hyperpage{133}
+    \subitem {Footer}, \hyperpage{134}
+    \subitem {LoginPage}, \hyperpage{134}
+    \subitem {PaymentPage}, \hyperpage{134}
+    \subitem {ProductDetailsShop}, \hyperpage{135}
+    \subitem {Registration}, \hyperpage{135}
+    \subitem {UserMessageManagement}, \hyperpage{135}
+    \subitem {UserProfile}, \hyperpage{136}
+    \subitem {WishlistPage}, \hyperpage{136}
+  \item {ApplyBulkDiscountsAsync}
+    \subitem {Sklep\_internetowy.Server.Services.Promotion.PromotionService}, 
+		\hyperpage{105}
+  \item {ApplyToSelected}
+    \subitem {Sklep\_internetowy.Server.Controllers.Admin.PromotionController}, 
+		\hyperpage{102}
+  \item {auctionApi.js}
+    \subitem {createAuction}, \hyperpage{129}
+    \subitem {getActiveAuctions}, \hyperpage{130}
+    \subitem {getAuction}, \hyperpage{130}
+    \subitem {getHeaders}, \hyperpage{131}
+    \subitem {placeBid}, \hyperpage{131}
+  \item {AuctionBackgroundService}
+    \subitem {Sklep\_internetowy.Server.Services.Bidding.AuctionBackgroundService}, 
+		\hyperpage{33}
+  \item {AuctionDetails}, \hyperpage{34}
+    \subitem {App.jsx}, \hyperpage{132}
+  \item {AuctionHub}
+    \subitem {Sklep\_internetowy.Server.Services.Bidding.AuctionHub}, 
+		\hyperpage{37}
+  \item {AuctionList}, \hyperpage{39}
+    \subitem {App.jsx}, \hyperpage{133}
+  \item {AuctionService}
+    \subitem {Sklep\_internetowy.Server.Services.Bidding.AuctionService}, 
+		\hyperpage{41}
+  \item {AuthController}
+    \subitem {Sklep\_internetowy.Server.Controllers.Auth.AuthController}, 
+		\hyperpage{44}
+
+  \indexspace
+
+  \item {BidController}
+    \subitem {Sklep\_internetowy.Server.Controllers.BidController}, 
+		\hyperpage{49}
+
+  \indexspace
+
+  \item {Carousel}, \hyperpage{51}
+  \item {Cart}, \hyperpage{51}
+    \subitem {Cart.jsx}, \hyperpage{146}
+  \item {Cart.jsx}
+    \subitem {Cart}, \hyperpage{146}
+  \item {CartContext.jsx}
+    \subitem {useCart}, \hyperpage{142}
+  \item {CartProvider}, \hyperpage{52}
+  \item {CategoryProducts}, \hyperpage{52}
+  \item {CHANGELOG}, \hyperpage{1}
+  \item {CheckoutForm}, \hyperpage{53}
+  \item {ComparePage}, \hyperpage{53}
+    \subitem {App.jsx}, \hyperpage{133}
+  \item {connectionString}
+    \subitem {Program.cs}, \hyperpage{151}
+  \item {Create}
+    \subitem {Sklep\_internetowy.Server.Controllers.Admin.UserMessageController}, 
+		\hyperpage{119}
+    \subitem {Sklep\_internetowy.Server.Controllers.Admin.UsersController}, 
+		\hyperpage{123}
+  \item {CreateAuction}, \hyperpage{54}
+    \subitem {App.jsx}, \hyperpage{133}
+    \subitem {Sklep\_internetowy.Server.Controllers.BidController}, 
+		\hyperpage{49}
+  \item {createAuction}
+    \subitem {auctionApi.js}, \hyperpage{129}
+  \item {CreateAuctionAsync}
+    \subitem {Sklep\_internetowy.Server.Services.Bidding.AuctionService}, 
+		\hyperpage{41}
+  \item {CreateOrder}
+    \subitem {OrdersController}, \hyperpage{75}
+  \item {CreatePaymentIntent}
+    \subitem {Sklep\_internetowy.Server.Controllers.Payment.PaymentController}, 
+		\hyperpage{79}
+  \item {CreateProduct}
+    \subitem {Sklep\_internetowy.Server.Controllers.Admin.ProductController}, 
+		\hyperpage{90}
+
+  \indexspace
+
+  \item {Delete}
+    \subitem {Sklep\_internetowy.Server.Controllers.Admin.UserMessageController}, 
+		\hyperpage{119}
+    \subitem {Sklep\_internetowy.Server.Controllers.Admin.UsersController}, 
+		\hyperpage{123}
+  \item {DeleteOrder}
+    \subitem {OrdersController}, \hyperpage{75}
+
+  \indexspace
+
+  \item {EmailService}
+    \subitem {Sklep\_internetowy.Server.Services.EmailService}, 
+		\hyperpage{60}
+  \item {ExecuteAsync}
+    \subitem {Sklep\_internetowy.Server.Services.Bidding.AuctionBackgroundService}, 
+		\hyperpage{33}
+  \item {Expires}
+    \subitem {Sklep\_internetowy.Server.Services.Auth.AuthSettings}, 
+		\hyperpage{46}
+
+  \indexspace
+
+  \item {FeaturedProductCard}, \hyperpage{60}
+    \subitem {FeaturedProductCard.jsx}, \hyperpage{138}
+  \item {FeaturedProductCard.jsx}
+    \subitem {FeaturedProductCard}, \hyperpage{138}
+  \item {FinishAuction}
+    \subitem {Sklep\_internetowy.Server.Services.Bidding.AuctionHub}, 
+		\hyperpage{37}
+  \item {FinishAuctionAsync}
+    \subitem {Sklep\_internetowy.Server.Services.Bidding.AuctionService}, 
+		\hyperpage{41}
+  \item {Footer}, \hyperpage{61}
+    \subitem {App.jsx}, \hyperpage{134}
+    \subitem {Footer.jsx}, \hyperpage{139}
+  \item {Footer.jsx}
+    \subitem {Footer}, \hyperpage{139}
+  \item {ForgotPasswordPage}, \hyperpage{61}
+
+  \indexspace
+
+  \item {GenerateToken}
+    \subitem {Sklep\_internetowy.Server.Services.Auth.JwtService}, 
+		\hyperpage{64}
+  \item {GetActiveAuctions}
+    \subitem {Sklep\_internetowy.Server.Controllers.BidController}, 
+		\hyperpage{49}
+  \item {getActiveAuctions}
+    \subitem {auctionApi.js}, \hyperpage{130}
+  \item {GetActiveAuctionsAsync}
+    \subitem {Sklep\_internetowy.Server.Services.Bidding.AuctionService}, 
+		\hyperpage{41}
+  \item {GetActiveDeals}
+    \subitem {Sklep\_internetowy.Server.Controllers.Admin.ProductCategoryController}, 
+		\hyperpage{86}
+  \item {GetAll}
+    \subitem {Sklep\_internetowy.Server.Controllers.Admin.UserMessageController}, 
+		\hyperpage{119}
+    \subitem {Sklep\_internetowy.Server.Controllers.Admin.UsersController}, 
+		\hyperpage{123}
+  \item {GetAllBrands}
+    \subitem {Sklep\_internetowy.Server.Controllers.Admin.ProductController}, 
+		\hyperpage{91}
+  \item {GetAuction}
+    \subitem {Sklep\_internetowy.Server.Controllers.BidController}, 
+		\hyperpage{49}
+  \item {getAuction}
+    \subitem {auctionApi.js}, \hyperpage{130}
+  \item {GetAuctionByIdAsync}
+    \subitem {Sklep\_internetowy.Server.Services.Bidding.AuctionService}, 
+		\hyperpage{42}
+  \item {GetById}
+    \subitem {Sklep\_internetowy.Server.Controllers.Admin.UserMessageController}, 
+		\hyperpage{120}
+    \subitem {Sklep\_internetowy.Server.Controllers.Admin.UsersController}, 
+		\hyperpage{123}
+  \item {GetCandidates}
+    \subitem {Sklep\_internetowy.Server.Controllers.Admin.PromotionController}, 
+		\hyperpage{102}
+  \item {GetCategories}
+    \subitem {Sklep\_internetowy.Server.Controllers.Admin.ProductCategoryController}, 
+		\hyperpage{86}
+  \item {GetCategoryBySlug}
+    \subitem {Sklep\_internetowy.Server.Controllers.Admin.ProductCategoryController}, 
+		\hyperpage{86}
+  \item {GetCurrentUser}
+    \subitem {Sklep\_internetowy.Server.Controllers.Account.AccountController}, 
+		\hyperpage{25}
+  \item {GetGroupName}
+    \subitem {Sklep\_internetowy.Server.Services.Bidding.AuctionHub}, 
+		\hyperpage{37}
+  \item {getHeaders}
+    \subitem {auctionApi.js}, \hyperpage{131}
+  \item {GetMessages}
+    \subitem {Sklep\_internetowy.Server.Controllers.Message.MessageController}, 
+		\hyperpage{68}
+  \item {GetOrders}
+    \subitem {OrdersController}, \hyperpage{76}
+  \item {GetProduct}
+    \subitem {Sklep\_internetowy.Server.Controllers.Shop.ProductController}, 
+		\hyperpage{94}
+  \item {GetProductById}
+    \subitem {Sklep\_internetowy.Server.Controllers.Admin.ProductController}, 
+		\hyperpage{91}
+  \item {GetProducts}
+    \subitem {Sklep\_internetowy.Server.Controllers.Admin.ProductController}, 
+		\hyperpage{91}
+    \subitem {Sklep\_internetowy.Server.Controllers.Shop.ProductController}, 
+		\hyperpage{94}
+  \item {GetProductsByCategory}
+    \subitem {Sklep\_internetowy.Server.Controllers.Admin.ProductCategoryController}, 
+		\hyperpage{87}
+  \item {GetProductsForComparison}
+    \subitem {Sklep\_internetowy.Server.Controllers.Admin.ProductController}, 
+		\hyperpage{91}
+  \item {GetPromotionCandidatesAsync}
+    \subitem {Sklep\_internetowy.Server.Services.Promotion.PromotionService}, 
+		\hyperpage{105}
+  \item {GetSuggestions}
+    \subitem {Sklep\_internetowy.Server.Controllers.Admin.ProductController}, 
+		\hyperpage{91}
+  \item {GetUserByNameAsync}
+    \subitem {Sklep\_internetowy.Server.Services.Auth.AccountService}, 
+		\hyperpage{27}
+  \item {GetUserOrders}
+    \subitem {OrdersController}, \hyperpage{76}
+  \item {GetUsers}
+    \subitem {Sklep\_internetowy.Server.Controllers.UsersController}, 
+		\hyperpage{126}
+
+  \indexspace
+
+  \item {Home}, \hyperpage{62}
+
+  \indexspace
+
+  \item {i18n.js}
+    \subitem {resources}, \hyperpage{144}
+    \subitem {use}, \hyperpage{144}
+  \item {Instrukcja Konfiguracji Projektu (Docker \& Migracje)}, 
+		\hyperpage{3}
+  \item {InvoiceDocument}, \hyperpage{63}
+
+  \indexspace
+
+  \item {JoinAuction}
+    \subitem {Sklep\_internetowy.Server.Services.Bidding.AuctionHub}, 
+		\hyperpage{38}
+
+  \indexspace
+
+  \item {Login}
+    \subitem {Sklep\_internetowy.Server.Controllers.Auth.AuthController}, 
+		\hyperpage{44}
+    \subitem {Sklep\_internetowy.Server.Services.Auth.AccountService}, 
+		\hyperpage{28}
+  \item {LoginPage}, \hyperpage{65}
+    \subitem {App.jsx}, \hyperpage{134}
+
+  \indexspace
+
+  \item {MessageController}
+    \subitem {Sklep\_internetowy.Server.Controllers.Message.MessageController}, 
+		\hyperpage{68}
+
+  \indexspace
+
+  \item {Navbar}, \hyperpage{68}
+    \subitem {Navbar.jsx}, \hyperpage{140}
+  \item {Navbar.jsx}
+    \subitem {Navbar}, \hyperpage{140}
+
+  \indexspace
+
+  \item {OnConnectedAsync}
+    \subitem {Sklep\_internetowy.Server.Services.Bidding.AuctionHub}, 
+		\hyperpage{38}
+  \item {OnModelCreating}
+    \subitem {Sklep\_internetowy.Server.Data.StoreDbContext}, 
+		\hyperpage{111}
+  \item {OrderManagement}, \hyperpage{71}
+    \subitem {OrderManagement.jsx}, \hyperpage{145}
+  \item {OrderManagement.jsx}
+    \subitem {OrderManagement}, \hyperpage{145}
+  \item {OrdersController}, \hyperpage{73}
+    \subitem {CreateOrder}, \hyperpage{75}
+    \subitem {DeleteOrder}, \hyperpage{75}
+    \subitem {GetOrders}, \hyperpage{76}
+    \subitem {GetUserOrders}, \hyperpage{76}
+    \subitem {OrdersController}, \hyperpage{75}
+    \subitem {UpdateOrder}, \hyperpage{76}
+
+  \indexspace
+
+  \item {PaymentController}
+    \subitem {Sklep\_internetowy.Server.Controllers.Payment.PaymentController}, 
+		\hyperpage{79}
+  \item {PaymentPage}, \hyperpage{80}
+    \subitem {App.jsx}, \hyperpage{134}
+  \item {PlaceBid}
+    \subitem {Sklep\_internetowy.Server.Controllers.BidController}, 
+		\hyperpage{50}
+    \subitem {Sklep\_internetowy.Server.Services.Bidding.AuctionHub}, 
+		\hyperpage{38}
+  \item {placeBid}
+    \subitem {auctionApi.js}, \hyperpage{131}
+  \item {PlaceBidAsync}
+    \subitem {Sklep\_internetowy.Server.Services.Bidding.AuctionService}, 
+		\hyperpage{42}
+  \item {PostMessage}
+    \subitem {Sklep\_internetowy.Server.Controllers.Message.MessageController}, 
+		\hyperpage{68}
+  \item {ProductCard}, \hyperpage{83}
+    \subitem {ProductCard.jsx}, \hyperpage{137}
+  \item {ProductCard.jsx}
+    \subitem {ProductCard}, \hyperpage{137}
+  \item {ProductCategoryController}
+    \subitem {Sklep\_internetowy.Server.Controllers.Admin.ProductCategoryController}, 
+		\hyperpage{86}
+  \item {ProductController}
+    \subitem {Sklep\_internetowy.Server.Controllers.Admin.ProductController}, 
+		\hyperpage{90}
+    \subitem {Sklep\_internetowy.Server.Controllers.Shop.ProductController}, 
+		\hyperpage{94}
+  \item {ProductDetails}, \hyperpage{95}
+    \subitem {ProductDetails.jsx}, \hyperpage{148}
+  \item {ProductDetails.jsx}
+    \subitem {ProductDetails}, \hyperpage{148}
+  \item {ProductDetailsShop}, \hyperpage{95}
+    \subitem {App.jsx}, \hyperpage{135}
+  \item {ProductForm}, \hyperpage{97}
+  \item {ProductGrid}, \hyperpage{98}
+    \subitem {ProductGrid.jsx}, \hyperpage{141}
+  \item {ProductGrid.jsx}
+    \subitem {ProductGrid}, \hyperpage{141}
+  \item {ProductsList}, \hyperpage{99}
+  \item {Program.cs}
+    \subitem {AddControllers}, \hyperpage{150}
+    \subitem {AddCors}, \hyperpage{150}
+    \subitem {AddIdentity$<$ User, IdentityRole $>$}, \hyperpage{151}
+    \subitem {AddScoped$<$ AuctionService $>$}, \hyperpage{151}
+    \subitem {AddSignalR}, \hyperpage{151}
+    \subitem {connectionString}, \hyperpage{151}
+    \subitem {secretKey}, \hyperpage{151}
+  \item {PromotionController}
+    \subitem {Sklep\_internetowy.Server.Controllers.Admin.PromotionController}, 
+		\hyperpage{102}
+  \item {PromotionManagement}, \hyperpage{103}
+  \item {PromotionService}
+    \subitem {Sklep\_internetowy.Server.Services.Promotion.PromotionService}, 
+		\hyperpage{105}
+  \item {ProtectedRoute}, \hyperpage{106}
+
+  \indexspace
+
+  \item {Register}
+    \subitem {Sklep\_internetowy.Server.Controllers.Auth.AuthController}, 
+		\hyperpage{44}
+    \subitem {Sklep\_internetowy.Server.Services.Auth.AccountService}, 
+		\hyperpage{28}
+  \item {Registration}, \hyperpage{107}
+    \subitem {App.jsx}, \hyperpage{135}
+  \item {RemoveExpiredDiscounts}
+    \subitem {Sklep\_internetowy.Server.Controllers.Admin.PromotionController}, 
+		\hyperpage{103}
+  \item {RemoveExpiredDiscountsAsync}
+    \subitem {Sklep\_internetowy.Server.Services.Promotion.PromotionService}, 
+		\hyperpage{106}
+  \item {RemoveProduct}
+    \subitem {Sklep\_internetowy.Server.Controllers.Admin.ProductController}, 
+		\hyperpage{92}
+  \item {ResetPassword}
+    \subitem {Sklep\_internetowy.Server.Controllers.Admin.UsersController}, 
+		\hyperpage{124}
+  \item {ResetPasswordForm}, \hyperpage{108}
+  \item {resources}
+    \subitem {i18n.js}, \hyperpage{144}
+
+  \indexspace
+
+  \item {SearchPage}, \hyperpage{109}
+  \item {SearchProducts}
+    \subitem {Sklep\_internetowy.Server.Controllers.Admin.ProductController}, 
+		\hyperpage{92}
+  \item {SecretKey}
+    \subitem {Sklep\_internetowy.Server.Services.Auth.AuthSettings}, 
+		\hyperpage{46}
+  \item {secretKey}
+    \subitem {Program.cs}, \hyperpage{151}
+  \item {SendOrderConfirmationAsync}
+    \subitem {Sklep\_internetowy.Server.Services.EmailService}, 
+		\hyperpage{60}
+  \item {SetUtcKind}
+    \subitem {Sklep\_internetowy.Server.Controllers.Admin.ProductCategoryController}, 
+		\hyperpage{87}
+    \subitem {Sklep\_internetowy.Server.Controllers.Admin.ProductController}, 
+		\hyperpage{92}
+  \item {SimpleReceipt}, \hyperpage{109}
+  \item {Sklep\_internetowy}, \hyperpage{5}, \hyperpage{17}
+  \item {sklep\_internetowy.client/src/api/auctionApi.js}, 
+		\hyperpage{129}
+  \item {sklep\_internetowy.client/src/App.jsx}, \hyperpage{132}
+  \item {sklep\_internetowy.client/src/auth/useAuth.js}, 
+		\hyperpage{136}
+  \item {sklep\_internetowy.client/src/components/admin/product/ProductCard.jsx}, 
+		\hyperpage{137}
+  \item {sklep\_internetowy.client/src/components/admin/product/ProductForm.jsx}, 
+		\hyperpage{138}
+  \item {sklep\_internetowy.client/src/components/carousel/Carousel.jsx}, 
+		\hyperpage{138}
+  \item {sklep\_internetowy.client/src/components/featuredProductCard/FeaturedProductCard.jsx}, 
+		\hyperpage{138}
+  \item {sklep\_internetowy.client/src/components/footer/Footer.jsx}, 
+		\hyperpage{139}
+  \item {sklep\_internetowy.client/src/components/navbar/Navbar.jsx}, 
+		\hyperpage{139}
+  \item {sklep\_internetowy.client/src/components/productGrid/ProductGrid.jsx}, 
+		\hyperpage{140}
+  \item {sklep\_internetowy.client/src/components/ProtectedRoute.jsx}, 
+		\hyperpage{141}
+  \item {sklep\_internetowy.client/src/components/shop/product/ProductCard.jsx}, 
+		\hyperpage{137}
+  \item {sklep\_internetowy.client/src/context/CartContext.jsx}, 
+		\hyperpage{141}
+  \item {sklep\_internetowy.client/src/context/ThemeContext.jsx}, 
+		\hyperpage{142}
+  \item {sklep\_internetowy.client/src/context/WishListContext.jsx}, 
+		\hyperpage{142}
+  \item {sklep\_internetowy.client/src/hooks/useComparison.js}, 
+		\hyperpage{143}
+  \item {sklep\_internetowy.client/src/i18n.js}, \hyperpage{143}
+  \item {sklep\_internetowy.client/src/main.jsx}, \hyperpage{144}
+  \item {sklep\_internetowy.client/src/pages/AdminDashboard/AdminDashboard.jsx}, 
+		\hyperpage{144}
+  \item {sklep\_internetowy.client/src/pages/AdminDashboard/messages/UserMessageManagement.jsx}, 
+		\hyperpage{145}
+  \item {sklep\_internetowy.client/src/pages/AdminDashboard/Order/OrderManagement.jsx}, 
+		\hyperpage{145}
+  \item {sklep\_internetowy.client/src/pages/AdminDashboard/promotion/PromotionManagement.jsx}, 
+		\hyperpage{145}
+  \item {sklep\_internetowy.client/src/pages/Auction/AuctionDetails.jsx}, 
+		\hyperpage{146}
+  \item {sklep\_internetowy.client/src/pages/Auction/AuctionList.jsx}, 
+		\hyperpage{146}
+  \item {sklep\_internetowy.client/src/pages/Auction/CreateAuction.jsx}, 
+		\hyperpage{146}
+  \item {sklep\_internetowy.client/src/pages/Cart/Cart.jsx}, 
+		\hyperpage{146}
+  \item {sklep\_internetowy.client/src/pages/ForgotPassword/ForgotPasswordPage.jsx}, 
+		\hyperpage{147}
+  \item {sklep\_internetowy.client/src/pages/Home/Home.jsx}, 
+		\hyperpage{147}
+  \item {sklep\_internetowy.client/src/pages/LoginPage/LoginPage.jsx}, 
+		\hyperpage{147}
+  \item {sklep\_internetowy.client/src/pages/Payment/PaymentPage.jsx}, 
+		\hyperpage{147}
+  \item {sklep\_internetowy.client/src/pages/Products/ProductDetails.jsx}, 
+		\hyperpage{148}
+  \item {sklep\_internetowy.client/src/pages/Products/Shop/ProductDetailsShop.jsx}, 
+		\hyperpage{148}
+  \item {sklep\_internetowy.client/src/pages/Products/Shop/SearchPage.jsx}, 
+		\hyperpage{148}
+  \item {sklep\_internetowy.client/src/pages/Registration/Registration.jsx}, 
+		\hyperpage{149}
+  \item {sklep\_internetowy.client/src/pages/UserProfile/UserProfile.jsx}, 
+		\hyperpage{149}
+  \item {sklep\_internetowy.client/src/pages/WishList/WishlistPage.jsx}, 
+		\hyperpage{149}
+  \item {Sklep\_internetowy.Server}, \hyperpage{17}
+  \item {Sklep\_internetowy.Server.Controllers}, \hyperpage{17}
+  \item {Sklep\_internetowy.Server.Controllers.Account}, \hyperpage{17}
+  \item {Sklep\_internetowy.Server.Controllers.Account.AccountController}, 
+		\hyperpage{23}
+    \subitem {AccountController}, \hyperpage{25}
+    \subitem {GetCurrentUser}, \hyperpage{25}
+    \subitem {UpdateUser}, \hyperpage{25}
+  \item {Sklep\_internetowy.Server.Controllers.Admin}, \hyperpage{17}
+  \item {Sklep\_internetowy.Server.Controllers.Admin.ApplyBulkDiscountRequest}, 
+		\hyperpage{30}
+  \item {Sklep\_internetowy.Server.Controllers.Admin.ProductCategoryController}, 
+		\hyperpage{85}
+    \subitem {GetActiveDeals}, \hyperpage{86}
+    \subitem {GetCategories}, \hyperpage{86}
+    \subitem {GetCategoryBySlug}, \hyperpage{86}
+    \subitem {GetProductsByCategory}, \hyperpage{87}
+    \subitem {ProductCategoryController}, \hyperpage{86}
+    \subitem {SetUtcKind}, \hyperpage{87}
+  \item {Sklep\_internetowy.Server.Controllers.Admin.ProductController}, 
+		\hyperpage{88}
+    \subitem {CreateProduct}, \hyperpage{90}
+    \subitem {GetAllBrands}, \hyperpage{91}
+    \subitem {GetProductById}, \hyperpage{91}
+    \subitem {GetProducts}, \hyperpage{91}
+    \subitem {GetProductsForComparison}, \hyperpage{91}
+    \subitem {GetSuggestions}, \hyperpage{91}
+    \subitem {ProductController}, \hyperpage{90}
+    \subitem {RemoveProduct}, \hyperpage{92}
+    \subitem {SearchProducts}, \hyperpage{92}
+    \subitem {SetUtcKind}, \hyperpage{92}
+    \subitem {UpdateProduct}, \hyperpage{92}
+  \item {Sklep\_internetowy.Server.Controllers.Admin.PromotionController}, 
+		\hyperpage{100}
+    \subitem {ApplyToSelected}, \hyperpage{102}
+    \subitem {GetCandidates}, \hyperpage{102}
+    \subitem {PromotionController}, \hyperpage{102}
+    \subitem {RemoveExpiredDiscounts}, \hyperpage{103}
+  \item {Sklep\_internetowy.Server.Controllers.Admin.UserMessageController}, 
+		\hyperpage{117}
+    \subitem {Create}, \hyperpage{119}
+    \subitem {Delete}, \hyperpage{119}
+    \subitem {GetAll}, \hyperpage{119}
+    \subitem {GetById}, \hyperpage{120}
+    \subitem {Update}, \hyperpage{120}
+    \subitem {UserMessageController}, \hyperpage{119}
+  \item {Sklep\_internetowy.Server.Controllers.Admin.UsersController}, 
+		\hyperpage{121}
+    \subitem {Create}, \hyperpage{123}
+    \subitem {Delete}, \hyperpage{123}
+    \subitem {GetAll}, \hyperpage{123}
+    \subitem {GetById}, \hyperpage{123}
+    \subitem {ResetPassword}, \hyperpage{124}
+    \subitem {Update}, \hyperpage{124}
+    \subitem {UsersController}, \hyperpage{122}
+  \item {Sklep\_internetowy.Server.Controllers.Auth}, \hyperpage{18}
+  \item {Sklep\_internetowy.Server.Controllers.Auth.AuthController}, 
+		\hyperpage{42}
+    \subitem {AuthController}, \hyperpage{44}
+    \subitem {Login}, \hyperpage{44}
+    \subitem {Register}, \hyperpage{44}
+  \item {Sklep\_internetowy.Server.Controllers.BidController}, 
+		\hyperpage{47}
+    \subitem {BidController}, \hyperpage{49}
+    \subitem {CreateAuction}, \hyperpage{49}
+    \subitem {GetActiveAuctions}, \hyperpage{49}
+    \subitem {GetAuction}, \hyperpage{49}
+    \subitem {PlaceBid}, \hyperpage{50}
+  \item {Sklep\_internetowy.Server.Controllers.Message}, \hyperpage{18}
+  \item {Sklep\_internetowy.Server.Controllers.Message.MessageController}, 
+		\hyperpage{67}
+    \subitem {GetMessages}, \hyperpage{68}
+    \subitem {MessageController}, \hyperpage{68}
+    \subitem {PostMessage}, \hyperpage{68}
+  \item {Sklep\_internetowy.Server.Controllers.Payment}, \hyperpage{18}
+  \item {Sklep\_internetowy.Server.Controllers.Payment.PaymentController}, 
+		\hyperpage{78}
+    \subitem {CreatePaymentIntent}, \hyperpage{79}
+    \subitem {PaymentController}, \hyperpage{79}
+  \item {Sklep\_internetowy.Server.Controllers.Payment.PaymentRequest}, 
+		\hyperpage{80}
+  \item {Sklep\_internetowy.Server.Controllers.Shop}, \hyperpage{18}
+  \item {Sklep\_internetowy.Server.Controllers.Shop.ProductController}, 
+		\hyperpage{93}
+    \subitem {GetProduct}, \hyperpage{94}
+    \subitem {GetProducts}, \hyperpage{94}
+    \subitem {ProductController}, \hyperpage{94}
+  \item {Sklep\_internetowy.Server.Controllers.UsersController}, 
+		\hyperpage{124}
+    \subitem {GetUsers}, \hyperpage{126}
+    \subitem {UsersController}, \hyperpage{125}
+  \item {Sklep\_internetowy.Server.Data}, \hyperpage{18}
+  \item {Sklep\_internetowy.Server.Data.StoreDbContext}, 
+		\hyperpage{110}
+    \subitem {OnModelCreating}, \hyperpage{111}
+    \subitem {StoreDbContext}, \hyperpage{111}
+  \item {Sklep\_internetowy.Server.DTOs}, \hyperpage{19}
+  \item {Sklep\_internetowy.Server.DTOs.AuctionDto}, \hyperpage{34}
+  \item {Sklep\_internetowy.Server.DTOs.BidRequest}, \hyperpage{50}
+  \item {Sklep\_internetowy.Server.DTOs.CreateAuctionDto}, 
+		\hyperpage{54}
+  \item {Sklep\_internetowy.Server.DTOs.CreateOrderItemDto}, 
+		\hyperpage{55}
+  \item {Sklep\_internetowy.Server.DTOs.CreateOrderRequestDto}, 
+		\hyperpage{56}
+  \item {Sklep\_internetowy.Server.DTOs.CreateProductDto}, 
+		\hyperpage{56}
+  \item {Sklep\_internetowy.Server.DTOs.CreateProductWithFilesDto}, 
+		\hyperpage{58}
+  \item {Sklep\_internetowy.Server.DTOs.LoginRequest}, \hyperpage{65}
+  \item {Sklep\_internetowy.Server.DTOs.OrderDetailsDto}, 
+		\hyperpage{70}
+  \item {Sklep\_internetowy.Server.DTOs.OrderProductDetailsDto}, 
+		\hyperpage{72}
+  \item {Sklep\_internetowy.Server.DTOs.OrderUpdateDto}, \hyperpage{77}
+  \item {Sklep\_internetowy.Server.DTOs.OrderUpdateItemDto}, 
+		\hyperpage{77}
+  \item {Sklep\_internetowy.Server.DTOs.PlaceBidDto}, \hyperpage{81}
+  \item {Sklep\_internetowy.Server.DTOs.ProductCategoryDto}, 
+		\hyperpage{88}
+  \item {Sklep\_internetowy.Server.DTOs.ProductDto}, \hyperpage{96}
+  \item {Sklep\_internetowy.Server.DTOs.RegisterUserRequest}, 
+		\hyperpage{106}
+  \item {Sklep\_internetowy.Server.DTOs.RemoveProductDto}, 
+		\hyperpage{108}
+  \item {Sklep\_internetowy.Server.DTOs.UpdateProductDto}, 
+		\hyperpage{112}
+  \item {Sklep\_internetowy.Server.DTOs.UpdateUserRequest}, 
+		\hyperpage{114}
+  \item {Sklep\_internetowy.Server.DTOs.UserDto}, \hyperpage{115}
+  \item {Sklep\_internetowy.Server.DTOs.UserUpdateDto}, \hyperpage{126}
+  \item {Sklep\_internetowy.Server.Migrations}, \hyperpage{20}
+  \item {Sklep\_internetowy.Server.Migrations.InitialCreate}, 
+		\hyperpage{62}
+  \item {Sklep\_internetowy.Server.Models}, \hyperpage{20}
+  \item {Sklep\_internetowy.Server.Models.Auction}, \hyperpage{31}
+  \item {Sklep\_internetowy.Server.Models.Bid}, \hyperpage{46}
+  \item {Sklep\_internetowy.Server.Models.MailSettings}, \hyperpage{66}
+  \item {Sklep\_internetowy.Server.Models.Order}, \hyperpage{69}
+  \item {Sklep\_internetowy.Server.Models.OrderProduct}, \hyperpage{71}
+  \item {Sklep\_internetowy.Server.Models.Product}, \hyperpage{81}
+  \item {Sklep\_internetowy.Server.Models.ProductCategory}, 
+		\hyperpage{84}
+  \item {Sklep\_internetowy.Server.Models.ProductImage}, \hyperpage{98}
+  \item {Sklep\_internetowy.Server.Models.User}, \hyperpage{114}
+  \item {Sklep\_internetowy.Server.Models.UserMessage}, \hyperpage{116}
+  \item {Sklep\_internetowy.Server.Services}, \hyperpage{21}
+  \item {Sklep\_internetowy.Server.Services.Auth}, \hyperpage{21}
+  \item {Sklep\_internetowy.Server.Services.Auth.AccountService}, 
+		\hyperpage{25}
+    \subitem {AccountService}, \hyperpage{27}
+    \subitem {GetUserByNameAsync}, \hyperpage{27}
+    \subitem {Login}, \hyperpage{28}
+    \subitem {Register}, \hyperpage{28}
+    \subitem {UpdateUserAsync}, \hyperpage{28}
+  \item {Sklep\_internetowy.Server.Services.Auth.AuthExtensions}, 
+		\hyperpage{45}
+    \subitem {AddAuth}, \hyperpage{45}
+  \item {Sklep\_internetowy.Server.Services.Auth.AuthSettings}, 
+		\hyperpage{45}
+    \subitem {Expires}, \hyperpage{46}
+    \subitem {SecretKey}, \hyperpage{46}
+  \item {Sklep\_internetowy.Server.Services.Auth.JwtService}, 
+		\hyperpage{63}
+    \subitem {GenerateToken}, \hyperpage{64}
+  \item {Sklep\_internetowy.Server.Services.Bidding}, \hyperpage{21}
+  \item {Sklep\_internetowy.Server.Services.Bidding.AuctionBackgroundService}, 
+		\hyperpage{32}
+    \subitem {AuctionBackgroundService}, \hyperpage{33}
+    \subitem {ExecuteAsync}, \hyperpage{33}
+  \item {Sklep\_internetowy.Server.Services.Bidding.AuctionHub}, 
+		\hyperpage{35}
+    \subitem {AuctionHub}, \hyperpage{37}
+    \subitem {FinishAuction}, \hyperpage{37}
+    \subitem {GetGroupName}, \hyperpage{37}
+    \subitem {JoinAuction}, \hyperpage{38}
+    \subitem {OnConnectedAsync}, \hyperpage{38}
+    \subitem {PlaceBid}, \hyperpage{38}
+  \item {Sklep\_internetowy.Server.Services.Bidding.AuctionService}, 
+		\hyperpage{39}
+    \subitem {AuctionService}, \hyperpage{41}
+    \subitem {CreateAuctionAsync}, \hyperpage{41}
+    \subitem {FinishAuctionAsync}, \hyperpage{41}
+    \subitem {GetActiveAuctionsAsync}, \hyperpage{41}
+    \subitem {GetAuctionByIdAsync}, \hyperpage{42}
+    \subitem {PlaceBidAsync}, \hyperpage{42}
+  \item {Sklep\_internetowy.Server.Services.EmailService}, 
+		\hyperpage{59}
+    \subitem {EmailService}, \hyperpage{60}
+    \subitem {SendOrderConfirmationAsync}, \hyperpage{60}
+  \item {Sklep\_internetowy.Server.Services.Promotion}, \hyperpage{21}
+  \item {Sklep\_internetowy.Server.Services.Promotion.PromotionService}, 
+		\hyperpage{103}
+    \subitem {ApplyBulkDiscountsAsync}, \hyperpage{105}
+    \subitem {GetPromotionCandidatesAsync}, \hyperpage{105}
+    \subitem {PromotionService}, \hyperpage{105}
+    \subitem {RemoveExpiredDiscountsAsync}, \hyperpage{106}
+  \item {Sklep\_internetowy.Server/Program.cs}, \hyperpage{150}
+  \item {StoreDbContext}
+    \subitem {Sklep\_internetowy.Server.Data.StoreDbContext}, 
+		\hyperpage{111}
+
+  \indexspace
+
+  \item {ThemeContext.jsx}
+    \subitem {useTheme}, \hyperpage{142}
+  \item {ThemeProvider}, \hyperpage{112}
+
+  \indexspace
+
+  \item {Update}
+    \subitem {Sklep\_internetowy.Server.Controllers.Admin.UserMessageController}, 
+		\hyperpage{120}
+    \subitem {Sklep\_internetowy.Server.Controllers.Admin.UsersController}, 
+		\hyperpage{124}
+  \item {UpdateOrder}
+    \subitem {OrdersController}, \hyperpage{76}
+  \item {UpdateProduct}
+    \subitem {Sklep\_internetowy.Server.Controllers.Admin.ProductController}, 
+		\hyperpage{92}
+  \item {UpdateUser}
+    \subitem {Sklep\_internetowy.Server.Controllers.Account.AccountController}, 
+		\hyperpage{25}
+  \item {UpdateUserAsync}
+    \subitem {Sklep\_internetowy.Server.Services.Auth.AccountService}, 
+		\hyperpage{28}
+  \item {use}
+    \subitem {i18n.js}, \hyperpage{144}
+  \item {useAuth}
+    \subitem {useAuth.js}, \hyperpage{136}
+  \item {useAuth.js}
+    \subitem {useAuth}, \hyperpage{136}
+  \item {useCart}
+    \subitem {CartContext.jsx}, \hyperpage{142}
+  \item {useComparison}
+    \subitem {useComparison.js}, \hyperpage{143}
+  \item {useComparison.js}
+    \subitem {useComparison}, \hyperpage{143}
+  \item {UserMessageController}
+    \subitem {Sklep\_internetowy.Server.Controllers.Admin.UserMessageController}, 
+		\hyperpage{119}
+  \item {UserMessageManagement}, \hyperpage{121}
+    \subitem {App.jsx}, \hyperpage{135}
+  \item {UserProfile}, \hyperpage{121}
+    \subitem {App.jsx}, \hyperpage{136}
+  \item {UsersController}
+    \subitem {Sklep\_internetowy.Server.Controllers.Admin.UsersController}, 
+		\hyperpage{122}
+    \subitem {Sklep\_internetowy.Server.Controllers.UsersController}, 
+		\hyperpage{125}
+  \item {useTheme}
+    \subitem {ThemeContext.jsx}, \hyperpage{142}
+  \item {useWishlist}
+    \subitem {WishListContext.jsx}, \hyperpage{143}
+
+  \indexspace
+
+  \item {WishListContext.jsx}
+    \subitem {useWishlist}, \hyperpage{143}
+  \item {WishlistPage}, \hyperpage{127}
+    \subitem {App.jsx}, \hyperpage{136}
+    \subitem {WishlistPage.jsx}, \hyperpage{149}
+  \item {WishlistPage.jsx}
+    \subitem {WishlistPage}, \hyperpage{149}
+  \item {WishlistProvider}, \hyperpage{127}
+
+\end{theindex}

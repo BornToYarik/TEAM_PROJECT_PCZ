@@ -1,0 +1,211 @@
+\doxysection{Dokumentacja pliku sklep\+\_\+internetowy.\+client/\+src/\+api/\+auction\+Api.js}
+\hypertarget{auction_api_8js}{}\label{auction_api_8js}\index{sklep\_internetowy.client/src/api/auctionApi.js@{sklep\_internetowy.client/src/api/auctionApi.js}}
+
+
+Serwis kliencki do obslugi zapytan API zwiazanych z systemem aukcyjnym.  
+
+
+\doxysubsubsection*{Zmienne}
+\begin{DoxyCompactItemize}
+\item 
+const \doxymbox{\hyperlink{auction_api_8js_a9f106c4661b1449092a237da75b6f89a}{get\+Headers}}
+\item 
+export const \doxymbox{\hyperlink{auction_api_8js_acb4c24e6f63baa20b984805d45aa17f9}{get\+Active\+Auctions}}
+\item 
+export const \doxymbox{\hyperlink{auction_api_8js_ae6d73a675298856c75238ae9d4839109}{get\+Auction}}
+\item 
+export const \doxymbox{\hyperlink{auction_api_8js_aad867f41fea275810500c59885908462}{place\+Bid}}
+\item 
+export const \doxymbox{\hyperlink{auction_api_8js_a9e0ec2897b98ecedffbaeb2a35c0a7aa}{create\+Auction}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Opis szczegółowy}
+Serwis kliencki do obslugi zapytan API zwiazanych z systemem aukcyjnym. 
+
+Zawiera zestaw funkcji asynchronicznych do komunikacji z kontrolerem Bid\+Controller, obslugujac pobieranie danych aukcji, licytowanie oraz tworzenie nowych licytacji. 
+
+\label{doc-var-members}
+\Hypertarget{auction_api_8js_doc-var-members}
+\doxysubsection{Dokumentacja zmiennych}
+\Hypertarget{auction_api_8js_a9e0ec2897b98ecedffbaeb2a35c0a7aa}\index{auctionApi.js@{auctionApi.js}!createAuction@{createAuction}}
+\index{createAuction@{createAuction}!auctionApi.js@{auctionApi.js}}
+\doxysubsubsection{\texorpdfstring{createAuction}{createAuction}}
+{\footnotesize\ttfamily \label{auction_api_8js_a9e0ec2897b98ecedffbaeb2a35c0a7aa} 
+export const create\+Auction}
+
+{\bfseries Wartość początkowa:\+}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ async\ (data)\ =>\ \{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{const}\ response\ =\ await\ fetch(\textcolor{stringliteral}{"{}/api/bid/create"{}},\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ method:\ \textcolor{stringliteral}{"{}POST"{}},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ headers:\ \doxymbox{\hyperlink{auction_api_8js_a9f106c4661b1449092a237da75b6f89a}{getHeaders}}(\{\ \textcolor{stringliteral}{"{}Content-\/Type"{}}:\ \textcolor{stringliteral}{"{}application/json"{}}\ \}),}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ body:\ JSON.stringify(\{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ productId:\ data.productId,}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ startingPrice:\ data.startingPrice}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \})}
+\DoxyCodeLine{\ \ \ \ \});}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{if}\ (!response.ok)\ \textcolor{keywordflow}{throw}\ \textcolor{keyword}{new}\ Error(\textcolor{stringliteral}{"{}Failed\ to\ create\ auction"{}});}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{try}\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ await\ response.json();}
+\DoxyCodeLine{\ \ \ \ \}\ \textcolor{keywordflow}{catch}\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{null};}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+\begin{DoxyNote}{Nota}
+Funkcja asynchroniczna @description Tworzy nowa aukcje dla wskazanego produktu. 
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parametry}
+{\em \{\+Object\}} & data -\/ Obiekt z danymi aukcji. \\
+\hline
+{\em \{number\}} & data.\+product\+Id -\/ ID produktu do wystawienia. \\
+\hline
+{\em \{number\}} & data.\+starting\+Price -\/ Cena wywolawcza. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Zwraca}
+\{Promise\texorpdfstring{$<$}{<}Object\texorpdfstring{$\vert$}{|}null\texorpdfstring{$>$}{>}\} Dane utworzonej aukcji lub null w przypadku bledu parsowania. 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Wyjątki}
+{\em \{\+Error\}} & Gdy wystapi blad podczas tworzenia licytacji. \\
+\hline
+\end{DoxyExceptions}
+\Hypertarget{auction_api_8js_acb4c24e6f63baa20b984805d45aa17f9}\index{auctionApi.js@{auctionApi.js}!getActiveAuctions@{getActiveAuctions}}
+\index{getActiveAuctions@{getActiveAuctions}!auctionApi.js@{auctionApi.js}}
+\doxysubsubsection{\texorpdfstring{getActiveAuctions}{getActiveAuctions}}
+{\footnotesize\ttfamily \label{auction_api_8js_acb4c24e6f63baa20b984805d45aa17f9} 
+export const get\+Active\+Auctions}
+
+{\bfseries Wartość początkowa:\+}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ async\ ()\ =>\ \{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{const}\ response\ =\ await\ fetch(\textcolor{stringliteral}{"{}/api/bid/active"{}},\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ method:\ \textcolor{stringliteral}{"{}GET"{}},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ headers:\ \doxymbox{\hyperlink{auction_api_8js_a9f106c4661b1449092a237da75b6f89a}{getHeaders}}()}
+\DoxyCodeLine{\ \ \ \ \});}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{if}\ (!response.ok)\ \textcolor{keywordflow}{throw}\ \textcolor{keyword}{new}\ Error(\textcolor{stringliteral}{"{}Failed\ to\ fetch\ active\ auctions"{}});}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{try}\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ await\ response.json();}
+\DoxyCodeLine{\ \ \ \ \}\ \textcolor{keywordflow}{catch}\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ [];}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+\begin{DoxyNote}{Nota}
+Funkcja asynchroniczna @description Pobiera liste wszystkich obecnie aktywnych (trwajacych) aukcji. 
+\end{DoxyNote}
+\begin{DoxyReturn}{Zwraca}
+\{Promise$<$\+Array$>$\} Obietnica zwracajaca tablice obiektow Auction\+Dto. 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Wyjątki}
+{\em \{\+Error\}} & Gdy serwer zwroci blad podczas pobierania. \\
+\hline
+\end{DoxyExceptions}
+\Hypertarget{auction_api_8js_ae6d73a675298856c75238ae9d4839109}\index{auctionApi.js@{auctionApi.js}!getAuction@{getAuction}}
+\index{getAuction@{getAuction}!auctionApi.js@{auctionApi.js}}
+\doxysubsubsection{\texorpdfstring{getAuction}{getAuction}}
+{\footnotesize\ttfamily \label{auction_api_8js_ae6d73a675298856c75238ae9d4839109} 
+export const get\+Auction}
+
+{\bfseries Wartość początkowa:\+}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ async\ (\textcolor{keywordtype}{id})\ =>\ \{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{const}\ response\ =\ await\ fetch(\`{}/api/bid/\$\{\textcolor{keywordtype}{id}\}\`{},\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ method:\ \textcolor{stringliteral}{"{}GET"{}},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ headers:\ \doxymbox{\hyperlink{auction_api_8js_a9f106c4661b1449092a237da75b6f89a}{getHeaders}}()}
+\DoxyCodeLine{\ \ \ \ \});}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{if}\ (!response.ok)\ \textcolor{keywordflow}{throw}\ \textcolor{keyword}{new}\ Error(\`{}Failed\ to\ fetch\ auction\ with\ \textcolor{keywordtype}{id}\ \$\{\textcolor{keywordtype}{id}\}\`{});}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{try}\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ data\ =\ await\ response.json();}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \{\ data\ \};}
+\DoxyCodeLine{\ \ \ \ \}\ \textcolor{keywordflow}{catch}\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \{\ data:\ \textcolor{keyword}{null}\ \};}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+\begin{DoxyNote}{Nota}
+Funkcja asynchroniczna @description Pobiera szczegolowe dane konkretnej aukcji na podstawie jej identyfikatora. 
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parametry}
+{\em \{number\texorpdfstring{$\vert$}{|}string\}} & id -\/ Unikalny identyfikator aukcji. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Zwraca}
+\{Promise$<$\+Object$>$\} Obiekt zawierajacy dane aukcji w polu \textquotesingle{}data\textquotesingle{}. 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Wyjątki}
+{\em \{\+Error\}} & Gdy aukcja nie zostanie znaleziona lub wystapi blad sieci. \\
+\hline
+\end{DoxyExceptions}
+\Hypertarget{auction_api_8js_a9f106c4661b1449092a237da75b6f89a}\index{auctionApi.js@{auctionApi.js}!getHeaders@{getHeaders}}
+\index{getHeaders@{getHeaders}!auctionApi.js@{auctionApi.js}}
+\doxysubsubsection{\texorpdfstring{getHeaders}{getHeaders}}
+{\footnotesize\ttfamily \label{auction_api_8js_a9f106c4661b1449092a237da75b6f89a} 
+const get\+Headers}
+
+{\bfseries Wartość początkowa:\+}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ (customHeaders\ =\ \{\})\ =>\ \{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{const}\ token\ =\ localStorage.getItem(\textcolor{stringliteral}{"{}token"{}});}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{const}\ headers\ =\ \{\ ...customHeaders\ \};}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{if}\ (token)\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ headers[\textcolor{stringliteral}{"{}Authorization"{}}]\ =\ \`{}Bearer\ \$\{token\}\`{};}
+\DoxyCodeLine{\ \ \ \ \}}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{return}\ headers;}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+@description Funkcja pomocnicza generujaca naglowki zapytan HTTP, w tym token autoryzacyjny Bearer. 
+\begin{DoxyParams}{Parametry}
+{\em \{\+Object\}} & custom\+Headers -\/ Dodatkowe specyficzne naglowki (np. Content-\/\+Type). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Zwraca}
+\{Object\} Zestaw naglowkow z dolaczonym tokenem JWT z local\+Storage. 
+\end{DoxyReturn}
+\Hypertarget{auction_api_8js_aad867f41fea275810500c59885908462}\index{auctionApi.js@{auctionApi.js}!placeBid@{placeBid}}
+\index{placeBid@{placeBid}!auctionApi.js@{auctionApi.js}}
+\doxysubsubsection{\texorpdfstring{placeBid}{placeBid}}
+{\footnotesize\ttfamily \label{auction_api_8js_aad867f41fea275810500c59885908462} 
+export const place\+Bid}
+
+{\bfseries Wartość początkowa:\+}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =\ async\ (\textcolor{keywordtype}{id},\ amount)\ =>\ \{}
+\DoxyCodeLine{\ \ \ \ \textcolor{keyword}{const}\ response\ =\ await\ fetch(\`{}/api/bid/\$\{\textcolor{keywordtype}{id}\}/bid\`{},\ \{}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ method:\ \textcolor{stringliteral}{"{}POST"{}},}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ headers:\ \doxymbox{\hyperlink{auction_api_8js_a9f106c4661b1449092a237da75b6f89a}{getHeaders}}(\{\ \textcolor{stringliteral}{"{}Content-\/Type"{}}:\ \textcolor{stringliteral}{"{}application/json"{}}\ \}),}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ body:\ JSON.stringify(\{\ amount\ \})}
+\DoxyCodeLine{\ \ \ \ \});}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{if}\ (!response.ok)\ \textcolor{keywordflow}{throw}\ \textcolor{keyword}{new}\ Error(\`{}Failed\ to\ place\ bid\ on\ auction\ \$\{\textcolor{keywordtype}{id}\}\`{});}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{return}\ response.json();}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+\begin{DoxyNote}{Nota}
+Funkcja asynchroniczna @description Przesyla nowa oferte licytacji dla wybranej aukcji. 
+\end{DoxyNote}
+
+\begin{DoxyParams}{Parametry}
+{\em \{number\texorpdfstring{$\vert$}{|}string\}} & id -\/ ID aukcji, w ktorej skladana jest oferta. \\
+\hline
+{\em \{number\}} & amount -\/ Kwota nowej oferty (podbicie). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Zwraca}
+\{Promise$<$\+Object$>$\} Wynik operacji zwrocony przez serwer. 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Wyjątki}
+{\em \{\+Error\}} & Gdy oferta jest zbyt niska, aukcja wygasla lub wystapil blad autoryzacji. \\
+\hline
+\end{DoxyExceptions}

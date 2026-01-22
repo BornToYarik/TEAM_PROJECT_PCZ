@@ -2,16 +2,58 @@ import { useNavigate } from "react-router-dom";
 import { useWishlist } from '../../../context/WishListContext';
 import { useTranslation } from 'react-i18next';
 
+/**
+ * @file ProductCard.jsx
+ * @brief Komponent karty produktu wyswietlanej w siatce produktow.
+ * @details Odpowiada za prezentacje pojedynczego produktu, wyswietlanie ceny,
+ * obsluge znizek, dodawanie do koszyka oraz zarzadzanie lista zyczen.
+ */
+
+/**
+ * @component ProductCard
+ * @brief Komponent pojedynczej karty produktu.
+ * @param {Object} product Obiekt produktu do wyswietlenia.
+ * @param {Function} addToCart Funkcja dodajaca produkt do koszyka.
+ * @param {Function} onClick Funkcja wywolywana po kliknieciu w karte produktu.
+ * @return JSX.Element Element karty produktu.
+ */
 function ProductCard({ product, addToCart, onClick }) {
+
+    /**
+     * @brief Funkcja tlumaczen interfejsu uzytkownika.
+     */
     const { t } = useTranslation();
+
+    /**
+     * @brief Hook do nawigacji pomiedzy stronami.
+     */
     const navigate = useNavigate();
 
+    /**
+     * @brief Sprawdza czy produkt ma aktywna znizke.
+     * @param {Object} p Obiekt produktu.
+     * @return {boolean} True jesli znizka jest aktywna.
+     */
     const isDiscountActive = (p) => p.hasActiveDiscount || p.discountPercentage > 0;
+
+    /**
+     * @brief Domyslny obrazek produktu uzywany gdy brak zdjec.
+     */
     const DEFAULT_IMAGE = "https://cdn.pixabay.com/photo/2017/11/10/04/47/image-2935360_1280.png";
 
+    /**
+     * @brief Funkcje oraz dane z kontekstu listy zyczen.
+     */
     const { toggleWishlist, isInWishlist } = useWishlist();
+
+    /**
+     * @brief Flaga informujaca czy produkt znajduje sie w liscie zyczen.
+     */
     const isLiked = isInWishlist(product.id);
 
+    /**
+     * @brief Glowny obrazek produktu.
+     */
     const mainImage = (product.imageUrls && product.imageUrls.length > 0)
         ? product.imageUrls[0]
         : DEFAULT_IMAGE;

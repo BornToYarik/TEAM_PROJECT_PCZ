@@ -1,0 +1,40 @@
+\doxysection{Dokumentacja klasy Sklep\+\_\+internetowy.\+Server.\+Models.\+Product\+Image}
+\hypertarget{class_sklep__internetowy_1_1_server_1_1_models_1_1_product_image}{}\label{class_sklep__internetowy_1_1_server_1_1_models_1_1_product_image}\index{Sklep\_internetowy.Server.Models.ProductImage@{Sklep\_internetowy.Server.Models.ProductImage}}
+
+
+Klasa reprezentująca zdjęcie przypisane do konkretnego produktu w systemie Tech\+Store. Przechowuje informacje o lokalizacji pliku graficznego oraz relację z produktem, co umożliwia renderowanie galerii zdjęć w części frontendowej sklepu.  
+
+
+
+
+Diagram współpracy dla Sklep\+\_\+internetowy.\+Server.\+Models.\+Product\+Image:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=202pt]{class_sklep__internetowy_1_1_server_1_1_models_1_1_product_image__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Właściwości}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_models_1_1_product_image_a3db6c6bfd6c8cef454963e0fc72f2917}\label{class_sklep__internetowy_1_1_server_1_1_models_1_1_product_image_a3db6c6bfd6c8cef454963e0fc72f2917} 
+int {\bfseries Id}\hspace{0.3cm}{\ttfamily  \+[get, set]\+}
+\begin{DoxyCompactList}\small\item\em Unikalny identyfikator rekordu zdjęcia w bazie danych. \end{DoxyCompactList}\item 
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_models_1_1_product_image_a143666d9562070510e686a68666d68d2}\label{class_sklep__internetowy_1_1_server_1_1_models_1_1_product_image_a143666d9562070510e686a68666d68d2} 
+string {\bfseries Image\+Url} = null!\hspace{0.3cm}{\ttfamily  \+[get, set]\+}
+\begin{DoxyCompactList}\small\item\em Adres URL lub ścieżka do pliku graficznego (np. /\+uploads/\+image.jpg). \end{DoxyCompactList}\item 
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_models_1_1_product_image_ae4cdc15e97b25ed476919ba0502ec71b}\label{class_sklep__internetowy_1_1_server_1_1_models_1_1_product_image_ae4cdc15e97b25ed476919ba0502ec71b} 
+int {\bfseries Product\+Id}\hspace{0.3cm}{\ttfamily  \+[get, set]\+}
+\begin{DoxyCompactList}\small\item\em Identyfikator produktu, do którego przypisane jest to zdjęcie. \end{DoxyCompactList}\item 
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_models_1_1_product_image_a81e95e24b006cb48c2895d2c86a1af46}\label{class_sklep__internetowy_1_1_server_1_1_models_1_1_product_image_a81e95e24b006cb48c2895d2c86a1af46} 
+Product {\bfseries Product} = null!\hspace{0.3cm}{\ttfamily  \+[get, set]\+}
+\begin{DoxyCompactList}\small\item\em Obiekt nawigacyjny powiązanego produktu, umożliwiający dostęp do jego szczegółów. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Opis szczegółowy}
+Klasa reprezentująca zdjęcie przypisane do konkretnego produktu w systemie Tech\+Store. Przechowuje informacje o lokalizacji pliku graficznego oraz relację z produktem, co umożliwia renderowanie galerii zdjęć w części frontendowej sklepu. 
+
+Dokumentacja dla tej klasy została wygenerowana z pliku:\+\begin{DoxyCompactItemize}
+\item 
+Sklep\+\_\+internetowy.\+Server/\+\+Models/\+Product\+Image.\+cs\end{DoxyCompactItemize}

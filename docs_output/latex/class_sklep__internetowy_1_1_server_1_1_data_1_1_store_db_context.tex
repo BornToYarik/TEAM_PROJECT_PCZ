@@ -1,0 +1,103 @@
+\doxysection{Dokumentacja klasy Sklep\+\_\+internetowy.\+Server.\+Data.\+Store\+Db\+Context}
+\hypertarget{class_sklep__internetowy_1_1_server_1_1_data_1_1_store_db_context}{}\label{class_sklep__internetowy_1_1_server_1_1_data_1_1_store_db_context}\index{Sklep\_internetowy.Server.Data.StoreDbContext@{Sklep\_internetowy.Server.Data.StoreDbContext}}
+
+
+Glowny kontekst bazy danych aplikacji Tech\+Store. Klasa dziedziczy po Identity\+Db\+Context, co integruje system ASP.\+NET Core Identity z modelem danych aplikacji, umozliwiajac zarzadzanie uzytkownikami i rolami.  
+
+
+
+
+Diagram współpracy dla Sklep\+\_\+internetowy.\+Server.\+Data.\+Store\+Db\+Context:\+
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=202pt]{class_sklep__internetowy_1_1_server_1_1_data_1_1_store_db_context__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Metody publiczne}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_data_1_1_store_db_context_aafcae27c192966c2878c6fdbf10cf64f}{Store\+Db\+Context}} (Db\+Context\+Options$<$ Store\+Db\+Context $>$ options)
+\begin{DoxyCompactList}\small\item\em Inicjalizuje nowa instancje klasy \doxylink{class_sklep__internetowy_1_1_server_1_1_data_1_1_store_db_context}{Store\+Db\+Context}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Metody chronione}
+\begin{DoxyCompactItemize}
+\item 
+override void \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_data_1_1_store_db_context_a97835a5c2b7bf012b8a0c1daf9ccffa2}{On\+Model\+Creating}} (Model\+Builder model\+Builder)
+\begin{DoxyCompactList}\small\item\em Konfiguruje model encji i relacje miedzy nimi podczas inicjalizacji bazy danych. Definiuje klucze zlozone, zachowania usuwania kaskadowego oraz dane startowe (Seed \doxylink{namespace_sklep__internetowy_1_1_server_1_1_data}{Data}). \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Właściwości}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_data_1_1_store_db_context_af61a20f015dd3641af7729d19e30c943}\label{class_sklep__internetowy_1_1_server_1_1_data_1_1_store_db_context_af61a20f015dd3641af7729d19e30c943} 
+Db\+Set$<$ \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_models_1_1_auction}{Auction}} $>$ {\bfseries Auctions}\hspace{0.3cm}{\ttfamily  \+[get]\+}
+\begin{DoxyCompactList}\small\item\em Zestaw danych reprezentujacy aukcje (licytacje) w systemie. \end{DoxyCompactList}\item 
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_data_1_1_store_db_context_a4a33a9769bdfb0a39767ca3a322207dd}\label{class_sklep__internetowy_1_1_server_1_1_data_1_1_store_db_context_a4a33a9769bdfb0a39767ca3a322207dd} 
+Db\+Set$<$ \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_models_1_1_bid}{Bid}} $>$ {\bfseries Bids}\hspace{0.3cm}{\ttfamily  \+[get]\+}
+\begin{DoxyCompactList}\small\item\em Zestaw danych reprezentujacy poszczegolne oferty zlozone w aukcjach. \end{DoxyCompactList}\item 
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_data_1_1_store_db_context_abc1a8810a621875454489373d217707e}\label{class_sklep__internetowy_1_1_server_1_1_data_1_1_store_db_context_abc1a8810a621875454489373d217707e} 
+Db\+Set$<$ \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_models_1_1_product}{Product}} $>$ {\bfseries Products}\hspace{0.3cm}{\ttfamily  \+[get]\+}
+\begin{DoxyCompactList}\small\item\em Zestaw danych reprezentujacy produkty dostepne w katalogu sklepu. \end{DoxyCompactList}\item 
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_data_1_1_store_db_context_ad4dadec9c46717ab40eea710a8468e50}\label{class_sklep__internetowy_1_1_server_1_1_data_1_1_store_db_context_ad4dadec9c46717ab40eea710a8468e50} 
+Db\+Set$<$ \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_models_1_1_order}{Order}} $>$ {\bfseries Orders}\hspace{0.3cm}{\ttfamily  \+[get]\+}
+\begin{DoxyCompactList}\small\item\em Rejestr zamowien zlozonych przez klientow. \end{DoxyCompactList}\item 
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_data_1_1_store_db_context_a8681b30b81e27e92b7da4d4d14ef4f02}\label{class_sklep__internetowy_1_1_server_1_1_data_1_1_store_db_context_a8681b30b81e27e92b7da4d4d14ef4f02} 
+Db\+Set$<$ \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_models_1_1_order_product}{Order\+Product}} $>$ {\bfseries Order\+Products}\hspace{0.3cm}{\ttfamily  \+[get]\+}
+\begin{DoxyCompactList}\small\item\em Tabela laczaca produkty z zamowieniami (relacja wiele-\/do-\/wielu). \end{DoxyCompactList}\item 
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_data_1_1_store_db_context_af02660df36388828fcd6bb3238ff513e}\label{class_sklep__internetowy_1_1_server_1_1_data_1_1_store_db_context_af02660df36388828fcd6bb3238ff513e} 
+Db\+Set$<$ \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_models_1_1_user_message}{User\+Message}} $>$ {\bfseries Messages}\hspace{0.3cm}{\ttfamily  \+[get, set]\+}
+\begin{DoxyCompactList}\small\item\em Wiadomosci kontaktowe przeslane przez uzytkownikow systemu. \end{DoxyCompactList}\item 
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_data_1_1_store_db_context_acc11e5c1c603aa5a964ea3dd18018759}\label{class_sklep__internetowy_1_1_server_1_1_data_1_1_store_db_context_acc11e5c1c603aa5a964ea3dd18018759} 
+Db\+Set$<$ \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_models_1_1_product_category}{Product\+Category}} $>$ {\bfseries Product\+Categories}\hspace{0.3cm}{\ttfamily  \+[get, set]\+}
+\begin{DoxyCompactList}\small\item\em Kategorie, do ktorych przypisane sa produkty. \end{DoxyCompactList}\item 
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_data_1_1_store_db_context_a647e7a8710261669fd9c37235821951f}\label{class_sklep__internetowy_1_1_server_1_1_data_1_1_store_db_context_a647e7a8710261669fd9c37235821951f} 
+Db\+Set$<$ \doxymbox{\hyperlink{class_sklep__internetowy_1_1_server_1_1_models_1_1_product_image}{Product\+Image}} $>$ {\bfseries Product\+Images}\hspace{0.3cm}{\ttfamily  \+[get, set]\+}
+\begin{DoxyCompactList}\small\item\em Zdjecia i grafiki przypisane do konkretnych produktow. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Opis szczegółowy}
+Glowny kontekst bazy danych aplikacji Tech\+Store. Klasa dziedziczy po Identity\+Db\+Context, co integruje system ASP.\+NET Core Identity z modelem danych aplikacji, umozliwiajac zarzadzanie uzytkownikami i rolami. 
+
+\label{doc-constructors}
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_data_1_1_store_db_context_doc-constructors}
+\doxysubsection{Dokumentacja konstruktora i destruktora}
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_data_1_1_store_db_context_aafcae27c192966c2878c6fdbf10cf64f}\index{Sklep\_internetowy.Server.Data.StoreDbContext@{Sklep\_internetowy.Server.Data.StoreDbContext}!StoreDbContext@{StoreDbContext}}
+\index{StoreDbContext@{StoreDbContext}!Sklep\_internetowy.Server.Data.StoreDbContext@{Sklep\_internetowy.Server.Data.StoreDbContext}}
+\doxysubsubsection{\texorpdfstring{StoreDbContext()}{StoreDbContext()}}
+{\footnotesize\ttfamily \label{class_sklep__internetowy_1_1_server_1_1_data_1_1_store_db_context_aafcae27c192966c2878c6fdbf10cf64f} 
+Sklep\+\_\+internetowy.\+Server.\+Data.\+Store\+Db\+Context.\+Store\+Db\+Context (\begin{DoxyParamCaption}\item[{Db\+Context\+Options$<$ Store\+Db\+Context $>$}]{options}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Inicjalizuje nowa instancje klasy \doxylink{class_sklep__internetowy_1_1_server_1_1_data_1_1_store_db_context}{Store\+Db\+Context}. 
+
+
+\begin{DoxyParams}{Parametry}
+{\em options} & Opcje konfiguracji kontekstu przekazywane przez system Dependency Injection.\\
+\hline
+\end{DoxyParams}
+
+
+\label{doc-func-members}
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_data_1_1_store_db_context_doc-func-members}
+\doxysubsection{Dokumentacja funkcji składowych}
+\Hypertarget{class_sklep__internetowy_1_1_server_1_1_data_1_1_store_db_context_a97835a5c2b7bf012b8a0c1daf9ccffa2}\index{Sklep\_internetowy.Server.Data.StoreDbContext@{Sklep\_internetowy.Server.Data.StoreDbContext}!OnModelCreating@{OnModelCreating}}
+\index{OnModelCreating@{OnModelCreating}!Sklep\_internetowy.Server.Data.StoreDbContext@{Sklep\_internetowy.Server.Data.StoreDbContext}}
+\doxysubsubsection{\texorpdfstring{OnModelCreating()}{OnModelCreating()}}
+{\footnotesize\ttfamily \label{class_sklep__internetowy_1_1_server_1_1_data_1_1_store_db_context_a97835a5c2b7bf012b8a0c1daf9ccffa2} 
+override void Sklep\+\_\+internetowy.\+Server.\+Data.\+Store\+Db\+Context.\+On\+Model\+Creating (\begin{DoxyParamCaption}\item[{Model\+Builder}]{model\+Builder}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}}
+
+
+
+Konfiguruje model encji i relacje miedzy nimi podczas inicjalizacji bazy danych. Definiuje klucze zlozone, zachowania usuwania kaskadowego oraz dane startowe (Seed \doxylink{namespace_sklep__internetowy_1_1_server_1_1_data}{Data}). 
+
+
+\begin{DoxyParams}{Parametry}
+{\em model\+Builder} & Obiekt sluzacy do budowania modelu bazy danych.\\
+\hline
+\end{DoxyParams}
+\hypertarget{class_sklep__internetowy_1_1_server_1_1_data_1_1_store_db_context_SeedData}{}\doxysubsection{\texorpdfstring{Seed\+Data}{Seed\+Data}}\label{class_sklep__internetowy_1_1_server_1_1_data_1_1_store_db_context_SeedData}
+Inicjalizacja bazy danych wstepnymi danymi testowymi.
+
+Dokumentacja dla tej klasy została wygenerowana z pliku:\+\begin{DoxyCompactItemize}
+\item 
+Sklep\+\_\+internetowy.\+Server/\+\+Data/\+Store\+Db\+Context.\+cs\end{DoxyCompactItemize}
