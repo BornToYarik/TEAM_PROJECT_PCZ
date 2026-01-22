@@ -42,7 +42,7 @@ function Footer() {
     };
 
     return (
-        <footer className="bg-dark text-white">
+        <footer className="bg-dark text-white mt-auto">
             <div className="container p-1">
                 <div className="row">
                     <div className="m-2 col p-3">

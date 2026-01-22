@@ -10,6 +10,8 @@ export default function AuctionList() {
     const navigate = useNavigate();
     const API_URL = "http://localhost:8080";
 
+    const DEFAULT_IMAGE = "https://cdn.pixabay.com/photo/2017/11/10/04/47/image-2935360_1280.png";
+
     useEffect(() => {
         const fetchAuctions = async () => {
             try {
@@ -86,7 +88,7 @@ export default function AuctionList() {
                         const firstImage = a.product?.imageUrls?.[0];
                         const imageUrl = firstImage
                             ? (firstImage.startsWith("http") ? firstImage : `${API_URL}${firstImage}`)
-                            : "/placeholder.png";
+                            : DEFAULT_IMAGE;
 
                         return (
                             <div key={a.id} className="col-md-6 col-lg-4">

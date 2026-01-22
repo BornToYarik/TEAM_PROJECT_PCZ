@@ -36,6 +36,7 @@ function App() {
 
     return (
         <ThemeProvider>
+            <div className="d-flex flex-column min-vh-100">
             <Navbar compareCount={comparison.compareItems.length} />
             <Routes>
 
@@ -106,7 +107,8 @@ function App() {
                     </ProtectedRoute>
                 } />
             </Routes>
-            <Footer />
+                <Footer />
+            </div>
         </ThemeProvider>
     )
 }
