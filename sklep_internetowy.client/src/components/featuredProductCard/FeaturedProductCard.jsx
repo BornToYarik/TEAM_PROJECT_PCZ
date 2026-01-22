@@ -1,7 +1,9 @@
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from 'react-i18next';
 
 function FeaturedProductCard({ product }) {
     const navigate = useNavigate();
+    const { t } = useTranslation();
 
     const DEFAULT_IMAGE = "https://cdn.pixabay.com/photo/2017/11/10/04/47/image-2935360_1280.png";
     if (!product) return null;
@@ -63,7 +65,7 @@ function FeaturedProductCard({ product }) {
                             navigate(`/product/${product.id}`);
                         }}
                     >
-                        View product
+                        {product.quantity > 0 ? t('productCard.addToCart') : t('productCard.unavailable')}
                     </button>
                 </div>
             </div>
