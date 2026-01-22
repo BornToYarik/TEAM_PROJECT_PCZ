@@ -19,24 +19,32 @@ import PromotionManagement from './pages/AdminDashboard/promotion/PromotionManag
 import UserMessageManagement from './pages/AdminDashboard/messages/UserMessageManagement';
 import ProductDetailsShop from "./pages/Products/Shop/ProductDetailsShop";
 import ProtectedRoute from './components/ProtectedRoute';
-import { useComparison } from './Hooks/useComparison';
+import { useComparison } from './hooks/useComparison';
 import ComparePage from './pages/Products/ComparePage';
 import SearchPage from './pages/Products/Shop/SearchPage.jsx';
 import AuctionList from "./pages/Auction/AuctionList";
 import AuctionDetails from "./pages/Auction/AuctionDetails";
 import CreateAuction from "./pages/Auction/CreateAuction";
+import PaymentPage from './pages/Payment/PaymentPage.jsx';
+import MyAuctionWins from './pages/Auction/MyAuctionWins';
+import WishlistPage from './pages/WishList/WishlistPage';
 
+import { ThemeProvider } from './context/ThemeContext';
 
 function App() {
     const comparison = useComparison();
+
     return (
-        <>
+        <ThemeProvider>
+            <div className="d-flex flex-column min-vh-100">
             <Navbar compareCount={comparison.compareItems.length} />
             <Routes>
+
                 <Route path="/" element={<Home />}></Route>
                 <Route path="/login" element={<LoginPage />}></Route>
                 <Route path="/registration" element={<Registration />}></Route>
                 <Route path="/cart" element={<Cart />} />
+                <Route path="/wishlistpage" element={<WishlistPage />} />
                 <Route path="/:slug" element={<CategoryProducts />} />
                 <Route path="/profile" element={<UserProfile />} />
                 <Route path="/compare" element={<ComparePage comparison={comparison} />} />
@@ -45,8 +53,11 @@ function App() {
 
                 <Route path="/auctions" element={<AuctionList />} />
                 <Route path="/auction/:id" element={<AuctionDetails />} />
+                <Route path="/payment" element={<PaymentPage />} />
                 <Route path="/admin/create-auction" element={<CreateAuction />} />
-
+             
+                <Route path="/my-auction-wins" element={<MyAuctionWins />} />
+             
                 <Route path="/admin" element={
                     <ProtectedRoute>
                         <AdminDashboard />
@@ -84,21 +95,22 @@ function App() {
                 } />
 
 
-              <Route path="/admin/promotions" element={
-                     <ProtectedRoute>
-                         <PromotionManagement />
-                      </ProtectedRoute>
-              } />
+                <Route path="/admin/promotions" element={
+                    <ProtectedRoute>
+                        <PromotionManagement />
+                    </ProtectedRoute>
+                } />
 
-              <Route path="/search" element={
+                <Route path="/search" element={
                     <ProtectedRoute>
                         <SearchPage />
                     </ProtectedRoute>
-              } />
-        </Routes>
-        <Footer />
-    </>
-  )
+                } />
+            </Routes>
+                <Footer />
+            </div>
+        </ThemeProvider>
+    )
 }
 
 export default App;

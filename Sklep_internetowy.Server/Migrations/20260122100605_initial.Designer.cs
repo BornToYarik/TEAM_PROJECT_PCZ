@@ -12,8 +12,8 @@ using Sklep_internetowy.Server.Data;
 namespace Sklep_internetowy.Server.Migrations
 {
     [DbContext(typeof(StoreDbContext))]
-    [Migration("20260114195335_ooo")]
-    partial class ooo
+    [Migration("20260122100605_initial")]
+    partial class initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -165,11 +165,9 @@ namespace Sklep_internetowy.Server.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp with time zone");
-
                     b.Property<decimal>("CurrentPrice")
-                        .HasColumnType("numeric");
+                        .HasPrecision(18, 2)
+                        .HasColumnType("numeric(18,2)");
 
                     b.Property<DateTime>("EndTime")
                         .HasColumnType("timestamp with time zone");
@@ -183,19 +181,64 @@ namespace Sklep_internetowy.Server.Migrations
                     b.Property<int>("ProductId")
                         .HasColumnType("integer");
 
+                    b.Property<DateTime>("StartTime")
+                        .HasColumnType("timestamp with time zone");
+
                     b.Property<decimal>("StartingPrice")
-                        .HasColumnType("numeric");
+                        .HasPrecision(18, 2)
+                        .HasColumnType("numeric(18,2)");
 
                     b.Property<string>("WinnerId")
                         .HasColumnType("text");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("LastBidderId");
-
                     b.HasIndex("ProductId");
 
                     b.ToTable("Auctions");
+                });
+
+            modelBuilder.Entity("Sklep_internetowy.Server.Models.AuctionWinner", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("AuctionId")
+                        .HasColumnType("integer");
+
+                    b.Property<bool>("IsPaid")
+                        .HasColumnType("boolean");
+
+                    b.Property<int?>("OrderId")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime?>("PaidAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<decimal>("WinningAmount")
+                        .HasPrecision(18, 2)
+                        .HasColumnType("numeric(18,2)");
+
+                    b.Property<DateTime>("WonAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AuctionId")
+                        .IsUnique();
+
+                    b.HasIndex("OrderId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AuctionWinners");
                 });
 
             modelBuilder.Entity("Sklep_internetowy.Server.Models.Bid", b =>
@@ -207,7 +250,8 @@ namespace Sklep_internetowy.Server.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<decimal>("Amount")
-                        .HasColumnType("numeric");
+                        .HasPrecision(18, 2)
+                        .HasColumnType("numeric(18,2)");
 
                     b.Property<int>("AuctionId")
                         .HasColumnType("integer");
@@ -243,13 +287,22 @@ namespace Sklep_internetowy.Server.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<decimal>("TotalAmount")
+                        .HasPrecision(18, 2)
+                        .HasColumnType("numeric(18,2)");
+
                     b.Property<string>("UserId")
                         .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("UserId1")
                         .HasColumnType("text");
 
                     b.HasKey("Id");
 
                     b.HasIndex("UserId");
+
+                    b.HasIndex("UserId1");
 
                     b.ToTable("Orders");
                 });
@@ -262,12 +315,27 @@ namespace Sklep_internetowy.Server.Migrations
                     b.Property<int>("ProductId")
                         .HasColumnType("integer");
 
+                    b.Property<int?>("AuctionId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("Id")
+                        .HasColumnType("integer");
+
+                    b.Property<decimal>("Price")
+                        .HasPrecision(18, 2)
+                        .HasColumnType("numeric(18,2)");
+
+                    b.Property<int?>("ProductId1")
+                        .HasColumnType("integer");
+
                     b.Property<int>("Quantity")
                         .HasColumnType("integer");
 
                     b.HasKey("OrderId", "ProductId");
 
                     b.HasIndex("ProductId");
+
+                    b.HasIndex("ProductId1");
 
                     b.ToTable("OrderProducts");
                 });
@@ -279,6 +347,10 @@ namespace Sklep_internetowy.Server.Migrations
                         .HasColumnType("integer");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Brand")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<string>("Description")
                         .HasColumnType("text");
@@ -323,6 +395,7 @@ namespace Sklep_internetowy.Server.Migrations
                         new
                         {
                             Id = 50,
+                            Brand = "HP",
                             Description = "High performance laptop",
                             IsOnAuction = false,
                             Name = "Laptop A",
@@ -333,6 +406,7 @@ namespace Sklep_internetowy.Server.Migrations
                         new
                         {
                             Id = 33,
+                            Brand = "Apple",
                             Description = "High performance laptop",
                             IsOnAuction = false,
                             Name = "Laptop B",
@@ -592,19 +666,39 @@ namespace Sklep_internetowy.Server.Migrations
 
             modelBuilder.Entity("Sklep_internetowy.Server.Models.Auction", b =>
                 {
-                    b.HasOne("Sklep_internetowy.Server.Models.User", "LastBidder")
-                        .WithMany()
-                        .HasForeignKey("LastBidderId");
-
                     b.HasOne("Sklep_internetowy.Server.Models.Product", "Product")
                         .WithMany()
                         .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.Navigation("LastBidder");
-
                     b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("Sklep_internetowy.Server.Models.AuctionWinner", b =>
+                {
+                    b.HasOne("Sklep_internetowy.Server.Models.Auction", "Auction")
+                        .WithMany()
+                        .HasForeignKey("AuctionId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Sklep_internetowy.Server.Models.Order", "Order")
+                        .WithMany()
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.HasOne("Sklep_internetowy.Server.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Auction");
+
+                    b.Navigation("Order");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Sklep_internetowy.Server.Models.Bid", b =>
@@ -615,24 +709,28 @@ namespace Sklep_internetowy.Server.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Sklep_internetowy.Server.Models.User", "Bidder")
+                    b.HasOne("Sklep_internetowy.Server.Models.User", "User")
                         .WithMany()
                         .HasForeignKey("BidderId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Auction");
 
-                    b.Navigation("Bidder");
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Sklep_internetowy.Server.Models.Order", b =>
                 {
                     b.HasOne("Sklep_internetowy.Server.Models.User", "User")
-                        .WithMany("Orders")
+                        .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
+
+                    b.HasOne("Sklep_internetowy.Server.Models.User", null)
+                        .WithMany("Orders")
+                        .HasForeignKey("UserId1");
 
                     b.Navigation("User");
                 });
@@ -646,10 +744,14 @@ namespace Sklep_internetowy.Server.Migrations
                         .IsRequired();
 
                     b.HasOne("Sklep_internetowy.Server.Models.Product", "Product")
-                        .WithMany("OrderProducts")
+                        .WithMany()
                         .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
+
+                    b.HasOne("Sklep_internetowy.Server.Models.Product", null)
+                        .WithMany("OrderProducts")
+                        .HasForeignKey("ProductId1");
 
                     b.Navigation("Order");
 

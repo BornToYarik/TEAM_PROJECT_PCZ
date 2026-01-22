@@ -1,14 +1,21 @@
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from 'react-i18next';
 
 function FeaturedProductCard({ product }) {
     const navigate = useNavigate();
+    const { t } = useTranslation();
 
+    const DEFAULT_IMAGE = "https://cdn.pixabay.com/photo/2017/11/10/04/47/image-2935360_1280.png";
     if (!product) return null;
 
     const isDiscountActive = (p) => p.hasActiveDiscount || p.discountPercentage > 0;
 
+    const mainImage = (product.imageUrls && product.imageUrls.length > 0)
+        ? product.imageUrls[0]
+        : DEFAULT_IMAGE;
+
     return (
-        <div className="col-12 col-md-6">
+        <div className="featured-product-card col-12 col-md-6">
             <div
                 className={`card h-100 shadow-lg p-3 product-card cursor-pointer 
                     ${isDiscountActive(product) ? "discount" : "no-discount"}`}
@@ -24,9 +31,13 @@ function FeaturedProductCard({ product }) {
                 )}
 
                 <img
-                    src="https://cdn.pixabay.com/photo/2017/11/10/04/47/image-2935360_1280.png"
+                    src={mainImage}
                     className="card-img-top"
-                    style={{ height: 300, objectFit: "cover" }}
+                    style={{
+                        objectFit: "contain",
+                        height: "300px",
+                        padding: "15px"
+                    }}
                     alt={product.name}
                 />
 
@@ -54,7 +65,7 @@ function FeaturedProductCard({ product }) {
                             navigate(`/product/${product.id}`);
                         }}
                     >
-                        View product
+                        {product.quantity > 0 ? t('productCard.addToCart') : t('productCard.unavailable')}
                     </button>
                 </div>
             </div>

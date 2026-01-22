@@ -59,6 +59,15 @@ function ProductGrid() {
                     border: 2px solid transparent;
                 }
 
+                .featured-product-card {
+                    transition: all 0.3s ease;
+                    border: 2px solid transparent;
+                }
+
+                .featured-product-card:hover {
+                    transform: scale(1.03);
+                }
+
                 .no-discount {
                     border-color: #ccc !important;
                 }

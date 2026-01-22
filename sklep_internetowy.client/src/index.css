@@ -1,0 +1,61 @@
+:root {
+    --base-font-size: 16px;
+}
+
+html {
+    font-size: var(--base-font-size);
+    transition: font-size 0.3s ease; 
+}
+
+    html.font-large {
+        font-size: 20px; 
+    }
+
+
+[data-theme="dark"] body {
+    background-color: #121212 !important;
+    color: #e0e0e0 !important;
+}
+
+[data-theme="dark"] .card {
+    background-color: #1e1e1e !important;
+    color: #ffffff !important;
+    border-color: #333 !important;
+}
+
+[data-theme="dark"] .bg-light,
+[data-theme="dark"] .bg-white {
+    background-color: #2d2d2d !important;
+    color: #e0e0e0 !important;
+}
+
+[data-theme="dark"] .list-group-item {
+    background-color: #1e1e1e;
+    color: #fff;
+    border-color: #333;
+}
+
+[data-theme="dark"] .table {
+    color: #e0e0e0;
+    border-color: #333;
+}
+
+[data-theme="dark"] .form-control,
+[data-theme="dark"] .form-select {
+    background-color: #2d2d2d;
+    border-color: #444;
+    color: #fff;
+}
+
+    [data-theme="dark"] .form-control:focus {
+        background-color: #333;
+        color: #fff;
+    }
+
+[data-theme="dark"] .navbar-light {
+    background-color: #1e1e1e !important;
+}
+
+    [data-theme="dark"] .navbar-light .nav-link {
+        color: #rgba(255,255,255,0.8) !important;
+    }

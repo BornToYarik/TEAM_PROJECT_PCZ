@@ -152,13 +152,6 @@ function ProductDetails() {
                                     </div>
                                     <div className="d-flex gap-2">
                                         <button
-                                            className="btn btn-warning"
-                                            onClick={() => setShowForm(true)}
-                                        >
-                                            <Edit size={18} className="me-1" />
-                                            Edit
-                                        </button>
-                                        <button
                                             className="btn btn-danger"
                                             onClick={handleDelete}
                                         >

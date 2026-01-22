@@ -63,7 +63,7 @@ const simpleStyles = StyleSheet.create({
 
 export const InvoiceDocument = ({ order }) => {
     const subtotal = order.products.reduce((sum, p) => sum + (p.price * p.quantityInOrder), 0);
-    const taxRate = 0.23; // 23% VAT (οπθμεπ)
+    const taxRate = 0.23; // 23% VAT (Γ―Γ°Γ¨Γ¬Γ₯Γ°)
     const taxAmount = subtotal * taxRate;
     const total = subtotal + taxAmount;
 

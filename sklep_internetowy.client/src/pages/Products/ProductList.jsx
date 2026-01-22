@@ -35,14 +35,14 @@ function ProductsList() {
         }
     };
 
-    const handleFormSubmit = async (formData, files) => { 
+    const handleFormSubmit = async (formData, files) => {
         setError('');
 
         try {
             if (editingProduct) {
-
                 const payload = {
                     name: formData.name,
+                    brand: formData.brand,
                     price: parseFloat(formData.price),
                     quantity: parseInt(formData.quantity),
                     description: formData.description || null,
@@ -70,6 +70,7 @@ function ProductsList() {
                 const data = new FormData();
 
                 data.append('Name', formData.name);
+                data.append('Brand', formData.brand); 
                 data.append('Price', formData.price);
                 data.append('Quantity', formData.quantity);
                 data.append('Description', formData.description || '');
@@ -95,7 +96,7 @@ function ProductsList() {
                     handleCloseForm();
                 } else {
                     const errorData = await response.json();
-                    setError(errorData.message || 'Error creating product');
+                    setError(errorData.title || errorData.message || 'Error creating product');
                 }
             }
         } catch (err) {

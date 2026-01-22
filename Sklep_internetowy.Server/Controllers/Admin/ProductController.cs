@@ -51,6 +51,7 @@ namespace Sklep_internetowy.Server.Controllers.Admin
                         FinalPrice = p.FinalPrice,
                         HasActiveDiscount = p.HasActiveDiscount,
                         ProductCategoryId = p.ProductCategoryId,
+                        Brand = p.Brand,
                         ProductCategoryName = p.ProductCategory.Name,
                         ProductCategorySlug = p.ProductCategory.Slug,
                         ImageUrls = p.Images.Select(img => img.ImageUrl).ToList()
@@ -64,23 +65,41 @@ namespace Sklep_internetowy.Server.Controllers.Admin
                 return StatusCode(500, new { message = "Error loading products", error = ex.Message });
             }
         }
+        [AllowAnonymous]
+        [HttpGet("all-brands")]
+        public async Task<ActionResult<IEnumerable<string>>> GetAllBrands()
+        {
+            try
+            {
+                var brands = await _context.Products
+                    .Where(p => !string.IsNullOrEmpty(p.Brand))
+                    .Select(p => p.Brand)
+                    .Distinct()
+                    .OrderBy(b => b)
+                    .ToListAsync();
+
+                return Ok(brands);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = "Error loading brands", error = ex.Message });
+            }
+        }
 
         [HttpGet("search")]
         public async Task<ActionResult<IEnumerable<ProductDto>>> SearchProducts([FromQuery] string q)
         {
-            if (string.IsNullOrWhiteSpace(q))
-            {
-                return Ok(new List<ProductDto>());
-            }
+            if (string.IsNullOrWhiteSpace(q)) return Ok(new List<ProductDto>());
 
             try
             {
-                var query = q.ToLower();
+                var query = q.ToLower().Trim();
 
                 var products = await _context.Products
                     .Include(p => p.ProductCategory)
-                    .Where(p => (p.Name != null && p.Name.ToLower().Contains(query)) ||
-                                (p.Description != null && p.Description.ToLower().Contains(query)))
+                    .Where(p => p.Name.ToLower().Contains(query) ||
+                                p.Brand.ToLower().Contains(query) ||
+                                p.Description.ToLower().Contains(query))
                     .Select(p => new ProductDto
                     {
                         Id = p.Id,
@@ -88,6 +107,7 @@ namespace Sklep_internetowy.Server.Controllers.Admin
                         Price = p.Price,
                         Quantity = p.Quantity,
                         Description = p.Description,
+                        Brand = p.Brand,
                         DiscountPercentage = p.DiscountPercentage,
                         DiscountStartDate = p.DiscountStartDate,
                         DiscountEndDate = p.DiscountEndDate,
@@ -95,7 +115,7 @@ namespace Sklep_internetowy.Server.Controllers.Admin
                         HasActiveDiscount = p.HasActiveDiscount,
                         ProductCategoryId = p.ProductCategoryId,
                         ProductCategoryName = p.ProductCategory.Name,
-                        ProductCategorySlug = p.ProductCategory.Slug
+                        ImageUrls = p.Images.Select(img => img.ImageUrl).ToList()
                     })
                     .ToListAsync();
 
@@ -103,7 +123,7 @@ namespace Sklep_internetowy.Server.Controllers.Admin
             }
             catch (Exception ex)
             {
-                return StatusCode(500, new { message = "Error executing search.", error = ex.Message, innerError = ex.InnerException?.Message });
+                return StatusCode(500, new { message = "Error during search", error = ex.Message });
             }
         }
 
@@ -119,7 +139,8 @@ namespace Sklep_internetowy.Server.Controllers.Admin
                 ProductCategoryId = formDto.ProductCategoryId,
                 DiscountPercentage = formDto.DiscountPercentage,
                 DiscountStartDate = SetUtcKind(formDto.DiscountStartDate),
-                DiscountEndDate = SetUtcKind(formDto.DiscountEndDate)
+                DiscountEndDate = SetUtcKind(formDto.DiscountEndDate),
+                Brand = formDto.Brand
             };
 
             if (formDto.Images != null && formDto.Images.Count > 0)
@@ -187,7 +208,7 @@ namespace Sklep_internetowy.Server.Controllers.Admin
                 product.DiscountPercentage = updateProductDto.DiscountPercentage;
                 product.DiscountStartDate = SetUtcKind(updateProductDto.DiscountStartDate);
                 product.DiscountEndDate = SetUtcKind(updateProductDto.DiscountEndDate);
-
+                product.Brand = updateProductDto.Brand;
                 _context.Products.Update(product);
                 await _context.SaveChangesAsync();
 
@@ -247,6 +268,7 @@ namespace Sklep_internetowy.Server.Controllers.Admin
                 var products = await _context.Products
                     .Where(p => uniqueIds.Contains(p.Id))
                     .Include(p => p.ProductCategory)
+                    .Include(p => p.Images)
                     .Select(p => new ProductDto
                     {
                         Id = p.Id,
@@ -261,7 +283,9 @@ namespace Sklep_internetowy.Server.Controllers.Admin
                         HasActiveDiscount = p.HasActiveDiscount,
                         ProductCategoryId = p.ProductCategoryId,
                         ProductCategoryName = p.ProductCategory.Name,
-                        ProductCategorySlug = p.ProductCategory.Slug
+                        ProductCategorySlug = p.ProductCategory.Slug,
+
+                        ImageUrls = p.Images.Select(img => img.ImageUrl).ToList()
                     })
                     .ToListAsync();
 
@@ -288,6 +312,7 @@ namespace Sklep_internetowy.Server.Controllers.Admin
 
                 var allProducts = await _context.Products
                     .Include(p => p.ProductCategory)
+                    .Include(p => p.Images)
                     .Where(p => p.Name != null && p.Name.ToLower().Contains(query))
                     .ToListAsync();
 
@@ -303,7 +328,9 @@ namespace Sklep_internetowy.Server.Controllers.Admin
                         FinalPrice = p.FinalPrice,
                         HasActiveDiscount = p.HasActiveDiscount,
                         ProductCategoryName = p.ProductCategory?.Name,
-                        Description = p.Description
+                        Description = p.Description,
+
+                        ImageUrls = p.Images.Select(img => img.ImageUrl).ToList()
                     })
                     .ToList();
 

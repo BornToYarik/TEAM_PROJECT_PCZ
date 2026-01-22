@@ -361,3 +361,8 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+/Sklep_internetowy.Server/Controllers/Payment/PaymentController.cs
+/sklep_internetowy.client/src/components/Payment/PaymentForm.jsx
+/Sklep_internetowy.Server/appsettings.Development.json
+/sklep_internetowy.client/.env.local
+/Sklep_internetowy.Server/appsettings.Development.json

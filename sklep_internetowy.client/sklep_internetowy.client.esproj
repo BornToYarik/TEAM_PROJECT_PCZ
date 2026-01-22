@@ -7,12 +7,14 @@
     <ShouldRunBuildScript>false</ShouldRunBuildScript>
     <!-- Folder where production build objects will be placed -->
     <BuildOutputFolder>$(MSBuildProjectDirectory)\dist</BuildOutputFolder>
+    <UserSecretsId>17f24b1b-90e4-456a-8895-fee4bb747db5</UserSecretsId>
   </PropertyGroup>
   <ItemGroup>
     <Folder Include="src\assets\" />
     <Folder Include="src\components\admin\InvoiceGenerator\" />
     <Folder Include="src\components\product\" />
     <Folder Include="src\css\" />
+    <Folder Include="src\pages\Payment\" />
     <Folder Include="src\services\" />
   </ItemGroup>
 </Project>

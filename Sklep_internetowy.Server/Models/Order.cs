@@ -14,5 +14,7 @@ namespace Sklep_internetowy.Server.Models
         public string Status { get; set; } = "pending";
 
         public ICollection<OrderProduct> OrderProducts { get; set; } = new List<OrderProduct>();
+        public decimal TotalAmount { get; set; }
+      
     }
 }

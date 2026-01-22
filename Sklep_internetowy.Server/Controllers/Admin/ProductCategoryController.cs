@@ -93,7 +93,9 @@ namespace Sklep_internetowy.Server.Controllers.Admin
                         HasActiveDiscount = p.HasActiveDiscount,
                         ProductCategoryId = p.ProductCategoryId,
                         ProductCategoryName = p.ProductCategory.Name,
-                        ProductCategorySlug = p.ProductCategory.Slug
+                        ProductCategorySlug = p.ProductCategory.Slug,
+
+                        ImageUrls = p.Images.Select(img => img.ImageUrl).ToList()
                     })
                     .ToListAsync();
 
@@ -129,7 +131,9 @@ namespace Sklep_internetowy.Server.Controllers.Admin
                         HasActiveDiscount = p.HasActiveDiscount,
                         ProductCategoryId = p.ProductCategoryId,
                         ProductCategoryName = p.ProductCategory.Name,
-                        ProductCategorySlug = p.ProductCategory.Slug
+                        ProductCategorySlug = p.ProductCategory.Slug,
+
+                        ImageUrls = p.Images.Select(img => img.ImageUrl).ToList()
                     })
                     .ToListAsync();
 

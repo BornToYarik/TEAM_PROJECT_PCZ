@@ -1,0 +1,52 @@
+{
+  "navbar": {
+    "searchPlaceholder": "Szukaj produktów...",
+    "admin": "Admin",
+    "profile": "Profil",
+    "logout": "Wyloguj",
+    "login": "Zaloguj",
+    "categoriesHeader": "KATEGORIE",
+    "noCategories": "Nie znaleziono kategorii",
+    "suggestedProducts": "SUGEROWANE PRODUKTY",
+    "currency": "zł",
+    "tooltips": {
+      "fontSize": "Zmień rozmiar czcionki",
+      "darkMode": "Tryb ciemny",
+      "compare": "Porównaj",
+      "cart": "Koszyk",
+      "wishlist": "Lista życzeń"
+    },
+    "menu": {
+      "laptops": "Laptopy",
+      "computers": "Komputery",
+      "smartphones": "Smartfony",
+      "gaming": "Gaming",
+      "accessories": "Akcesoria",
+      "deals": "Okazje",
+      "auctions": "Aukcje"
+    }
+  },
+  "footer": {
+    "contactHeader": "SKONTAKTUJ SIĘ Z NAMI",
+    "email": "Email",
+    "name": "Imię",
+    "phone": "Telefon",
+    "message": "Wiadomość",
+    "send": "Wyślij",
+    "findUsHeader": "ZNAJDŹ NAS",
+    "weAreHere": "Jesteśmy tutaj!",
+    "copyright": "2025 Company, Inc",
+    "alerts": {
+      "success": "Wiadomość została wysłana!",
+      "error": "Błąd podczas wysyłania wiadomości"
+    }
+  },
+  "productCard": {
+    "category": "Kategoria:",
+    "none": "Brak",
+    "noDescription": "Brak opisu",
+    "currency": "zł",
+    "addToCart": "Do koszyka",
+    "unavailable": "Niedostępny"
+  }
+}

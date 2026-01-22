@@ -50,7 +50,6 @@ function Registration() {
                 setMessage(data.message || "Registration successful! Redirecting to login...");
                 setForm({ userName: "", email: "", password: "", confirmPassword: "" });
 
-                // 3. PRZEKIEROWANIE Z OPӏNIENIEM (2 sekundy)
                 setTimeout(() => {
                     navigate("/login");
                 }, 2000);
