@@ -1,7 +1,6 @@
 ﻿import React, { useState, useEffect, useMemo } from 'react';
 import { useLocation, Link, useNavigate } from 'react-router-dom';
-import { ArrowLeft, Search, Filter, Trash2, Package, Check, Tag } from 'lucide-react';
-import { useCart } from "../../../context/CartContext";
+import { ArrowLeft, Search, Filter, Package, ChevronDown, ChevronUp } from 'lucide-react';
 
 function SearchPage() {
     const [products, setProducts] = useState([]);
@@ -10,16 +9,17 @@ function SearchPage() {
     const [error, setError] = useState('');
     const [searchQuery, setSearchQuery] = useState('');
 
-    // Фильтры и сортировка
     const [minPrice, setMinPrice] = useState('');
     const [maxPrice, setMaxPrice] = useState('');
     const [selectedBrands, setSelectedBrands] = useState([]);
-    const [onlyPromoted, setOnlyPromoted] = useState(false); // Состояние для фильтра "Promocja"
+    const [discountFilters, setDiscountFilters] = useState([]);
     const [sortOrder, setSortOrder] = useState('default');
+
+    const [showAllBrands, setShowAllBrands] = useState(false);
+    const [filterSearchTerm, setFilterSearchTerm] = useState('');
 
     const location = useLocation();
     const navigate = useNavigate();
-    const { addToCart } = useCart();
 
     const POPULAR_BRANDS_STUB = [
         "Apple", "Samsung", "Sony", "LG", "ASUS", "HP", "Logitech",
@@ -39,10 +39,11 @@ function SearchPage() {
 
     const fetchAllBrands = async () => {
         try {
-            const response = await fetch('/api/panel/Product/all-brands');
+            const response = await fetch('/api/home/Product/all-brands');
             if (response.ok) {
                 const data = await response.json();
-                const combined = [...new Set([...data, ...POPULAR_BRANDS_STUB])];
+                const brandsArray = Array.isArray(data) ? data : (data.$values || []);
+                const combined = [...new Set([...brandsArray, ...POPULAR_BRANDS_STUB])];
                 setAllBrands(combined.sort());
             } else {
                 setAllBrands(POPULAR_BRANDS_STUB.sort());
@@ -56,10 +57,11 @@ function SearchPage() {
         setLoading(true);
         setError('');
         try {
-            const response = await fetch(`/api/panel/Product/search?q=${encodeURIComponent(query)}`);
+            const response = await fetch(`/api/home/Product/search?q=${encodeURIComponent(query)}`);
             if (response.ok) {
                 const data = await response.json();
-                setProducts(data);
+                const productsArray = Array.isArray(data) ? data : (data.$values || []);
+                setProducts(productsArray);
             } else {
                 setError('Failed to fetch search results.');
             }
@@ -70,45 +72,67 @@ function SearchPage() {
         }
     };
 
-    // Главный алгоритм фильтрации и сортировки
     const processedProducts = useMemo(() => {
         let result = [...products];
 
-        // 1. Фильтр по цене
         if (minPrice) result = result.filter(p => p.finalPrice >= parseFloat(minPrice));
         if (maxPrice) result = result.filter(p => p.finalPrice <= parseFloat(maxPrice));
 
-        // 2. Фильтр по брендам
         if (selectedBrands.length > 0) {
             result = result.filter(p => selectedBrands.includes(p.brand));
         }
 
-        // 3. Фильтр по статусу (Promocja)
-        if (onlyPromoted) {
-            result = result.filter(p => p.hasActiveDiscount);
+        if (discountFilters.length > 0) {
+            result = result.filter(p => {
+                const hasDiscount = p.hasActiveDiscount;
+                if (discountFilters.includes('with-discount') && hasDiscount) return true;
+                if (discountFilters.includes('without-discount') && !hasDiscount) return true;
+                return false;
+            });
         }
 
-        // 4. Сортировка
         if (sortOrder === 'price-asc') result.sort((a, b) => a.finalPrice - b.finalPrice);
-        if (sortOrder === 'price-desc') result.sort((a, b) => b.finalPrice - a.finalPrice);
-        if (sortOrder === 'name-asc') result.sort((a, b) => a.name.localeCompare(b.name));
+        else if (sortOrder === 'price-desc') result.sort((a, b) => b.finalPrice - a.finalPrice);
+        else if (sortOrder === 'name-asc') result.sort((a, b) => (a.name || "").localeCompare(b.name || ""));
 
         return result;
-    }, [products, minPrice, maxPrice, selectedBrands, onlyPromoted, sortOrder]);
+    }, [products, minPrice, maxPrice, selectedBrands, discountFilters, sortOrder]);
 
     const handleBrandToggle = (brand) => {
-        setSelectedBrands(prev =>
-            prev.includes(brand) ? prev.filter(b => b !== brand) : [...prev, brand]
-        );
+        setSelectedBrands(prev => prev.includes(brand) ? prev.filter(b => b !== brand) : [...prev, brand]);
+    };
+
+    const handleDiscountToggle = (type) => {
+        setDiscountFilters(prev => prev.includes(type) ? prev.filter(t => t !== type) : [...prev, type]);
     };
 
     const resetFilters = () => {
         setMinPrice('');
         setMaxPrice('');
         setSelectedBrands([]);
-        setOnlyPromoted(false);
+        setDiscountFilters([]);
         setSortOrder('default');
     };
+
+    const hasActiveFilters = minPrice || maxPrice || selectedBrands.length > 0 || discountFilters.length > 0;
+
+    const filteredBrands = useMemo(() => {
+        if (!filterSearchTerm) return allBrands;
+        return allBrands.filter(brand => brand.toLowerCase().includes(filterSearchTerm.toLowerCase()));
+    }, [allBrands, filterSearchTerm]);
+
+    const brandCounts = useMemo(() => {
+        const counts = {};
+        products.forEach(p => { if (p.brand) counts[p.brand] = (counts[p.brand] || 0) + 1; });
+        return counts;
+    }, [products]);
+
+    const discountCounts = useMemo(() => {
+        return {
+            with: products.filter(p => p.hasActiveDiscount).length,
+            without: products.filter(p => !p.hasActiveDiscount).length
+        };
+    }, [products]);
 
     if (loading) {
         return (
@@ -124,182 +148,151 @@ function SearchPage() {
         <div className="container-fluid px-lg-5 mt-4 mb-5" style={{ minHeight: '80vh' }}>
             <nav aria-label="breadcrumb" className="mb-4">
                 <Link to="/" className="text-decoration-none text-muted small d-flex align-items-center gap-1">
-                    <ArrowLeft size={14} /> Back to homepage
+                    <ArrowLeft size={14} /> Back to Home
                 </Link>
             </nav>
 
             <div className="row">
-                {/* --- SIDEBAR: FILTERS --- */}
                 <aside className="col-lg-3 pe-lg-4">
                     <div className="sticky-top" style={{ top: '20px' }}>
                         <div className="d-flex justify-content-between align-items-center mb-3">
                             <h5 className="fw-bold m-0 d-flex align-items-center gap-2">
                                 <Filter size={18} /> Filters
                             </h5>
-                            {(minPrice || maxPrice || selectedBrands.length > 0 || onlyPromoted) && (
+                            {hasActiveFilters && (
                                 <button className="btn btn-link btn-sm text-primary p-0 text-decoration-none" onClick={resetFilters}>
-                                    Clear all
+                                    Clear All
                                 </button>
                             )}
                         </div>
 
-                        {/* Status Filter (Promocja) */}
+                        <div className="mb-3">
+                            <div className="position-relative">
+                                <Search size={16} className="position-absolute text-muted" style={{ left: '12px', top: '50%', transform: 'translateY(-50%)' }} />
+                                <input
+                                    type="text"
+                                    className="form-control form-control-sm ps-5"
+                                    placeholder="Search filters..."
+                                    value={filterSearchTerm}
+                                    onChange={(e) => setFilterSearchTerm(e.target.value)}
+                                />
+                            </div>
+                        </div>
+
                         <div className="card border-0 shadow-sm mb-3 p-3">
-                            <label className="fw-bold small text-uppercase text-muted mb-3 d-flex align-items-center gap-2">
-                                Status
-                            </label>
-                            <div className="form-check mb-0">
+                            <label className="fw-bold small mb-2">Offer Type</label>
+                            <div className="form-check mb-2">
                                 <input
                                     className="form-check-input shadow-none"
                                     type="checkbox"
-                                    id="status-promocja"
-                                    checked={onlyPromoted}
-                                    onChange={(e) => setOnlyPromoted(e.target.checked)}
+                                    id="filter-with-discount"
+                                    checked={discountFilters.includes('with-discount')}
+                                    onChange={() => handleDiscountToggle('with-discount')}
                                 />
-                                <label className="form-check-label small cursor-pointer d-flex align-items-center gap-2" htmlFor="status-promocja">
-                                    <Tag size={14} className="text-danger" /> Promocja (On Sale)
+                                <label className="form-check-label small cursor-pointer d-flex justify-content-between w-100" htmlFor="filter-with-discount">
+                                    <span>With Discount</span>
+                                    <span className="text-muted">({discountCounts.with})</span>
+                                </label>
+                            </div>
+                            <div className="form-check mb-2">
+                                <input
+                                    className="form-check-input shadow-none"
+                                    type="checkbox"
+                                    id="filter-without-discount"
+                                    checked={discountFilters.includes('without-discount')}
+                                    onChange={() => handleDiscountToggle('without-discount')}
+                                />
+                                <label className="form-check-label small cursor-pointer d-flex justify-content-between w-100" htmlFor="filter-without-discount">
+                                    <span>Without Discount</span>
+                                    <span className="text-muted">({discountCounts.without})</span>
                                 </label>
                             </div>
                         </div>
 
-                        {/* Price Filter */}
                         <div className="card border-0 shadow-sm mb-3 p-3">
-                            <label className="fw-bold small text-uppercase text-muted mb-3">Price range (zl)</label>
-                            <div className="d-flex align-items-center gap-2">
-                                <input
-                                    type="number" className="form-control form-control-sm border-light-subtle"
-                                    placeholder="From" value={minPrice} onChange={e => setMinPrice(e.target.value)}
-                                />
-                                <span className="text-muted">-</span>
-                                <input
-                                    type="number" className="form-control form-control-sm border-light-subtle"
-                                    placeholder="To" value={maxPrice} onChange={e => setMaxPrice(e.target.value)}
-                                />
+                            <label className="fw-bold small mb-2">Brands</label>
+                            <div className="brand-scroll-box" style={{ maxHeight: showAllBrands ? 'none' : '200px', overflowY: 'auto' }}>
+                                {filteredBrands.slice(0, showAllBrands ? filteredBrands.length : 8).map(brand => (
+                                    <div key={brand} className="form-check mb-2">
+                                        <input
+                                            className="form-check-input shadow-none"
+                                            type="checkbox"
+                                            id={`brand-${brand}`}
+                                            checked={selectedBrands.includes(brand)}
+                                            onChange={() => handleBrandToggle(brand)}
+                                        />
+                                        <label className="form-check-label small cursor-pointer d-flex justify-content-between w-100" htmlFor={`brand-${brand}`}>
+                                            <span>{brand}</span>
+                                            <span className="text-muted">({brandCounts[brand] || 0})</span>
+                                        </label>
+                                    </div>
+                                ))}
                             </div>
+                            {filteredBrands.length > 8 && (
+                                <button className="btn btn-link btn-sm p-0 text-decoration-none mt-2 small" onClick={() => setShowAllBrands(!showAllBrands)}>
+                                    {showAllBrands ? 'Show Less' : `Show More (${filteredBrands.length - 8})`}
+                                </button>
+                            )}
                         </div>
 
-                        {/* Brands Filter */}
-                        <div className="card border-0 shadow-sm p-3">
-                            <label className="fw-bold small text-uppercase text-muted mb-3">Producer</label>
-                            <div className="brand-scroll-box" style={{ maxHeight: '400px', overflowY: 'auto', paddingRight: '5px' }}>
-                                {allBrands.map(brand => {
-                                    const hasResults = products.some(p => p.brand === brand);
-                                    return (
-                                        <div key={brand} className={`form-check mb-2 ${!hasResults ? 'text-muted' : ''}`}>
-                                            <input
-                                                className="form-check-input shadow-none"
-                                                type="checkbox"
-                                                id={`brand-${brand}`}
-                                                checked={selectedBrands.includes(brand)}
-                                                onChange={() => handleBrandToggle(brand)}
-                                            />
-                                            <label className="form-check-label small cursor-pointer d-flex justify-content-between align-items-center" htmlFor={`brand-${brand}`}>
-                                                {brand}
-                                                {hasResults && <Check size={12} className="text-primary" />}
-                                            </label>
-                                        </div>
-                                    );
-                                })}
+                        <div className="card border-0 shadow-sm mb-3 p-3">
+                            <label className="fw-bold small mb-3">Price Range (USD)</label>
+                            <div className="d-flex align-items-center gap-2">
+                                <input type="number" className="form-control form-control-sm" placeholder="Min" value={minPrice} onChange={e => setMinPrice(e.target.value)} />
+                                <input type="number" className="form-control form-control-sm" placeholder="Max" value={maxPrice} onChange={e => setMaxPrice(e.target.value)} />
                             </div>
                         </div>
                     </div>
                 </aside>
 
-                {/* --- MAIN CONTENT: PRODUCTS --- */}
                 <main className="col-lg-9 mt-4 mt-lg-0">
                     <div className="d-flex flex-column flex-md-row justify-content-between align-items-md-end mb-4 bg-white p-3 rounded shadow-sm gap-3">
                         <div>
-                            <h1 className="h4 mb-1 fw-bold">Search results</h1>
-                            <p className="text-muted small m-0">
-                                Found <strong>{processedProducts.length}</strong> products for <span className="text-primary fw-semibold">"{searchQuery}"</span>
-                            </p>
+                            <h1 className="h4 mb-1 fw-bold">Search Results</h1>
+                            <p className="text-muted small m-0">Found <strong>{processedProducts.length}</strong> products for <span className="text-primary fw-semibold">"{searchQuery}"</span></p>
                         </div>
-
-                        <div className="d-flex align-items-center gap-3">
-                            <label className="small text-muted text-nowrap">Sort by:</label>
-                            <select
-                                className="form-select form-select-sm border-light bg-light fw-semibold"
-                                value={sortOrder} onChange={(e) => setSortOrder(e.target.value)}
-                                style={{ width: '190px', cursor: 'pointer' }}
-                            >
+                        <div className="d-flex align-items-center gap-2">
+                            <label className="small text-muted">Sort:</label>
+                            <select className="form-select form-select-sm" value={sortOrder} onChange={(e) => setSortOrder(e.target.value)} style={{ width: '180px' }}>
                                 <option value="default">Relevance</option>
-                                <option value="price-asc">Cheapest first</option>
-                                <option value="price-desc">Most expensive first</option>
+                                <option value="price-asc">Cheapest</option>
+                                <option value="price-desc">Most Expensive</option>
                                 <option value="name-asc">Name: A-Z</option>
                             </select>
                         </div>
                     </div>
 
-                    {error && <div className="alert alert-danger shadow-sm border-0">{error}</div>}
-
                     {processedProducts.length > 0 ? (
                         <div className="d-flex flex-column gap-3">
                             {processedProducts.map((p) => (
-                                <div key={p.id} className="product-row card border-0 shadow-sm overflow-hidden"
-                                    onClick={() => navigate(`/product/${p.id}`)} style={{ cursor: 'pointer' }}>
-
+                                <div key={p.id} className="card border-0 shadow-sm overflow-hidden" onClick={() => navigate(`/product/${p.id}`)} style={{ cursor: 'pointer' }}>
                                     <div className="d-flex flex-column flex-md-row p-3 gap-4">
-                                        <div className="d-flex align-items-center justify-content-center bg-light rounded p-2" style={{ width: '160px', height: '160px', minWidth: '160px' }}>
-                                            <div className="position-relative">
-                                                {p.hasActiveDiscount && (
-                                                    <span className="badge bg-danger position-absolute" style={{ top: "-15px", left: "-15px", fontSize: '0.7rem' }}>
-                                                        -{p.discountPercentage}%
-                                                    </span>
-                                                )}
-                                                <img
-                                                    src={p.imageUrls?.[0] || 'https://cdn.pixabay.com/photo/2017/11/10/04/47/image-2935360_1280.png'}
-                                                    alt={p.name} className="img-fluid" style={{ maxHeight: '140px', objectFit: 'contain' }}
-                                                />
+                                        <div className="d-flex align-items-center justify-content-center bg-light rounded" style={{ width: '160px', height: '160px', minWidth: '160px' }}>
+                                            <img src={p.imageUrls?.[0] || 'https://via.placeholder.com/160'} alt={p.name} className="img-fluid" style={{ maxHeight: '140px', objectFit: 'contain' }} />
+                                        </div>
+                                        <div className="flex-grow-1">
+                                            <h5 className="fw-bold mb-1">{p.name}</h5>
+                                            <div className="mb-2">
+                                                <span className="badge bg-light text-dark border me-2">{p.brand}</span>
+                                                <span className="text-muted small">{p.productCategoryName}</span>
+                                            </div>
+                                            <p className="text-muted small d-none d-md-block mb-3">{p.description?.substring(0, 150)}...</p>
+                                            <div className={`small d-flex align-items-center gap-1 ${p.quantity > 0 ? 'text-success' : 'text-danger'}`}>
+                                                <Package size={14} /> {p.quantity > 0 ? `In Stock (${p.quantity})` : 'Out of Stock'}
                                             </div>
                                         </div>
-
-                                        <div className="flex-grow-1 d-flex flex-column justify-content-between">
-                                            <div>
-                                                <h5 className="fw-bold text-dark mb-1 h-name">{p.name}</h5>
-                                                <div className="mb-2">
-                                                    <span className="badge bg-light text-dark border me-2" style={{ fontSize: '0.7rem' }}>{p.brand}</span>
-                                                    <span className="text-muted small">{p.productCategoryName}</span>
-                                                </div>
-                                                <p className="text-muted small d-none d-md-block mb-0">
-                                                    {p.description?.substring(0, 180)}...
-                                                </p>
-                                            </div>
-                                            <div className="mt-3">
-                                                <span className={`small d-flex align-items-center gap-1 ${p.quantity > 0 ? 'text-success' : 'text-danger'}`}>
-                                                    <Package size={14} />
-                                                    {p.quantity > 0 ? `In stock (${p.quantity} pcs)` : 'Currently unavailable'}
-                                                </span>
-                                            </div>
-                                        </div>
-
-                                        <div className="d-flex flex-row flex-md-column justify-content-between justify-content-md-center align-items-end border-md-start ps-md-4 text-end" style={{ minWidth: '180px' }}>
-                                            <div className="mb-md-4">
+                                        <div className="text-end border-start ps-4" style={{ minWidth: '180px' }}>
+                                            <div className="mb-4">
                                                 {p.hasActiveDiscount ? (
                                                     <>
-                                                        <div className="text-decoration-line-through text-muted small">{p.price.toFixed(2)} zł</div>
-                                                        <div className="h3 fw-bold text-danger mb-0">{p.finalPrice.toFixed(2)} zł</div>
+                                                        <div className="text-decoration-line-through text-muted small">{p.price.toFixed(2)} zl</div>
+                                                        <div className="h3 fw-bold text-danger mb-0">{p.finalPrice.toFixed(2)} zl</div>
                                                     </>
                                                 ) : (
-                                                    <div className="h3 fw-bold text-dark mb-0">{p.price.toFixed(2)} zł</div>
+                                                    <div className="h3 fw-bold text-dark mb-0">{p.price.toFixed(2)} zl</div>
                                                 )}
                                             </div>
-
-                                            <div className="d-flex flex-column gap-2 w-100">
-                                                <button
-                                                    className="btn btn-dark btn-sm w-100 fw-bold buy-btn"
-                                                    disabled={p.quantity <= 0}
-                                                    onClick={(e) => {
-                                                        e.stopPropagation();
-                                                        addToCart(p);
-                                                        navigate("/cart");
-                                                    }}
-                                                >
-                                                    Add to cart
-                                                </button>
-                                                <Link to={`/product/${p.id}`} className="btn btn-outline-secondary btn-sm w-100" onClick={(e) => e.stopPropagation()}>
-                                                    Details
-                                                </Link>
-                                            </div>
+                                            <button className="btn btn-dark btn-sm w-100 fw-bold" disabled={p.quantity <= 0}>Add to Cart</button>
                                         </div>
                                     </div>
                                 </div>
@@ -308,26 +301,13 @@ function SearchPage() {
                     ) : (
                         <div className="text-center py-5 bg-white rounded shadow-sm border mt-4">
                             <Search size={64} className="text-muted opacity-25 mb-4" />
-                            <h3 className="h5 fw-bold">No products matched your criteria</h3>
-                            <p className="text-muted mb-4">Try checking for typos or adjusting your filters.</p>
-                            <button className="btn btn-primary px-4 fw-bold" onClick={resetFilters}>Reset all filters</button>
+                            <h3 className="h5 fw-bold">No products found</h3>
+                            <p className="text-muted mb-4">Try changing your search criteria or resetting filters.</p>
+                            <button className="btn btn-primary px-4 fw-bold" onClick={resetFilters}>Reset All Filters</button>
                         </div>
                     )}
                 </main>
             </div>
-
-            <style>{`
-                .product-row { transition: transform 0.2s, box-shadow 0.2s; border: 1px solid transparent !important; }
-                .product-row:hover { transform: translateY(-3px); box-shadow: 0 12px 30px rgba(0,0,0,0.08) !important; border-color: #dee2e6 !important; }
-                .product-row:hover .h-name { color: #007bff; }
-                .buy-btn:hover { background: #28a745 !important; border-color: #28a745 !important; }
-                .brand-scroll-box::-webkit-scrollbar { width: 4px; }
-                .brand-scroll-box::-webkit-scrollbar-thumb { background: #e0e0e0; border-radius: 10px; }
-                .cursor-pointer { cursor: pointer; }
-                @media (min-width: 768px) {
-                    .border-md-start { border-left: 1px solid #efefef !important; }
-                }
-            `}</style>
         </div>
     );
 }
