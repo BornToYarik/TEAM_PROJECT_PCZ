@@ -16,8 +16,6 @@ const ProductForm = ({ onSubmit, onCancel, initialData, isEditing }) => {
     const [errors, setErrors] = useState({});
     const [selectedFiles, setSelectedFiles] = useState([]);
 
-    const API_URL = '/api/panel/Product';
-
     useEffect(() => {
         fetchCategories();
     }, []);
@@ -35,7 +33,7 @@ const ProductForm = ({ onSubmit, onCancel, initialData, isEditing }) => {
                 price: initialData.price?.toString() || '',
                 quantity: initialData.quantity?.toString() || '',
                 description: initialData.description || '',
-                categoryId: initialData.productCategoryId?.toString() || '',
+                categoryId: (initialData.productCategoryId || initialData.ProductCategoryId || initialData.categoryId || '').toString(),
                 discountPercentage: initialData.discountPercentage?.toString() || '',
                 discountStartDate: formatDate(initialData.discountStartDate),
                 discountEndDate: formatDate(initialData.discountEndDate)
@@ -48,10 +46,11 @@ const ProductForm = ({ onSubmit, onCancel, initialData, isEditing }) => {
             const response = await fetch(`/api/ProductCategory`);
             if (response.ok) {
                 const data = await response.json();
-                setCategories(data);
+                const list = Array.isArray(data) ? data : (data.$values || []);
+                setCategories(list);
             }
         } catch (err) {
-            console.error('Error fetching categories:', err);
+            console.error(err);
         }
     };
 
@@ -96,7 +95,8 @@ const ProductForm = ({ onSubmit, onCancel, initialData, isEditing }) => {
             newErrors.quantity = 'Quantity cannot be negative';
         }
 
-        if (!formData.categoryId) {
+        const catId = parseInt(formData.categoryId, 10);
+        if (!formData.categoryId || isNaN(catId) || catId <= 0) {
             newErrors.categoryId = 'Category is required';
         }
 
@@ -113,16 +113,19 @@ const ProductForm = ({ onSubmit, onCancel, initialData, isEditing }) => {
         e.preventDefault();
 
         if (validateForm()) {
+            const categoryIdInt = parseInt(formData.categoryId, 10);
+
             const dataToSend = {
+                id: initialData?.id || 0,
                 name: formData.name,
                 brand: formData.brand,
                 price: parseFloat(formData.price),
-                quantity: parseInt(formData.quantity),
-                description: formData.description || null,
-                ProductCategoryId: parseInt(formData.categoryId),
-                DiscountPercentage: formData.discountPercentage ? parseFloat(formData.discountPercentage) : null,
-                DiscountStartDate: formData.discountStartDate || null,
-                DiscountEndDate: formData.discountEndDate || null,
+                quantity: parseInt(formData.quantity, 10),
+                description: formData.description || "",
+                productCategoryId: categoryIdInt,
+                discountPercentage: formData.discountPercentage ? parseFloat(formData.discountPercentage) : 0,
+                discountStartDate: formData.discountStartDate || null,
+                discountEndDate: formData.discountEndDate || null,
             };
 
             onSubmit(dataToSend, selectedFiles);
@@ -130,18 +133,18 @@ const ProductForm = ({ onSubmit, onCancel, initialData, isEditing }) => {
     };
 
     return (
-        <div className="card mb-4">
+        <div className="card mb-4 bg-dark text-white border-secondary">
             <div className="card-body">
-                <h5 className="card-title">
+                <h5 className="card-title mb-4">
                     {isEditing ? 'Edit Product' : 'New Product'}
                 </h5>
-                <div>
+                <form onSubmit={handleSubmit}>
                     <div className="row">
                         <div className="col-md-6 mb-3">
-                            <label className="form-label">Product Name *</label>
+                            <label className="form-label small">Product Name *</label>
                             <input
                                 type="text"
-                                className={`form-control ${errors.name ? 'is-invalid' : ''}`}
+                                className={`form-control bg-dark text-white border-secondary ${errors.name ? 'is-invalid' : ''}`}
                                 name="name"
                                 value={formData.name}
                                 onChange={handleInputChange}
@@ -151,10 +154,10 @@ const ProductForm = ({ onSubmit, onCancel, initialData, isEditing }) => {
                             )}
                         </div>
                         <div className="col-md-6 mb-3">
-                            <label className="form-label">Brand *</label>
+                            <label className="form-label small">Brand *</label>
                             <input
                                 type="text"
-                                className={`form-control ${errors.brand ? 'is-invalid' : ''}`}
+                                className={`form-control bg-dark text-white border-secondary ${errors.brand ? 'is-invalid' : ''}`}
                                 name="brand"
                                 value={formData.brand}
                                 onChange={handleInputChange}
@@ -167,9 +170,9 @@ const ProductForm = ({ onSubmit, onCancel, initialData, isEditing }) => {
                     </div>
 
                     <div className="mb-3">
-                        <label className="form-label">Category *</label>
+                        <label className="form-label small">Category *</label>
                         <select
-                            className={`form-select ${errors.categoryId ? 'is-invalid' : ''}`}
+                            className={`form-select bg-dark text-white border-secondary ${errors.categoryId ? 'is-invalid' : ''}`}
                             name="categoryId"
                             value={formData.categoryId}
                             onChange={handleInputChange}
@@ -188,10 +191,10 @@ const ProductForm = ({ onSubmit, onCancel, initialData, isEditing }) => {
 
                     <div className="row">
                         <div className="col-md-6 mb-3">
-                            <label className="form-label">Price *</label>
+                            <label className="form-label small">Price *</label>
                             <input
                                 type="number"
-                                className={`form-control ${errors.price ? 'is-invalid' : ''}`}
+                                className={`form-control bg-dark text-white border-secondary ${errors.price ? 'is-invalid' : ''}`}
                                 name="price"
                                 value={formData.price}
                                 onChange={handleInputChange}
@@ -203,10 +206,10 @@ const ProductForm = ({ onSubmit, onCancel, initialData, isEditing }) => {
                             )}
                         </div>
                         <div className="col-md-6 mb-3">
-                            <label className="form-label">Quantity *</label>
+                            <label className="form-label small">Quantity *</label>
                             <input
                                 type="number"
-                                className={`form-control ${errors.quantity ? 'is-invalid' : ''}`}
+                                className={`form-control bg-dark text-white border-secondary ${errors.quantity ? 'is-invalid' : ''}`}
                                 name="quantity"
                                 value={formData.quantity}
                                 onChange={handleInputChange}
@@ -219,10 +222,10 @@ const ProductForm = ({ onSubmit, onCancel, initialData, isEditing }) => {
                     </div>
 
                     <div className="mb-3">
-                        <label className="form-label">Discount Percentage (%)</label>
+                        <label className="form-label small">Discount Percentage (%)</label>
                         <input
                             type="number"
-                            className={`form-control ${errors.discountPercentage ? 'is-invalid' : ''}`}
+                            className={`form-control bg-dark text-white border-secondary ${errors.discountPercentage ? 'is-invalid' : ''}`}
                             name="discountPercentage"
                             value={formData.discountPercentage}
                             onChange={handleInputChange}
@@ -237,20 +240,20 @@ const ProductForm = ({ onSubmit, onCancel, initialData, isEditing }) => {
 
                     <div className="row">
                         <div className="col-md-6 mb-3">
-                            <label className="form-label">Discount Start Date</label>
+                            <label className="form-label small">Discount Start Date</label>
                             <input
                                 type="date"
-                                className="form-control"
+                                className="form-control bg-dark text-white border-secondary"
                                 name="discountStartDate"
                                 value={formData.discountStartDate}
                                 onChange={handleInputChange}
                             />
                         </div>
                         <div className="col-md-6 mb-3">
-                            <label className="form-label">Discount End Date</label>
+                            <label className="form-label small">Discount End Date</label>
                             <input
                                 type="date"
-                                className="form-control"
+                                className="form-control bg-dark text-white border-secondary"
                                 name="discountEndDate"
                                 value={formData.discountEndDate}
                                 onChange={handleInputChange}
@@ -259,9 +262,9 @@ const ProductForm = ({ onSubmit, onCancel, initialData, isEditing }) => {
                     </div>
 
                     <div className="mb-3">
-                        <label className="form-label">Description</label>
+                        <label className="form-label small">Description</label>
                         <textarea
-                            className="form-control"
+                            className="form-control bg-dark text-white border-secondary"
                             name="description"
                             value={formData.description}
                             onChange={handleInputChange}
@@ -270,25 +273,25 @@ const ProductForm = ({ onSubmit, onCancel, initialData, isEditing }) => {
                     </div>
 
                     <div className="mb-3">
-                        <label className="form-label">Product Images</label>
+                        <label className="form-label small">Product Images</label>
                         <input
                             type="file"
-                            className="form-control"
+                            className="form-control bg-dark text-white border-secondary"
                             multiple
                             onChange={handleFileChange}
                             accept="image/*"
                         />
                     </div>
 
-                    <div className="d-flex gap-2">
-                        <button onClick={handleSubmit} className="btn btn-success">
+                    <div className="d-flex gap-2 mt-4">
+                        <button type="submit" className="btn btn-success px-4 fw-bold">
                             {isEditing ? 'Update' : 'Create'}
                         </button>
-                        <button onClick={onCancel} className="btn btn-secondary">
+                        <button type="button" onClick={onCancel} className="btn btn-secondary px-4">
                             Cancel
                         </button>
                     </div>
-                </div>
+                </form>
             </div>
         </div>
     );

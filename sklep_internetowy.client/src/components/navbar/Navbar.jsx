@@ -51,7 +51,7 @@ function Navbar({ compareCount }) {
         const fetchSuggestions = async () => {
             if (searchQuery.length > 1) {
                 try {
-                    const response = await fetch(`/api/panel/Product/suggestions?q=${searchQuery}`);
+                    const response = await fetch(`/api/home/Product/suggestions?q=${searchQuery}`);
                     if (response.ok) {
                         const data = await response.json();
                         setSuggestions(data);

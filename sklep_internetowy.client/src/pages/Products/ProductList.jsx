@@ -40,26 +40,28 @@ function ProductsList() {
 
         try {
             if (editingProduct) {
+                // UPDATE - используем JSON
                 const payload = {
+                    id: editingProduct.id,
                     name: formData.name,
                     brand: formData.brand,
                     price: parseFloat(formData.price),
                     quantity: parseInt(formData.quantity),
-                    description: formData.description || null,
-                    ProductCategoryId: formData.ProductCategoryId,
-                    DiscountPercentage: formData.DiscountPercentage,
-                    DiscountStartDate: formData.DiscountStartDate,
-                    DiscountEndDate: formData.DiscountEndDate
+                    description: formData.description || "",
+                    productCategoryId: formData.productCategoryId, // ← исправлено
+                    discountPercentage: formData.discountPercentage || 0,
+                    discountStartDate: formData.discountStartDate || null,
+                    discountEndDate: formData.discountEndDate || null
                 };
 
                 const response = await fetch(`${API_URL}/update`, {
                     method: 'PUT',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ id: editingProduct.id, ...payload })
+                    body: JSON.stringify(payload)
                 });
 
-                if (response.ok) {
-                    fetchProducts();
+                if (response.ok || response.status === 204) {
+                    await fetchProducts();
                     handleCloseForm();
                 } else {
                     const errorData = await response.json();
@@ -67,18 +69,30 @@ function ProductsList() {
                 }
 
             } else {
+                // CREATE - используем FormData
                 const data = new FormData();
 
                 data.append('Name', formData.name);
-                data.append('Brand', formData.brand); 
-                data.append('Price', formData.price);
-                data.append('Quantity', formData.quantity);
-                data.append('Description', formData.description || '');
-                data.append('ProductCategoryId', formData.ProductCategoryId);
+                data.append('Brand', formData.brand);
+                data.append('Price', formData.price.toString());
+                data.append('Quantity', formData.quantity.toString());
+                data.append('ProductCategoryId', formData.productCategoryId.toString()); // ← исправлено
 
-                if (formData.DiscountPercentage) data.append('DiscountPercentage', formData.DiscountPercentage);
-                if (formData.DiscountStartDate) data.append('DiscountStartDate', formData.DiscountStartDate);
-                if (formData.DiscountEndDate) data.append('DiscountEndDate', formData.DiscountEndDate);
+                if (formData.description) {
+                    data.append('Description', formData.description);
+                }
+
+                if (formData.discountPercentage && formData.discountPercentage > 0) {
+                    data.append('DiscountPercentage', formData.discountPercentage.toString());
+                }
+
+                if (formData.discountStartDate) {
+                    data.append('DiscountStartDate', formData.discountStartDate);
+                }
+
+                if (formData.discountEndDate) {
+                    data.append('DiscountEndDate', formData.discountEndDate);
+                }
 
                 if (files && files.length > 0) {
                     files.forEach(file => {
@@ -86,21 +100,29 @@ function ProductsList() {
                     });
                 }
 
+                console.log('Sending FormData with:');
+                for (let pair of data.entries()) {
+                    console.log(pair[0] + ': ' + pair[1]);
+                }
+
                 const response = await fetch(API_URL, {
                     method: 'POST',
                     body: data
+                    // НЕ добавляй Content-Type - браузер сам добавит с boundary!
                 });
 
                 if (response.ok) {
-                    fetchProducts();
+                    await fetchProducts();
                     handleCloseForm();
                 } else {
                     const errorData = await response.json();
-                    setError(errorData.title || errorData.message || 'Error creating product');
+                    console.error('Error response:', errorData);
+                    setError(errorData.title || errorData.message || JSON.stringify(errorData.errors || 'Error creating product'));
                 }
             }
         } catch (err) {
-            setError('Server connection error');
+            console.error('Exception:', err);
+            setError('Server connection error: ' + err.message);
         }
     };
 
@@ -121,8 +143,8 @@ function ProductsList() {
                 body: JSON.stringify({ id })
             });
 
-            if (response.ok) {
-                fetchProducts();
+            if (response.ok || response.status === 204) {
+                await fetchProducts();
             } else {
                 setError('Error deleting product');
             }
